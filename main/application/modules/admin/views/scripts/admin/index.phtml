@@ -1,0 +1,90 @@
+	<div class="tabs">
+		<div id="Grup">
+			<h3>Müzik İşlemleri</h3>
+			<a href="#" class="button" id="yeniGrupFormAcButon">Yeni Grup</a><br />
+			<form id="guncelleSilForm">
+				<select id="grupAdSelect">
+				<?php
+					foreach($this->muzik as $row)
+						echo "<option id=$row[grupID]>$row[grupAd]</option>";
+				?>
+				</select>
+				<div class="checkBlue" id="guncelleGrupFormAcButon"></div>
+				<div class="thrashBlue" id="sil"></div>
+			</form><br class="clear" />
+			<form id="guncelleForm">
+				<label id="grupID"> </label><br class="clear" />
+				<label for="grupAd">Ad:</label><input id="grupAd" size="45" placeholder="Iron Maiden" required autofocus /><br />
+				<label for="grupTur">Tür:</label><input id="grupTur" size="45" placeholder="Heavy Metal" required /><br />
+				<label for="grupMemleket">Memleket:</label><input id="grupMemleket" size="45" placeholder="ingiltere" required /><br />
+				<label for="grupClip">Klip:</label><input type="url" id="grupClip" size="45" placeholder="enTPV_wkKbA" required /><br />
+				<textarea id="grupTanim" class="cleditor" rows="13" cols="50" placeholder="Öz geçmiş" required ></textarea>
+				<br />
+				<div class="checkBlue grupKayGun" id="guncelle"></div>
+				<div class="saveBlue grupKayGun" id="kaydet"></div>
+			</form>
+			<br />
+			<div id="forUpdate" name="forUpdate">
+				<fieldset>
+					<legend>Albümler</legend>
+					<form id="kaydetAlbumForm">
+						<input id="albumAd" placeholder="Iron Maiden" />
+						<input type="number" id="albumYil" min="1900" max="2020" step="1" placeholder="1980" />
+						<div class="saveBlue" id="kaydetAlbum"></div>
+					</form>
+					<select id="albumSelect" name="albumSelect"></select><div class="thrashBlue" id="silAlbum" ></div>
+				</fieldset>
+				<fieldset>
+					<legend>Elemanlar</legend>
+					<form id="kaydetElemanForm">
+						<input id="elemanAd" placeholder="Bruce Dickinson" />
+						<input id="elemanEnstruman" placeholder="Vokal" />
+						<div class="saveBlue" id="kaydetEleman"></div>
+					</form>
+					<select id="elemanSelect"></select>
+					<div class="thrashBlue" id="silEleman"></div>
+				</fieldset>
+			</div>
+			<fieldset id="resimUploadFieldset">
+				<div id="resimUpload">Resim Yükle</div>
+				<img src="" id="grupImage" />
+			</fieldset>
+		</div>
+		<div id="film">
+			<h3>Film İşlemleri</h3>
+			<br class="clear" />
+			<form id="film_form">
+				<label for="film_ad">Ad:</label><input id="film_ad" name="film_ad" size="250" placeholder="Big Buck Bunny" required /><br />
+				<label for="uzunluk">Uzunluk:</label><input type="time" id="uzunluk" name="uzunluk" size="25" placeholder="15:00" required /><br />
+				<label for="mp4">MP4:</label><input type="url" id="mp4" name="mp4" size="45" /><br />
+				<label for="ogg">OGG:</label><input type="url" id="ogg" name="ogg" size="45" /><br />
+				<label for="webm">WEBM:</label><input type="url" id="webm" name="webm" size="45" /><br />
+				<label for="desc">Desc:</label><input type="url" id="desc" name="desc" size="45" /><br />
+				<label for="chap">Chap:</label><input type="url" id="chap" name="chap" size="45" /><br />
+				<label for="meta">Meta:</label><input type="url" id="meta" name="meta" size="45" /><br />
+				<label for="en">En:</label><input type="url" id="en" name="en" size="45" /><br />
+				<label for="tr">Tr:</label><input type="url" id="tr" name="tr" size="45" /><br />
+				<input type="submit" value="Kaydet" />
+			</form>
+		</div>
+	</div>
+</div>
+
+<aside id="rcnt" role=”complementary”>
+<ul class="tabNavigation">
+	<li><a class="button" href="#Grup">Müzik İşlemleri</a></li>
+	<li><a class="button" href="#film">Film İşlemleri</a></li>
+	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'hata'); ?>">Hatalar</a></li>
+	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'sunucu'); ?>">Sunucu Kontrol</a></li>
+	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'stats'); ?>">Ziyaretçiler</a></li>
+	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'abuse'); ?>">Tacizciler</a></li>
+	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'api'); ?>">API</a></li>
+	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'midware'); ?>">HTACCESS</a></li>
+	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'hiz'); ?>">HIZ</a></li>
+	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'adsense'); ?>">Adsense</a></li>
+	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'dosya'); ?>">Dosyalar</a></li>
+	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'shell'); ?>">Shell</a></li>
+	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'fulltext'); ?>">Arama</a></li>
+</ul>
+<div id="uyari" class="uyari" ></div>
+<div id="uyariForm" class="uyari"></div>

@@ -1,0 +1,16 @@
+Options +Indexes
+# Remove the standard HTML header, if desired
+IndexOptions ScanHTMLTitles
+IndexOptions +FoldersFirst
+IndexOptions +SuppressHTMLPreamble
+IndexOptions +ShowForbidden
+HeaderName header.html
+ReadmeName footer.html
+IndexStyleSheet listing.css
+IndexIgnore *.tmp *.swp .svn secret.txt
+IndexOrderDefault Descending Date
+AddDescription "GIF Resmi" .gif
+AddIcon /icons/image.gif .gif .jpg .png
+AddIcon /icons/up_one.gif ".."
+AddIconByEncoding /icons/gzip.gif x-gzip
+AddIconByType /icons/text.gif text/*

@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteCond %{HTTP_USER_AGENT} !FeedBurner
+RewriteRule ^kitap\.xml$ http://feeds.feedburner.com/kitap-itsphp [R,L]
+

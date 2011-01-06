@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="5px" 
+   height="100%" 
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <defs>
+    <linearGradient id="myLinearGradient1"
+                    x1="0%" y1="0%"
+                    x2="100%" y2="0%"
+                    spreadMethod="pad">
+      <stop offset="0%"  stop-color="#c5ccd4" stop-opacity="1"/>
+      <stop offset="65%" stop-color="#c5ccd4" stop-opacity="1"/>
+      <stop offset="65%" stop-color="#fffff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#fffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="5px" height="100%"
+     style="fill:url(#myLinearGradient1);" />
+
+</svg>

@@ -1,0 +1,113 @@
+<style>
+	@import "http://jquery.bassistance.de/treeview/jquery.treeview.css";
+</style>
+<article id="aileAgaciDetayDiv" class="vcard" itemscope itemtype="http://tasdemir.0fees.net/Birey"> 
+	<h3 itemprop="name" class="ui-widget ui-widget-header structured name bday"><?php echo $this->birey["aileAd"]." (".$this->birey['Detay']["aileDogum"].($this->birey['Detay']["aileOlum"]=="0000-00-00" ? "" : " / ".$this->birey['Detay']["aileOlum"]).")"; ?></h3>
+	<img class="photo" src="<?php echo getResim($this->birey["aileID"]); ?>" alt="Resim Yok" id="aileAgacDetayImg" itemprop="photo" />
+	<div id="rate_widget" rev="vote-abstain">
+		<div class="star_1 ratings_stars"></div>
+		<div class="star_2 ratings_stars"></div>
+		<div class="star_3 ratings_stars"></div>
+		<div class="star_4 ratings_stars"></div>
+		<div class="star_5 ratings_stars"></div>
+		<div class="total_votes">Oy Sonucu</div>
+	</div>
+	<div id="resimUpload">Resmi Güncelle<br />En Fazla Boyut:2MB</div>
+	<p class="cssColumn"><b>Eşi:</b><span itemprop="darling"><?php echo $this->birey['Detay']["aileBireyEs"]; ?></span><br />
+	<b>Adres:</b><span itemprop="address" class="adr"><?php echo $this->birey['Detay']["aileBireyAdres"]; ?></span><br />
+	<b>Mail:</b><span itemprop="email" class="email"><?php echo $this->birey['Detay']["aileBireyMail"]; ?></span><br />
+	<b>Tel:</b><span itemprop="tel" class="tel"><?php echo $this->birey['Detay']["aileBireyTel"]; ?></span><br />
+	<b>MSN:</b><span itemprop="msn"><?php echo $this->birey['Detay']["aileBireyMSN"]; ?></span><br />
+	<b><a id="followTwitter" title="Twitter mesajlarını göster">Twitter:</a></b><span id="aileAgacDetayTwitter" class="mod" itemprop="twitter"><?php echo $this->birey['Detay']["aileBireyTwitter"]; ?></span><br />
+	<b>Flickr:</b><span id="aileAgacDetayFlickr"><?php echo $this->birey['Detay']["aileBireyFlickr"]; ?></span></p><br />
+	<p><span><?php echo $this->birey['Detay']["aileTanim"]; ?></span></p><br />
+	<p><a href="/main/aile/form/<?php echo $this->birey["aileID"]; ?>" id="aileBireyDuzenleButton" class="boubleButton blue">Güncelle</a></p>
+	<h4 class="cmnt_hdr"><span><?php echo $this->yTotal; ?></span> Yorum...</h4>
+	<div id="comments"><?php echo $this->yorumlar; ?></div>
+</article>
+<fieldset>
+	<legend class="radial daire">Bir Yorum Ekle</legend>
+	<p id="uyari" class="uyari"></p>
+	<br class="clear" />
+	<form id="addCommentForm" method="post" action="">
+		<p><input type="hidden" id="aileBireyIDHidden" name="aileBireyIDHidden" value="<?php echo $this->birey["aileID"]; ?>" /></p>
+		<p><input class="name" id="commentName" name="commentName" required aria-required /><label for="commentName"><abbr title="Doldurulması zorunludur">*</abbr>Adınız</label></p>
+		<p><input type="email" id="commentEMail" name="commentEMail" required aria-required /><label for="commentEMail"><abbr title="Doldurulması zorunludur. Kimseye verilmeyecek veya sitede gösterilmeyecektir.">*</abbr>Email</label></p>
+		<p><input type="url" id="commentUrl" name="commentUrl" placeholder="http://"/><label for="commentUrl">Website</label></p>
+		<p><label for="commentBody" class="sakla">Yorum:</label><textarea id="commentBody" name="commentBody" cols="20" rows="5" required aria-required maxlength="500" ></textarea></p>
+		<br />
+		<p><input type="submit" class="boubleButton blue" value="Kaydet" /></p>
+	</form>
+</fieldset>
+</div> 
+
+<aside id="rcnt" role=”complementary”>
+	<fieldset id="aileListe" class="gradient border">
+		<legend class="ui-widget ui-widget-header ui-corner-all">Aile Ağacı</legend>
+		<ul>
+		<?php
+			foreach ($this->aileListe as $row)
+			{
+				$liste[$row['aileID']]=$row['aileAd'];
+				$ebeveyn[$row['aileID']]=$row['ebeveynID'];
+			}
+			aileListeDoldur($liste,$ebeveyn,0);
+			function aileListeDoldur($liste,$ebeveyn,$aileArray)
+			{
+				$aileArray=array_keys($ebeveyn,$aileArray);
+				foreach($aileArray as $value)
+				{
+					$ulEkle=array_keys($ebeveyn,$value);
+					echo "\n\r<li id='".$value."-".$liste[$value]."'><a class='url fn' href='/main/aile?id=".$value."' rel='contact met kin'>".$liste[$value]."</a>";
+					if($ulEkle)	
+					{	
+						echo "<ul>";
+						aileListeDoldur($liste,$ebeveyn,$value);
+						echo "</ul></li>";
+					}
+					else echo "</li>";
+				}
+			}
+		?>
+		</ul>
+		<hr />
+		<p><span class="uyari">1 Tık:</span>Bireyin çocuklarını göster/gizle.</p>
+		<p><span class="uyari">2 Tık:</span>Bireyin bilgilerine bak.</p>
+		<p><span class="uyari">3 Tık:</span>Bireyi güncelle.</p>
+	</fieldset><br />
+	<section class="border">
+		<h4 class="sidetit_r ui-widget ui-widget-header ui-corner-top">İstatistik</h4>
+		<p><?php echo ($this->bekar+$this->evli)." birey kayıtlı.".$this->bekar." bekar,".$this->evli." evli.".$this->canli." kişi hayatta."; ?></p><br />
+		<p><?php echo $this->tag; ?></p>
+	</section>
+<div class="flickr_photobar">
+	<div id="flickr_overlay" class="flickr_overlay" style="display:none;"></div>
+	<div id="flickr_photopreview" class="photopreview" style="display:none;">
+		<div class="preview_wrapper">
+			<div class="preview">
+				<div class="loading"></div>
+				<div id="preview_close" class="close escBlue"></div>
+				<span id="large_phototitle"></span>
+				<!--image-->
+				<a href="#" id="preview_img_next" class="img_next nextArrow">Sonraki</a>
+				<a href="#" id="preview_img_prev" class="img_prev prevArrow">Önceki</a>
+			</div>
+		</div>
+	</div>
+	<div id="photobar" class="photobar">	
+		<div class="thumbs albums" id="sets">
+			<a href="#" class="prev prevArrow">Önceki</a>
+			<div class="thumbsWrapper"><ul></ul></div>
+			<a href="#" class="next nextArrow">Sonraki</a>
+		</div>
+		<nav role="navigation" class="thumbs images" id="images" style="bottom:-125px;">
+			<a href="#" class="prev prevArrow">Önceki</a>
+			<div class="thumbsWrapper"><ul></ul></div>
+			<a href="#" class="next nextArrow">Sonraki</a>
+			<span class="images_toggle"><span id="setName"></span><a id="images_toggle">Setler</a></span>
+		</nav>
+		<a id="flickr_toggle" class="toggle">Flickr Fotoğrafları<span class="sakla loading_small"></span></a>
+	</div>
+</div>
+<br class="clear" />
+<script async="async" src="http://www.appelsiini.net/download/jquery.viewport.mini.js"></script>

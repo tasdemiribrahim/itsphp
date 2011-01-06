@@ -1,0 +1,24 @@
+<h2>İstatistik</h2>
+<br/><br/>
+Şimdiye kadar ki ziyaretçi sayısı: <?php echo $this->statSayi ?><br />
+<table border="1">
+	<tr><th>ID</th><th>IP</th><th>Ülke</th><th>Tarih</th><th>Saat</th><th>Query</th><th>Tarayıcı</th><th>Referer</th><th>Bot mu?</th></tr>
+		<?php
+		foreach ($this->stats as $row)
+		{
+		?>
+			<tr>
+				<td><?php echo $row['ip'];?></td>
+				<td><?php echo $row['country'];?></td>
+				<td><?php echo $row['city'];?></td>				
+				<td><?php echo $row['date'];?></td>				
+				<td><?php echo $row['time'];?></td>				
+				<td><?php echo $row['query_string'];?></td>		
+				<td><?php echo $row['http_user_agent'];?></td>
+				<td><?php echo $row['http_referer'];?></td>
+				<td><?php if ($row['isbot']==1) echo "Evet"; else echo "Hayır";?></td>
+			</tr>
+		<?php
+		}
+		?>
+</table>

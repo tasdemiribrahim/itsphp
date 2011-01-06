@@ -1,0 +1,55 @@
+<style> @import "/main/css/jquery.cleditor.css";</style>
+<nav id="phoneCarousel" role="navigation">
+	<a href="#mailPage"><div id="mailBlue"><em>Mail</em></div></a>
+	<a href="#sssPage"><div id="sssBlue"><em>SSS</em></div></a>
+	<a href="#oneriPage"><div id="chatBlue"><em>Öneri</em></div></a>
+</nav>
+<div id="sakliBlue" class="sakla page"></div>
+<div class="page" id="mailPage">
+	<header class="headingSection"><h3>Mail Gönder</h3><span id="uyari" class="uyari"></span></header>
+	<form class="sssSection gradient">
+		<label for="kimdenTextBox">Kimden:</label><input type="email" id="kimdenTextBox" size="30" required aria-required />
+		<label for="kimeTextBox">Kime:</label><input type="email" id="kimeTextBox" size="30" required aria-required list="mails" />
+			<datalist id="mails">
+			<?php 
+				foreach($this->mail as $mail)
+					echo "<option value='".$mail["Detay"]["aileBireyMail"]."'>".$mail["aileAd"]."</option>";
+			?>
+			</datalist>
+		<label for="konuTextBox">Konu:</label><input id="konuTextBox" size="30" required aria-required />
+		<label for="cleditor">Mesaj:</label><br class="clear" />
+		<textarea cols="60" id="cleditor" class="cleditor" rows="13" required maxlength="500" aria-required ></textarea>
+		<input type="submit" class="bonBonButton xs skew pink glass" value="Gönder" />
+	</form>
+</div>
+<div class="page" id="sssPage">
+	<header class="headingSection"><h3>Sıkça Sorulan Sorular ?</h3></header>
+	<div class="sssSection gradient"><a href="#" class="bonBonButton xs shield pink glass">Hepsini Göster</a></div>
+</div>
+<div class="page" id="oneriPage">
+	<header class="headingSection"><h3>Önerilerinizi Paylaşın</h3></header>
+	<div class="sssSection gradient">
+		<ul>
+		<?php 
+			foreach($this->oneri as $row)
+			echo '<li class="border" id="s'.$row['id'].'">
+				<div class="vote '.($row['have_voted'] ? 'inactive' : 'active').'">
+					<a class="up" rev="vote-for" href="#">Evet</a>
+					<a class="down" rev="vote-against" href="#">Hayır</a>
+				</div>
+				<div class="text">'.$row['oneri'].'</div>
+				<div class="rating">'.$row['rating'].'</div>
+			</li>';
+		?>
+		</ul>
+		<form class="border" action="" method="post">
+			<label for="suggestionText" class="sakla">Mesaj</label>
+			<input id="suggestionText" class="suggest" maxlength="255" required aria-required />
+			<input type="submit" value="Kaydet" id="submitSuggestion" />
+		</form>
+	</div>
+</div>
+</div>
+
+<aside id="rcnt" role=”complementary”>
+	<div id="resultsDiv"></div>

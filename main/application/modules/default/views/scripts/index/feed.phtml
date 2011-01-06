@@ -1,0 +1,80 @@
+<div id="tabs">
+		<ul role="tablist">
+			<li><a href="#muzik">Müzik</a></li>
+			<li><a href="#aile">Aile</a></li>
+			<li><a href="#kitap">Kitap</a></li>
+		</ul>
+		<div id="muzik" role="tab">
+			<h3>
+				 <a href="http://feeds.feedburner.com/muzik-itsphp" target="_blank" title="<?php //echo getSocial("http://feeds.feedburner.com/muzik-itsphp"); ?> Takipçi" rel="nofollow" type="application/rss+xml">
+					<img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" alt="Müzik-ITSPHP" />MÜZİK
+				 </a>
+			 </h3>
+			 <br />
+			<form action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=muzik-itsphp', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+				<input type="email" name="email" id="emailMuzik" />
+				<label for="emailMuzik"><input type="submit" value=":E-Mail ile haber al" class=" boubleButton blue medium emailButton" /></label>
+				<input type="hidden" value="muzik-itsphp" name="uri" />
+				<input type="hidden" name="loc" value="en_US" />
+			</form>
+			 <br /> <br />
+			<script src="http://feeds.feedburner.com/muzik-itsphp?format=sigpro" ></script>
+		</div>
+		<div id="aile" role="tab">
+			<h3>
+				 <a href="http://feeds.feedburner.com/aile-itsphp" target="_blank" title="<?php //echo getSocial("http://feeds.feedburner.com/aile-itsphp"); ?> Takipçi" rel="nofollow" type="application/rss+xml">
+					<img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" alt="Müzik-ITSPHP" />AİLE
+				 </a>
+			 </h3>
+			<br />
+			<form action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=muzik-itsphp', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+				<input type="email" name="email" id="emailAile" />
+				<label for="emailAile"><input type="submit" value=":E-Mail ile haber al" class=" boubleButton blue medium emailButton" /></label>
+				<input type="hidden" value="aile-itsphp" name="uri" />
+				<input type="hidden" name="loc" value="en_US" />
+			</form>
+			 <br /> <br />
+			<script src="http://feeds.feedburner.com/aile-itsphp?format=sigpro" ></script>
+		</div>
+		<div id="kitap" role="tab">
+			<h3>
+				<a href="http://feeds.feedburner.com/kitap-itsphp" target="_blank" title="<?php //echo getSocial("http://feeds.feedburner.com/kitap-itsphp"); ?> Takipçi" rel="nofollow" type="application/rss+xml">
+					<img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" alt='Kitap-ITSPHP' />KİTAP
+				</a>
+			</h3>
+			<br />
+			<form action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=muzik-itsphp', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+				<input type="email" name="email" id="email" />
+				<label for="email"><input type="submit" value=":E-Mail ile haber al" class=" boubleButton blue medium emailButton" /></label>
+				<input type="hidden" value="kitap-itsphp" name="uri" />
+				<input type="hidden" name="loc" value="en_US" />
+			</form>
+			 <br /> <br />
+			<script src="http://feeds.feedburner.com/kitap-itsphp?format=sigpro" ></script>
+		</div>
+	</div>
+</div>
+
+<aside id="rcnt" role=”complementary”>
+	<nav class="rslink">
+		<h4 class="sidetit_r ui-widget ui-widget-header">Müzik-ITSPHP</h4>
+		<a href="http://feeds.feedburner.com/muzik-itsphp" target="_blank" title="<?php //echo getSocial("http://feeds.feedburner.com/muzik-itsphp"); ?> Takipçi" rel="alternate" type="application/rss+xml"><img alt='Müzik-ITSPHP' width="190" src='http://feeds.feedburner.com/muzik-itsphp.1.gif' /></a>
+		<h4 class="sidetit_r ui-widget ui-widget-header">Aile-ITSPHP</h4>
+		<a href="http://feeds.feedburner.com/aile-itsphp" target="_blank" title="<?php //echo getSocial("http://feeds.feedburner.com/aile-itsphp"); ?> Takipçi" rel="alternate" type="application/rss+xml"><img alt='Aile-ITSPHP' width="190" src='http://feeds.feedburner.com/aile-itsphp.1.gif' /></a>
+		<h4 class="sidetit_r ui-widget ui-widget-header">Kitap-ITSPHP</h4>
+		<a href="http://feeds.feedburner.com/kitap-itsphp" target="_blank" title="<?php //echo getSocial("http://feeds.feedburner.com/kitap-itsphp"); ?> Takipçi" rel="nofollow" type="application/rss+xml"><img alt='Kitap-ITSPHP' width="190" src='http://feeds.feedburner.com/kitap-itsphp.1.gif' /></a>
+	</nav>
+	<?php 
+		if($this->digg)
+			echo '<article><h5 class="sidetit_r ui-widget ui-widget-header">En Popüler Digg</h5><a href="'.$this->digg->permalink.'" target="_blank" rel="nofollow">'.$this->digg->title.'</a><br/><p>'.$this->digg->description.'</p><p><time>'.date('Y m d h:i',$this->digg->date_created).'</time> | '.$this->digg->diggs.' kez digglendi | '.$this->digg->comments.' yorum</p></article>';
+		if($this->diggme)
+			echo '<article><h5 class="sidetit_r ui-widget ui-widget-header">İbrahim Taşdemir Digg</h5><a href="'.$this->diggme->permalink.'" target="_blank" rel="nofollow">'.$this->diggme->title.'</a><br/><p>'.$this->diggme->description.'</p><p><time>'.date('Y m d h:i',$this->diggme->date_created).'</time> | '.$this->diggme->diggs.' kez digglendi | '.$this->diggme->comments.' yorum</p></article>';
+		if($this->statuses)
+		{	
+			echo '<article><h5 class="sidetit_r ui-widget ui-widget-header">Facebook Durumunuz</h5><p>';
+			foreach($this->statuses["data"] as $status)
+				echo $status["message"], "<br />";
+			echo '</p></article>';
+		}
+		if($this->photos)
+			echo '<article><h5 class="sidetit_r ui-widget ui-widget-header">Facebook Resimleriniz</h5>'.$this->photos.'</article>';

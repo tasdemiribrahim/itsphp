@@ -1,0 +1,84 @@
+<style>	@import "/main/css/jplayer.blue.monday.css";</style>
+	<nav role="navigation" id="FS_controls">
+		<a id="FS_left">&laquo;</a>			
+		<a class="active" href="#content1">content1</a>
+		<?php
+			for($i=2;$i<$this->muzikSayi['turSayi']+1;$i++)
+				echo "<a href='#content$i'>content$i</a>"; 
+		?>
+		<a id="FS_right">&raquo;</a>	
+	</nav>	
+	<br class="clear" />
+	<div id="FS_slider">
+		<div id="FS_holder">
+		<?php
+			$j=0;
+			$turVeri="";
+			foreach ($this->muzik as $row)
+			{
+				if($turVeri!=$row["tur"])
+				{
+					$j++;
+					if($turVeri!="") echo "</tbody></table><br /></section>";
+					$turVeri=$row["tur"];
+					echo "<section id='content$j'><h3 class='twitter_search' title='Bu müzik türüyle ilgili tweetlere bakmak için tıklayın'>".$turVeri." </h3><br /><table class='heavyMetalTable'><col class='grupClipImgTD' /><col /><col /><tbody class='heavyTable'>";
+				}
+				echo "<tr><td><img title='".$row["grupAd"]." grubunun klibini izlemek için tıklayın' class='grupClipImg' src='".getResim($row["grupID"],"muzik")."' id='".$row["grupClip"]."' alt='".$row["grupAd"]."' /></td><td><div class='".$row["memleket"]."'></div></td><td><a href='?id=".$row["grupID"]."' title='Devamını oku' id='".$row["grupID"]."'>".substr($row["tanim"],0,strrpos($row["tanim"]," "))."...</a></td></tr>";
+			}
+		?>
+			</tbody></table><br /></section>
+		</div>
+	</div>
+	<br class="clear" />
+	<div id="jquery_jplayer"></div>
+	<div class="jp-playlist-player">
+		<div class="jp-interface">
+			<ul class="jp-controls">
+				<li><a href="#" id="jplayer_play" class="jp-play" tabindex="1">Çal</a></li>
+				<li><a href="#" id="jplayer_pause" class="jp-pause" tabindex="1">Durakla</a></li>
+				<li><a href="#" id="jplayer_stop" class="jp-stop" tabindex="1">Dur</a></li>
+				<li><a href="#" id="jplayer_volume_min" class="jp-volume-min" tabindex="1">Ses Kıs</a></li>
+				<li><a href="#" id="jplayer_volume_max" class="jp-volume-max" tabindex="1">Ses Aç</a></li>
+				<li><a href="#" id="jplayer_previous" class="jp-previous" tabindex="1">Önceki</a></li>
+				<li><a href="#" id="jplayer_next" class="jp-next" tabindex="1">Sonraki</a></li>
+			</ul>
+			<div class="jp-progress">
+				<div id="jplayer_load_bar" class="jp-load-bar">
+					<div id="jplayer_play_bar" class="jp-play-bar"></div>
+				</div>
+			</div>
+			<div id="jplayer_volume_bar" class="jp-volume-bar">
+				<div id="jplayer_volume_bar_value" class="jp-volume-bar-value"></div>
+			</div>
+			<div id="jplayer_play_time" class="jp-play-time"></div>
+			<div id="jplayer_total_time" class="jp-total-time"></div>
+		</div>
+		<div id="jplayer_playlist" class="jp-playlist">
+			<ul>
+				<!-- The function displayPlayList() uses this unordered list -->
+				<li></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<aside id="rcnt" role=”complementary”>
+	<article role="article">
+		<h3 class="runin twitter_search"><?php echo $this->grup["grupAd"]; ?></h3>
+		<p><?php echo $this->grup["tanim"]; ?></p>
+		<hr />
+		<h4>Elemanlar</h4>
+		<ul>
+		<?php foreach($this->Elemanlar as $eleman) echo "<li><span class=\"twitter_search\">".$eleman["elemanAd"]."</span>(".$eleman["enstruman"].")</li>"; ?>
+		</ul>
+		<hr />
+		<h4>Albümler</h4>
+		<ul>
+		<?php foreach($this->Albumler as $album) echo "<li>".$album["albumYil"]."-<span class=\"twitter_search\">".$album["albumAd"]."</span></li>"; ?>
+		</ul>
+		<hr />
+	</article>
+	<br class="clear" />
+	<a class="tooltip">Neden bu albüm çalıyor?<span class="classic border shadow"><em>Çünkü</em>"Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported" lisanslı bedava bir albüm. Daha önemlisi PHP için bir şarkıları var.</span></a>
+	<br class="clear" />
+	<img src="/main/images/muzik/cover.GIF" alt="Emergent Collective One" title="Emergent Collective One" id="coverImg" />

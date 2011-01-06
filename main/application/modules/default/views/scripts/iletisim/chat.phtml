@@ -1,0 +1,21 @@
+<div id="chatContainer">
+   	<div id="chatTopBar" class="rounded">Şu anda giriş yapmadınız!</div>
+	<div id="chatBottomBar" class="rounded">
+	    	<div class="tip"></div>
+		<form id="loginForm" method="post" action="">
+		    <label for="name" class="sakla">İsim</label><input  id="name" name="name" class="rounded" maxlength="16" placeholder="Takma Ad" required aria-required />
+		    <label for="email" class="sakla">Email</label><input id="email" name="email" class="rounded" placeholder="Email (Gravatar etkin)" required aria-required />
+		    <input type="submit" class="blueButton" value="Giriş" />
+		</form>
+		<form id="submitForm" method="post" action="">
+		    <label for="chatText" class="sakla">Mesaj</label><input id="chatText" name="chatText" class="rounded" maxlength="255" aria-required required/>
+		    <input type="submit" class="blueButton" value="Yaz" />
+		</form>
+   	</div>
+	<div id="chatLineHolder"></div>
+</div>
+</div>
+
+<aside id="rcnt" role=”complementary”>
+	<div id="uyari" class="uyari"></div>
+	<div id="chatUsers" class="rounded"></div>

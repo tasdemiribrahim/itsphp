@@ -1,0 +1,83 @@
+body {
+  background-image: url("/mobil/img/main/svg-background-gradient.svg");
+  background-repeat: repeat-x;
+}
+
+article, section {
+  display: block;
+}
+
+header 
+{
+  display: block;
+  position: relative;
+  background-image: url("/mobil/img/main/svg-gradient.svg");
+}
+
+header > h1,header > h6 {
+    top: 5px; 
+  line-height: 45px;
+}
+#Popup .tus 
+{
+    position: absolute;
+    left: 10px;  
+    top: 5px; 
+    color: #fff;
+    background-image: url("/mobil/img/main/svg-gradient.svg");
+    border-radius: 6px;
+}
+
+.tus.color.white {
+  background-image: url("/mobil/img/main/svg-button-gradient.svg");
+}
+
+.tus.color.white:hover, header > .tus:hover {
+  background-image: url("/mobil/img/main/svg-button-gradient-hover.svg");
+  color: #fff;
+}
+.tus 
+{
+    border-radius: 12px;
+}
+section 
+{
+    padding: 0px;   
+}
+section > section 
+{
+    padding: 0 10px 10px 10px;   
+}
+
+/* Popup Styles */
+.popup header {
+    margin: -14px 0px 0px 0px;    
+}
+.popup footer > .tus 
+{
+    border-radius: 6px;   
+}
+.popup footer > .tus.cancel {
+	background-image: url("/mobil/img/main/svg-gradient-cancel.svg");
+}
+.popup { 
+	background-image: url("/mobil/img/main/svg-popup-background.svg");
+}
+.popup footer > .tus.continue {
+	background-image: url("/mobil/img/main/svg-gradient-continue.svg");
+}
+.popup footer > .tus:hover, .popup footer > .tus.hover {
+	background-image: url("/mobil/img/main/svg-popup-button-hover.svg");
+}
+.popup footer > .tus {
+	display: inline-block;
+	width: 37.5%;
+}
+.popup footer > .tus:first-of-type 
+{
+    margin-right: 10px;
+}
+.popup > div {
+	background-image: url("/mobil/img/main/svg-popup-radial.svg");
+	background-repeat: no-repeat;
+}

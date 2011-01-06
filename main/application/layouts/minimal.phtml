@@ -1,0 +1,59 @@
+<?php require_once "main/Helpers/Cache/x-cache.php"; $this->tracker(); ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" class="no-js"> <!--  manifest="/cache.manifest" -->
+<head>
+	<meta charset="UTF-8" />
+	<meta content="true" name="mssmarttagspreventparsing" />
+	<meta name="author" content="İbrahim Taşdemir" />
+	<meta name="copyright" content="Copyright İbrahim Taşdemir 2010. All Rights Reserved." />
+	<meta name="keywords" content="itsphp,itkas,e-kitap,programlama,ibrahim,taşdemir,tasdemir,ibrahim taşdemir,aile ağacı,heavy metal" />
+	<meta name="robots" content="all" />
+	<meta name="distribution" content="global" />
+	<meta name="resource-type" content="document" />
+	<meta name="description" content="<?php echo $this->title ?> ibrahim Taşdemir aile ağacı, kısa filmler, müzik tavsiyeleri, PHP, CSS, Javascript, jQuery, HTML, SEO ile ilgili kitaplar, ipuları..." />
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+	<meta name="mobileoptimized" content="0" />
+	<link rel="shortcut icon" href="/main/images/favicon.ico" /> 
+	<meta name="google-site-verification" content="vSA45uu-IXiT_BDv2sgitxW6fbRBcgByO_gnJNeEdxI" />
+	<link rel="alternate" href="http://feeds.feedburner.com/kitap-itsphp" title="Kitap-ITSPHP" type="application/rss+xml" />
+	<link rel="alternate" href="http://feeds.feedburner.com/aile-itsphp" title="Aile-ITSPHP" type="application/rss+xml" />
+	<link rel="alternate" href="http://feeds.feedburner.com/muzik-itsphp" title="Müzik-ITSPHP" type="application/rss+xml" />
+	<link rel="stylesheet" media="all" href="/main/css/minimal.css<?php echo '?'.date('Ymdhis'); ?>" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<script src="/main/js/modernizr-1.6.min.js"></script>
+	<title><?php echo $this->title ?> | ITSPHP</title>
+</head>
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if gt IE 9]>  <body><![endif]-->
+<!--[if !IE]><!--> <body><!--<![endif]-->
+
+			<?php flush(); echo $this->layout()->content; flush(); ?>
+
+<script>
+//<![CDATA[<!--
+$(window).error(function(msg, url, line){
+	$.ajax({
+		type: 'GET',
+		url: '/main/Helpers/ErrorHandlerJS.php',
+		data: 'msg='+msg.toString()+'&url='+url+'&line='+line+'&parent='+document.location.href+'&agent='+navigator.appName+navigator.appVersion
+	});
+});
+
+var _gaq = _gaq || [];
+_gaq.push(["_setAccount", "UA-17794118-2"]);
+_gaq.push(["_trackPageview"]);
+
+(function() {
+var ga = document.createElement("script"); ga.type = "text/javascript"; ga.async = true;
+ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ga, s);
+})();
+//-->//]]>
+</script>
+<script async src='/main/js/<?php echo $this->script.".js?".date("Ymdhis"); ?>'></script>
+<?php finish_caching(); ?> 
+</body>
+</html>

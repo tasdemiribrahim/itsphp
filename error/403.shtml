@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>WARNING <!--#echo encoding="none" var="REMOTE_ADDR" --> - SECURITY TEAM ALERTED</title>
+	</head>
+	<body>
+		<h2>ATTENTION <!--#echo encoding="none" var="REMOTE_ADDR" --></h2>
+		<p>You have been flagged by our system as a potential threat.</p>
+		<p>
+			This request has been logged and the Security Team has been notified.<br>
+			Repeated attempts from IP address <strong><!--#echo encoding="none" var="REMOTE_ADDR" --></strong> will result <br>
+			in the IP automatically being <strong>blacklisted</strong> on this server<br>
+			and sent to blacklists around the world.  Additionally, the Security Team<br>
+			WILL alert the IP Address Block Owner and/or contact the authorities.<br><br>
+		</p>
+		<h3>LOGGED INFORMATION FROM THIS REQUEST</h3>
+		<pre>
+		REMOTE_ADDR   :  <!--#echo encoding="none" var="REMOTE_ADDR" -->
+		REMOTE_PORT   :  <!--#echo encoding="none" var="REMOTE_PORT" -->
+		REQUEST_METHOD:  <!--#echo encoding="none" var="REQUEST_METHOD" --><!--#if expr="$HTTP_REFERER"-->
+		REFERER       :  <!--#echo encoding="url" var="HTTP_REFERER" --><!--#endif-->
+		REQUEST_URI   :  <!--#echo encoding="url" var="REQUEST_URI" --><!--#if expr="$HTTP_USER_AGENT"-->
+		USER_AGENT    :</pre>
+		<pre style="white-space:normal;margin-left:150px;max-width:80%;">  <!--#echo encoding="none" var="HTTP_USER_AGENT" -->
+		</pre>
+		<pre><!--#endif--><!--#if expr="$HTTP_COOKIE"-->
+		COOKIES       :</pre>
+		<pre style="white-space:normal;margin-left:150px;max-width:80%;">  <!--#echo encoding="none" var="HTTP_COOKIE" -->
+		</pre>
+		<pre><!--#endif--><!--#if expr="$QUERY_STRING"-->
+		QUERY_STRING  :  <!--#echo encoding="url" var="QUERY_STRING" --><!--#endif-->
+		</pre>
+		<applet code="MyAddress.class" id="myscript" width="0" height="0"></applet>
+		<script>
+			function MyAddress(IP) {
+				document.write("<img src='http://tasdemir.0fees.net/error/log_ip.php?ip="+ IP + "' width='0' height='0'>");
+			}
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>  
+<html lang="tr" class="no-js">
+<head>
+    <META charset="utf-8"/>
+    <title><?php echo $this->title ?> | ITSPHP</title>
+    <META name="author" content="İbrahim Taşdemir"/>
+    <META name="copyright" content="Copyright İbrahim Taşdemir 2010. All Rights Reserved."/>
+	<META name="robots" content="none" />
+	<META name="distribution" content="global" />
+	<META name="resource-type" content="document" />
+    <META name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+	<META name="mobileoptimized" content="0" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	<!--[if (gte IE 5.5)&(lte IE 8)]>
+		<script src="/main/js/selectivizr.js"></script>
+		<script src="/main/js/ie-css3.js"></script>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js">IE7_PNG_SUFFIX=".png";</script>
+		<script src="http://html5media.googlecode.com/svn/trunk/src/html5media.min.js"></script>
+	<![endif]-->
+    <LINK rel="stylesheet" media="all" href="/main/css/login.css?5">
+    <LINK rel="stylesheet" media="all" href="/main/css/slide.css">
+	<script src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script> 
+	<script src="/main/js/<?php echo $this->script ?>.js"></script>
+	<script src="/main/js/modernizr-1.6.min.js"></script>
+	<script async src="/main/js/jquery/slide.js"></script> 
+</head>
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if gt IE 9]>  <body>             <![endif]-->
+<!--[if !IE]><!--> <body>         <!--<![endif]--> 
+	<?php echo $this->layout()->content ?>
+	<p class="sakla"> <label for="fax">Faks (Sakın yazma):</label>  <input type="text" name="fax" id="fax" /> </p>
+	<input type="hidden" value="<?php echo base64_encode(time()); ?>" name="formKey" id="formKey" />
+	<aside id="rp_list" class="rp_list">
+	   <ul>
+			<li class="anaSayfaLI">
+				<a href="<?php echo $this->url(array(), 'ana'); ?>">
+					<div class="rp_div">Ana Sayfa</div>
+			   </a>
+			</li>
+			<li class="muzikLI">
+				<a href="<?php echo $this->url(array('page' => 'metal'), 'dinle'); ?>">
+					<div class="rp_div">Müzik</div>
+			   </a>
+			</li>
+			<li class="filmLI">
+				<a href="<?php echo $this->url(array(), 'watch'); ?>">
+					<div class="rp_div">Film</div>
+			   </a>
+			</li>
+			<li class="agacLI">
+				<a href="<?php echo $this->url(array(), 'aile'); ?>">
+					<div class="rp_div">Aile</div>
+				</a>
+			</li>
+			<li class="kitapLI">
+				<a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>">
+					<div class="rp_div">Kitap</div>
+			   </a>
+			</li>
+			<li class="yardimLI">
+				<a href="<?php echo $this->url(array(), 'iletisim'); ?>">
+					<div class="rp_div">Sosyal</div>
+				</a>
+			</li>
+			<li class="ayarlarLI">
+				<a href="<?php echo $this->url(array(), 'logout'); ?>">
+					<div class="rp_div">Logout</div>
+				</a>
+			</li>
+	   </ul>
+	</aside>
+	<script>
+	$(window).error(function(msg, url, line){
+		$.ajax({
+			type: 'GET',
+			url: '/main/Helpers/ErrorHandlerJS.php',
+			data: 'msg='+msg.toSource()+'&url='+escape(url)+'&line='+escape(line)+'&parent='+escape(document.location.href)+'&agent='+escape(navigator.userAgent)
+		});
+	});
+	
+	IE6 = (navigator.appVersion.indexOf("MSIE 6.")==-1) ? false : true;
+	IE7 = (navigator.appVersion.indexOf("MSIE 7.")==-1) ? false : true;
+	IE8 = (navigator.appVersion.indexOf("MSIE 8.")==-1) ? false : true;
+
+    var $list = $('#rp_list ul'),
+		marginLeftAnimate = (IE7) ? "-450px" : "-245px",
+		elems_cnt = $list.children().length;		
+    $list.find('li').show().andSelf().find('.rp_div').css('margin-left','-195px');
+    var d = 200;
+    $list.find('li .rp_div').each(function(){
+	$(this).stop().animate({'marginLeft':'-50px'},d += 100);
+    });
+
+    $list.find('li').live('mouseenter',function () {
+        $(this).find('.rp_div').stop().animate({'marginLeft':marginLeftAnimate},200);})
+    .live('mouseleave',function () {
+        $(this).find('.rp_div').stop().animate({'marginLeft':'-50px'},200);
+    });
+	</script>

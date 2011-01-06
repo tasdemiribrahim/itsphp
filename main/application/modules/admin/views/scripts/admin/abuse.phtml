@@ -1,0 +1,41 @@
+Şu anda <b><?php echo strftime('%c',$this->now) ?></b><br>
+Mevcut işlem başladı <b><?php echo strftime('%c',$this->traffic) ?></b> (<?php echo ($this->now - $this->traffic) ?> dakika önce).
+<p>
+Mevcut işlem trafiği:<br>
+<?php if (count($this->user_traffic)) : ?>
+<table border="1"><tr><th>Kullanıcı</th><th>Sayfalar</th></tr>
+	<?php while (list($user,$pages) = each($this->user_traffic)) 
+		print "<tr><td>$user</td><td>$pages</td></tr>"; ?>
+</table>
+<?php else : ?>
+	<i>Trafik yok.</i>
+<?php endif; ?>
+Tacizci kullanıcılar:
+<?php if ($this->abusive_users) : ?>
+	<table border="1"><tr><th>Kullanıcı</th><th>Sayfalar</th></tr>
+	<?php while (list($user,$pages) = each($abuse->data['abusive_users'])) 
+	{
+		if (0 === $pages) 
+		{
+			$pages = 'Removed';
+			$remove_command = '';
+		} 
+		else 
+		{
+			$remove_command ="<a href=\"$_SERVER[PHP_SELF]?cmd=remove&user=".urlencode($user)."\">remove</a>";
+		}
+		print "<tr><td>$user</td><td>$pages</td><td>$remove_command</td></tr>";
+	} ?>
+	</table>
+<?php else : ?>
+	<i>Tacizci kullanıcı yok.</i>
+<?php endif; ?>
+<form method="post">
+	<input type="hidden" name="cmd" value="add" />
+	Bu kullanıcıyı tacizci listesine ekle:<input type="text" name="user" value="" /><input type="submit" value="Ekle" />
+</form>
+<hr />
+<form method="post">
+<input type="hidden" name="cmd" value="clear" />
+<input type="submit" value="Tacizci listesini temizle" />
+</form>

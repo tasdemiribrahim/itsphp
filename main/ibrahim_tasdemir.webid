@@ -1,0 +1,14 @@
+{
+	"filetype": "webid",
+	"signed":1234567890,
+	
+	"userdata": {
+		"id": 11,
+		"isim":"Ibrahim",
+		"soyisim":"Tasdemir",
+		"dogum":"08-12-1986"
+	},
+	"keys": {
+		"auth":"Rm`FoKR:jI[)t!zF}ubg1/>zgvuE5x;w ;h^*0<. eFm|6t5|-vXW<js^30*=U=y"
+	}
+}

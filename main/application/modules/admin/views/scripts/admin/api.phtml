@@ -1,0 +1,57 @@
+<?php
+echo "<div style=\"visibility:hidden; display:none;\">";
+include_once "main/Helpers/abuseCheck.php";
+include_once "main/Helpers/adminHelper.php";
+include_once "main/Helpers/ErrorHandler.php";
+include_once "main/Helpers/input.php";
+include_once "main/Helpers/OAuth.php";
+include_once "main/Helpers/recaptchalib.php";
+include_once "main/Helpers/TwitterAPI.php";
+include_once "main/Helpers/Tracker.php";
+include_once "main/Helpers/Imager.php";
+include_once "main/Helpers/Cache.php";
+include_once "main/Helpers/x-cache.php";
+include_once "main/Helpers/TMDb.php";
+include_once "main/Helpers/Auth/Adapter/Doctrine.php";
+include_once "main/Helpers/Helper/Navigation.php";
+include_once "main/Helpers/Helper/Log/Writer/Doctrine.php";
+include_once "main/Helpers/Session/SaveHandler/Doctrine.php";
+echo "</div>";
+function getAPI($siniflar=array())
+{	
+	echo "<h1>ITSPHP API</h1>";
+	while(list(,$sinif)=each($siniflar))
+	{
+		$yeniSinif = new ReflectionClass($sinif);
+		echo "<h2 style='color:red;'>".  $yeniSinif->getName() . "</h2><p>Yorum:</p><pre>" . $yeniSinif->getDocComment() . "</pre><p>Dosya:" .$yeniSinif->getFileName() . "<br />Satirlar:" . $yeniSinif->getStartLine() . " - " . $yeniSinif->getEndLine() . "</p>";
+		getFuncAPI($yeniSinif->getMethods());
+	}
+	$funcs = get_defined_functions();
+	getFuncAPI($funcs['user']);
+}
+
+function getFuncAPI($funcs)
+{
+	foreach ($funcs as $func) 
+	{
+		try{
+			$func = new ReflectionFunction($func);
+		} catch (ReflectionException $e) {}
+		$prototype = $func->name . ' ( ';
+		$args = array();
+		foreach ($func->getParameters() as $param) 
+		{
+			$arg = '';
+			if ($param->isPassedByReference()) 
+				$arg = '&';
+			if ($param->isOptional()) 
+				$arg = '[' .$param->getName(). ' = ' .$param->getDefaultValue(). ']';
+			else 
+			$arg = $param->getName();
+			$args[] = $arg;
+		}
+		$prototype .= implode(", ", $args) . ' )';
+		echo "<h2>$prototype</h2><p>Yorum:</p><pre>" .$func->getDocComment(). "</pre><p>Dosya: " .$func->getFileName(). "<br />Satırlar: " .$func->getStartLine(). " - " .$func->getEndLine(). "</p>";
+	}
+}
+getAPI(array("abuse_check","TwitterAPI","ReCaptchaResponse","fileFilter","InstallationChecker","Abuse_Check","main_Helpers_Auth_Adapter_Doctrine","main_Helper_Navigation","main_Helpers_Log_Writer_Doctrine","main_Helpers_Tracker","main_Helpers_Imager","main_Helpers_Cache","main_Helpers_Session_SaveHandler_Doctrine","TMDb"));
