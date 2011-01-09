@@ -1,64 +1,68 @@
-<br /><br />
 <section>
-	<form class="form" id="aile-form" method="POST">
-	<fieldset>
-	<legend>Web ID ile Bağlan</legend>
-		<div id="loginWindow">
-			<div id="loginWindowInner" class="rounded">
-				<div id="idBoxBgWrapper">
-					<div id="idBoxBg">Tanım dosyanızı buraya bırakın...</div>
-					<div id="idCardSrc">
-						<div class="idCard rounded">
-							<div class="idCardLeft"><img alt="WebID" src="" width="85"/></div>
-							<div class="idCardRight">
-								<ul class="idCardValues"></ul>
+	<div class="blur">
+		<br />
+		<form id="aile-form" method="POST">
+			<fieldset>
+			<legend>Web ID ile Bağlan</legend>
+				<div id="loginWindow">
+					<div id="loginWindowInner" class="rounded">
+						<div id="idBoxBgWrapper">
+							<div id="idBoxBg">Tanım dosyanızı buraya bırakın...</div>
+							<div id="idCardSrc">
+								<div class="idCard rounded">
+									<div class="idCardLeft"><img alt="WebID" src="" width="85"/></div>
+									<div class="idCardRight">
+										<ul class="idCardValues"></ul>
+									</div>
+								</div>
 							</div>
+						</div>
+						<div id="idBox" class="rounded"></div>
+						<div id="pinBox">
+							<label for="txtPin">PIN:</label>
+							<input type="password" name="pin" id="txtPin" class="rounded" maxlength="4" />
+							<div class="clear"></div>
+						</div>
+						<div id="txtMain">
+							<p>WebID dosyanızı sürükleyip bırakın ve PIN kodunuzu girin</p>
 						</div>
 					</div>
 				</div>
-				<div id="idBox" class="rounded"></div>
-				<div id="pinBox">
-					<label for="txtPin">PIN:</label>
-					<input type="password" name="pin" id="txtPin" class="rounded" maxlength="4" />
-					<div class="clear"></div>
-				</div>
-				<div id="txtMain">
-					<p>WebID dosyanızı sürükleyip bırakın ve PIN kodunuzu girin</p>
-				</div>
-			</div>
-		</div>
-	</fieldset>
-	</form>
-	<br />
-	<fieldset class="form">
-	<legend>Twitter ile Bağlan</legend>
-	<?php echo $this->twitter ?>
-	</fieldset>
-	<br />
-	<form class="form" id="myspace-form" method="POST">
+			</fieldset>
+		</form>
+		<br />
 		<fieldset>
-			<legend>Myspace ile Bağlan</legend>
-			<label for="myspace">E-mail:</label>
-			<input type="email" id="myspace" name="myspace" size="23" />
-			<label for="myspace_pass">Şifre:</label>
-			<input type="password" id="myspace_pass" name="myspace_pass" size="23" />
-			<input type="submit" value="Giriş" class="bt_register" />
+		<legend>Twitter ile Bağlan</legend>
+		<?php echo $this->twitter ?>
 		</fieldset>
-	</form>
-	<br />
-
+		<br />
+		<form id="myspace-form" method="POST">
+			<fieldset>
+				<legend>Myspace ile Bağlan</legend>
+				<label for="myspace">E-mail:</label>
+				<input type="email" id="myspace" name="myspace" size="23" />
+				<label for="myspace_pass">Şifre:</label>
+				<input type="password" id="myspace_pass" name="myspace_pass" size="23" />
+				<input type="submit" value="Giriş" class="bt_register" />
+			</fieldset>
+		</form>
+		<br />
+		<div class="overlay">
+			<div>Sitenin neredeyse tüm sayfaları kullanıma açıktır. Sadece yönetici bölümlerine site tasarımcıları erişebilir.</div>
+		</div>
+	</div>
 	<div id="toppanel">
 		<div id="panel">
 			<div class="content clearfix">
 				<div class="left">
-					<h1>Yönetici Girişi</h1>
+					<h1>Hoş Geldiniz</h1>
 					<h2>Nasıl kayıt olurum?</h2>		
 					<p class="grey">Ne yazık ki olamazsınız! Yönetici (Admin) kısmı sadece site tasarımcılarına ayrılmıştır. Sitenin geri kalan kısmı (şimdilik) herkese açıktır.</p>
 					<label class="uyari" id="uyari"><?php echo $this->uyari ?></label>
 				</div>
 				<form id="login-form" method="post">
 					<div class="left clearfix">
-						<h1>Hoş Geldiniz</h1>
+						<h1>Yönetici Girişi</h1>
 						<label class="grey" for="login">İsim:</label>
 						<input type="password" id="login" name="login" class="field" size="23" />
 						<label class="grey" for="password">Şifre:</label>

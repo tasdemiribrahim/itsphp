@@ -14,6 +14,18 @@
 			<height />
 		</image>
 		<item>
+			<title>Interface Oriented Design</title>
+			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
+			<pubDate>2011-01-08 19:51:28</pubDate>
+			<description> Interface Oriented Design, birbiri arasında iletişim kuran yazılımları interface'ler ile tasarlamayı anlatıyor. Çeşitli teknikler kullanarak davranışı düzenlenebilen bu interfaceler ile çözüm bulmak ve iyi yapılandırılmış programlar yapmak için bu interfacelerin uygun ekleme yöntemini saptamaya bakabilirsiniz. Pek çok örnek ile çeşitli düzenlerin eksilerini ve artılarını görebilirsiniz.</description>
+		</item>
+		<item>
+			<title>Pro Git</title>
+			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
+			<pubDate>2011-01-07 19:51:28</pubDate>
+			<description>Büyük çaplı,çok kişinin katıldığı projelerde versiyon kontolü çok önemli ve Git bu konudaki en iyi araç. İlk kez 2005 yılında Linus Torvalds (evet Linux adamı) tarafından yayınlandı ve Linux çekirdek projesinin dağıtılmış versiyon kontrol sistemi olarak kullanıldı. O günden bu yana sayısız proje bu sistemi kullanıyor. Sizde bu muhteşem araç ile başarılı bir proje yönetimi yapın. Hayatınızın ne kadar kolaylaşacağına inanamayacaksınız.</description>
+		</item>
+		<item>
 			<title>The Definitive Guide to HTML5 Video</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#HTML</link>
 			<pubDate>2011-01-06 19:51:28</pubDate>

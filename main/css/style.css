@@ -1072,10 +1072,10 @@ Gunun Ipucu Butonu ve Bitly TinyURL
 	z-index:1000;
 }
 #button_a{
-	-webkit-box-shadow: #4297D7 1px 1px inset;
-	-moz-box-shadow: #4297D7 1px 1px inset;
-	box-shadow: #4297D7 1px 1px inset;
-	width:70px;
+	-webkit-box-shadow: #000 1px 1px inset;
+	-moz-box-shadow: #000 1px 1px inset;
+	box-shadow: #000 1px 1px inset;
+	width:65px;
 	height:35px;
 	background: white;
 	color:#fff;
@@ -1970,6 +1970,8 @@ li.slideshow-item{	margin-left: 3em;	}
 /* ------------------------------
 Aile Form
 ------------------------------ */
+#yeniAileBireyForm p{margin:5px 0; }
+
 #waypoints{float:right; margin:10px;}
 #map_canvas,#pano { height: 400px;}
 #aileBireyTwitter {width:160px; float:none; }
@@ -2050,9 +2052,9 @@ Aile Form
 	float: left;
 }
 .image_carousel a{margin: 0 5px 0 0;    display: inline-block; }
-#foo_prev,#foo_next { left:50%; position:absolute; top:-15px; }
-#foo_next{ bottom:-10px; top:auto; }
-#foo_prev span, #foo_next span,#FS_controls a span {display: none;}
+#foo_prev,#foo_next { float:left; margin-top:30px; text-indent:-99999px; }
+#foo_next{float:right; margin-right:-10px; }
+#FS_controls a span {display: none;}
 /* ------------------------------
 FAQ Sayfasi
 ------------------------------ */

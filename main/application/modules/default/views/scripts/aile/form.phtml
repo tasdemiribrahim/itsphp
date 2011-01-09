@@ -52,6 +52,8 @@
 	<br />
 	<h3 class="sidetit_r ui-widget ui-widget-header">Taşdemir Ailesi</h3>
 	<div class="image_carousel">
+		<a class="upBlue" id="foo_prev" href="#">Geri</a>
+		<a class="downBlue" id="foo_next" href="#">İleri</a>
 		<nav role="navigation" id="FS_controls"></nav> 
 		<br class="clear" />
 		<div id="foo">
@@ -60,6 +62,4 @@
 					echo '<img src="'.getResim($row['aileID']).'" alt="'.$row['aileID']."-".$row['aileAd'].'" title="'.$row['aileID']."-".$row['aileAd'].'" width="145" height="145" />';
 			?>
 		</div>
-		<a class="upBlue" id="foo_prev" href="#"><span>Geri</span></a>
-		<a class="downBlue" id="foo_next" href="#"><span>İleri</span></a>
 	</div>

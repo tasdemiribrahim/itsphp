@@ -904,7 +904,7 @@ function activateMain()
 			function () {
 				var $this 		= $(this);
 				var $slidelem 	= $this.prev();
-				$slidelem.stop().animate({'width':'70px'},200);
+				$slidelem.stop().animate({'width':'65px'},200);
 				$slidelem.find('span').stop(true,true).fadeOut();
 				$this.removeClass('button_c');
 			}
