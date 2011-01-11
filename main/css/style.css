@@ -50,6 +50,7 @@ src: local('OldSansBlack Regular'), local('OldSansBlack'),
 		url('OldSansBlack.ttf') format('truetype'), 
 		url('OldSansBlack.svg#OldSansBlack') format('svg');
 }
+a img {vertical-align:middle;}
 html\:abbr,abbr[title], dfn[title] { border-bottom:1px dotted #000; cursor:help; }
 html\:abbr,abbr { cursor: help;}
 blockquote, q { quotes:none; width:175px;}
@@ -70,7 +71,7 @@ body {
 	height:100%;
 }
 canvas { width:100%; }
-details {padding: 20px 0;} 
+details{background:#ADF;}
 figure:hover,figure:focus {   
 	-webkit-transform: rotate(0deg); 
 	-moz-transform: rotate(0deg);
@@ -299,8 +300,7 @@ MAIN
 	background-image:-moz-radial-gradient(center 45deg, circle closest-side, #2191C0 0%, #FFF 100%);
 	background-image: -webkit-gradient(radial, 90 60, 0, 90 60, 160, from(#2191C0), to(#FFF));
 }
-.gradient{
-	behavior: url("/main/css/PIE.php");	
+.gradient{	
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2191C0', EndColorStr='#FFFFFF' ,GradientType=0)";
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2191C0', endColorstr='#FFFFFF',GradientType=0 );
 	background: #2191C0;
@@ -310,8 +310,7 @@ MAIN
 	background: linear-box-gradient(#FFF 9%, #2191C0 55%, #FFF 78%);
 	background: linear-gradient(top, #FFF, #2191C0);
 }
-.border{
-	behavior: url("/main/css/PIE.php");	
+.border{	
 	border:2px solid #4297D7;
 	-moz-border-radius:5px;
 	-webkit-border-radius: 5px;
@@ -396,7 +395,8 @@ visibility:hidden !important;
 #ui-datepicker-div{z-index: 11;}
 .search_results{z-index:10;} 
 .ui-button-text img{ margin-bottom: -8px; margin-left: 4px; margin-top: 3px;}
-#mailLink a,#mailLink ul,#jsPromote img {width:100%;}
+#mailLink a,#mailLink ul {width:auto;}
+#jsPromote img {width:100%;}
 #rssTakip {margin: 10px;text-align: center;}
 .daire{
 	-moz-border-radius: 50px;
@@ -1416,7 +1416,7 @@ Kitap Sayfasý
 	background: url(../images/ekitap/pin.png) no-repeat;
 }
 .box img { width:100%; }
-.section{ text-align: center;   margin:0px;    height:4100px;    width:100%;    float:left;} 
+.section{ text-align: center;   margin:0px;    height:4500px;    width:100%;    float:left;} 
 .wrap div{
 	font-size:13px;
 	width:200px;
@@ -1424,6 +1424,10 @@ Kitap Sayfasý
 	float:left;
 	margin-left:10px;
 }
+.section#JS {background:url("http://www.cs.huji.ac.il/~osdmitryp/img/php-logo.png") no-repeat 50% 100% transparent;}
+.section#PHP {background:url("http://www.csitech.com/Data/Sites/1/csi_tech/ms_asp_dot_net_logo.jpg") no-repeat 50% 100% transparent;}
+.section#CSS {background:url("http://jquery.org/wp-content/uploads/2010/01/JQuery_logo_color_onwhite-300x74.png") no-repeat 50% 100% transparent;}
+.section#HTML {background:url("http://www.codercaste.com/wp-content/uploads/2010/03/CSSEditLogo.png") no-repeat 50% 100% transparent;}
 #rcnt section article{height:250px;overflow:auto;-ms-overflow-x:hidden; overflow-x:hidden; }
 /* Menu */
 ul.blue{	float: left;	clear: left;}

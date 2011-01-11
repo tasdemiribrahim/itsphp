@@ -6,8 +6,8 @@
 		<h3 class="ui-widget ui-widget-header">Kaydetme Formu</h3>
 	<?php endif; ?>
 	<br />
-	<p class="mod"><label for="aileBireyAd" title="Doldurulması zorunludur">İsim*:</label><input class="name" id="aileBireyAd" <?php if($this->guncelle) echo "disabled value='".$this->aileAd."'" ?> required aria-required /></p>
-	<p class="mod"><label for="aileBireyEbeveyn" title="Doldurulması zorunludur">Ebeveyn*:</label>
+	<p class="mod"><label for="aileBireyAd" title="Doldurulması zorunludur" class="radial daire">İsim*:</label><input class="name" id="aileBireyAd" <?php if($this->guncelle) echo "disabled value='".$this->aileAd."'" ?> required aria-required /></p>
+	<p class="mod"><label for="aileBireyEbeveyn" title="Doldurulması zorunludur" class="radial daire">Ebeveyn*:</label>
 	<select id="aileBireyEbeveyn" required aria-required>
 	<?php 
 		if($this->ebeveynAd)
@@ -20,11 +20,11 @@
 		}
 	?>
 	</select></p>
-	<p class="mod"><label for="aileBireyDogum" title="Doldurulması zorunludur">Doğum*:</label><input type="date" id="aileBireyDogum" <?php if($this->guncelle) echo "disabled value='".$this->aileBirey['aileDogum']."'"; else echo "value=''"; ?> required aria-required /></p>
+	<p class="mod"><label for="aileBireyDogum" title="Doldurulması zorunludur" class="radial daire">Doğum*:</label><input type="date" id="aileBireyDogum" <?php if($this->guncelle) echo "disabled value='".$this->aileBirey['aileDogum']."'"; else echo "value=''"; ?> required aria-required /></p>
 	<p class="mod"><label for="aileBireyOlum">Ölüm:</label><input type="date" id="aileBireyOlum" value="<?php echo $this->aileBirey['aileOlum'] ?>" /></p>
 	<p class="mod"><label for="aileBireyEs">Eşi:</label><input id="aileBireyEs" value="<?php echo $this->aileBirey['aileBireyEs'] ?>" /></p>
-	<p class="mod"><label for="aileBireyTanim" class="radial daire" title="Doldurulması zorunludur">Öz Geçmiş*:</label><textarea id="aileBireyTanim" rows="13" required maxlength="500"><?php echo $this->aileBirey['aileTanim'] ?></textarea></p><br />
-	<p class="mod"><label for="aileBireyAdres" class="radial daire">Adres:</label><textarea id="aileBireyAdres" rows="13" maxlength="500" ><?php echo $this->aileBirey['aileBireyAdres'] ?></textarea></p><br />
+	<p class="mod"><label for="aileBireyTanim" class="radial daire" title="Doldurulması zorunludur">Öz Geçmiş*:</label><textarea id="aileBireyTanim" rows="5" required maxlength="500"><?php echo $this->aileBirey['aileTanim'] ?></textarea></p><br />
+	<p class="mod"><label for="aileBireyAdres">Adres:</label><textarea id="aileBireyAdres" rows="5" maxlength="500" ><?php echo $this->aileBirey['aileBireyAdres'] ?></textarea></p><br />
 	<p class="mod"><label for="aileBireyMail">E-Mail:</label><input type="email" id="aileBireyMail" value="<?php echo $this->aileBirey['aileBireyMail'] ?>" /></p>
 	<p class="mod"><label for="aileBireyTel">Tel:</label><input type="tel" id="aileBireyTel" value="<?php echo $this->aileBirey['aileBireyTel'] ?>" /></p>
 	<p class="mod"><label for="aileBireyMSN">MSN:</label><input type="email" id="aileBireyMSN" value="<?php echo $this->aileBirey['aileBireyMSN'] ?>" /></p>
@@ -46,8 +46,6 @@
 		<h3 class="ui-widget ui-widget-header"><?php echo $this->aileAd; ?></h3>
 		<img width="100%" src="<?php echo getResim($this->guncelle); ?>" alt="<?php echo $this->guncelle."-".$this->aileAd; ?>" title="<?php echo  $this->guncelle."-".$this->aileAd; ?>" />
 		<p>Güncellemede bireyin ismi ve ebeveyni değiştirilemez!</p>
-	<?php else: ?>
-		<p>Yeni kayıt yaparken isim, ebeveyn, doğum ve öz geçmiş doldurulmalıdır.Ebeveyn olarak dede, büyük anne değil baba veya anneyi seçin.</p>
 	<?php endif; ?>
 	<br />
 	<h3 class="sidetit_r ui-widget ui-widget-header">Taşdemir Ailesi</h3>

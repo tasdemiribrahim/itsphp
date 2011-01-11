@@ -55,8 +55,6 @@ readonly:true,allowCalEventOverlap : true,overlapEventsSeparate: true,draggable 
 		});
 	});
 
-	$("#rssTakip").append('<a href="http://feeds.feedburner.com/aile-itsphp" target="_blank" rel="alternate" type="application/rss+xml" title="Aile RSS Haberleri"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" alt="Aile-ITSPHP" /></a>');
-
 	var listeAc=function(event)
 	{
 		if (this == event.target) 

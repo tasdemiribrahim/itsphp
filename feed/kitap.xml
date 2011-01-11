@@ -14,6 +14,24 @@
 			<height />
 		</image>
 		<item>
+			<title>Pragmatic Guide to JavaScript</title>
+			<link>http://tasdemir.0fees.net/main/oku/programlama#JS</link>
+			<pubDate>2011-01-11 19:51:28</pubDate>
+			<description>Pekçok önemli javascript fonksiyonunun Prototype, script.aculo.us, jQuery, MooTools, YUI , ExtJS ve Dojo'da nasıl yapıldığını gösteriyor.</description>
+		</item>
+		<item>
+			<title>Pragmatic Guide to Git</title>
+			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
+			<pubDate>2011-01-10 19:51:28</pubDate>
+			<description>Git versiyon kontrol sistemi hakkında çok başarılı bir kitap</description>
+		</item>
+		<item>
+			<title>Pomodoro Technique Illustrated</title>
+			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
+			<pubDate>2011-01-09 19:51:28</pubDate>
+			<description> Zamanımız kısıtlı ve yapacak çok fazla iş var. Bu kitap ile zamanınızı daha iyi değerlendirmeyi ve düzenli çalışmayı öğrenebilirsiniz. Pomodoro tekniği Scrum ve XP gibi Agile teknikleri ile karşılaştırılınca en iyi teknik olmayabilir ama en kolay anlaşılır ve tek bir kişiye uygulanabilen en uygun teknik bana göre.</description>
+		</item>
+		<item>
 			<title>Interface Oriented Design</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
 			<pubDate>2011-01-08 19:51:28</pubDate>

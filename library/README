@@ -1,0 +1,9 @@
+Third Party Libraries Will Be Structured Like This:
+Folder..................Library.................Version 
+Doctrine/		Doctrine ORM		1.2.3
+FirePHPCore/		FirePHP			0.3.2rc6
+PhpOnCouch/		Php on Couch		1.0.1-1
+SimplePie/		SimplePIE		1.2
+simpletest/		SimpleTest		1.0.1
+smarty/			Smarty Template Engine	2.6.26
+Zend/			Zend Framework		1.10.8

@@ -43,8 +43,6 @@ $(document).ready(function() {
 			$('#htmlFeed').html("<header><h3><a href='"+cevaplar[0]+"' title='"+cevaplar[1]+"'>"+cevaplar[1]+"</a></h3><h4>"+cevaplar[2]+"</h4><h5><a href='"+cevaplar[3]+"' title='"+cevaplar[4]+"'>"+cevaplar[4]+"</a></h5></header><br>"+cevaplar[5]);
 		}
 		});
-
-	$("#rssTakip").append('<a href="http://feeds.feedburner.com/kitap-itsphp" target="_blank" rel="nofollow" type="application/rss+xml" title="Kitap RSS Haberleri"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" alt="Kitap-ITSPHP" /></a>');
 	
 	if(!IE6 && !IE7)
 	$('.blue li a').bind('click',function(event){

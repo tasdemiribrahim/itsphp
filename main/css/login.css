@@ -80,7 +80,6 @@ Sayfanın Sağındaki Menu
 }	
 .rp_list ul li a{text-decoration:none;}
 .rp_list ul li .rp_div{
-	behavior: url("/main/css/PIE.php");	
 	display: block;
 	font-size:30px;
 	height:8px;

@@ -9,9 +9,6 @@ $(document).ready(function() {
 		error: function(xhr, status) { $(".progress").fadeOut(); }
 	});
 	
-	$("#rssTakip").append('<a href="http://feeds.feedburner.com/aile-itsphp" target="_blank" rel="alternate" type="application/rss+xml" title="Aile RSS Haberleri"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" alt="Aile-ITSPHP" /></a>');
-
-
 	var map=new google.maps.Map($("#map_canvas")[0],{zoom:5,mapTypeId:google.maps.MapTypeId.ROADMAP,streetViewControl: true}),initialLocation,browserSupportFlag=true,geocoder=new google.maps.Geocoder(),adres,infowindow=new google.maps.InfoWindow(),markers=Array(),directionsService = new google.maps.DirectionsService(),directionsDisplay = new google.maps.DirectionsRenderer({draggable: true}),sv = new google.maps.StreetViewService(),gecMarker,panorama = new  google.maps.StreetViewPanorama(document.getElementById("pano"));
 
 	directionsDisplay.setMap(map);

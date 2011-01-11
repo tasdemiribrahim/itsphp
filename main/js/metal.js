@@ -102,8 +102,6 @@ $(document).ready(function() {
 			complete:function(){	$(".progress").fadeOut();	},
 			error: function(xhr, status) { $(".progress").fadeOut(); }
 	    });
-
-	$("#rssTakip").append('<a href="http://feeds.feedburner.com/muzik-itsphp" target="_blank" rel="nofollow" type="application/rss+xml" title="Müzik RSS Haberleri"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" alt="Müzik-ITSPHP" /></a>');
 	
 	startTimer();
 	$("#FS_slider #FS_holder").width(slider_width * num_slides).height($("#FS_slider section").height());	

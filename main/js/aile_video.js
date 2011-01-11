@@ -2,8 +2,6 @@
 
 	activateMain();
 
-	$("#rssTakip").append('<a href="http://feeds.feedburner.com/aile-itsphp" target="_blank" rel="alternate" type="application/rss+xml" title="Aile RSS Haberleri"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" alt="Aile-ITSPHP" /></a>');
-
 	initCanvas();
 	var kaynak="http://ibrahimtasdemir.mysites.com/get_file/";
 	var film_div=$("#aileVideoDiv");
