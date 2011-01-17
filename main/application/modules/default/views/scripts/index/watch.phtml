@@ -25,7 +25,35 @@
 	<br class="clear" />
 	<h4 id="cnvHed"></h4>
 	<canvas id="timeline" />
-
+	<table>
+		<thead>
+			<caption>Film İstekleri</caption>
+			<tr><th></th><th>Film</th><th>Oy</th></tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td><?php echo count($this->istek); ?></td>
+				<td>isteğe toplam</td>
+				<td><?php
+					$s=0;
+					function count_usr(&$item1, $key)
+					{
+						$s += $item1["oy"];
+					}
+					array_walk($this->istek, 'count_usr');
+					echo $s." oy verildi.";
+					//echo array_sum($this->istek); 
+				?></td>
+			</tr>
+		</tfoot>
+		<tbody>
+			<?php
+			$i=0;
+			foreach($this->istek as $istek)
+				echo "<tr><td>".++$i."</td><td>".$istek["film_ad"]."</td><td>".$istek["oy"]."</td></tr>";
+			?>
+		</tbody>
+	</table>
 </div>
 <aside id="rcnt" role=”complementary”>
 	<div id="uzunluk-range">

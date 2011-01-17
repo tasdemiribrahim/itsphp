@@ -43,7 +43,10 @@ $(document).ready(function() {
 			$('#htmlFeed').html("<header><h3><a href='"+cevaplar[0]+"' title='"+cevaplar[1]+"'>"+cevaplar[1]+"</a></h3><h4>"+cevaplar[2]+"</h4><h5><a href='"+cevaplar[3]+"' title='"+cevaplar[4]+"'>"+cevaplar[4]+"</a></h5></header><br>"+cevaplar[5]);
 		}
 		});
-	
+
+	$.getScript("http://sandbox.sebnitu.com/jquery/quovolver/demo/jquery.quovolver.mini.js", function () {
+  		$('blockquote').quovolver(500,20000);
+	});
 	if(!IE6 && !IE7)
 	$('.blue li a').bind('click',function(event){
 		var $anchor = $(this);

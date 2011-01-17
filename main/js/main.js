@@ -4,6 +4,15 @@ IE8 = (navigator.appVersion.indexOf("MSIE 8.")==-1) ? false : true;
 
 function getSiteName(){ return "http://tasdemir.0fees.net/"; }
 
+function getScript(dosya)
+{
+	var headID = document.getElementsByTagName("head")[0];         
+	var newScript = document.createElement('script');
+	newScript.type = 'text/javascript';
+	newScript.src = dosya;
+	headID.appendChild(newScript);
+}
+
 function getResim(id,dosya)
 {
 	var resim="";
@@ -35,11 +44,38 @@ function activateGoogleFontAPI()
 }
 
 
-(function($){$.fn.bounceBox=function(){var pos = 'fixed';if (jQuery.browser.msie && parseInt(jQuery.browser.version) == 6){pos = 'absolute';}this.css({top : -this.outerHeight(),marginLeft : -this.outerWidth()/2,position : pos,left : '50%'});return this;}
-$.fn.bounceBoxShow=function(){this.stop().animate({top:0},{easing:'easeOutBounce'});this.data('bounceShown',true);return this;}
-$.fn.bounceBoxHide=function(){this.stop().animate({top:-this.outerHeight()});this.data('bounceShown',false);return this;}
-$.fn.bounceBoxToggle=function(){if(this.data('bounceShown'))
-this.bounceBoxHide(); else this.bounceBoxShow();return this;}})(jQuery);
+(function($){
+	$.fn.bounceBox=function()
+	{
+		var pos = 'fixed';
+		if (jQuery.browser.msie && parseInt(jQuery.browser.version) == 6)
+		{
+			pos = 'absolute';
+		}
+		this.css({top : -(this.outerHeight()+2),marginLeft : -this.outerWidth()/2,position : pos,left : '50%'});
+		return this;
+	}
+	$.fn.bounceBoxShow=function()
+	{
+		this.stop().animate({top:0},{easing:'easeOutBounce'});
+		this.data('bounceShown',true);
+		return this;
+	}
+	$.fn.bounceBoxHide=function()
+	{
+		this.stop().animate({top:-(this.outerHeight()+2)});
+		this.data('bounceShown',false);
+		return this;
+	}
+	$.fn.bounceBoxToggle=function()
+	{
+		if(this.data('bounceShown'))
+			this.bounceBoxHide(); 
+		else 
+			this.bounceBoxShow();
+		return this;
+	}
+})(jQuery);
 
 function activateBounceBox()
 {
@@ -847,18 +883,12 @@ function activateMain()
 		$(this).closest('.notice').animate({border: 'none',height: 0,marginBottom: 0,marginTop: '-6px',opacity: 0,	paddingBottom: 0,	paddingTop: 0,queue: false	}, 1000, 
 		function() {$(this).remove();});
 	});
-	var docwrite = document.write;
-	document.write = function(q){ 
-		log('document.write(): ',q); 
-		if (/docwriteregexwhitelist/.test(q)) docwrite(q);  
-	}
 	$('.twitter_search').twitterpopup();
 	$("a[href^='http://']").click(function()
 	{
 		_gaq.push(['_trackEvent', 'links', 'external', $(this).attr("href"), 0]);
 		//_gaq._trackEvent("links", "external", $(this).attr("href"), 0);
 	});
-  	$('blockquote').quovolver(500,20000);
 	$('[title]').tooltip({delay: 0, track: true,positionLeft: true,showURL: false });
 	$('[required]').attr("aria-required","true");
 	$("#appreciateBadge").bind("click",function(){
@@ -875,7 +905,7 @@ function activateMain()
 
 	temizle();
 	
-	$('#accordion').accordion({ active: false,animated: 'bounceslide',autoHeight: false,collapsible: true });
+	//$('#accordion').accordion({ active: false,animated: 'bounceslide',autoHeight: false,collapsible: true });
 	$('.jqueryButton').button();	
 	$('textarea').not(".cleditor").after("<div id='console'><div class='count'>Geriye 500 karakter kaldı!</div><progress class='bar'></progress></div>")
 		.keyup(function(e) {

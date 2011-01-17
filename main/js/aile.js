@@ -148,7 +148,7 @@ $(document).ready(function() {
 		$("#aileListe ul").treeview({'collapsed':true,persist: "cookie",prerendered: false,animated: "fast"});
 	});
 
-	$('#q').autocomplete({minLength: 3,source: '/main/ajax/aile'});
+	getScript("js/aile_extra.js");
 
 	if(db)
 		db.transaction(function (tx) 

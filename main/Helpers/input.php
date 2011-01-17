@@ -88,6 +88,27 @@ function getTiny($tinyurl)
 	return $r;
 }
 /**
+* Returns goo.gl short url
+*
+* @param string $google The url of the page
+*
+* @return string
+*/
+function getGoogle($google)
+{
+	define('GOOGLE_ENDPOINT', 'https://www.googleapis.com/urlshortener/v1');
+        $ch = curl_init(sprintf('%s/url?key=%s', GOOGLE_ENDPOINT, GOOGLE_API_KEY));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $requestData = array('longUrl' => $google);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestData));
+        $result = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($result, true);
+        return $response['id'];
+}
+/**
 * Returns the sum of the feed followers
 *
 * @param string $url The url of the feed

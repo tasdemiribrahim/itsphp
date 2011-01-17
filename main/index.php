@@ -32,6 +32,7 @@ define("AMAZON_KEY_ID","AKIAJ2I2OVJXLDYQEWNQ");
 define("AMAZON_SECRET_KEY","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");
 define("FACEBOOK_APP_ID","180340695310981");
 define("FACEBOOK_APP_SECRET","79eec39810b578c3c3268c30f3a6be8e");
+define("GOOGLE_API_KEY","AIzaSyBgB4KDdJYgNmoStuxfvwV2mgipqGG8PYs");
 define("KULLANICI","tasdemiribrahim");
 
 set_include_path(implode(PATH_SEPARATOR, array(realpath(APPLICATION_PATH . '/../../library'),realpath(APPLICATION_PATH . '/../../'),get_include_path())));

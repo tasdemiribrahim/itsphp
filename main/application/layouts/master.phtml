@@ -17,7 +17,7 @@
 	<meta name="google-site-verification" content="vSA45uu-IXiT_BDv2sgitxW6fbRBcgByO_gnJNeEdxI" />
 	<link rel="alternate" href="http://feeds.feedburner.com/kitap-itsphp" title="Kitap-ITSPHP" type="application/rss+xml" />
 	<link rel="alternate" href="http://feeds.feedburner.com/aile-itsphp" title="Aile-ITSPHP" type="application/rss+xml" />
-	<link rel="alternate" href="http://feeds.feedburner.com/muzik-itsphp" title="Müzik-ITSPHP" type="application/rss+xml" />
+	<link rel="alternate" href="http://tasdemir.0fees.net/main/haber/muzik" title="Müzik-ITSPHP" type="application/rss+xml" />
 	<link rel="stylesheet" media="all" href="/main/css/CSS.php" />
 	<!--[if (gte IE 5.5)&(lte IE 8)]>
 		<script src="/main/js/selectivizr.js"></script>
@@ -47,7 +47,7 @@
 		<menu class="oe_wrapper tour_1" role="menu">
 			<ul id="oe_menu" class="oe_menu">
 				<li><a href="<?php echo $this->url(array(), 'ana'); ?>">Sayfalar</a>
-					<div>
+					<div style="left:-1px;">
 						<p><a href="<?php echo $this->url(array(), 'ana'); ?>">Ana Sayfa</a>
 						<?php if (Zend_Auth::getInstance()->hasIdentity())  : ?>
 							<a id="log" href="<?php echo $this->url(array(), 'logout'); ?>">LOGOUT</a>
@@ -61,20 +61,20 @@
 					</div>
 				</li>
 				<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>">Oku</a>
-					<div style="left:-111px;"><!-- -112px -->
+					<div style="left:-112px;">
 						<ul class="oe_full">
 							<li class="oe_heading">Programlama Kitapları</li>
+							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#HTML">HTML</a></li>
 							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#CSS">CSS</a></li>
+							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#JS">JavaScript</a></li>
 							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#PHP">PHP</a></li>
 							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#ASP">ASP.NET</a></li>
-							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#JS">JavaScript</a></li>
-							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#HTML">HTML</a></li>
 							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#DIGER">Diğer</a></li>
 						</ul>
 					</div>
 				</li>
 				<li><a href="<?php echo $this->url(array(), 'aile'); ?>">Aile</a>
-					<div style="left:-223px;">
+					<div style="left:-224px;">
 						<ul>
 							<li class="oe_heading">Bireyler</li>
 							<li><a href="<?php echo $this->url(array(), 'aile'); ?>?id=11">İbrahim Taşdemir</a></li>
@@ -105,7 +105,7 @@
 						<ul class="oe_full">
 							<li class="oe_heading">Beslemeler</li>
 							<li><a href="<?php echo $this->url(array(), 'feed'); ?>">RSS Besleme Sayfası</a></li>
-							<li><a href="http://feeds.feedburner.com/muzik-itsphp" target="_blank" rel="nofollow">Müzik</a></li>
+							<li><a href="http://tasdemir.0fees.net/main/haber/muzik" target="_blank" rel="nofollow">Müzik</a></li>
 							<li><a href="http://feeds.feedburner.com/aile-itsphp" target="_blank" rel="nofollow">Aile</a></li>
 							<li><a href="http://feeds.feedburner.com/kitap-itsphp" target="_blank" rel="nofollow">Kitap</a></li>
 						</ul>
@@ -128,7 +128,7 @@
 		<aside id="lcnt" role=”complementary”>
 			<nav id="rssTakip" role="navigation">
 				<p><a target="_blank" href="http://feeds.feedburner.com/aile-itsphp" rel="alternate" type="application/rss+xml">Aile <img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" /></a></p><br />
-				<p><a target="_blank" href="http://feeds.feedburner.com/muzik-itsphp" rel="alternate" type="application/rss+xml">Müzik <img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" /></a></p><br />
+				<p><a target="_blank" href="http://tasdemir.0fees.net/main/haber/muzik" rel="alternate" type="application/rss+xml">Müzik <img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" /></a></p><br />
 				<p><a target="_blank" href="http://feeds.feedburner.com/kitap-itsphp" rel="alternate" type="application/rss+xml">Kitap <img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" /></a></p><br />
 			</nav>	
 			<?php echo $this->appreciate(); ?>
@@ -194,7 +194,8 @@
 				</nav>
 			</details>
 			<?php echo $this->lastfm(); ?>
-			<h3 class="sidetit_l ui-widget ui-widget-header">Reklam</h3>
+			<?php echo $this->git(); ?>
+			<h3 class="ui-widget ui-widget-header">Reklam</h3>
 			<script>
 			//<![CDATA[<!--
 			google_ad_client = "ca-pub-3701858385704807";
@@ -213,7 +214,7 @@
 
 			<br class="clear" />
 			<details id="mailLink" class="rslink" open>
-				<summary class="sidetit_r ui-widget ui-widget-header tour_7">E-Posta Kampanyamız</summary>
+				<summary class="sidetit_r ui-widget ui-widget-header tour_7">E-Posta Kampanyamız<span class="details-close ui-icon ui-icon-closethick">X</span></summary>
 				<a href="http://eepurl.com/ZGN6" target="_blank" rel="nofollow" class="jqueryButton translate">Kayıt Ol<img class="transition" src="/main/images/mail_add.png" alt="mail ekle" /></a>
 				<a href="http://0fees.us2.list-manage.com/unsubscribe?u=bb24c290b5d488724f4ce0b31&amp;id=d138cafbda" target="_blank" rel="nofollow" class="jqueryButton translate">Kaydımı Sil<img class="transition" src="/main/images/mail_delete.png" alt="mail sil" /></a>
 				<br class="clear" />
@@ -221,15 +222,15 @@
 				<script src="http://0fees.us2.list-manage.com/subscriber-count?b=5&amp;u=bb24c290b5d488724f4ce0b31&amp;id=d138cafbda"></script>
 			</details>
 			<details id="jsPromote" open>
-				<summary class="sidetit_r ui-widget ui-widget-header tour_8">Interneti Geliştir</summary>
+				<summary class="sidetit_r ui-widget ui-widget-header tour_8">Interneti Geliştir<span class="details-close ui-icon ui-icon-closethick">X</span></summary>
 				<a href="https://developer.mozilla.org/en/JavaScript" title="JavaScript Reference, JavaScript Guide, JavaScript API, JS API, JS Guide, JS Reference, Learn JS, JS Documentation" target="_blank"><img src="http://static.jsconf.us/promotejsvs.png" alt="JavaScript Reference, JavaScript Guide, JavaScript API, JS API, JS Guide, JS Reference, Learn JS, JS Documentation"/></a>
 			</details>
 			<?php echo $this->stack(); ?>
 			<details open>
-				<summary class="sidetit_r ui-widget ui-widget-header">İstatistik</summary>
+				<summary class="sidetit_r ui-widget ui-widget-header">İstatistik<span class="details-close ui-icon ui-icon-closethick">X</span></summary>
 				<a target="_blank" rel="nofollow" href="http://blogs.top.org/personal/" title="Personal (Humor) - TOP.ORG"><img src="http://img1.top.org/toporg_28224.gif" alt="Personal (Blog) - TOP.ORG" /></a>
 			</details>
-			<h3 class="sidetit_r ui-widget ui-widget-header">Reklam</h3>
+			<h3 class="ui-widget ui-widget-header">Reklam</h3>
 			<script>
 			//<![CDATA[<!--
 				google_ad_client = "ca-pub-3701858385704807";
@@ -322,7 +323,6 @@ var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ga
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 <script async src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
-<script src="http://sandbox.sebnitu.com/jquery/quovolver/demo/jquery.quovolver.mini.js"></script>
 <script async src="http://plugins.jquery.com/files/jquery.cookie.js.txt"></script>
 <script src="http://jquery.bassistance.de/tooltip/jquery.tooltip.js"></script>
 <script async src="http://delicious-button.googlecode.com/files/jquery.delicious-button-1.0.min.js"></script>

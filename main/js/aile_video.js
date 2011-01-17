@@ -2,6 +2,8 @@
 
 	activateMain();
 
+	getScript("js/aile_extra.js");
+
 	initCanvas();
 	var kaynak="http://ibrahimtasdemir.mysites.com/get_file/";
 	var film_div=$("#aileVideoDiv");

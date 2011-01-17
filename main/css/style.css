@@ -71,7 +71,6 @@ body {
 	height:100%;
 }
 canvas { width:100%; }
-details{background:#ADF;}
 figure:hover,figure:focus {   
 	-webkit-transform: rotate(0deg); 
 	-moz-transform: rotate(0deg);
@@ -241,7 +240,6 @@ MAIN
 	float:right;
 	position:relative;	
 	width:19%;
-	margin-right:1%;
 	overflow:visible; 
 	margin-bottom: -99999px;
         padding-bottom: 99999px;
@@ -378,6 +376,7 @@ visibility:hidden !important;
 }
 .count,.center {text-align:center; }
 .details-close{float:left;}
+#rcnt .details-close{float:right;}
 .details-close:hover
 {
 	-moz-box-shadow: 0px 0px 10px #000;
@@ -557,7 +556,7 @@ Growl
 /* ------------------------------
 Menu
 ------------------------------ */
-header menu{position: absolute; top:142px;}
+header menu{position: absolute; top:142px; left:16%;}
 #log{float:right;}
 ul.oe_menu{
 	list-style:none;
@@ -1247,7 +1246,7 @@ padding: 4px;
 /*Infinite Carousel */
 .infiniteCarousel { position: relative; height:170px; background: url(../images/focus.jpg) no-repeat; overflow:hidden;}
 .infiniteCarousel:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
-.infiniteCarousel .wrapperIC { margin:20px auto; width:115px;  min-height:170px;  position: relative;}
+.infiniteCarousel .wrapperIC { margin:20px auto; width:85%;  min-height:170px;  position: relative;}
 .wrapperIC span {
 	width: 30px;
 	height: 60px;
@@ -1285,12 +1284,13 @@ padding: 4px;
 .infiniteCarousel .infiniteArrow {
   display: block;
   width: 37px;
+  height:100%;
   text-indent: -99999px;
   position: absolute;
-  top: 50%;
+  top: 0;
 }
-.infiniteCarousel .forward {  right: -5px;}
-.infiniteCarousel .back {  left: 5px;}
+.infiniteCarousel .forward {  right: -8%; background-position: -179px 110px;}
+.infiniteCarousel .back {  left: 1%; background-position: 0px -1754px;}
 /* ------------------------------
 Heavy Metal Sayfası
 ------------------------------ */ 

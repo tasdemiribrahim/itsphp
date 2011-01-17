@@ -15,6 +15,8 @@ $(document).ready(function() {
 	$(".captcha_wrap").removeClass("sakla");
 	$("form ul").sortable().disableSelection().shuffle();
 	
+	getScript("js/iletisim_extra.js");
+
 	$('#resultsDiv a').bind('click',function(){
 		var thread=$(this).parent().next(),id=$(this).attr("id"),forumPage=$('#forumPage');
 		forumPage.hide("slide", { direction: "right" }, 2000);

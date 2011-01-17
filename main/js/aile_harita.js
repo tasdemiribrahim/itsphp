@@ -9,6 +9,8 @@ $(document).ready(function() {
 		error: function(xhr, status) { $(".progress").fadeOut(); }
 	});
 	
+	getScript("js/aile_extra.js");
+
 	var map=new google.maps.Map($("#map_canvas")[0],{zoom:5,mapTypeId:google.maps.MapTypeId.ROADMAP,streetViewControl: true}),initialLocation,browserSupportFlag=true,geocoder=new google.maps.Geocoder(),adres,infowindow=new google.maps.InfoWindow(),markers=Array(),directionsService = new google.maps.DirectionsService(),directionsDisplay = new google.maps.DirectionsRenderer({draggable: true}),sv = new google.maps.StreetViewService(),gecMarker,panorama = new  google.maps.StreetViewPanorama(document.getElementById("pano"));
 
 	directionsDisplay.setMap(map);

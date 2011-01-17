@@ -16,7 +16,8 @@ class Zend_View_Helper_Appreciate extends Zend_View_Helper_Abstract
 				$voted = "inactive";
 			$appreciated=$result['appreciated'];
 		}
-		return '<a href="#" id="appreciateBadge" class="'.$voted.'">Sayfayı Beğendim</a><p>*<span id="appreciateCount">'.$appreciated.'</span></p>';
+		return '<details open>
+				<summary class="sidetit_l ui-widget ui-widget-header"><span class="details-close ui-icon ui-icon-closethick">X</span><span id="appreciateCount">'.$appreciated.'</span> Kişi Beğendi</summary><br /><a href="#" id="appreciateBadge" class="'.$voted.' tour_2">Sayfayı Beğendim</a><br /></details>';
 	}
 }
 

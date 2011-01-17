@@ -14,6 +14,12 @@
 			<height />
 		</image>
 		<item>
+			<title>Seven Languages in Seven Weeks</title>
+			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
+			<pubDate>2011-01-12 19:51:28</pubDate>
+			<description> 7 Haftada 7 farklı dil öğrenin. Programlama dili öğrenmek araba kullanmaya benzer ne kadar okusanız da ne kadar izlesenizde direksiyon başına geçmeden öğrenemezsiniz. Bu kitap 7 farklı arabada test sürüşü yapmanızı sağlayacak. Güçlü ve zayıf tipli,nesne tabanlı, fonksiyonel, prosedürel, karışık, prototip tabanlı, derlenen, yorumlanan, sanal makinede çalışan... Her türden örnek bulabilirsiniz. Kitap ile ruby, Io, prolog, scala, erlang, closure ve haskell dillerini göreceksiniz ama sadece merhaba dünya seviyesinde...</description>
+		</item>
+		<item>
 			<title>Pragmatic Guide to JavaScript</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#JS</link>
 			<pubDate>2011-01-11 19:51:28</pubDate>

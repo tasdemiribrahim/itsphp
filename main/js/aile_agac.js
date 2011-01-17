@@ -55,6 +55,8 @@ readonly:true,allowCalEventOverlap : true,overlapEventsSeparate: true,draggable 
 		});
 	});
 
+	getScript("js/aile_extra.js");
+
 	var listeAc=function(event)
 	{
 		if (this == event.target) 

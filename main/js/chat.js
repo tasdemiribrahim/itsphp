@@ -2,6 +2,7 @@
 	//console.log("index.js DOM Yuklendi.");
 	activateMain();	
 	chat.init();
+	getScript("js/iletisim_extra.js");
 });
 
 var chat = {

@@ -14,6 +14,8 @@
 		error: function(xhr, status) { $(".progress").fadeOut(); }
 	});
 	
+	getScript("js/aile_extra.js");
+
 	var targetX, targetY,jasimage=$("#jas-image"),tagCounter = 0;
 	
 	jasimage.wrap('<div id="tag-wrapper"></div>');

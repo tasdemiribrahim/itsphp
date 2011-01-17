@@ -11,6 +11,8 @@ $(document).ready(function() {
 		error: function(xhr, status) { $(".progress").fadeOut(); }
 	});
 	
+	getScript("js/aile_extra.js");
+
 	if(IE6)	
 		$('#aileBireyOlum').val("");
 	

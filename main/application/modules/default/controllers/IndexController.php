@@ -200,6 +200,9 @@ class IndexController extends Zend_Controller_Action
 			$this->view->poster=$movies_result[0]->posters[0]->image->url;
 			
 			$this->view->pages = $pagerLayout->display(null, true);
+
+			$q = Doctrine_Query::create()->from('main_Models_FilmIstek m')->orderBy(' m.istek DESC');
+			$this->view->istek=$q->fetchArray();
 		}
 		else 
 			throw new Zend_Controller_Action_Exception('Invalid input');
