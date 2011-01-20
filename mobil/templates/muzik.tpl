@@ -12,7 +12,7 @@
 			{else}
 				,
 			{/if}
-			<a href='muzik.php?id={$row["grupID"]}'>{$dizi["grupAd"]}</a>
+			<a href='muzik.php?id={$dizi["grupID"]}'>{$dizi["grupAd"]}</a>
 		{/foreach}
 		;
 		<h3>{$row["memleket"]}'den {$row["grupAd"]}</h3>

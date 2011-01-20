@@ -5,7 +5,7 @@ class Zend_View_Helper_Breadcrumb extends Zend_View_Helper_Abstract
 	{
 		$a=explode("/",$this->view->url);
 		$href=getSiteName()."main";
-		$mesaj="<ul class='breadcrumb'><li><a href='".getSiteName()."main'>Main</a></li>";
+		$mesaj="<ul class='breadcrumb ieden sakla'><li><a href='".getSiteName()."main'>Main</a></li>";
 		foreach($a as $b)
 		{
 			$href.="/".$b;

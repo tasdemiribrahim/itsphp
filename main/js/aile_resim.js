@@ -19,7 +19,7 @@
 	var targetX, targetY,jasimage=$("#jas-image"),tagCounter = 0;
 	
 	jasimage.wrap('<div id="tag-wrapper"></div>');
-	 $("#tag-wrapper").css({width: jasimage.outerWidth(), height: jasimage.outerHeight()});
+	 $("#tag-wrapper").css("width", jasimage.outerWidth());
 	 $("#tag-wrapper").append('<div id="tag-target"></div><div id="tag-input"><label for="tag-name">Kişinin Adı:</label><input type="text" id="tag-name"><input type="submit" value="Kaydet" /><input type="reset" value="Çık" /></div>');
 
 	 jasimage.click(function(e){

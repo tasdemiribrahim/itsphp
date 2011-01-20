@@ -3,7 +3,7 @@ class ErrorController extends Zend_Controller_Action
 {
     public function errorAction()
     {
-	$this->_helper->layout->setLayout('admin');
+	$this->_helper->layout->setLayout('minimal');
         $errors = $this->_getParam('error_handler');
         switch ($errors->type) { 
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ROUTE:
@@ -14,7 +14,7 @@ class ErrorController extends Zend_Controller_Action
                 $this->view->errCode = '404';
                 break;
             default:
-                $this->getResponse()->setHttpResponseCode(500);
+               // $this->getResponse()->setHttpResponseCode(500);
                 $this->view->title = 'Programlama Hatası';
                 $this->view->errCode = '500';
                 break;

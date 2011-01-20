@@ -211,8 +211,7 @@ class AjaxController extends Zend_Controller_Action
 			header('Content-Type: application/json');
 			echo json_encode($response);
 		}
-
-		if(isset($_GET['akrabaAd'])) $this->selectAkraba(temizSayi($_GET['akrabaAd']));
+		elseif(isset($_GET['akrabaAd'])) $this->selectAkraba(temizSayi($_GET['akrabaAd']));
 		elseif(isset($_GET['aileBireyAdEkle'])) echo $this->insertAkraba(temizYazi($_GET['aileBireyAdEkle']),temizSayi($_GET['aileBireyEbeveynPHP']),temizYazi($_GET['aileBireyTanimPHP']),temizYazi($_GET['aileBireyDogumPHP']),temizYazi($_GET['aileBireyOlumPHP']),temizYazi($_GET['aileBireyEsPHP']),temizYazi($_GET['aileBireyAdresPHP']),temizEMail($_GET['aileBireyMailPHP']),temizTel($_GET['aileBireyTelPHP']),temizEMail($_GET['aileBireyMSNPHP']),temizYazi($_GET['aileBireyTwitterPHP']),temizYazi($_GET['aileBireyFlickrPHP']));
 		elseif(isset($_GET['aileBireyGuncelleIDPHP'])) echo $this->updateAkraba(temizSayi($_GET['aileBireyGuncelleIDPHP']),temizYazi($_GET['aileBireyTanimPHP']),temizYazi($_GET['aileBireyDogumPHP']),temizYazi($_GET['aileBireyOlumPHP']),temizYazi($_GET['aileBireyEsPHP']),temizYazi($_GET['aileBireyAdresPHP']),temizEMail($_GET['aileBireyMailPHP']),temizTel($_GET['aileBireyTelPHP']),temizEMail($_GET['aileBireyMSNPHP']),temizYazi($_GET['aileBireyTwitterPHP']),temizYazi($_GET['aileBireyFlickrPHP']));
 		elseif(isset($_GET['aileAraAd']))	echo $this->searchAkraba(temizYazi($_GET['aileAraAd']));

@@ -41,7 +41,7 @@
 </fieldset>
 </div> 
 
-<aside id="rcnt" role=”complementary”>
+<aside id="rcnt" role=”complementary”><br />
 	<fieldset id="aileListe" class="gradient border">
 		<legend class="ui-widget ui-widget-header ui-corner-all">Aile Ağacı</legend>
 		<ul>
@@ -75,6 +75,18 @@
 		<p><span class="uyari">2 Tık:</span>Bireyin bilgilerine bak.</p>
 		<p><span class="uyari">3 Tık:</span>Bireyi güncelle.</p>
 	</fieldset><br />
+	<section class="infiniteCarousel border shadow">
+		<div class="wrapperIC">
+			<ul>
+			<?php
+				$i=1;
+				foreach ($this->aileListe as $row)
+					echo "<li><figure title='".$row['aileAd']."' class='transition' tabindex='".$i++."'><span></span><img aria-haspopup='true' src='".getResim($row['aileID'])."' height='75' width='85' alt='".$row['aileAd']."'/><figcaption>".$row['aileAd']."</figcaption></figure></li>\n";
+			?>	
+			</ul>
+		</div>
+	</section><br />
+	<div id="dialog" class="sakla"><img src="<?php echo getResim(0); ?>" alt='Aile Birey Resmi' /></div>
 	<section class="border">
 		<h4 class="sidetit_r ui-widget ui-widget-header ui-corner-top">İstatistik</h4>
 		<p><?php echo ($this->bekar+$this->evli)." birey kayıtlı.".$this->bekar." bekar,".$this->evli." evli.".$this->canli." kişi hayatta."; ?></p><br />

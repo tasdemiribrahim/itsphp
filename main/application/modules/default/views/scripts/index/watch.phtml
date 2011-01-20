@@ -8,7 +8,12 @@
 			<track src="<?php echo $this->film['en']; ?>" kind="subtitles" srclang="en" />
 			<track src="<?php echo $this->film['tr']; ?>" kind="subtitles" srclang="tr" />
 			<track src="<?php echo $this->film['meta']; ?>" kind="metadata" srclang="en" />
-			<img src="<?php echo $this->poster; ?>" alt="<?php echo $this->film['film_ad']; ?>" title="Görüntü oynatılamıyor. İsterseniz aşağıdaki linkten indirebilirsiniz." />
+			<object>
+				<param name="movie" value="http://www.youtube.com/v/<?php echo $this->film['tube']; ?>?version=3">
+				<param name="allowFullScreen" value="true">
+				<param name="allowScriptAccess" value="always">
+				<embed src="http://www.youtube.com/v/<?php echo $this->film['tube']; ?>?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always">
+			</object>
 		</video>
 		<p class='uyari'><b>İndir:</b>
 			Kapalı Format:	<a class="url" target='_blank' href="<?php echo $this->film['mp4']; ?>">'MP4'</a> 
@@ -103,8 +108,6 @@
 		<?php endforeach; ?>
 	</tbody>
 	</table>
-
 	<?php else: ?>
 	Kayıt bulunamadı!
 	<?php endif; ?> 
-	<script src='/main/js/evercookie/evercookie.js'></script>

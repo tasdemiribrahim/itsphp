@@ -9,7 +9,7 @@ class LoginController extends Zend_Controller_Action
 		//$this->view->akraba=$session;
 		if(isset($session->yoneticiAd))
 			$this->_redirect('/admin');
-		$this->_helper->layout->setLayout('admin');
+		$this->_helper->layout->setLayout('minimal');
 		require_once('main/Helpers/recaptchalib.php');
 		require_once('main/Helpers/TwitterAPI.php');
 		$this->view->title="Login";

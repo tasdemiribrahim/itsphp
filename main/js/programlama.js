@@ -1,6 +1,8 @@
 $(document).ready(function() {	
+		console.log("1");
 	activateMain();
 
+		console.log("2");
 	var d = new Date();
 	$.ajaxSetup({
 		type: 'GET',
@@ -8,9 +10,10 @@ $(document).ready(function() {
 		url: '/main/Helpers/input.php',
 		error: function(xhr) {	}
 	});
-
-	$.getScript("http://github.com/desandro/masonry/raw/master/jquery.masonry.min.js", function () {
+	console.log("kitap giriş");
+	$.getScript("/main/js/jquery/jquery.masonry.min.js", function () {
 		$('.wrap').masonry({columnWidth: 210, singleMode: true, itemSelector: '.box' });
+		console.log("masonry");
         });
 
 	$.ajax({ data: "feedburn=http://feeds2.feedburner.com/ScriptAndStyle",
@@ -46,6 +49,7 @@ $(document).ready(function() {
 
 	$.getScript("http://sandbox.sebnitu.com/jquery/quovolver/demo/jquery.quovolver.mini.js", function () {
   		$('blockquote').quovolver(500,20000);
+		console.log("quovolver");
 	});
 	if(!IE6 && !IE7)
 	$('.blue li a').bind('click',function(event){

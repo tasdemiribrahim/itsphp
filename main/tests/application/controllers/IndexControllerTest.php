@@ -3,6 +3,7 @@ class IndexControllerTest extends ControllerTestCase
 {
 	public function testIndexPagesExist()
 	{ 
+		$this->markTestIncomplete("Sadece Kontrol action testleri yapıldı");  
 		$this->dispatch('/ana'); 
 		$this->assertController('index');
 		$this->assertAction('index'); 		// indexAction var mı?
@@ -12,4 +13,5 @@ class IndexControllerTest extends ControllerTestCase
 		$this->assertAction('watch'); 
 		$this->assertAction('ajax');
 	} 
+
 }

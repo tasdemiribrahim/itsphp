@@ -310,10 +310,10 @@ class Admin_AdminController extends Zend_Controller_Action
 		elseif(isset($_POST['silEleman'])) $this->deleteEleman(temizSayi($_POST['silEleman']));
 		elseif(isset($_FILES['uploadResim']['name'])) echo $this->_helper->imager->upload($_FILES['uploadResim']);
 		elseif(isset($_POST['resimHedefGrupID'])) echo $this->_helper->imager->save(temizSayi($_POST['resimHedefGrupID']),temizYazi($_POST['fileName']),"muzik");
-		elseif(isset($_POST['film_ad'])) echo $this->insertFilm(temizYazi($_POST['film_ad']),temizYazi($_POST['uzunluk']),temizURL($_POST['mp4']),temizURL($_POST['ogg']),temizURL($_POST['webm']),temizURL($_POST['desc']),temizURL($_POST['chap']),temizURL($_POST['meta']),temizURL($_POST['en']),temizURL($_POST['tr']));
+		elseif(isset($_POST['film_ad'])) echo $this->insertFilm(temizYazi($_POST['film_ad']),temizYazi($_POST['uzunluk']),temizURL($_POST['mp4']),temizURL($_POST['ogg']),temizURL($_POST['webm']),temizYazi($_POST['tube']),temizURL($_POST['desc']),temizURL($_POST['chap']),temizURL($_POST['meta']),temizURL($_POST['en']),temizURL($_POST['tr']));
 	}	
 	
-	function insertFilm($film_ad,$uzunluk,$mp4,$ogg,$webm,$desc,$chap,$meta,$en,$tr)
+	function insertFilm($film_ad,$uzunluk,$mp4,$ogg,$webm,$tube,$desc,$chap,$meta,$en,$tr)
 	{
 		try
 		{
@@ -323,6 +323,7 @@ class Admin_AdminController extends Zend_Controller_Action
 			$film->mp4=$mp4;
 			$film->ogg=$ogg;
 			$film->webm=$webm;
+			$film->tube=$tube;
 			$film->desc=$desc;
 			$film->chap=$chap;
 			$film->meta=$meta;

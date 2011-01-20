@@ -62,9 +62,9 @@ readonly:true,allowCalEventOverlap : true,overlapEventsSeparate: true,draggable 
 		if (this == event.target) 
 		{
 			if ($(this).children().is(':hidden')) 
-				$(this).css('list-style-image','url(/main/images/minus.gif)').children().slideDown();
+				$(this).css('list-style-image','url(/main/images/aile/minus.gif)').children().slideDown();
 			else 
-				$(this).css('list-style-image','url(/main/images/plus.gif)').children().slideUp();
+				$(this).css('list-style-image','url(/main/images/aile/plus.gif)').children().slideUp();
 		}
 		return false;
 	};

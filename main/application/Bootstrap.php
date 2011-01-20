@@ -48,7 +48,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		require_once "PhpOnCouch/couchClient.php";
 		require_once "PhpOnCouch/couchDocument.php";
 
-		$client = new couchClient("http://tasdemiribrahim:elendil@itsphp.couchone.com:80/","itsphp");
+		$client = new couchClient("http://user:pass@url","db");
 
 		$registry = Zend_Registry::getInstance();
 		$registry->set('client', $client);

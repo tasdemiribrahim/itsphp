@@ -509,8 +509,6 @@ MediaQueryFallBack = ( function()
 	}
 })(jQuery);
 
-function temizle(){	$("#sayfaSon ~ *").hide(); }
-
 function addNotice(notice) {
 	deleteNotice();
 	$('<div class="notice"></div>')
@@ -708,15 +706,6 @@ function showTooltip()
 	else $tooltip.css(properties).show();
 }
 function removeTooltip(){$('#tour_tooltip').remove();	}
-function showControls()
-{
-	var $tourcontrols = '<div id="tourcontrols" class="tourcontrols"><p>İlk ziyaretiniz mi?</p><span class="tour_button" id="activatetour">Tura başla</span>';
-	if(!autoplay)
-		$tourcontrols += '<div class="nav"><span class="tour_button" id="prevstep" style="display:none;">< Önceki</span><span class="tour_button" id="nextstep" style="display:none;">Sonraki ></span></div>';
-	$tourcontrols += '<a id="restarttour" style="display:none;">Başa Dön</span><a id="endtour" style="display:none;">Turu Bitir</a><span class="tour_close" id="canceltour"></span></div>';
-	$('BODY').prepend($tourcontrols);
-	$('#tourcontrols').animate({'right':'30px'},500);
-}
 function hideControls(){$('#tourcontrols').remove();}
 function showOverlay(){	$('BODY').prepend('<div id="tour_overlay" class="tour_overlay"></div>');}
 function hideOverlay(){	$('#tour_overlay').remove();}
@@ -814,8 +803,10 @@ autoplay = false,showtime,step = 0,total_steps= config.length;
 
 function activateMain()
 {
-	$("#rcnt").prepend('<form id="search_form" action="/main/ana" method="get" role="search">'
+	if(!IE6 && !IE7 && !IE8) $(".ieden").removeClass("sakla");
+	$("#rcnt").prepend('<form id="search_form" action="/main/ana" method="get" role="search"><br />'
 				+'<input type="search" name="q" id="q" placeholder="Ara.." result="5" />'
+				+'<input type="submit" class="bonBonButton xs drop pink glass" value=""/>'
 				+'<section id="searchInContainer" class="sakla">'
 					+'<input type="radio" name="check" value="site" id="searchSite" checked/><label for="searchSite" id="siteNameLabel">Bu sitede</label>'
 					+'<input type="radio" name="check" value="web" id="searchWeb"/><label for="searchWeb">Nette</label>'
@@ -828,8 +819,7 @@ function activateMain()
 					+'	<li class="videos" title="Görüntü Ara" data-searchType="video">Görüntü</li>'
 					+'</ol>'
 				+'</nav>'
-				+'<input type="submit" class="bonBonButton xs drop pink glass" value="Ara"/>'
-			+'</form><br />');
+			+'<br class="clear"/></form>');
 	var $oe_menu		= $('#oe_menu');
 	var $oe_menu_items	= $oe_menu.children('li');
 
@@ -889,7 +879,6 @@ function activateMain()
 		_gaq.push(['_trackEvent', 'links', 'external', $(this).attr("href"), 0]);
 		//_gaq._trackEvent("links", "external", $(this).attr("href"), 0);
 	});
-	$('[title]').tooltip({delay: 0, track: true,positionLeft: true,showURL: false });
 	$('[required]').attr("aria-required","true");
 	$("#appreciateBadge").bind("click",function(){
 		var $this=$(this);
@@ -903,9 +892,7 @@ function activateMain()
 		return false;
 	});
 
-	temizle();
-	
-	//$('#accordion').accordion({ active: false,animated: 'bounceslide',autoHeight: false,collapsible: true });
+	$('#accordion').accordion({autoHeight: false,collapsible: true });
 	$('.jqueryButton').button();	
 	$('textarea').not(".cleditor").after("<div id='console'><div class='count'>Geriye 500 karakter kaldı!</div><progress class='bar'></progress></div>")
 		.keyup(function(e) {
@@ -922,29 +909,8 @@ function activateMain()
 		}).keyup();
 	$('.bar').progressbar();
 	
-	//console.log("activateGununIpucu activated");
-	$('#slidebttn').hover(
-			function () {
-				var $this 		= $(this);
-				var $slidelem 	= $this.prev();
-				$slidelem.stop().animate({'width':'100%'},300);
-				$slidelem.find('span').stop(true,true).fadeIn();
-				$this.addClass('button_c');
-			},
-			function () {
-				var $this 		= $(this);
-				var $slidelem 	= $this.prev();
-				$slidelem.stop().animate({'width':'65px'},200);
-				$slidelem.find('span').stop(true,true).fadeOut();
-				$this.removeClass('button_c');
-			}
-		);
-
 	//if (Modernizr.inputtypes.email) $("input[type='email']").css("padding-left","0");
 	//if (Modernizr.inputtypes.url) $("input[type='url']").attr("placeholder","");
-
-	
-	showControls();
 
 	$('#activatetour').live('click',startTour);
 	$('#canceltour').live('click',endTour);
@@ -955,8 +921,6 @@ function activateMain()
 
 	$("form").html5form();
 	$("input[type='date']").takvim();
-
-	temizle();
 
 	/*if(Modernizr.applicationcache)
 		applicationCache.onUpdateReady = function () {

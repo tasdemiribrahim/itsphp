@@ -13,7 +13,6 @@ class IndexController extends Zend_Controller_Action
 		$this->view->title="İbrahim Taşdemir'in Kişisel Ana Sayfası";
 		$this->view->script="index";
 		$this->view->h2="ITSPHP";
-		$this->view->url="ana";
 		$q = Doctrine_Query::create()->from('main_Models_AileAgaci a')->leftJoin('a.Detay d')->leftJoin('a.Ebeveyn e')->orderBy(' a.aileID DESC')->limit(1);
 		$aile = $q->fetchOne();
 		$this->view->aileEbeveyn = $aile->Ebeveyn['aileAd'];
@@ -22,7 +21,6 @@ class IndexController extends Zend_Controller_Action
 		$this->view->aileTanim = $aile->Detay['aileTanim'];
 		$q = Doctrine_Query::create()->select('m.grupID,m.grupAd,m.tanim')->from('main_Models_Muzik m')->orderBy(' m.grupID DESC')->limit(1);
 		$this->view->muzik=$q->fetchOne();
-		$this->view->infinite=$this->_helper->cache("aile","main_Models_AileAgaci"); 
 
 		if (!empty($_GET['q'])) 
 		{
@@ -52,6 +50,7 @@ class IndexController extends Zend_Controller_Action
 		$this->view->script="feed";
 		$this->view->url="haber";
 		$this->view->h2="RSS Haber(Feed)";
+		$this->view->isHaber = true;
 		/*require_once "Facebook/facebook.php";
 
 		$facebook = new Facebook(array("appId" => FACEBOOK_APP_ID,"secret" => FACEBOOK_APP_SECRET,"cookie"=>true));
@@ -103,6 +102,7 @@ class IndexController extends Zend_Controller_Action
 		$page = temizYazi($this->getRequest()->getParam('page',"programlama"));
 		if (file_exists($this->view->getScriptPath(null) . "/" . $this->getRequest()->getControllerName() . "/$page." . $this->viewSuffix)) 
 		{
+			$this->view->isOku = true;
 			$this->view->title=ucfirst($page)." Kitapları";
 			$this->view->h2=ucfirst($page)." Kitapları";
 			$this->view->script=$page;
@@ -118,13 +118,11 @@ class IndexController extends Zend_Controller_Action
 		$page = temizYazi($this->getRequest()->getParam('page',"metal"));
 		if (file_exists($this->view->getScriptPath(null) . "/" . $this->getRequest()->getControllerName() . "/$page." . $this->viewSuffix)) 
 		{
+			$this->view->isMuzik = true;
 			$this->view->title=ucfirst($page)." Müzik";
 			$this->view->h2=ucfirst($page)." Müzik";
 			$this->view->script=$page;
-			$this->view->url="dinle/".$page;
-			$q = Doctrine_Query::create()->select('COUNT( DISTINCT m.tur ) AS turSayi')->from('main_Models_Muzik m');
-			$result = $q->fetchArray();
-			$this->view->muzikSayi=$result[0];		
+			$this->view->url="dinle/".$page;		
 			$q = Doctrine_Query::create()->select('m.grupAd,m.grupID,m.tur,m.memleket,m.grupClip,LEFT(m.tanim,150) as tanim')->from('main_Models_Muzik m')->orderBy(' m.tur');
 			$this->view->muzik=$q->fetchArray();	
 			$q->free();
@@ -146,6 +144,7 @@ class IndexController extends Zend_Controller_Action
 	
 	public function watchAction()
 	{
+		$this->view->isFilm = true;
 		$this->view->h2="Kısa Film İzle";
 		$this->view->script="film";
 		$this->view->url="izle";

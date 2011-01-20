@@ -12,9 +12,9 @@ $smarty->cache_modified_check=true;
 $smarty->security=true;
 
 if(isset($_GET["id"]))
-	$sth = $db->prepare("SELECT * FROM aile_agaci a,aile_agaci_detay d WHERE d.aileID=a.aileID AND a.aileID=".temizSayi($_GET["id"]));
+	$sth = $db->prepare("SELECT * FROM aile_agaci a,aile_agaci_detay d,aile_agaci_oy o WHERE d.aileID=a.aileID AND o.aileID=a.aileID AND a.aileID=".temizSayi($_GET["id"]));
 else
-	$sth = $db->prepare("SELECT * FROM aile_agaci a,aile_agaci_detay d WHERE d.aileID=a.aileID ORDER BY a.aileID DESC LIMIT 1");
+	$sth = $db->prepare("SELECT * FROM aile_agaci a,aile_agaci_detay d,aile_agaci_oy o WHERE d.aileID=a.aileID AND o.aileID=a.aileID ORDER BY a.aileID DESC LIMIT 1");
 $sth->execute();
 $record = $sth->fetch(PDO::FETCH_ASSOC);
 

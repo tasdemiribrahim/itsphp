@@ -22,6 +22,7 @@ else
 	$sth = $db->prepare("SELECT * FROM muzik ORDER BY grupID DESC LIMIT 1");
 $sth->execute();
 $row = $sth->fetch(PDO::FETCH_ASSOC);
+
 $smarty->assign("row",$row);
 $smarty->assign("resim",getResim($row["grupID"],"muzik"));
 

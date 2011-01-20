@@ -2,6 +2,11 @@
 
 class IletisimController extends Zend_Controller_Action
 {
+	public function preDispatch()
+	{
+		$this->view->isSosyal = true;
+	}
+
    	public function indexAction()
 	{
 		$this->view->title="Sosyal";

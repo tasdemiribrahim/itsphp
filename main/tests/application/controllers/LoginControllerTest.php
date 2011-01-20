@@ -3,10 +3,16 @@ class LoginControllerTest extends ControllerTestCase
 {
 	public function testValidLoginShouldInitializeSessionAndRedirectToAilePage() 
 	{ 
-		$this->getRequest()->setMethod('POST'); 
-		$this->getRequest()->setPost(array( 'userid' => '11', 'key' => 'rm' ) ); 
-		$this->dispatch('/main/login/ajax'); 
-		$this->assertRedirectTo('/main/aile'); 
+		try
+		{
+			$this->getRequest()->setMethod('POST'); 
+			$this->getRequest()->setPost(array( 'userid' => '11', 'key' => 'rm' ) ); 
+			$this->dispatch('/main/login/ajax'); 
+			$this->assertRedirectTo('/main/aile'); 
+		}
+		catch (DatabseException $e) {  
+			$this->markTestSkipped('Web ID ile bağlantı testi veri tabanı hatası yüzünden atlandı');  
+		} 
 		
 		//$this->loginUser('admin@xmlteam.com');
 		//$this->assertQuery('td .rettd', 'Checking we have return TD stats');

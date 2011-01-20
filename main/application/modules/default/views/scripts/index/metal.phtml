@@ -1,35 +1,20 @@
 <style>	@import "/main/css/jplayer.blue.monday.css";</style>
-	<nav role="navigation" id="FS_controls">
-		<a id="FS_left">&laquo;</a>			
-		<a class="active" href="#content1">content1</a>
+	<div id="accordion">
 		<?php
-			for($i=2;$i<$this->muzikSayi['turSayi']+1;$i++)
-				echo "<a href='#content$i'>content$i</a>"; 
-		?>
-		<a id="FS_right">&raquo;</a>	
-	</nav>	
-	<br class="clear" />
-	<div id="FS_slider">
-		<div id="FS_holder">
-		<?php
-			$j=0;
 			$turVeri="";
 			foreach ($this->muzik as $row)
 			{
 				if($turVeri!=$row["tur"])
 				{
-					$j++;
-					if($turVeri!="") echo "</tbody></table><br /></section>";
+					if($turVeri!="") echo "</tbody></table></div>";
 					$turVeri=$row["tur"];
-					echo "<section id='content$j'><h3 class='twitter_search' title='Bu müzik türüyle ilgili tweetlere bakmak için tıklayın'>".$turVeri." </h3><br /><table class='heavyMetalTable'><col class='grupClipImgTD' /><col /><col /><tbody class='heavyTable'>";
+					echo "<h3>".$turVeri." </h3><div><table class='heavyMetalTable'><tbody>";
 				}
-				echo "<tr><td><img title='".$row["grupAd"]." grubunun klibini izlemek için tıklayın' class='grupClipImg' src='".getResim($row["grupID"],"muzik")."' id='".$row["grupClip"]."' alt='".$row["grupAd"]."' /></td><td><div class='".$row["memleket"]."'></div></td><td><a href='?id=".$row["grupID"]."' title='Devamını oku' id='".$row["grupID"]."'>".substr($row["tanim"],0,strrpos($row["tanim"]," "))."...</a></td></tr>";
+				echo "<tr><td><img title='".$row["grupAd"]." grubunun klibini izlemek için tıklayın' src='".getResim($row["grupID"],"muzik")."' id='".$row["grupClip"]."' alt='".$row["grupAd"]."' /></td><td><div class='".$row["memleket"]."'></div></td><td><a href='?id=".$row["grupID"]."' title='Devamını oku' id='".$row["grupID"]."'>".substr($row["tanim"],0,strrpos($row["tanim"]," "))."...</a></td></tr>";
 			}
 		?>
-			</tbody></table><br /></section>
-		</div>
+		</tbody></table></div>
 	</div>
-	<br class="clear" />
 	<div id="jquery_jplayer"></div>
 	<div class="jp-playlist-player">
 		<div class="jp-interface">

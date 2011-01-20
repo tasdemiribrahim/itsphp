@@ -9,6 +9,9 @@ include('style.css');
 include('quovolver.css');
 include('buttons.css');
 include('headers.css');
+include('jquery.weekcalendar.css');
+include('demo_table_jui.css');
+include('jquery.cleditor.css');
 
 header('Cache-Control: max-age=2592000, public');
 header('Expires-Active: On');

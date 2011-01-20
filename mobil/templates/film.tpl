@@ -14,7 +14,12 @@
 			<source src='{$film['mp4']}' type='video/mp4'></source>
 			<source src='{$film['webm']}' type='video/webm'></source>
 			<source src='{$film['ogg']}' type='video/ogg'></source>
-			<img src='{$movies_result[0]->posters[0]->image->url}' alt="{$film['film_ad']}" title="Film gösterilemiyor.İsterseniz aşşağıdaki bağlantılardan indirebilirsiniz." />
+			<object>
+				<param name="movie" value="http://www.youtube.com/v/{$film['tube']}?version=3">
+				<param name="allowFullScreen" value="true">
+				<param name="allowScriptAccess" value="always">
+				<embed src="http://www.youtube.com/v/{$film['tube']}?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always">
+			</object>
 		</video>
 		<p><b>İndir:</b>
 			Kapalı Format:	<a target='_blank' href='{$film['mp4']}'>'MP4'</a> 

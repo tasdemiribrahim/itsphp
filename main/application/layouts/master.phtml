@@ -6,11 +6,11 @@
 	<meta content="true" name="mssmarttagspreventparsing" />
 	<meta name="author" content="İbrahim Taşdemir" />
 	<meta name="copyright" content="Copyright İbrahim Taşdemir 2010. All Rights Reserved." />
-	<meta name="keywords" content="itsphp,itkas,e-kitap,programlama,ibrahim,taşdemir,tasdemir,ibrahim taşdemir,aile ağacı,heavy metal" />
+	<meta name="keywords" content="itsphp,ibrahim,taşdemir,ibrahim taşdemir,aile ağacı" />
 	<meta name="robots" content="all" />
 	<meta name="distribution" content="global" />
 	<meta name="resource-type" content="document" />
-	<meta name="description" content="<?php echo $this->title ?> ibrahim Taşdemir aile ağacı, kısa filmler, müzik tavsiyeleri, PHP, CSS, Javascript, jQuery, HTML, SEO ile ilgili kitaplar, ipuları..." />
+	<meta name="description" content="<?php echo $this->title ?> ibrahim Taşdemir aile ağacı, kısa filmler, müzik tavsiyeleri, PHP, CSS, Javascript, jQuery, HTML, ASP.NET ile ilgili kitaplar, ipuçları..." />
 	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
 	<meta name="mobileoptimized" content="0" />
 	<link rel="shortcut icon" href="/main/images/favicon.ico" /> 
@@ -40,41 +40,14 @@
 <div id="container">
 	<header id="hdr" role="heading">
 		<hgroup role="banner">
-			<h1><a class="linkedin-profileinsider-popup tour_12" aria-haspopup="true" href="http://www.linkedin.com/in/tasdemiribrahim">İbrahim Taşdemir</a>'in Kişisel Ana Sayfası</h1>
+			<h1><a href="<?php echo $this->url(array(), 'ana'); ?>">İbrahim Taşdemir</a>'in Kişisel Ana Sayfası</h1>
 			<h2><?php echo $this->h2; ?></h2>
 		</hgroup>
 		<a class="skip" href="#cnt">içeriği geç</a> 
 		<menu class="oe_wrapper tour_1" role="menu">
 			<ul id="oe_menu" class="oe_menu">
-				<li><a href="<?php echo $this->url(array(), 'ana'); ?>">Sayfalar</a>
+				<li <?php if($this->isAile) echo "class='selected2'" ?>><a href="<?php echo $this->url(array(), 'aile'); ?>">Aile</a>
 					<div style="left:-1px;">
-						<p><a href="<?php echo $this->url(array(), 'ana'); ?>">Ana Sayfa</a>
-						<?php if (Zend_Auth::getInstance()->hasIdentity())  : ?>
-							<a id="log" href="<?php echo $this->url(array(), 'logout'); ?>">LOGOUT</a>
-						<?php else: ?>
-							<a id="log" href="<?php echo $this->url(array(), 'login'); ?>">LOGIN</a>
-						<?php endif; ?>
-						</p><br />
-						<p><a href="<?php echo $this->url(array('page' => 'metal'), 'dinle'); ?>" >Müzik Dinle</a>:Power Metal, thrash metal, death metal... Iron Maiden, Blind Guardian, Megadeth, Nevermore...</p><br />
-						<p><a href="<?php echo $this->url(array(), 'watch'); ?>" >Kısa Film İzle:</a>Katedral, Big Buck Bunny ve pek çok kısa filmi izleyin... </p><br />
-						<p><a href="<?php echo $this->url(array(), 'galeri'); ?>" >Galeri:</a>Aile, müzisyenler ve kitapların resimlerine bakın </p><br />
-					</div>
-				</li>
-				<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>">Oku</a>
-					<div style="left:-112px;">
-						<ul class="oe_full">
-							<li class="oe_heading">Programlama Kitapları</li>
-							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#HTML">HTML</a></li>
-							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#CSS">CSS</a></li>
-							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#JS">JavaScript</a></li>
-							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#PHP">PHP</a></li>
-							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#ASP">ASP.NET</a></li>
-							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#DIGER">Diğer</a></li>
-						</ul>
-					</div>
-				</li>
-				<li><a href="<?php echo $this->url(array(), 'aile'); ?>">Aile</a>
-					<div style="left:-224px;">
 						<ul>
 							<li class="oe_heading">Bireyler</li>
 							<li><a href="<?php echo $this->url(array(), 'aile'); ?>?id=11">İbrahim Taşdemir</a></li>
@@ -97,11 +70,25 @@
 							<li><a href="<?php echo $this->url(array(), 'agac'); ?>">Ağaç</a></li>
 							<li><a href="<?php echo $this->url(array(), 'resim'); ?>">Resimler</a></li>
 							<li><a href="<?php echo $this->url(array(), 'video'); ?>">Videolar</a></li>
+							<li><a href="<?php echo $this->url(array(), 'galeri'); ?>" >Galeri</a><li>
 						</ul>
 					</div>
 				</li>
-				<li><a href="<?php echo $this->url(array(), 'feed'); ?>">RSS</a>
-					<div style="left:-335px;">
+				<li <?php if($this->isOku) echo "class='selected2'" ?>><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>">Oku</a>
+					<div style="left:-112px;">
+						<ul class="oe_full">
+							<li class="oe_heading">Programlama Kitapları</li>
+							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#HTML">HTML</a></li>
+							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#CSS">CSS</a></li>
+							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#JS">JavaScript</a></li>
+							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#PHP">PHP</a></li>
+							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#ASP">ASP.NET</a></li>
+							<li><a href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>#DIGER">Diğer</a></li>
+						</ul>
+					</div>
+				</li>
+				<li <?php if($this->isHaber) echo "class='selected2'" ?>><a href="<?php echo $this->url(array(), 'feed'); ?>">Haber</a>
+					<div style="left:-224px;">
 						<ul class="oe_full">
 							<li class="oe_heading">Beslemeler</li>
 							<li><a href="<?php echo $this->url(array(), 'feed'); ?>">RSS Besleme Sayfası</a></li>
@@ -111,8 +98,8 @@
 						</ul>
 					</div>
 				</li>
-				<li><a href="<?php echo $this->url(array(), 'iletisim'); ?>">Sosyal</a>
-					<div style="left:-447px;">
+				<li <?php if($this->isSosyal) echo "class='selected2'" ?>><a href="<?php echo $this->url(array(), 'iletisim'); ?>">Sosyal</a>
+					<div style="left:-335px;">
 						<ul class="oe_full">
 							<li class="oe_heading">İletişime Geçin</li>
 							<li><a href="<?php echo $this->url(array(), 'iletisim'); ?>">Öneriler ve SSS</a></li>
@@ -121,8 +108,36 @@
 						</ul>
 					</div>
 				</li>
+				<li <?php if($this->isMuzik) echo "class='selected2'" ?>><a href="<?php echo $this->url(array('page' => 'metal'), 'dinle'); ?>" >Müzik Dinle</a></li>
+				<li <?php if($this->isFilm) echo "class='selected2'" ?>><a href="<?php echo $this->url(array(), 'watch'); ?>" >Kısa Film İzle</a></li>
+				<li>
+					<?php if (Zend_Auth::getInstance()->hasIdentity())  : ?>
+						<a id="log" href="<?php echo $this->url(array(), 'logout'); ?>">LOGOUT</a>
+					<?php else: ?>
+						<a id="log" href="<?php echo $this->url(array(), 'login'); ?>">LOGIN</a>
+					<?php endif; ?>
+				</li>
 			</ul>	
         	</menu>
+		<div id="tourcontrols" class="tourcontrols">
+			<p>İlk ziyaretiniz mi?</p>
+			<span class="tour_button" id="activatetour">Tura başla</span>
+			<div class="nav">
+				<span class="tour_button" id="prevstep" style="display:none;">< Önceki</span>
+				<span class="tour_button" id="nextstep" style="display:none;">Sonraki ></span>
+			</div>
+			<a id="restarttour" style="display:none;">Başa Dön</a>
+			<a id="endtour" style="display:none;">Turu Bitir</a>
+			<span class="tour_close" id="canceltour"></span>
+		</div>
+		<section id="hsec" class="ui-widget-header">
+			<h6>Designed By İbrahim Taşdemir</h6>
+			<aside id="banner2">
+				Bitly:<span class="uyari" id="bitly"><?php echo getBitly(getSiteName()."main/".$this->url); ?></span> <br />
+				TinyURL:<span class="uyari"><?php echo getTiny(getSiteName()."main/".$this->url); ?></span>
+			</aside>
+			<a href="/mobil/" class="headerButton">Mobil Sayfayı Aç</a>
+		</section>
 	</header>
 	<div id="cnt">
 		<aside id="lcnt" role=”complementary”>
@@ -140,14 +155,15 @@
 		<img alt="Doctrine-1.2.3" title="Doctrine" src="/main/images/doctrine.png" width="32" height="32" />
 		<img alt="FirePHP-0.3.2rc6" title="FirePHP" src="/main/images/fp.png" width="32" height="32" />
 		<img alt="GitHub" title="GitHub" src="/main/images/git.png" width="32" height="32" />
+		<img alt="HTML5" title="HTML5" src="http://www.w3.org/html/logo/downloads/HTML5_Badge_32.png" width="32" height="32" />
 		<img alt="jQuery-1.4.2" title="jQuery,jQuery UI,jQuery Mobile" src="/main/images/jquery.png" width="32" height="32" />
 		<img alt="MySQL-5.1.41" title="MySQL" src="/main/images/mysql.png" width="32" height="32" />
 		<img alt="Modernizr-1.6" title="Modernizr" src="/main/images/modernizr.png" width="32" height="32" />
 		<img alt="PHP-5.3" title="PHP:HyperText Processor" src="/main/images/php.png" width="32" height="32" />
 		<img alt="SimplePIE-1.2" title="SimplePIE" src="/main/images/simplepie.png" width="32" height="32" />
 		<img alt="Smarty-2.6.26" title="Smarty" src="/main/images/smarty.jpg" width="32" height="32" />
-		<img alt="Zend Framework-1.10.8" title="Zend Framework" src="/main/images/zf.png" width="32" height="32" /><br />
- AjaxUpload-3.5, QUnit, <a class="tooltip">Evercookie-0.3<span class="critical border shadow"><em>Samy Kamkar</em>tarafından yazılmış javascript kütüphanesidir. Bilgilerinizi 10 farklı yöntemle (Standart HTTP cookie, Flash cookie, PNG resim, web geçmişi, HTTP ETag, IE userData depolama ve HTML5 session, yerel , genel, veritabanı depolama) depolar. Şimdilik sadece Safari Private tarama kurtulabiliyor.</span></a> ve bol miktarda Google API kullanilarak hazirlanmistir.</p>
+		<img alt="Zend Framework-1.10.8" title="Zend Framework" src="/main/images/zf.png" width="32" height="32" />
+				</p>
 			</details>
 			<details id="browser" open>
 				<summary class="sidetit_l ui-widget ui-widget-header tour_4"><span class="details-close ui-icon ui-icon-closethick">X</span>Test Edildi</summary>
@@ -195,17 +211,6 @@
 			</details>
 			<?php echo $this->lastfm(); ?>
 			<?php echo $this->git(); ?>
-			<h3 class="ui-widget ui-widget-header">Reklam</h3>
-			<script>
-			//<![CDATA[<!--
-			google_ad_client = "ca-pub-3701858385704807";
-			/* kare */
-			google_ad_slot = "5394893118";
-			google_ad_width = 125;
-			google_ad_height = 125;
-			//-->//]]>
-			</script>
-			<script	src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 		</aside>
 
 		<div id="ccnt" role="main">
@@ -214,42 +219,18 @@
 
 			<br class="clear" />
 			<details id="mailLink" class="rslink" open>
-				<summary class="sidetit_r ui-widget ui-widget-header tour_7">E-Posta Kampanyamız<span class="details-close ui-icon ui-icon-closethick">X</span></summary>
-				<a href="http://eepurl.com/ZGN6" target="_blank" rel="nofollow" class="jqueryButton translate">Kayıt Ol<img class="transition" src="/main/images/mail_add.png" alt="mail ekle" /></a>
-				<a href="http://0fees.us2.list-manage.com/unsubscribe?u=bb24c290b5d488724f4ce0b31&amp;id=d138cafbda" target="_blank" rel="nofollow" class="jqueryButton translate">Kaydımı Sil<img class="transition" src="/main/images/mail_delete.png" alt="mail sil" /></a>
-				<br class="clear" />
-				<br />
-				<script src="http://0fees.us2.list-manage.com/subscriber-count?b=5&amp;u=bb24c290b5d488724f4ce0b31&amp;id=d138cafbda"></script>
+				<summary class="sidetit_r ui-widget ui-widget-header tour_7">E-Posta Haber<span class="details-close ui-icon ui-icon-closethick">X</span></summary>
+				<a href="http://eepurl.com/ZGN6" title="Haber bültenine kaydol" target="_blank" rel="nofollow" class="jqueryButton translate"><img class="transition" src="/main/images/mail_add.png" alt="Kaydol" /></a>
+				<a href="http://0fees.us2.list-manage.com/unsubscribe?u=bb24c290b5d488724f4ce0b31&amp;id=d138cafbda" title="Kaydımı Sil" target="_blank" rel="nofollow" class="jqueryButton translate2"><img class="transition" src="/main/images/mail_delete.png" alt="Sil" /></a>
 			</details>
 			<details id="jsPromote" open>
 				<summary class="sidetit_r ui-widget ui-widget-header tour_8">Interneti Geliştir<span class="details-close ui-icon ui-icon-closethick">X</span></summary>
 				<a href="https://developer.mozilla.org/en/JavaScript" title="JavaScript Reference, JavaScript Guide, JavaScript API, JS API, JS Guide, JS Reference, Learn JS, JS Documentation" target="_blank"><img src="http://static.jsconf.us/promotejsvs.png" alt="JavaScript Reference, JavaScript Guide, JavaScript API, JS API, JS Guide, JS Reference, Learn JS, JS Documentation"/></a>
 			</details>
 			<?php echo $this->stack(); ?>
-			<details open>
-				<summary class="sidetit_r ui-widget ui-widget-header">İstatistik<span class="details-close ui-icon ui-icon-closethick">X</span></summary>
-				<a target="_blank" rel="nofollow" href="http://blogs.top.org/personal/" title="Personal (Humor) - TOP.ORG"><img src="http://img1.top.org/toporg_28224.gif" alt="Personal (Blog) - TOP.ORG" /></a>
-			</details>
-			<h3 class="ui-widget ui-widget-header">Reklam</h3>
-			<script>
-			//<![CDATA[<!--
-				google_ad_client = "ca-pub-3701858385704807";
-				/* büyük dikey */
-				google_ad_slot = "3612502102";
-				google_ad_width = 160;
-				google_ad_height = 600;
-			//-->//]]>
-			</script>
-			<script src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 		</aside>
 		<br class="clear"/>
 	</div>
-	<ul id="bauble-container">
-		<li><div class="red-bauble">Yeni</div></li>
-		<li><div class="blue-bauble">Yılınız</div></li>
-		<li><div class="yellow-bauble">Kutlu</div></li>	
-		<li><div class="green-bauble">Olsun</div></li>	
-	</ul>	
 	<footer role="contentinfo" class="tour_10">
 		<section>
 			<small>&copy; 2009 Stylissimo. Tüm hakları saklıdır.</small>
@@ -287,26 +268,14 @@
 	<input type="hidden" value="<?php echo base64_encode(time()); ?>" name="formKey" id="formKey" />
 </form>
 <div id="bounceBox" class="sakla"><div id="player"><div id='tweets'></div><img id="loadingTweets" src="/main/images/aile/loading.gif" alt="Yükleniyor" /></div><div id="bounceKapat" class="escBlue"></div></div>
-<section id="hsec" class="ui-widget-header">
-	<aside id="banner" role="banner">
-		<a id='button_a'><span>Site yapım aşamasındadır. Hataları mail atın.</span></a>
-		<a id='slidebttn'>Dik<span>kat</span></a>
-	</aside>
-	<h6>Designed By İbrahim Taşdemir</h6>
-	<aside id="banner2">
-		Bitly:<span class="uyari" id="bitly"><?php echo getBitly(getSiteName()."main/".$this->url); ?></span> <br />
-		TinyURL:<span class="uyari"><?php echo getTiny(getSiteName()."main/".$this->url); ?></span>
-	</aside>
-	<a href="/mobil/" class="headerButton">Mobil Sayfayı Aç</a>
-</section>
-<?php echo $this->breadcrumb();	?>
+<?php echo $this->breadcrumb(); ?>
 <script>
 //<![CDATA[<!--
-$(window).error(function(msg, url, line){
+$(window).error(function(msg, urls, line){
 	$.ajax({
 		type: 'GET',
 		url: '/main/Helpers/ErrorHandlerJS.php',
-		data: 'msg='+msg.toString()+'&url='+url+'&line='+line+'&parent='+document.location.href+'&agent='+navigator.appName+navigator.appVersion
+		data: 'msg='+msg.toString()+'&url='+urls+'&line='+line+'&parent='+document.location.href+'&agent='+navigator.appName+navigator.appVersion
 	});
 });
 
@@ -321,16 +290,13 @@ var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ga
 })();
 //-->//]]>
 </script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/jquery-ui.min.js"></script>
 <script async src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
-<script async src="http://plugins.jquery.com/files/jquery.cookie.js.txt"></script>
-<script src="http://jquery.bassistance.de/tooltip/jquery.tooltip.js"></script>
+<script src="http://plugins.jquery.com/files/jquery.cookie.js.txt"></script>
 <script async src="http://delicious-button.googlecode.com/files/jquery.delicious-button-1.0.min.js"></script>
-<script async src="http://www.linkedin.com/js/public-profile/widget-os.js"></script>
 <script async src="/main/js/AjaxUpload-3.5.js"></script>
 <script src="/main/js/JS.php"></script>
-<script async src='/main/js/<?php echo $this->script.".js?".date("Ymdhis"); ?>'></script>
-<br id="sayfaSon" class="sakla" />
+<script src="/main/js/<?php echo $this->script.".js?".date("Ymdhis"); ?>"></script>
 <?php finish_caching(); ?> 
 </body>
 </html>

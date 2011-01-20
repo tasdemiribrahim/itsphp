@@ -95,11 +95,7 @@ $(document).ready(function() {
 			error: function(xhr, status) { $(".progress").fadeOut(); $("#filmDiv").show(); }
 	    });
 	
-	var ec = new evercookie(),min=0,max=45;
-	ec.get("film", function(value)
-	{ 
-		if(value) filmGetir(value); 
-	});
+	var min=0,max=45;
 	
 	if(db)
 	{
@@ -207,17 +203,15 @@ function filmGetir(filmID)
 	var film_div=$("#filmDiv");
 	film_div.hide("drop", { direction: "down" }, 5000);
 	_gaq.push(['_trackEvent', 'Film', filmID]);
-	var ec = new evercookie();
-   	ec.set("film", filmID);
 	temizle();
 	$.ajax({
 	    data: 'film_id='+filmID,
 		dataType :"json",
 	    	success: function(cevap){
 			var p=film_div.find(".uyari"),mp4=cevap.mp4,ogg=cevap.ogg,poster=cevap.poster,film_ad=cevap.film_ad;
-			var video=film_div.find("video").clone(true);
+			var video=film_div.find("video").clone(true),tubeSrc="http://www.youtube.com/v/"+cevap.tube+"?version=3";
 			film_div.find("video").remove();
-			video.find("source").eq(0).attr("src",mp4).next().attr("src",cevap.webm).next().attr("src",ogg).next().attr("src",cevap.desc).next().attr("src",cevap.chap).next().attr("src",cevap.en).next().attr("src",cevap.tr).next().attr("src",cevap.meta).next().attr({ src: poster, alt: film_ad});
+			video.find("source").eq(0).attr("src",mp4).next().attr("src",cevap.webm).next().attr("src",ogg).next().attr("src",cevap.desc).next().attr("src",cevap.chap).next().attr("src",cevap.en).next().attr("src",cevap.tr).next().attr("src",cevap.meta).next().find("embed").attr("src",tubeSrc).end().find("param").eq(0).attr("val",tubeSrc);
 			p.find("a:first").attr("href",mp4).next().attr("href",ogg).next().attr("href",cevap.webm);
 			p.siblings("a").attr({ title: film_ad, href: cevap.url}).find("img").attr({ src: poster, alt: film_ad});
 			film_div.find("h3").html(film_ad).next().next().html("<b>Dil:</b>"+cevap.dil).next().find("time").html(cevap.released).end().next().html(cevap.view);

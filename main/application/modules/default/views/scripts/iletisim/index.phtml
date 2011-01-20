@@ -1,22 +1,22 @@
-<style> @import "/main/css/jquery.cleditor.css";</style>
 <nav id="phoneCarousel" role="navigation">
-	<a href="#mailPage"><div id="mailBlue"><em>Mail</em></div></a>
-	<a href="#sssPage"><div id="sssBlue"><em>SSS</em></div></a>
-	<a href="#oneriPage"><div id="chatBlue"><em>Öneri</em></div></a>
+	<a id="mailA" href="#mailPage"><div><em>Mail</em></div></a>
+	<a id="sssA" href="#sssPage"><div><em>SSS</em></div></a>
+	<a id="oneriA" href="#oneriPage"><div><em>Öneri</em></div></a>
 </nav>
 <div id="sakliBlue" class="sakla page"></div>
 <div class="page" id="mailPage">
 	<header class="headingSection"><h3>Mail Gönder</h3><span id="uyari" class="uyari"></span></header>
 	<form class="sssSection gradient">
-		<label for="kimdenTextBox">Kimden:</label><input type="email" id="kimdenTextBox" size="30" required aria-required />
-		<label for="kimeTextBox">Kime:</label><input type="email" id="kimeTextBox" size="30" required aria-required list="mails" />
+		<p><label for="kimdenTextBox">Kimden:</label><input type="email" id="kimdenTextBox" size="30" required aria-required /></p>
+		<p><label for="kimeTextBox">Kime:</label><input type="email" id="kimeTextBox" size="30" required aria-required list="mails" />
 			<datalist id="mails">
 			<?php 
 				foreach($this->mail as $mail)
 					echo "<option value='".$mail["Detay"]["aileBireyMail"]."'>".$mail["aileAd"]."</option>";
 			?>
 			</datalist>
-		<label for="konuTextBox">Konu:</label><input id="konuTextBox" size="30" required aria-required />
+		</p>
+		<p><label for="konuTextBox">Konu:</label><input id="konuTextBox" size="30" required aria-required /></p>
 		<label for="cleditor">Mesaj:</label><br class="clear" />
 		<textarea cols="60" id="cleditor" class="cleditor" rows="13" required maxlength="500" aria-required ></textarea>
 		<input type="submit" class="bonBonButton xs skew pink glass" value="Gönder" />

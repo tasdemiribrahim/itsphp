@@ -1,44 +1,5 @@
-$("#FS_slider section").width($("#FS_slider").width()-13);
-var t,pixels,vP,slide = 1,slider_width =$("#FS_slider section").width(),num_slides = $("#FS_slider section").length,db;
-if ($.browser.webkit) 
-	vP = "-webkit-";
-else if ($.browser.msie) 
-	vP = "-ms-";
-else if ($.browser.mozilla) 
-	vP = "-moz-";
-else if ($.browser.opera) 
-	vP = "-o-";
-function slideTo(slide, width) 
-{
-	pixels = width * (slide - 1);	
-	$("#FS_controls a").removeClass("active");	
-	$("#FS_controls a[href=#content"+slide+"]").addClass("active");
-	if (Modernizr.csstransforms3d && Modernizr.csstransforms && Modernizr.csstransitions) 
-		$("#FS_holder").css(vP+"transform","translate3d(-"+pixels+"px, 0px, 0px)").css("transform","translate3d(-"+pixels+"px, 0px, 0px)");		
-	else if (Modernizr.csstransforms && Modernizr.csstransitions) 
-		$("#FS_holder").css(vP+"transform","translate(-"+pixels+"px, 0px)").css("transform","translate(-"+pixels+"px, 0px)");		
-	else if (Modernizr.csstransitions) 
-		$("#FS_holder").css("margin-left","-"+pixels+"px");
-	else 
-		$("#FS_holder").animate({"margin-left":"-"+pixels+"px"},600); //If you animate left, IE breaks.	
-}
-function autoSlide()
-{
-	slide++;
-	if (slide > num_slides) 
-		slide = 1;
-	slideTo(slide,slider_width);
-}
-function startTimer() 
-{
-	t = setInterval(autoSlide,100000);
-}
-function stopTimer() 
-{
-	clearInterval(t);
-}
-$('html').addClass('js-on');
 
+var db;
 //console.log("admin_ayarlar.js Yuklendi.");
 function heavyGrupDetayGetir(grupIDJS,markYaziJS,markYaziYaziJS)
 {           
@@ -103,27 +64,6 @@ $(document).ready(function() {
 			error: function(xhr, status) { $(".progress").fadeOut(); }
 	    });
 	
-	startTimer();
-	$("#FS_slider #FS_holder").width(slider_width * num_slides).height($("#FS_slider section").height());	
-	$("#FS_slider").hover(	function () {	stopTimer();	},	function () {	startTimer();	} );
-	$("#FS_controls a").not("#FS_right,#FS_left").bind("click",function(){
-		slide = parseInt($(this).attr("href").replace("#content", ""));
-		slideTo(slide,slider_width);
-		return false;
-	});
-	$("#FS_right").bind("click",function(){
-		slide++;
-		if (slide > num_slides) 
-			slide = 1;
-		slideTo(slide,slider_width);
-	});
-	$("#FS_left").bind("click",function(){
-		slide--;
-		if (slide < 1) 
-			slide = num_slides;
-		slideTo(slide,slider_width);
-	});
-
 	 $.getScript("http://demo.tutorialzine.com/2010/07/youtube-api-custom-player-jquery-css/youTubeEmbed/youTubeEmbed-jquery-1.0.js", function () {
 		$('.heavyTable').bind("click",function(e){
 			if($(e.target).is("img"))

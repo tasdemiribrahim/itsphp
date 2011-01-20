@@ -10,7 +10,7 @@ ini_set('session.bug_compat_42',0);
 define('E_FATAL', 'efatal');
 ini_set('error_prepend_string', '<phphata>');
 ini_set('error_append_string', '</phphata>');
-define("TMDB_API_KEY","db8b0ee9039f1ccdbd1273773d7eb715");
+define("TMDB_API_KEY","");
 //ob_start('olumculHataYakalayici');
 
 function __autoload($className)
@@ -36,7 +36,7 @@ function shutdown()
 	unset($db);
 }
 
-$db = new PDO('mysql:host=sql307.0fees.net;dbname=fees0_6133083_itsphp', "fees0_6133083", "elendil") or trigger_error("Cannot connect to server");
+$db = new PDO('mysql:host=url;dbname=db', "user", "pass") or trigger_error("Cannot connect to server");
 
 include_once('Exception.php');
 include_once('input.php');
@@ -75,8 +75,8 @@ function _read($id)
  
 function _write($id, $data) 
 {
-	$_sess_db = mysql_connect("sql307.0fees.net","fees0_6133083", "elendil" ) or trigger_error("Cannot connect to server");
-	mysql_select_db("fees0_6133083_itsphp" );
+	$_sess_db = mysql_connect("url","user", "pass" ) or trigger_error("Cannot connect to server");
+	mysql_select_db("db" );
 	$access = time();
 	$id = temizYazi($id);
 	$access = temizYazi($access);

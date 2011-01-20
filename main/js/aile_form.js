@@ -40,11 +40,11 @@ $(document).ready(function() {
 			aileBireyTel:"Telefon sadece sayılardan oluşabilir!<br>"
 		},
 		submitHandler: function(form) {
-		addNotice("<p>İsteğiniz alındı.Lütfen bekleyin!</p>");
-		var mesaj=['&aileBireyEbeveynPHP=',$("#aileBireyEbeveyn option:selected").attr("id"),'&aileBireyDogumPHP=',$('#aileBireyDogum').val(),'&aileBireyEsPHP=',$('#aileBireyEs').val(),'&aileBireyOlumPHP=',$('#aileBireyOlum').val(),'&aileBireyTanimPHP=',$('#aileBireyTanim').val(),'&aileBireyAdresPHP=',$('#aileBireyAdres').val(),'&aileBireyMailPHP=',$('#aileBireyMail').val(),'&aileBireyTelPHP=',$('#aileBireyTel').val(),'&aileBireyMSNPHP=',$('#aileBireyMSN').val(),'&aileBireyTwitterPHP=',$('#aileBireyTwitter').val(),'&aileBireyFlickrPHP=',$('#aileBireyFlickr').val()];
-		if(kayGun=="aileBireyKaydet")
+			addNotice("<p>İsteğiniz alındı.Lütfen bekleyin!</p>");
+			var mesaj=[,'&aileBireyEsPHP=',$('#aileBireyEs').val(),'&aileBireyOlumPHP=',$('#aileBireyOlum').val(),'&aileBireyTanimPHP=',$('#aileBireyTanim').val(),'&aileBireyAdresPHP=',$('#aileBireyAdres').val(),'&aileBireyMailPHP=',$('#aileBireyMail').val(),'&aileBireyTelPHP=',$('#aileBireyTel').val(),'&aileBireyMSNPHP=',$('#aileBireyMSN').val(),'&aileBireyTwitterPHP=',$('#aileBireyTwitter').val(),'&aileBireyFlickrPHP=',$('#aileBireyFlickr').val()];
+			if(kayGun=="aileBireyKaydet")
 			{
-				$.ajax({data: 'aileBireyAdEkle='+$("#aileBireyAd").val()+mesaj.join(""),
+				$.ajax({data: 'aileBireyAdEkle='+$("#aileBireyAd").val()+'&aileBireyDogumPHP='+$('#aileBireyDogum').val()+'&aileBireyEbeveynPHP='+$("#aileBireyEbeveyn option:selected").attr("id")+mesaj.join(""),
 				success: function(cevap){
 				//window.log(cevap);
 					if(parseInt(cevap)>0)

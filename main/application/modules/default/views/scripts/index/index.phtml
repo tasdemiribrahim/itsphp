@@ -34,7 +34,12 @@
 				<track src="<?php echo $this->film['en']; ?>" kind="subtitles" srclang="en" />
 				<track src="<?php echo $this->film['tr']; ?>" kind="subtitles" srclang="tr" />
 				<track src="<?php echo $this->film['meta']; ?>" kind="metadata" srclang="en" />
-				<img src="<?php echo $this->poster; ?>" alt="<?php echo $this->film['film_ad']; ?>" title="Film gösterilemiyor.İsterseniz aşşağıdaki bağlantılardan indirebilirsiniz." />
+				<object>
+					<param name="movie" value="http://www.youtube.com/v/<?php echo $this->film['tube']; ?>?version=3">
+					<param name="allowFullScreen" value="true">
+					<param name="allowScriptAccess" value="always">
+					<embed src="http://www.youtube.com/v/<?php echo $this->film['tube']; ?>?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always">
+				</object>
 			</video>
 		</div>
 		<canvas id="scratch" class="sakla"></canvas>
@@ -98,20 +103,6 @@
 			}
 		}
 	?>
-	<section class="infiniteCarousel border shadow">
-		<div class="wrapperIC">
-			<ul>
-			<?php
-				$i=1;
-				foreach ($this->infinite as $row)
-					echo "<li><figure title='".$row['aileAd']."' class='transition' tabindex='".$i++."'><span></span><img aria-haspopup='true' src='".getResim($row['aileID'])."' height='75' width='85' alt='".$row['aileAd']."'/><figcaption>".$row['aileAd']."</figcaption></figure></li>\n";
-			?>	
-			</ul>
-		</div>
-	</section>
 	<device type="media"></device>
 	<video class="sakla" id="mediaVid"></video>
 	<input type="button" value="Kayıt" disabled class="sakla" id="mediaButton"></input>
-	<div id="dialog" class="sakla">
-		<img src="<?php echo getResim(0); ?>" alt='Aile Birey Resmi' />
-	</div>

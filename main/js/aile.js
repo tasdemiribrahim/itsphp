@@ -1,5 +1,59 @@
 var voteTime,commentTime,flickrTime,db,veri;
 
+$.fn.infiniteCarousel = function () {
+    function repeat(str, num) {
+        return new Array( num + 1 ).join( str );
+    }
+    return this.each(function () {
+        var $wrapper = $('> div', this).css('overflow', 'hidden'),
+            $slider = $wrapper.find('> ul'),
+            $items = $slider.find('> li'),
+            $single = $items.filter(':first'),
+            singleWidth = $single.outerWidth(), 
+            visible = Math.ceil($wrapper.innerWidth() / singleWidth),
+            currentPage = 1,
+            pages = Math.ceil($items.length / visible);            
+        if (($items.length % visible) != 0) {
+            $slider.append(repeat('<li class="empty" />', visible - ($items.length % visible)));
+            $items = $slider.find('> li');
+        }
+        $items.filter(':first').before($items.slice(- visible).clone().addClass('cloned'));
+        $items.filter(':last').after($items.slice(0, visible).clone().addClass('cloned'));
+        $items = $slider.find('> li');
+        $wrapper.scrollLeft(singleWidth * visible);
+        function gotoPage(page) {
+            var dir = page < currentPage ? -1 : 1,
+                n = Math.abs(currentPage - page),
+                left = singleWidth * dir * visible * n;
+            $wrapper.filter(':not(:animated)').animate({
+                scrollLeft : '+=' + left
+            }, 1000, function () {
+                if (page == 0) {
+                    $wrapper.scrollLeft(singleWidth * visible * pages);
+                    page = pages;
+                } else if (page > pages) {
+                    $wrapper.scrollLeft(singleWidth * visible);
+                    page = 1;
+                } 
+                currentPage = page;
+            });    
+            return false;
+        }
+        $wrapper.after('<a class="infiniteArrow downBlue back">&lt;</a><a class="infiniteArrow upBlue forward">&gt;</a>');
+        $('a.back', this).bind("click",function () {
+            return gotoPage(currentPage - 1);
+        });
+        $('a.forward', this).bind("click",function () {
+            return gotoPage(currentPage + 1);
+        });
+        $(this).bind('goto', function (event, page) {
+            gotoPage(page);
+        }).bind('next', function () {
+	    return gotoPage(currentPage + 1);
+	});
+    });  
+};
+
 function isle(cevap)
 {
 	var parcalar= cevap.split("|");
@@ -149,6 +203,25 @@ $(document).ready(function() {
 	});
 
 	getScript("js/aile_extra.js");
+
+	var auto= true;
+	$('.infiniteCarousel').infiniteCarousel().mouseover(function(){ auto=false; }).mouseout(function(){ auto=true; });
+	setInterval(function(){if(auto){ $('.infiniteCarousel').trigger('next') }},10000);
+	 $.getScript("http://ufd.googlecode.com/svn-history/r111/trunk/examples/js/jquery.bgiframe.min.js", function () {
+		$('#dialog').dialog({
+			autoOpen: false,
+			height: 280,
+			modal: true,
+			resizable: true,
+			bgiframe: true
+		}).removeClass("sakla");
+	});
+	
+	$('.infiniteCarousel').bind("click",function(e) {
+		var figure=$(e.target).closest('figure');
+		$("#ui-dialog-title-dialog").html(figure.children("figcaption").html());
+		$('#dialog img').attr("src",figure.children("img").attr("src")).parent().dialog('open');
+	});
 
 	if(db)
 		db.transaction(function (tx) 

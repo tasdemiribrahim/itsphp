@@ -142,3 +142,30 @@ body{
     background-color:#000;
     color:#fff;
 }
+/* ------------------------------
+ Hata Sayfasi
+ --------------------------------*/
+.hataSayfa{text-align:center;	background:url('/main/images/login/bg.png') center center fixed repeat;	color:#eee; overflow:visible; }
+.hataSayfa h2 { font-size: 50px; margin:50px; }
+.hataSayfa h3 { font-size: 30px; margin:30px; }
+#rocket{
+	width:275px;
+	height:375px;
+	background:url('/main/images/login/rocket.png') no-repeat;
+	margin:140px auto 50px;
+	position:relative;
+}
+.steam1,.steam2{
+	position:absolute;
+	bottom:78px;
+	left:50px;
+	width:80px;
+	height:80px;
+	background:url('/main/images/login/steam.png') no-repeat;
+	-webkit-opacity : 0.8;
+	opacity:0.8;
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80);	
+}
+.steam2{	background-position:left bottom; }
+.hataSayfa hgroup{	display:block;	margin:0 auto;	width:850px;	text-align:center;}
+.hataSayfa #content {background:transparent; border:none;}

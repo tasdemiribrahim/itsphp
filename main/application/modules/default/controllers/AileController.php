@@ -1,7 +1,6 @@
 <?php
 class AileController extends Zend_Controller_Action
 {  
-
 	public function preDispatch()
 	{
 	/*	$session = $this->getInvokeArg('bootstrap')->getResource('session');
@@ -17,6 +16,7 @@ class AileController extends Zend_Controller_Action
 			$session->requestURL = $this->getRequest()->getRequestUri();
 			$this->_redirect('/login');
 		}*/
+		$this->view->isAile = true;
 	}
 	
 	public function indexAction()

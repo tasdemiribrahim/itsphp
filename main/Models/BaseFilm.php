@@ -60,6 +60,14 @@ abstract class main_Models_BaseFilm extends Doctrine_Record
              'notnull' => false,
              'autoincrement' => false,
              ));
+      /*  $this->hasColumn('tube', 'string', null, array(
+             'type' => 'string',
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             ));*/
         $this->hasColumn('desc', 'string', null, array(
              'type' => 'string',
              'fixed' => false,
