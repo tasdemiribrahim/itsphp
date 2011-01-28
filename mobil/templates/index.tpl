@@ -1,6 +1,5 @@
 {include file="header.tpl" title=""}
 
-		<!-- <a href="foo.html" data-rel="dialog">Open dialog</a> -->
-
+	<img src="/main/images/ping.png" />
 {include file="footer.tpl"}
 

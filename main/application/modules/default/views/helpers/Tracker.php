@@ -23,15 +23,15 @@ class Zend_View_Helper_Tracker extends Zend_View_Helper_Abstract
 			$city  = $city1->item(0)->nodeValue;
 		}
 
-		$tracker = new main_Models_Tracker();
+		$tracker = new main_models_Tracker();
 		$tracker->ip=$_SERVER['REMOTE_ADDR'];
 		$tracker->country=$country;
 		$tracker->city=$city;
 		$tracker->date=date("Y-m-d");
 		$tracker->time=date("H:i:s");
-		$tracker->query_string=$_SERVER['QUERY_STRING'];
-		$tracker->http_referer= isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "Yok";
-		$tracker->http_user_agent=$_SERVER['HTTP_USER_AGENT'];
+		$tracker->query=$_SERVER['QUERY_STRING'];
+		$tracker->ref= isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "Yok";
+		$tracker->agent=$_SERVER['HTTP_USER_AGENT'];
 		$tracker->isbot= $this->is_bot() ? 1 : 0;
 		$tracker->replace();
 	} 

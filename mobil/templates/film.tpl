@@ -1,14 +1,24 @@
-{include file="header.tpl" title=$film["film_ad"]}
+{include file="header.tpl" title=$film["ad"]}
 
-		{foreach item=row from=$rows name="movie"}
-			{strip}
-				<a href='film.php?id={$row["id"]}'>{$row["film_ad"]}({$row["uzunluk"]})</a>
-				{if not $smarty.foreach.movie.last}
-					,&nbsp;
-				{/if}
-			{/strip}
-		{/foreach}
-		<h2>{$film["film_ad"]}</h2>
+		<form action="harita.php">
+			<p>
+				<label for="q">Filmi Seçin:</label>
+				<select name="q">
+					{foreach item=row from=$rows}
+						<option value="{$row["id"]}">{$row["ad"]}</option>
+					{/foreach}
+				</select>
+			</p>
+			<p>				
+				<label for="g">Açıklamalar:</label>
+				<select name="g" id="g" data-role="slider">	
+					<option value="off">Kapalı</option>
+					<option value="on" {$g}>Açık</option>
+				</select>
+			</p>
+				<input type="submit" value="Filmi Göster"/>
+		</form>
+		<h2>{$film["ad"]}</h2>
 
 		<video controls="controls">
 			<source src='{$film['mp4']}' type='video/mp4'></source>
@@ -26,8 +36,9 @@
 			Açık Format:	<a target='_blank' href='{$film['ogg']}'>'OGG'</a>
 			Google Format:	<a target='_blank' href='{$film['webm']}'>'WEBM'</a>
 		</p><br />
-		<p><b>Rating:</b>{$movies_result[0]->rating}/10,
-		<b>Dil:</b>{if $movies_result[0]->language=="en"} İngilizce {else} {$movies_result[0]->language}{/if}</p>
-		<p>{$movies_result[0]->overview}</p>
-
+		{if !!$g}
+			<p><b>Rating:</b>{$movies_result[0]->rating}/10,
+			<b>Dil:</b>{if $movies_result[0]->language=="en"} İngilizce {else} {$movies_result[0]->language}{/if}</p>
+			<p>{$movies_result[0]->overview}</p>
+		{/if}
 {include file="footer.tpl"}

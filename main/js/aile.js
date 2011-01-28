@@ -1,6 +1,6 @@
 var voteTime,commentTime,flickrTime,db,veri;
 
-$.fn.infiniteCarousel = function () {
+$.fn.infCour = function () {
     function repeat(str, num) {
         return new Array( num + 1 ).join( str );
     }
@@ -39,7 +39,7 @@ $.fn.infiniteCarousel = function () {
             });    
             return false;
         }
-        $wrapper.after('<a class="infiniteArrow downBlue back">&lt;</a><a class="infiniteArrow upBlue forward">&gt;</a>');
+        $wrapper.after('<a class="infia downBlue back">&lt;</a><a class="infia upBlue forward">&gt;</a>');
         $('a.back', this).bind("click",function () {
             return gotoPage(currentPage - 1);
         });
@@ -54,44 +54,54 @@ $.fn.infiniteCarousel = function () {
     });  
 };
 
+function pbd()
+{
+	$('#photobar').stop().animate({'bottom':'-96px'},200,function(){
+		$('#images').css('bottom','-125px');
+	});
+}
+
 function isle(cevap)
 {
+	if(voteTime) clearTimeout(voteTime);
+	if(commentTime) clearTimeout(commentTime);
+	if(flickrTime) clearTimeout(flickrTime);
+
 	var parcalar= cevap.split("|");
 	if(parcalar[0]=="1986-08-12")
 	{
 		veri[0]=11;
 		veri[1]="İbrahim Taşdemir";
 	}
-	$("#aileBireyIDHidden").val(veri[0]);
-	$('#aileAgacDetayImg').attr('src',getResim(veri[0],"aile"));
-	$('#aileBireyDuzenleButton').attr("href","/main/aile/form/"+veri[0]);
+	$("#aidh").val(veri[0]);
+	$('#aadi').attr('src',getResim(veri[0],"aile"));
+	$('#abdb').attr("href","/main/aile/form/"+veri[0]);
 	if(parcalar[1]=="0000-00-00")
 		parcalar[1]="";
 	else
 		parcalar[1]="/ "+parcalar[1];
-	$("#aileAgaciDetayDiv h3").html(veri[1]+" ("+parcalar[0]+parcalar[1]+")");
+	$("#aadd h3").html(veri[1]+" ("+parcalar[0]+parcalar[1]+")");
 	var i=2;
-	$("#aileAgaciDetayDiv span").each(function(){ $(this).html(parcalar[i++]);	});   
+	$("#aadd span").each(function(){ $(this).html(parcalar[i++]);	});   
 	commentTime=setTimeout(get_comments, 250);
 	voteTime=setTimeout(set_votes, 500);
-	flickrTime=setTimeout(function () { loadFlickrFoto($('#aileAgacDetayFlickr').html()); },750);
-	$('#photobar').stop().animate({'bottom':'-96px'},200,function(){
-		$('#images').css('bottom','-125px');
-	});
+	flickrTime=setTimeout(function () { loadFlickrFoto($('#aadf').html()); },750);
+	pbd();
 	deleteNotice();
 }
 
 function set_votes() 
 {
 	$.ajax({
-		data: "ailePuanIDAl="+$("#aileBireyIDHidden").val(),
+		data: "oy="+$("#aidh").val(),
+		dataType:"json",
 		success: function(cevap)
 		{
-			var parcalar=cevap.split("|");
-			var star=$("#rate_widget").find('.star_' + parcalar[0]);
-			star.prevAll().andSelf().addClass('ratings_vote');
-			star.nextAll().removeClass('ratings_vote'); 
-			$("#rate_widget").find('.total_votes').text(parcalar[1] + ' oy kullanıldı (' + parcalar[2] + ' puan)' );
+			console.log(cevap);
+			var star=$("#ratew").find('.s_' + cevap.on);
+			star.prevAll().andSelf().addClass('srv');
+			star.nextAll().removeClass('srv'); 
+			$("#ratew").find('.stv').text(cevap.to + ' oy kullanıldı (' + cevap.ort + ' puan)' );
 		}
 	});
 }
@@ -99,22 +109,19 @@ function set_votes()
 function get_comments() 
 {
 	$.ajax({
-		data: "aileYorumIDAl="+$("#aileBireyIDHidden").val(),
+		data: "yorum="+$("#aidh").val(),
+		dataType: "json",
 		success: function(cevap)
 		{	
-			cevaplar=cevap.split("|");
-			$(".cmnt_hdr").html(cevaplar[1] + " Yorum...");
-			$('#comments').hide().html(cevaplar[0]).slideDown();
+			console.log(cevap);
+			$(".cmnt_hdr").html(cevap.sayi + " Yorum...");
+			$('#comments').hide().html(cevap.yorumlar).slideDown();
 		}
 	});
 }
 
-function aileAgaciDetayDoldur(veriler)
+function aadd(veriler)
 {
-	if(voteTime) clearTimeout(voteTime);
-	if(commentTime) clearTimeout(commentTime);
-	if(flickrTime) clearTimeout(flickrTime);
-	
 	if (db)
 		db.transaction(function (tx) {tx.executeSql("REPLACE INTO itsphp (sayfa, veri) VALUES(?, ?)", ["aile", veriler]);});
 	else if (Modernizr.localstorage)
@@ -140,6 +147,7 @@ alert(event.data);
 		data: 'akrabaAd='+veri[0],
 		success: function(cevap){ isle(cevap); }
 	});*/
+	$("#aidh").val(veri[0]);
 	$.ajax({
 		type: 'GET',  
 		async: true,
@@ -147,42 +155,32 @@ alert(event.data);
 		dataType :"jsonp",
 		url: 'http://itsphp.couchone.com/itsphp/aile'+veri[0],
 		success: function(cevap){ 
-			$("#aileBireyIDHidden").val(veri[0]);
-			$('#aileAgacDetayImg').attr('src',getResim(veri[0],"aile"));
-			$('#aileBireyDuzenleButton').attr("href","/main/aile/form/"+veri[0]);
+			$('#aadi').attr('src',getResim(veri[0],"aile"));
+			$('#abdb').attr("href","/main/aile/form/"+veri[0]);
 			if(cevap.olum=="0000-00-00")
 				cevap.olum="";
 			else
 				cevap.olum="/ "+cevap.olum;
-			$("#aileAgaciDetayDiv h3").html(veri[1]+" ("+cevap.dogum+cevap.olum+")");
-			var i=$("#aileAgaciDetayDiv span");
+			$("#aadd h3").html(veri[1]+" ("+cevap.dogum+cevap.olum+")");
+			var i=$("#aadd span");
 			i.eq(0).html(cevap.es);
-			$("#aileAgaciDetayDiv .adr").html(cevap.adres);  
-			$("#aileAgaciDetayDiv .email").html(cevap.mail); 
-			$("#aileAgaciDetayDiv .tel").html(cevap.tel);  
-			i.eq(4).html(cevap.msn);
-			$("#aileAgaciDetayDiv #aileAgacDetayTwitter").html(cevap.twitter);  
-			$("#aileAgaciDetayDiv #aileAgacDetayFlickr").html(cevap.flickr);  
+			$("#aadd .adr").html(cevap.adres);  
+			$("#aadd .email").html(cevap.mail); 
+			$("#aadd .tel").html(cevap.tel);  
+			$("#aadd #aadt").html(cevap.twitter);  
+			$("#aadd #aadf").html(cevap.flickr);  
 			i.eq(7).html(cevap.tanim);
-			get_comments();
-			set_votes();
 			loadFlickrFoto(cevap.flickr);
-			$('#photobar').stop().animate({'bottom':'-96px'},200,function(){
-				$('#images').css('bottom','-125px');
-			});
 			deleteNotice();
 		}
 	});
+	pbd();
+	get_comments();
+	set_votes();
 }
 
 $(document).ready(function() {	
 	//window.log("aile_agaci.js DOM Yuklendi.");
-
-	if(Modernizr.websqldatabase) 
-	{
-		db = openDatabase("itsphp", "1.0", "ibrahim tasdemirin kisisel ana sayfasi", 2 * 1024 * 1024);
-		db.transaction(function (tx) {tx.executeSql("CREATE TABLE IF NOT EXISTS itsphp(sayfa, veri)");});
-	}
 
 	activateMain();  
 
@@ -199,14 +197,14 @@ $(document).ready(function() {
 	});
 
 	$.getScript("http://jquery.bassistance.de/treeview/jquery.treeview.js", function () {
-		$("#aileListe ul").treeview({'collapsed':true,persist: "cookie",prerendered: false,animated: "fast"});
+		$("#aliste ul").treeview({'collapsed':true,persist: "cookie",prerendered: false,animated: "fast"});
 	});
 
-	getScript("js/aile_extra.js");
+	getScript("/main/js/aile_extra.js");
 
 	var auto= true;
-	$('.infiniteCarousel').infiniteCarousel().mouseover(function(){ auto=false; }).mouseout(function(){ auto=true; });
-	setInterval(function(){if(auto){ $('.infiniteCarousel').trigger('next') }},10000);
+	$('.infCour').infCour().mouseover(function(){ auto=false; }).mouseout(function(){ auto=true; });
+	setInterval(function(){if(auto){ $('.infCour').trigger('next') }},10000);
 	 $.getScript("http://ufd.googlecode.com/svn-history/r111/trunk/examples/js/jquery.bgiframe.min.js", function () {
 		$('#dialog').dialog({
 			autoOpen: false,
@@ -216,11 +214,41 @@ $(document).ready(function() {
 			bgiframe: true
 		}).removeClass("sakla");
 	});
-	
-	$('.infiniteCarousel').bind("click",function(e) {
+
+	$('.infCour').bind("click",function(e) {
 		var figure=$(e.target).closest('figure');
 		$("#ui-dialog-title-dialog").html(figure.children("figcaption").html());
 		$('#dialog img').attr("src",figure.children("img").attr("src")).parent().dialog('open');
+	});
+	
+	var sf=$('#sf');
+	sf.validate({
+		rules: {q: "required" },
+		messages: {q: "Kişinin adını girin!"},
+		submitHandler: function(form) {
+			$('.r').remove();
+			if($("#q").val().length<2) return false;
+			$.ajax({
+				data: "q="+$("#q").val(),
+				dataType:"json",
+				success:function(cevap){
+					console.log(cevap);
+					if(cevap=="") sf.append("<hr /><p class='r'>Arama bulunamadı!</p><hr />");
+					else
+					{
+						var mesaj="";		
+						if(cevap.mu) mesaj="<p class='r'>Bunu mu demek istediniz?</p>";		
+						for(i in cevap.mu)
+							mesaj +="<p class='r'><a href='#' id='"+cevap.mu[i].id+"'>"+cevap.mu[i].id+"-"+cevap.mu[i].ad+"</a></p>";		
+						mesaj +="<hr class='r' />";	
+						for(i in cevap.bu)
+							mesaj +="<p class='r'><a href='#' id='"+cevap.bu[i].id+"'>"+cevap.bu[i].id+"-"+cevap.bu[i].ad+"</a></p>";
+						sf.append(mesaj+"<hr class='r' />");
+					}
+				}
+			});
+			return false;
+		}
 	});
 
 	if(db)
@@ -229,72 +257,42 @@ $(document).ready(function() {
 			tx.executeSql('SELECT * FROM itsphp WHERE sayfa="aile"', [], function(tx, results) 
 			{
 				if(results.rows.length>0)
-					aileAgaciDetayDoldur(results.rows.item(results.rows.length-1).veri);
+					aadd(results.rows.item(results.rows.length-1).veri);
 			});
 		});
 	else if (Modernizr.localstorage && localStorage.getItem("aile"))
-		aileAgaciDetayDoldur(localStorage.getItem("aile"));
+		aadd(localStorage.getItem("aile"));
 	else if (Modernizr.sessionStorage && sessionStorage.getItem("aile"))
-		aileAgaciDetayDoldur(sessionStorage.getItem("aile"));
-	if ($.cookie("aile"))
-		aileAgaciDetayDoldur($.cookie("aile"));
-
-	$('#search_form').validate({
-		rules: {q: "required" },
-		messages: {q: "Kişinin adını girin!"},
-		submitHandler: function(form) {
-			$('.r').remove();
-			console.log($("#q").val());
-			if($("#q").val().length<2) return false;
-			$.ajax({
-				data: "aileAraAd="+$("#q").val(),
-				success:function(cevap){
-					console.log(cevap);
-					if(cevap=="&") $('#search_form').append("<hr /><p class='r'>Arama bulunamadı!</p><hr />");
-					else
-					{
-						var parca=cevap.split("&"),mesaj="";		
-						if(parca[1]!="") mesaj="<p class='r'>Bunu mu demek istediniz?</p>";		
-						var parcalar=parca[1].split("|");
-						var i=parcalar.length-2;
-						for(;i>0;i=i-2)
-							mesaj +="<p class='r'><a href='#' id='"+parcalar[i-1]+"' name='"+parcalar[i-1]+"' class='searchResultData'>"+parcalar[i-1]+"-"+parcalar[i]+"</a></p>";		
-						parcalar=parca[0].split("|");
-						i=parcalar.length-2;
-						mesaj +="<hr class='r' />";
-						for(;i>0;i=i-2)
-							mesaj +="<p class='r'><a href='#' id='"+parcalar[i-1]+"' name='"+parcalar[i-1]+"' class='searchResultData'>"+parcalar[i-1]+"-"+parcalar[i]+"</a></p>";
-						$('#search_form').append(mesaj+"<hr />");
-					}
-				}
-			});
-			return false;
-		}
-	});
+		aadd(sessionStorage.getItem("aile"));
+	else if ($.cookie("aile"))
+		aadd($.cookie("aile"));
+	else
+		set_votes();
 	
-	$('#rcnt a.searchResultData').live("click",function(){
-		aileAgaciDetayDoldur($(this).html());
+	$('#rcnt .r a').live("click",function(){
+		aadd($(this).html());
 		return false;
 	});
 	
-	$('#rate_widget .ratings_stars').hover(
+	$('#ratew .rates').hover(
 		function() {
-			$(this).prevAll().andSelf().addClass('ratings_over');
-			$(this).nextAll().removeClass('ratings_vote'); 
+			$(this).prevAll().andSelf().addClass('sro');
+			$(this).nextAll().removeClass('srv'); 
 		},
 		function() {
-			$(this).prevAll().andSelf().removeClass('ratings_over');
+			$(this).prevAll().andSelf().removeClass('sro');
 		}
 	).bind('click', function() {
 		$.ajax({
-			data: "yildiz="+$(this).attr('class')+"&ailePuanlaID="+$("#aileBireyIDHidden").val(),
+			dataType:"json",
+			data: "yildiz="+$(this).attr('class')+"&id="+$("#aidh").val(),
 			success:function(){	
 				set_votes();
 				addNotice("<p>Oyunuz kaydedilmiştir!</p>");
 			}
 		}); 
 	});
-	$('#rate_widget').hover(function(){},function() {set_votes();});
+	$('#ratew').hover(function(){},function() {set_votes();});
 	
 	var resimBtnUpload=$('#resimUpload');
 	var ajaxUploadJS = new AjaxUpload(resimBtnUpload, {
@@ -332,15 +330,14 @@ $(document).ready(function() {
 		{
 			addNotice(mesajlar[0]);
 			$.ajax({
-				data: 'resimHedefAileAd='+$("#aileBireyIDHidden").val()+'&fileName='+uniqueFile,
+				data: 'id='+$("#aidh").val()+'&fileName='+uniqueFile,
 				success: function(cevap)
 				{
-					$('#aileAgacDetayImg').attr('src',cevap);
+					$('#aadi').attr('src',cevap);
 				}
 				});
 		}
-        }
-    });
+        }});
 	
 	var username="";	//"marcofolio"
 	var currentPage = 1;
@@ -352,92 +349,89 @@ $(document).ready(function() {
 			$.each(data, function(i, post) {
 				appendTweet(post.text, post.id);
 			});
-			$("#loadingTweets").fadeOut();
+			$("#loadt").fadeOut();
 		});
 	};
 	$("#tweets").scroll(function() {
 		if ($(this).outerHeight() - $(this)[0].scrollHeight + $(this).scrollTop() > -1 ) {
 			currentPage++;
-			$("#loadingTweets").fadeIn();
+			$("#loadt").fadeIn();
 			loadTweets();
 		}
 	});		
-	$('#followTwitter').bind("click",function(){
+	$('#bft').bind("click",function(){
 		$("#tweets").html("");
-		username = $("#aileAgacDetayTwitter").html();
+		username = $("#aadt").html();
 		if(username!="")
 		{
 			loadTweets();
-			$('#bounceBox').bounceBoxShow();
+			$('#bounceb').bounceBoxShow();
 		}
 		else addNotice("<p>Kullanıcı adı yok.</p>");
 		return false;
 	});
 	
-	$("#aileListe ul a").each(function(){
+	$("#aliste ul a").each(function(){
 		$(this).after($(this).html()).remove();
 	});
 	
 	var data;
 	 
-	$('#aileListe ul li').bind("dblclick",function(event)
+	$('#aliste ul li').bind("dblclick",function(event)
 	{
 		data=$(this).attr('id');
 		$.doTimeout( 't', $.tripleclickThreshold, function(){
-			aileAgaciDetayDoldur(data);
+			aadd(data);
 		});
 		return false;
 	});
 	 
 	$.getScript("http://github.com/cowboy/jquery-dotimeout/raw/v1.0/jquery.ba-dotimeout.min.js", function () {
-		$('#aileListe ul li').bind( 'tripleclick',500, function(event){
+		$('#aliste ul li').bind( 'tripleclick',500, function(event){
 			$.doTimeout( 't' );
 			veri=$(this).attr("title").split("-");
 			window.location = getSiteName()+"main/aile/form/"+veri[0];
 		});
 	});
 	//$.tripleclickThreshold = 5000;
-
-	$('#aileListe ul li:not(:has(ul))').css({'list-style-image':'none'});
 	
 	var working = false;
-	$("#addCommentForm").validate({
-		errorLabelContainer : $("#uyari"),
+	$("#adf").validate({
 		debug: false,
 		rules: {
-			commentName: "required",
-			commentEMail: {required:true,email:true},
-			commentUrl:"url",
-			commentBody:"required"
+			acn: "required",
+			ace: {required:true,email:true},
+			acu:"url",
+			acb:"required"
 		},
 		messages: {
-			commentName: "Adınızı girin!<br>",
-			commentEMail:{required:"Bir e-mail adresi girin!<br>",email:"E-mail format kontrol edin!<br>"},
-			commentUrl:"URL format kontrol edin!<br>",
-			commentBody:"Bir mesaj yaz!<br>"
+			acn: "Adınızı girin!<br>",
+			ace:{required:"Bir e-mail adresi girin!<br>",email:"E-mail format kontrol edin!<br>"},
+			acu:"URL format kontrol edin!<br>",
+			acb:"Bir mesaj yaz!<br>"
 		},
 		submitHandler: function(form){
 			if(working) return false;
 			if($('#fax').val()!="") return false;
 			working = true;
-			$('#addCommentForm input[type="submit"]').val('Bekleyin...');
+			$('#adf input[type="submit"]').val('Bekleyin...');
 			$('span.error').remove(); 
 			$.ajax({
 				type : 'POST',
 				dataType :"json",
-				data : $('#addCommentForm').serialize(),
+				data : $('#adf').serialize(),
 				success: function(msg){
 					working = false;
 					$("#cmnt_hdr span").text(1+parseInt($("#cmnt_hdr span").text()));
-					$('#addCommentForm input[type="submit"]').val('Kaydet');
 					$(msg.html).hide().appendTo('#comments').slideDown();
-					$('#commentBody,#commentName,#commentEMail,#commentUrl').val('');
 			}});
+			$('#adf input:not(#aidh),#adf textarea').val("");
+			$('#adf input[type="submit"]').val('Kaydet');
 		  	return false;
 		}
 	});
 
-	if(!Modernizr.borderimage) $("#aileAgacDetayImg").css({"width":"100%","border-width":"0"});
+	if(!Modernizr.borderimage) $("#aadi").css({"width":"100%","border-width":"0"});
 });
 
 function loadFlickrFoto(user_id) {

@@ -369,5 +369,4 @@ $(document).ready(function() {
 		if (confirm("Sayfa tazelensin mi?"))
 			location.reload(true);
 	}
-
 });

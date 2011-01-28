@@ -10,7 +10,7 @@ for ($i = 0, $j = count($jsfiles); $i < $j; $i++)
 	curl_close($ch);  
 	$js .= $jscode . "\n";  
 }  
-$jsfiles = array("jquery/jquery.twitter.search.js","jquery/jquery.twitterpopup.js","jquery/jquery.html5form-1.2-min.js","main.js");  
+$jsfiles = array("jquery/jquery.twitter.search.js","jquery/jquery.twitterpopup.js","jquery/jquery.html5form-1.2-min.js","jquery/jquery.lettering.js","main.js");  
 for ($i = 0, $j = count($jsfiles); $i < $j; $i++)   
 {  
 	$fn = $jsfiles[$i];  
@@ -19,9 +19,6 @@ for ($i = 0, $j = count($jsfiles); $i < $j; $i++)
 }  
 
 $js .= '  
-  MediaQueryFallBack.LoadCss([], "/main/css/handheld.css", 480);
-  
-	  
 	// ------------------
 	// Copyright 2010 Kevin Lieser, kleaserarts - Mediendesign
 	// info@ka-mediendesign.de, www.ka-mediendesign.de

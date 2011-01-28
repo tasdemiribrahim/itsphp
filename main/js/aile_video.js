@@ -2,11 +2,11 @@
 
 	activateMain();
 
-	getScript("js/aile_extra.js");
+	getScript("/main/js/aile_extra.js");
 
 	initCanvas();
 	var kaynak="http://ibrahimtasdemir.mysites.com/get_file/";
-	var film_div=$("#aileVideoDiv");
+	var film_div=$("#avd");
 	var video=film_div.find("video").clone(true);
 	$("#vidLink a").click(function(){
 		film_div.hide("drop", { direction: "down" }, 5000);

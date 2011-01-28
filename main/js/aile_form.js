@@ -1,7 +1,6 @@
 var iv;
 $(document).ready(function() {
 	activateMain();
-	var kayGun="";
 	$.ajaxSetup({
 		type: 'GET',
 		cache: true,
@@ -11,71 +10,42 @@ $(document).ready(function() {
 		error: function(xhr, status) { $(".progress").fadeOut(); }
 	});
 	
-	getScript("js/aile_extra.js");
-
-	if(IE6)	
-		$('#aileBireyOlum').val("");
+	getScript("/main/js/aile_extra.js");
 	
 	iv=setInterval ( "courusel()", 5000 );	
 	
-	$("#yeniAileBireyForm").validate({
+	$("#yabf").validate({
 		debug: false,
-		errorLabelContainer: $("#uyari"),
 		rules: {
-			aileBireyAd: "required",
-			aileBireyEbeveyn: "required",
-			aileBireyDogum:{required:true,date:true},
-			aileBireyTanim:"required",
-			aileBireyMSN:"email",
-			aileBireyMail:"email",
-			aileBireyTel:"number"
+			ybad: "required",
+			ybe: "required",
+			ybd:{required:true,date:true},
+			ybt:"required",
+			ybmail:"email",
+			ybtel:"number"
 		},
 		messages: {
-			aileBireyAd: "Kişinin adını girin!<br>",
-			aileBireyEbeveyn: "Bir ebeveyn seçin!<br>",
-			aileBireyDogum:{required:"Doğum gününü girin!<br>",date:"Doğum günü tarih olmalı!<br>"},
-			aileBireyTanim:"Öz geçmişe bişeyler yazın!<br>",
-			aileBireyMSN:"MSN formatını kontrol et!<br>",
-			aileBireyMail:"E-Mail formatını kontrol et!<br>",
-			aileBireyTel:"Telefon sadece sayılardan oluşabilir!<br>"
+			ybad: "Kişinin adını girin!<br>",
+			ybe: "Bir ebeveyn seçin!<br>",
+			ybd:{required:"Doğum gününü girin!<br>",date:"Doğum günü tarih olmalı!<br>"},
+			ybt:"Öz geçmişe bişeyler yazın!<br>",
+			ybmail:"E-Mail formatını kontrol et!<br>",
+			ybtel:"Telefon sadece sayılardan oluşabilir!<br>"
 		},
 		submitHandler: function(form) {
 			addNotice("<p>İsteğiniz alındı.Lütfen bekleyin!</p>");
-			var mesaj=[,'&aileBireyEsPHP=',$('#aileBireyEs').val(),'&aileBireyOlumPHP=',$('#aileBireyOlum').val(),'&aileBireyTanimPHP=',$('#aileBireyTanim').val(),'&aileBireyAdresPHP=',$('#aileBireyAdres').val(),'&aileBireyMailPHP=',$('#aileBireyMail').val(),'&aileBireyTelPHP=',$('#aileBireyTel').val(),'&aileBireyMSNPHP=',$('#aileBireyMSN').val(),'&aileBireyTwitterPHP=',$('#aileBireyTwitter').val(),'&aileBireyFlickrPHP=',$('#aileBireyFlickr').val()];
-			if(kayGun=="aileBireyKaydet")
-			{
-				$.ajax({data: 'aileBireyAdEkle='+$("#aileBireyAd").val()+'&aileBireyDogumPHP='+$('#aileBireyDogum').val()+'&aileBireyEbeveynPHP='+$("#aileBireyEbeveyn option:selected").attr("id")+mesaj.join(""),
+			$.ajax({
+				dataType:"json",	
+				data: $("#yabf").serialize(),
 				success: function(cevap){
-				//window.log(cevap);
+					//window.log(cevap);
 					if(parseInt(cevap)>0)
 						window.location = getSiteName()+"main/aile";
 					else
 						addNotice("<p>Bir hata oluştu.</p>");
 				}
-				});
-			}
-			else if(kayGun=="aileBireyGuncelle")
-			{
-				$.ajax({data: 'aileBireyGuncelleIDPHP='+$("#aileBireyIDHidden").val()+mesaj.join(""),
-				success: function(cevap){
-				//window.log(cevap);
-					if(parseInt(cevap)>0)
-						window.location = getSiteName()+"main/aile";
-					else
-						addNotice("<p>Herhangi bir güncelleme yapılmadı!</p>");
-				}
-				});	
-			}
-		}
-	});
-	$('#yeniAileBireyForm .aileKayGun').bind("click",function(){
-		if($('#fax').val()=="")
-		{	
-			$.clickDisabled = '#'+$(this).attr("id");
-			kayGun=$(this).attr("id");
-			//window.log("aileBireyKaydet click event.");
-			$("#yeniAileBireyForm").submit();
-			$.clickDisabled = "";
+			});
+			$('#yabf input:not(type="submit"):not(type="hidden"),#yabf textarea').val("");
 			return false;
 		}
 	});

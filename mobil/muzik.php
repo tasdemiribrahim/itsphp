@@ -12,25 +12,25 @@ $smarty->cache_lifetime=3600;
 $smarty->cache_modified_check=true;
 $smarty->security=true;
 
-$sth = $db->prepare('SELECT grupAd,grupID,tur FROM muzik ORDER BY tur');
+$sth = $db->prepare('SELECT dm.ad,dm.id,dmt.ad as tur FROM dm LEFT JOIN dmt ON (dm.tur=dmt.id) ORDER BY dm.tur');
 $sth->execute();
 $smarty->assign("rows",$sth->fetchAll());
 
 if(isset($_GET["id"]))
-	$sth = $db->prepare("SELECT * FROM muzik WHERE grupID=".temizSayi($_GET["id"]));
+	$sth = $db->prepare("SELECT dm.id,dm.ad,dm.tanim,dmm.ad as mem FROM dm,dmm WHERE dm.id=".temizSayi($_GET["id"])." AND dm.mem=dmm.id");
 else
-	$sth = $db->prepare("SELECT * FROM muzik ORDER BY grupID DESC LIMIT 1");
+	$sth = $db->prepare("SELECT dm.id,dm.ad,dm.tanim,dmm.ad as mem FROM dm,dmm WHERE dm.mem=dmm.id ORDER BY dm.id DESC LIMIT 1");
 $sth->execute();
 $row = $sth->fetch(PDO::FETCH_ASSOC);
 
 $smarty->assign("row",$row);
-$smarty->assign("resim",getResim($row["grupID"],"muzik"));
+$smarty->assign("resim",getResim($row["id"],"muzik"));
 
-$sth = $db->prepare('SELECT * FROM eleman WHERE grupID='.$row["grupID"]);
+$sth = $db->prepare('SELECT * FROM dme WHERE grupID='.$row["id"]);
 $sth->execute();
 $smarty->assign("elemanlar",$sth->fetchAll());
 
-$sth = $db->prepare('SELECT * FROM album WHERE grupID='.$row["grupID"]);
+$sth = $db->prepare('SELECT * FROM dma WHERE grupID='.$row["id"]);
 $sth->execute();
 $smarty->assign("albumler",$sth->fetchAll());
 	

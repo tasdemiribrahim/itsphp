@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<testimonials>
+	<item>
+		<content>Amatörce ama başarılı bir program!</content>
+		<author-name>İbrahim Taşdemir</author-name>
+		<author-url>tasdemir.0fees.net</author-url>
+	</item>
+	<item>
+		<content>Biraz uğraşılırsa daha iyisi yapılabilir.</content>
+		<author-name>Ramis Taşgın</author-name>
+	</item>
+	<item>
+		<content>Sıkıştırma,şifreleme,parçalama... herşeyi yapabilir.</content>
+		<author-name>İsimini vermek istemeyen bir kullanıcı</author-name>
+	</item>
+</testimonials>

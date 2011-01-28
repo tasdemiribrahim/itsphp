@@ -1,0 +1,17 @@
+<?xml version="1.O" encoding="utf-8"?>
+<jnlp spec="0.2 1.0" codebase='http://tasdemir.0fees.net' href="urun/irarchiver.jnlp">
+	<information>
+		<title>irARCHIVER</title>
+		<vendor>İTSPHP</vendor>
+		<homepaqe href="urun/irarchiver.php"/>
+		<description>Arşiv Programı</description>
+		<icon href="urun/img/ir.gif"/>
+		<offline-allowed/>
+	</information>
+	<resources>
+		<j2se version="1.3+" />
+		<jar href="urun/irarchiver.jar" />
+	</resources>
+	<application-desc main-class="Gui.Main"/>
+</jnlp>
+

@@ -82,28 +82,28 @@ class AjaxController extends Zend_Controller_Action
 		$arr=array();
 		$start=date("md",$_REQUEST['start']);
 		$end=date("md",$_REQUEST['end']);
-		$q = Doctrine_Query::create()->from('main_Models_AileAgaci a')->leftJoin("a.Detay d");
+		$q = Doctrine_Query::create()->from('main_models_Aa a')->leftJoin("a.Detay d");
 		$tarihler=$q->fetchArray();
 		$i=0;
 		$mesajlar=array();
 		foreach($tarihler as $tarih)
 		{
-			if($tarih['Detay']['aileOlum']=="0000-00-00")
+			if($tarih['Detay']['olum']=="0000-00-00")
 			{
-				$d=getFark($tarih['Detay']['aileDogum']);
+				$d=getFark($tarih['Detay']['dogum']);
 				if((($end-$d)<7 && ($end-$d)>0) || (($d-$start)<7 && ($d-$start)>0))
 				{
-					if(!isset($mesajlar[getGun($tarih['Detay']['aileDogum'])])) $mesajlar[getGun($tarih['Detay']['aileDogum'])]="";
-					$mesajlar[getGun($tarih['Detay']['aileDogum'])].=$tarih['aileAd']."'in ".yas($tarih['Detay']['aileDogum']).". yaş günü.<br /><br/>";
+					if(!isset($mesajlar[getGun($tarih['Detay']['dogum'])])) $mesajlar[getGun($tarih['Detay']['dogum'])]="";
+					$mesajlar[getGun($tarih['Detay']['dogum'])].=$tarih['aileAd']."'in ".yas($tarih['Detay']['dogum']).". yaş günü.<br /><br/>";
 				}
 			}
 			else
 			{ 
-				$d=getFark($tarih['Detay']['aileOlum']);
+				$d=getFark($tarih['Detay']['olum']);
 				if((($end-$d)<7 && ($end-$d)>0) || (($d-$start)<7 && ($d-$start)>0))
 				{
-					if(!isset($mesajlar[getGun($tarih['Detay']['aileOlum'])])) $mesajlar[getGun($tarih['Detay']['aileOlum'])]="";
-					$mesajlar[getGun($tarih['Detay']['aileOlum'])].=$tarih['aileAd']."'in ".yas($tarih['Detay']['aileOlum']).". ölüm yıldönümü.<br /><br />";
+					if(!isset($mesajlar[getGun($tarih['Detay']['olum'])])) $mesajlar[getGun($tarih['Detay']['olum'])]="";
+					$mesajlar[getGun($tarih['Detay']['olum'])].=$tarih['aileAd']."'in ".yas($tarih['Detay']['olum']).". ölüm yıldönümü.<br /><br />";
 				}
 			}
 		}
@@ -128,19 +128,19 @@ class AjaxController extends Zend_Controller_Action
 			$conn = Doctrine_Manager::getInstance()->getCurrentConnection();
 			$conn->beginTransaction();
 			
-			$page = Doctrine::getTable('main_Models_AppreciatePages')->find($hash);
+			$page = Doctrine::getTable('main_models_Appages')->find($hash);
 			if($page)
-				$page->appreciated=$page->appreciated+1;
+				$page->ap=$page->ap+1;
 			else
 			{
-				$page = new main_Models_AppreciatePages();
+				$page = new main_models_Appages();
 				$page->hash = $hash;
 				$page->url = $url;
-				$page->appreciated=1;
+				$page->ap=1;
 			}
 			$page->save();
 	
-			$vote = new main_Models_AppreciateVotes();
+			$vote = new main_models_Apvotes();
 			$vote->ip =$ip;
 			$vote->pageid = $page->id;
 			$vote->save();			
@@ -165,10 +165,10 @@ class AjaxController extends Zend_Controller_Action
 	
 	public function hotspotAction()
 	{
-		if(isset($_GET['hotspot']))
+		if(isset($_GET['arh']))
 		{
-			$hot = new main_Models_Hotspot();
-			$hot->src = temizURL($_GET['hotspot']);
+			$hot = new main_models_Aarh();
+			$hot->src = temizURL($_GET['arh']);
 			$hot->val = ucwords(temizYazi($_GET['val']));
 			$hot->spot= temizSayi($_GET['id']);
 			$hot->x=temizSayi($_GET['x']);
@@ -176,14 +176,14 @@ class AjaxController extends Zend_Controller_Action
 			$hot->save();
 			echo $hot->id;
 		}
-		elseif(isset($_GET['remove']))
+		elseif(isset($_GET['arr']))
 		{
-			$q = Doctrine_Query::create()->delete('main_Models_Hotspot h')->where("h.src=? AND h.spot=?",array(temizURL($_GET['remove']),temizSayi($_GET['id'])));
+			$q = Doctrine_Query::create()->delete('main_models_Aarh h')->where("h.src=? AND h.spot=?",array(temizURL($_GET['arr']),temizSayi($_GET['id'])));
 			echo $q->execute();
 		}
 		elseif(isset($_GET['get']))
 		{
-			$q = Doctrine_Query::create()->from('main_Models_Hotspot h')->where('h.src=?', temizURL($_GET['get']))->orderby("h.spot DESC");
+			$q = Doctrine_Query::create()->from('main_models_Aarh h')->where('h.src=?', temizURL($_GET['get']))->orderby("h.spot DESC");
 			$results = $q->fetchArray();
 			header('Content-type: application/json');
 			echo json_encode($results);
@@ -194,7 +194,7 @@ class AjaxController extends Zend_Controller_Action
 	public function aileAction()
 	{
 		if(!isset($_FILES['uploadResim']['name']))
-			include_once "main/Helpers/ajax_guvenli.php";
+			include_once "main/helpers/ajax_guvenli.php";
 		
 		if(isset($_GET['term']))
 		{
@@ -211,46 +211,47 @@ class AjaxController extends Zend_Controller_Action
 			header('Content-Type: application/json');
 			echo json_encode($response);
 		}
-		elseif(isset($_GET['akrabaAd'])) $this->selectAkraba(temizSayi($_GET['akrabaAd']));
-		elseif(isset($_GET['aileBireyAdEkle'])) echo $this->insertAkraba(temizYazi($_GET['aileBireyAdEkle']),temizSayi($_GET['aileBireyEbeveynPHP']),temizYazi($_GET['aileBireyTanimPHP']),temizYazi($_GET['aileBireyDogumPHP']),temizYazi($_GET['aileBireyOlumPHP']),temizYazi($_GET['aileBireyEsPHP']),temizYazi($_GET['aileBireyAdresPHP']),temizEMail($_GET['aileBireyMailPHP']),temizTel($_GET['aileBireyTelPHP']),temizEMail($_GET['aileBireyMSNPHP']),temizYazi($_GET['aileBireyTwitterPHP']),temizYazi($_GET['aileBireyFlickrPHP']));
-		elseif(isset($_GET['aileBireyGuncelleIDPHP'])) echo $this->updateAkraba(temizSayi($_GET['aileBireyGuncelleIDPHP']),temizYazi($_GET['aileBireyTanimPHP']),temizYazi($_GET['aileBireyDogumPHP']),temizYazi($_GET['aileBireyOlumPHP']),temizYazi($_GET['aileBireyEsPHP']),temizYazi($_GET['aileBireyAdresPHP']),temizEMail($_GET['aileBireyMailPHP']),temizTel($_GET['aileBireyTelPHP']),temizEMail($_GET['aileBireyMSNPHP']),temizYazi($_GET['aileBireyTwitterPHP']),temizYazi($_GET['aileBireyFlickrPHP']));
-		elseif(isset($_GET['aileAraAd']))	echo $this->searchAkraba(temizYazi($_GET['aileAraAd']));
-		elseif(isset($_GET['ailePuanIDAl'])) echo $this->getRating(temizSayi($_GET['ailePuanIDAl']));
-		elseif(isset($_GET['ailePuanlaID'])) echo $this->setRating(temizSayi($_GET['ailePuanlaID']),$_GET['yildiz']);
+		elseif(isset($_GET['getir'])) $this->selectAkraba(temizSayi($_GET['getir']));
+		elseif(isset($_GET['ybkay'])) echo $this->insertAkraba(temizYazi($_GET['ybad']),temizSayi($_GET['ybe']),temizYazi($_GET['ybt']),temizYazi($_GET['ybd']),temizYazi($_GET['ybo']),temizYazi($_GET['ybes']),temizYazi($_GET['ybadres']),temizEMail($_GET['ybmail']),temizTel($_GET['ybtel']),temizYazi($_GET['ybtwit']),temizYazi($_GET['ybflic']));
+		elseif(isset($_GET['ybgun'])) echo $this->updateAkraba(temizSayi($_GET['aidh']),temizYazi($_GET['ybt']),temizYazi($_GET['ybd']),temizYazi($_GET['ybo']),temizYazi($_GET['ybes']),temizYazi($_GET['ybadres']),temizEMail($_GET['ybmail']),temizTel($_GET['ybtel']),temizYazi($_GET['ybtwit']),temizYazi($_GET['ybflic']));
+		elseif(isset($_GET['q']))	echo $this->searchAkraba(temizYazi($_GET['q']));
+		elseif(isset($_GET['oy'])) echo $this->getRating(temizSayi($_GET['oy']));
+		elseif(isset($_GET['yildiz'])) echo $this->setRating(temizSayi($_GET['id']),$_GET['yildiz']);
 		elseif(isset($_FILES['uploadResim']['name'])) echo $this->_helper->imager->upload($_FILES['uploadResim']);
-		elseif(isset($_GET['resimHedefAileAd'])) echo $this->_helper->imager->save(temizSayi($_GET['resimHedefAileAd']),temizYazi($_GET['fileName']));
-		elseif(isset($_POST['commentName'])) echo $this->submitComment(temizSayi($_POST['aileBireyIDHidden']));
-		elseif(isset($_GET['aileYorumIDAl'])) echo $this->getComments(temizSayi($_GET['aileYorumIDAl']));
+		elseif(isset($_GET['fileName'])) echo $this->_helper->imager->save(temizSayi($_GET['id']),temizYazi($_GET['fileName']));
+		elseif(isset($_POST['acn'])) echo $this->submitComment(temizSayi($_POST['aidh']),temizYazi($_POST['acn']),temizURL($_POST['acu']),temizEMail($_POST['ace']),temizYazi($_POST['acb']));
+		elseif(isset($_GET['yorum'])) echo $this->getComments(temizSayi($_GET['yorum']));
 	}
 	
-	function selectAkraba($akrabaID)
+	function selectAkraba($id)
 	{
 		try
 		{
-			if(empty($akrabaID) || $akrabaID==0 || $akrabaID==2)
-				$akrabaID="11";
-			$aile = Doctrine::getTable('main_Models_AileAgaciDetay')->find($akrabaID);
+			if(empty($id) || $id==0 || $id==2)
+				$id="11";
+			$aile = Doctrine::getTable('main_models_Aad')->find($id);
 		}
-		catch (Exception $e){ $aile = Doctrine::getTable('main_Models_AileAgaciDetay')->find("11"); }	
+		catch (Exception $e){ $aile = Doctrine::getTable('main_models_Aad')->find("11"); }	
 		$result =$aile->toArray();
 
 		$client=Zend_Registry::get('client');
-		try { $doc = $client->getDoc('aile'.$akrabaID); } 
+		try { $doc = $client->getDoc('aile'.$id); } 
 		catch (Exception $e) 
 		{
 			if ( $e->getCode() == 404 ) 
 			{
-				$aile = Doctrine::getTable('main_Models_AileAgaci')->find($akrabaID); 
+				$aile = Doctrine::getTable('main_models_Aa')->find($id); 
 				$result2 =$aile->toArray();
-				$this->insertAkrabaCouch($akrabaID,$result2['aileAd'],$result2['ebeveynID'],$result['aileTanim'],$result['aileDogum'],$result['aileOlum'],$result['aileBireyEs'],$result['aileBireyAdres'],$result['aileBireyMail'],$result['aileBireyTel'],$result['aileBireyMSN'],$result['aileBireyTwitter'],$result['aileBireyFlickr']);
+				$this->insertAkrabaCouch($id,$result2['ad'],$result2['eid'],$result['tanim'],$result['dogum'],$result['olum'],$result['es'],$result['adres'],$result['mail'],$result['tel'],$result['twitter'],$result['flickr']);
 			}
 			else
 				trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());
 		}
-		echo $result['aileDogum']."|".$result['aileOlum']."|".$result['aileBireyEs']."|".$result['aileBireyAdres']."|".$result['aileBireyMail']."|".$result['aileBireyTel']."|".$result['aileBireyMSN']."|".$result['aileBireyTwitter']."|".$result['aileBireyFlickr']."|".$result['aileTanim'];
+		header('Content-Type: application/json');
+		echo json_encode($result);
 	}
 
-	function insertAkraba($aileBireyAd,$aileBireyEbeveyn,$aileBireyTanim,$aileBireyDogum,$aileBireyOlum,$aileBireyEs,$aileBireyAdres,$aileBireyMail,$aileBireyTel,$aileBireyMSN,$aileBireyTwitter,$aileBireyFlickr)
+	function insertAkraba($a,$e,$t,$d,$o,$es,$adres,$m,$tel,$twit,$f)
 	{  	
 		try 
 		{	
@@ -260,47 +261,46 @@ class AjaxController extends Zend_Controller_Action
 			$this->_helper->cache->remove("aile"); 
 			$this->_helper->cache->remove("aileDetay"); 
 
-			$aile = new main_Models_AileAgaci();
-			$aile->aileAd= ucwords($aileBireyAd);
-			$aile->ebeveynID = $aileBireyEbeveyn;
+			$aile = new main_models_Aa();
+			$aile->ad= ucwords($a);
+			$aile->eid = $e;
 			$aile->keyHash = NULL;
 			
-			$agacDetay = new main_Models_AileAgaciDetay();
+			$ad = new main_models_Aad();
 			
-			$ts = new DateTime($aileBireyDogum);
-			$aileBireyDogum=$ts->format("Y-m-d");
-			$ts = new DateTime($aileBireyOlum=="" ? "0000-00-00" : $aileBireyOlum);
-			$aileBireyOlum=$ts->format("Y-m-d");
+			$ts = new DateTime($d);
+			$d=$ts->format("Y-m-d");
+			$ts = new DateTime($o=="" ? "0000-00-00" : $o);
+			$o=$ts->format("Y-m-d");
 
-			$agacDetay->aileTanim = $aileBireyTanim;
-			$agacDetay->aileDogum = $aileBireyDogum;
-			$agacDetay->aileOlum = $aileBireyOlum;
-			$agacDetay->aileBireyEs = ucwords($aileBireyEs);
-			$agacDetay->aileBireyAdres = $aileBireyAdres;
-			$agacDetay->aileBireyMail = $aileBireyMail;
-			$agacDetay->aileBireyTel = $aileBireyTel;
-			$agacDetay->aileBireyMSN = $aileBireyMSN;
-			$agacDetay->aileBireyTwitter = $aileBireyTwitter;
-			$agacDetay->aileBireyFlickr = $aileBireyFlickr;
-			$aile->Detay=$agacDetay;
+			$ad->tanim = $t;
+			$ad->dogum = $d;
+			$ad->olum = $o;
+			$ad->es = ucwords($es);
+			$ad->adres = $adres;
+			$ad->mail = $m;
+			$ad->tel = $tel;
+			$ad->twitter = $twit;
+			$ad->flickr = $flic;
+			$aile->Detay=$ad;
 			
-			$agacOy = new main_Models_AileAgaciOy();
-			$agacOy->toplamPuan = 0;
-			$agacOy->ortNorm = 0;
-			$agacOy->toplamOy=0;
-			$agacOy->ort=0;
-			$aile->Oy=$agacOy;
+			$ao = new main_models_Aao();
+			$ao->tp = 0;
+			$ao->on = 0;
+			$ao->to=0;
+			$ao->ort=0;
+			$aile->Oy=$ao;
 			$aile->save();
 			
-			$item = new main_Models_AileAgaciRssItems();
-			$item->title= "$aileBireyAd Aile ağacına eklendi";
-			$item->description = "$aileBireyDogum doğumlu $aileBireyAd - ".$aile->aileID.' numarasıyla aile ağacına eklendi.';
-			$item->link = getSiteName().'main/aile?id='.$aile->aileID;
+			$item = new main_models_Aar();
+			$item->title= "$a Aile ağacına eklendi";
+			$item->description = "$d doğumlu $a - ".$aile->id.' numarasıyla aile ağacına eklendi.';
+			$item->link = getSiteName().'main/aile?id='.$aile->id;
 			$item->save();
 				
 			$conn->commit();
 
-			$this->insertAkrabaCouch($aile->aileID,$aileBireyAd,$aileBireyEbeveyn,$aileBireyTanim,$aileBireyDogum,$aileBireyOlum,$aileBireyEs,$aileBireyAdres,$aileBireyMail,$aileBireyTel,$aileBireyMSN,$aileBireyTwitter,$aileBireyFlickr);
+			$this->insertAkrabaCouch($aile->id,$a,$e,$t,$d,$o,$es,$adres,$m,$tel,$twit,$flic);
 			return 1;
 		}  
 		catch (Doctrine_Connection_Exception $e) 
@@ -317,7 +317,7 @@ class AjaxController extends Zend_Controller_Action
 		}
 	}
 
-	function insertAkrabaCouch($id,$ad,$ebeveyn,$tanim,$dogum,$olum,$es,$adres,$mail,$tel,$msn,$twitter,$flickr)
+	function insertAkrabaCouch($id,$ad,$ebeveyn,$tanim,$dogum,$olum,$es,$adres,$mail,$tel,$twitter,$flickr)
 	{
 		$client=Zend_Registry::get('client');
 		$birey = new stdClass();
@@ -331,54 +331,51 @@ class AjaxController extends Zend_Controller_Action
 		$birey->adres = $adres;
 		$birey->mail = $mail;
 		$birey->tel = $tel;
-		$birey->msn = $msn;
 		$birey->twitter = $twitter;
 		$birey->flickr = $flickr;
 		try { $response = $client->storeDoc($birey); } 
 		catch (Exception $e) {trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode()); }
 	}
 
-	function updateAkraba($aileBireyGuncelleID,$aileBireyTanim,$aileBireyDogum,$aileBireyOlum,$aileBireyEs,$aileBireyAdres,$aileBireyMail,$aileBireyTel,$aileBireyMSN,$aileBireyTwitter,$aileBireyFlickr)
+	function updateAkraba($id,$t,$d,$o,$es,$adres,$mail,$tel,$twitter,$flickr)
 	{
 		try{
 			$this->_helper->cache->remove("aile"); 
 			$this->_helper->cache->remove("aileDetay"); 
 			
-			$item = Doctrine::getTable('main_Models_AileAgaciDetay')->find($aileBireyGuncelleID);
-			$item->aileTanim =$aileBireyTanim;
+			$item = Doctrine::getTable('main_models_Aad')->find($id);
+			$item->tanim =$t;
 
-			$ts = new DateTime($aileBireyDogum);
-			$aileBireyDogum=$ts->format("Y-m-d");
-			$ts = new DateTime($aileBireyOlum=="" ? "0000-00-00" : $aileBireyOlum);
-			$aileBireyOlum=$ts->format("Y-m-d");
+			$ts = new DateTime($d);
+			$d=$ts->format("Y-m-d");
+			$ts = new DateTime($o=="" ? "0000-00-00" : $o);
+			$o=$ts->format("Y-m-d");
 
-			$item->aileDogum =$aileBireyDogum;
-			$item->aileOlum =$aileBireyOlum;
-			$item->aileBireyEs =ucwords($aileBireyEs);
-			$item->aileBireyAdres =$aileBireyAdres;
-			$item->aileBireyMail =$aileBireyMail;
-			$item->aileBireyTel =$aileBireyTel;
-			$item->aileBireyMSN =$aileBireyMSN;
-			$item->aileBireyTwitter =$aileBireyTwitter;
-			$item->aileBireyFlickr =$aileBireyFlickr;
+			$item->dogum =$d;
+			$item->olum =$o;
+			$item->es =ucwords($es);
+			$item->adres =$adres;
+			$item->mail =$mail;
+			$item->tel =$tel;
+			$item->twitter =$twitter;
+			$item->flickr =$flickr;
 			$item->save();
 
 			$client=Zend_Registry::get('client');
-			try { $doc = $client->getDoc('aile'.$aileBireyGuncelleID); } 
+			try { $doc = $client->getDoc('aile'.$id); } 
 			catch (Exception $e) 
 			{
 				trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());
 				return 1;
 			}
-			$doc->dogum = $aileBireyDogum;
-			$doc->olum =$aileBireyOlum;
-			$doc->es =ucwords($aileBireyEs);
-			$doc->adres =$aileBireyAdres;
-			$doc->mail =$aileBireyMail;
-			$doc->tel =$aileBireyTel;
-			$doc->msn =$aileBireyMSN;
-			$doc->twitter =$aileBireyTwitter;
-			$doc->flickr =$aileBireyFlickr;
+			$doc->dogum = $d;
+			$doc->olum =$o;
+			$doc->es =ucwords($es);
+			$doc->adres =$adres;
+			$doc->mail =$mail;
+			$doc->tel =$tel;
+			$doc->twitter =$twitter;
+			$doc->flickr =$flickr;
 			try { $response = $client->storeDoc($doc); } 
 			catch (Exception $e) 
 			{
@@ -399,34 +396,32 @@ class AjaxController extends Zend_Controller_Action
 		}
 	}
 
-	function searchAkraba($aileAraAd)
+	function searchAkraba($a)
 	{
-		if(mb_strlen($aileAraAd,'utf-8')<3)
-			die("&");
-		$sonuc="";
-		$q = Doctrine_Core::getTable('main_Models_AileAgaci');
-		$results = $q->search($aileAraAd);
+		$bu=$mu=$edits1=$edits2=array();
+		if(mb_strlen($a,'utf-8')<3)
+			die($bu);
+		$q = Doctrine_Core::getTable('main_models_Aa');
+		/*$results = $q->search($a);
 		foreach ($results as $result)
 		{
-			$aile = Doctrine::getTable('main_Models_AileAgaci')->find($result['aileid']);
-			$row = $aile->toArray();
-			$sonuc.= $row['aileID']."|".$row['aileAd']."|";
-		}
-		$q = Doctrine_Query::create()->from('main_Models_AileAgaci a')->where('a.aileAd=?', $aileAraAd);
+			$aile = Doctrine::getTable('main_models_Aa')->find($result['id']);
+			$row=$aile->toArray();
+			array_push($bu,array("id"=>$row["id"],"ad"=>$row["ad"]);
+		}*/
+		$q = Doctrine_Query::create()->from('main_models_Aa a')->where('a.ad=?', $a);
 		$row = $q->fetchOne();
-		if($row)	$sonuc.= $row['aileID']."|".$row['aileAd']."|";
-		$sonuc.= "&";
-		$result=$this->_helper->cache("aile","main_Models_AileAgaci"); 
+		if($row)	array_push($bu,array("id"=>$row["id"],"ad"=>$row["ad"]));
+		$result=$this->_helper->cache("aile","main_models_Aa"); 
 		foreach($result as $word) 
 		{
-			$word = strtolower($word["aileAd"]);
+			$word = strtolower($word["ad"]);
 			if(!isset($dict[$word])) 
 				$dict[$word] = 0;
 			$dict[$word] += 1;
 		} 
 		unset($result);
-		$word = strtolower($aileAraAd);
-		$edits1 = $edits2 = array();
+		$word = strtolower($a);
 		foreach($dict as $dictWord => $count) 
 		{
 			$dist = levenshtein($word, $dictWord); 
@@ -437,105 +432,101 @@ class AjaxController extends Zend_Controller_Action
 		}
 		if(count($edits1)) foreach ($edits1 as $anahtar=>$deger)
 		{
-			$q = Doctrine_Query::create()->from('main_Models_AileAgaci a')->where('a.aileAd=?', $anahtar);
-			$row = $q->fetchOne();
-			$sonuc.= $row['aileID']."|".$anahtar."|";
+			$q = Doctrine_Query::create()->from('main_models_Aa a')->where('a.ad=?', $anahtar);
+			$row=$q->fetchOne();
+			array_push($mu,array("id"=>$row["id"],"ad"=>$row["ad"]));
 		}
 		if(count($edits2)) foreach ($edits2 as $anahtar=>$deger)
 		{
-			$q = Doctrine_Query::create()->from('main_Models_AileAgaci a')->where('a.aileAd=?', $anahtar);
-			$row = $q->fetchOne();
-			$sonuc.= $row['aileID']."|".$anahtar."|";
+			$q = Doctrine_Query::create()->from('main_models_Aa a')->where('a.ad=?', $anahtar);
+			$row=$q->fetchOne();
+			array_push($mu,array("id"=>$row["id"],"ad"=>$row["ad"]));
 		}
 		unset($dict);
-		return $sonuc;
+		header('Content-Type: application/json');
+		return json_encode(array("bu"=>$bu,"mu"=>$mu));
 	}
 
-	function getRating($ailePuanID)
+	function getRating($oy)
 	{
-		$aile = Doctrine::getTable('main_Models_AileAgaciOy')->find($ailePuanID);
-		$row = $aile->toArray();
-		return $row['ortNorm']."|".$row['toplamOy']."|".$row['ort'];
+		$aile = Doctrine::getTable('main_models_Aao')->find($oy);
+		header('Content-Type: application/json');
+		return json_encode($aile->toArray());
 	}
 
-	function setRating($puanlaID,$yildiz)
+	function setRating($id,$yildiz)
 	{
 		preg_match('/star_([1-5]{1})/', $yildiz, $match);
 		$vote = $match[1];
-		$item = Doctrine::getTable('main_Models_AileAgaciOy')->find($puanlaID);
+		$item = Doctrine::getTable('main_models_Aao')->find($id);
 		$row = $item->toArray();
-		$votes= $row['toplamOy'] + 1;
-		$totalPoint = $row['toplamPuan'] + $vote;			
-		$ortalama = round( $totalPoint / $votes, 1 );
-		$normalOrta = round( $ortalama );
-		$item->toplamOy =$votes;
-		$item->toplamPuan =$totalPoint;
-		$item->ortNorm =$normalOrta;
+		$votes= $row['to'] + 1;
+		$tp = $row['tp'] + $vote;			
+		$ortalama = round( $tp / $votes, 1 );
+		$on = round( $ortalama );
+		$item->to =$votes;
+		$item->tp =$tp;
+		$item->on =$on;
 		$item->ort =$ortalama;
 		$item->save();
 
 		$client=Zend_Registry::get('client');
 		try { 
-			$doc = $client->getDoc('aile'.$puanlaID);
-			$doc->oy["toplamOy"] = $votes;
-			$doc->oy["toplamPuan"] = $totalPoint;
-			$doc->oy["ortNorm"] = $normalOrta;
+			$doc = $client->getDoc('aile'.$id);
+			$doc->oy["to"] = $votes;
+			$doc->oy["tp"] = $tp;
+			$doc->oy["on"] = $on;
 			$doc->oy["ort"] = $ortalama;
 			try { $response = $client->storeDoc($doc); } 
 			catch (Exception $e) {	trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode()); }
 		} 
 		catch (Exception $e) {trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());	}
 
-		return $normalOrta."|".$votes."|".$ortalama;
+		header('Content-Type: application/json');
+		return json_encode(array("norm"=>$on,"votes"=>$votes,"ort"=>$ortalama));
 	}
 
-	function submitComment($aileID)
+	function submitComment($id,$n,$u,$e,$b)
 	{
-		$arr['commentName']= temizYazi($_POST['commentName']);
-		$arr['commentUrl']= temizURL($_POST['commentUrl']);
-		$arr['commentEMail']= temizEMail($_POST['commentEMail']);
-		$arr['commentBody']= temizYazi($_POST['commentBody']);
-		$arr['dt'] = date('r',time());
+		$dt = date('r',time());
 
 		$client=Zend_Registry::get('client');
 		try { 
-			$doc = $client->getDoc('aile'.$aileID);
+			$doc = $client->getDoc('aile'.$id);
 			$yorum = new stdClass();
-			$yorum->isim = $arr['commentName'];
-			$yorum->url = $arr['commentUrl'];
-			$yorum->mail = $arr['commentEMail'];
-			$yorum->body = $arr['commentBody'];
-			$yorum->zaman = $arr['dt'];
+			$yorum->isim = $n;
+			$yorum->url = $u;
+			$yorum->mail = $e;
+			$yorum->body = $b;
+			$yorum->zaman = $dt;
 			$doc->yorumlar[] = $yorum;
 			try { $response = $client->storeDoc($doc); } 
 			catch (Exception $e) {	trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode()); }
 		} 
 		catch (Exception $e) {trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());	}
 
-		$item = new main_Models_Yorumlar;
-		$item->aileID= $aileID;
-		$item->commentName = $arr['commentName'];
-		$item->commentUrl = $arr['commentUrl'];
-		$item->commentEMail = $arr['commentEMail'];
-		$item->commentBody =$arr['commentBody'];
+		$item = new main_models_Aay;
+		$item->aileID= $id;
+		$item->n = $n;
+		$item->u = $u;
+		$item->m = $e;
+		$item->b =$b;
 		$item->save();
-		$arr['dt'] = date('r',time());
-		$arr['id'] = $item->id;
 
 		header('Content-Type: application/json');
-		return json_encode(array('status'=>1,'html'=>markup($arr)));
+		return json_encode(array('status'=>1,'html'=>markup(array("id"=>$item->id,"dt"=>$dt,"n"=>$n,"u"=>$u,"m"=>$e,"b"=>$b))));
 	}
 	
-	function getComments($aileID)
+	function getComments($yorum)
 	{
 		$comments = array();
 		$mesaj="";	
-		$item = Doctrine_Query::create()->from('main_Models_Yorumlar a')->where("a.aileID=?",$aileID)->orderby("a.id ASC");
+		$item = Doctrine_Query::create()->from('main_models_Aay a')->where("a.aileID=?",$yorum)->orderby("a.id ASC");
 		$result = $item->fetchArray();
 		$item->free();
-		foreach($result as $row)
-			$mesaj.= markup($row);
-		return $mesaj."|".count($result);
+		array_walk($result,create_function('&$v,$k','$v = markup($v);'));
+		header('Content-Type: application/json');
+		return json_encode(array("sayi"=>count($result),"yorumlar"=>implode("",$result)));
 	}	
 }
 

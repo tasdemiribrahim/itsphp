@@ -32,8 +32,27 @@
 		</form>
 		<br />
 		<fieldset>
-		<legend>Twitter ile Bağlan</legend>
-		<?php echo $this->twitter ?>
+			<legend>Twitter ile Bağlan</legend>
+			<?php echo $this->twitter ?>
+		</fieldset>
+		<br />
+		<fieldset>
+			<legend>Facebook ile Bağlan</legend>
+	 		<iframe src='http://www.facebook.com/plugins/registration.php?
+		                client_id=<?php echo FACEBOOK_APP_ID; ?>&
+		                redirect_uri=<?php echo getSiteName()."main/login"; ?>&
+		                fields=[
+		                {"name":"name"},
+		                {"name":"email"},
+		                {"name":"password"},
+		                {"name":"gender"},
+		                {"name":"birthday"},
+		                {"name":"captcha"},
+		                {"name":"phone", "description":"Phone Number", "type":"text"}
+		                ]'
+		                scrolling="auto" frameborder="no" style="border:none" allowTransparency="true" height="600">
+		        </iframe>
+			<span class="uyari"><?php echo $this->fbhata ?></span>
 		</fieldset>
 		<br />
 		<form id="myspace-form" method="POST">
@@ -58,7 +77,7 @@
 					<h1>Hoş Geldiniz</h1>
 					<h2>Nasıl kayıt olurum?</h2>		
 					<p class="grey">Ne yazık ki olamazsınız! Yönetici (Admin) kısmı sadece site tasarımcılarına ayrılmıştır. Sitenin geri kalan kısmı (şimdilik) herkese açıktır.</p>
-					<label class="uyari" id="uyari"><?php echo $this->uyari ?></label>
+					<span class="uyari"><?php echo $this->uyari ?></span>
 				</div>
 				<form id="login-form" method="post">
 					<div class="left clearfix">

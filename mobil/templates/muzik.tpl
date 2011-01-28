@@ -12,24 +12,28 @@
 			{else}
 				,
 			{/if}
-			<a href='muzik.php?id={$dizi["grupID"]}'>{$dizi["grupAd"]}</a>
+			<a href='muzik.php?id={$dizi["id"]}'>{$dizi["ad"]}</a>
 		{/foreach}
 		;
-		<h3>{$row["memleket"]}'den {$row["grupAd"]}</h3>
-		<a href='http://www.youtube.com/watch?v={$row["grupClip"]}' rel='nofollow' target='_blank'>Klibini izle</a>
-		<img title='{$row["grupAd"]}' src='{$resim}' alt='{$row["grupAd"]}' /><br />
+		<h3>{$row["mem"]}'den {$row["ad"]}</h3>
+		<a href='http://www.youtube.com/watch?v={$row["clip"]}' rel='nofollow' target='_blank'>Klibini izle</a>
+		<img title='{$row["ad"]}' src='{$resim}' alt='{$row["ad"]}' /><br />
 		{$row["tanim"]}
-		<h4>Elemanlar</h4>
-		<ul>
-			{foreach item=dizi from=$elemanlar}
-				<li>{$dizi['elemanAd']}({$dizi['enstruman']})</li>
-			{/foreach}
-		</ul>
-		<h4>Albümler</h4>
-		<ul>
-			{foreach item=dizi from=$albumler}
-				<li>{$dizi['albumYil']}-{$dizi['albumAd']}</li>
-			{/foreach}
-		</ul>
+		<p><b>Elemanlar:</b>
+			{foreach item=dizi from=$elemanlar name=el}
+				{$dizi['ad']}({$dizi['ens']})
+				{if not $smarty.foreach.el.last}
+					,&nbsp;
+				{/if}
+			{/foreach};
+		</p>
+		<p><b>Albümler:</b>
+			{foreach item=dizi from=$albumler name=al}
+				{$dizi['yil']}-{$dizi['ad']}
+				{if not $smarty.foreach.al.last}
+					,&nbsp;
+				{/if}
+			{/foreach};
+		</p>
 
 {include file="footer.tpl"}

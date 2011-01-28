@@ -14,7 +14,7 @@ class ErrorController extends Zend_Controller_Action
                 $this->view->errCode = '404';
                 break;
             default:
-               // $this->getResponse()->setHttpResponseCode(500);
+                $this->getResponse()->setHttpResponseCode(500);
                 $this->view->title = 'Programlama Hatası';
                 $this->view->errCode = '500';
                 break;
@@ -38,7 +38,7 @@ class ErrorController extends Zend_Controller_Action
 	'stacktrace' => 'Stack',
 	'request' => 'Request',
 	);
-	$dbWriter = new main_Helpers_Log_Writer_Doctrine('main_Models_Log', $columnMap);
+	$dbWriter = new main_helpers_Log_Writer_Doctrine('main_models_Log', $columnMap);
 	$logger->addWriter($dbWriter);
 	*/
 	$fbWriter = new Zend_Log_Writer_Firebug();

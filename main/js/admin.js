@@ -1,36 +1,36 @@
 //window.log("admin_ayarlar.js Yuklendi.");
-function guncellemeFormuGoster(grupAdJS)
+function guncellemeFormuGoster(id)
 {
 	//window.log("admin_ayarlar.js guncellemeFormuGoster fonksiyon.");
 
-	$("#grupImage").attr("src",getResim(grupAdJS,"muzik"));
+	$("#ruf img").attr("src",getResim(id,"muzik"));
+	$('#id').val(id);
 	$.ajax({
-	        data: 'guncelleID='+grupAdJS,
+	        data: 'gid='+id,
+		dataType:"json",
 	        success: function(cevap)
-	        {
-				var parca= cevap.split("&"),mesaj="";
-				var parcalar= parca[0].split("|");
-				$('#grupID').html(grupAdJS);
-				$("#grupTanim").val(parcalar[0]);
-				i=1;
-				$('#guncelleForm input').each(function(){ $(this).val(parcalar[i++]); });
-				parcalar=parca[1].split("|");
-				i=parcalar.length;
-				while((i=i-3)>0)
-					mesaj+="<option id="+parcalar[i-1]+" name="+parcalar[i-1]+">"+parcalar[i+1]+"-"+parcalar[i]+"</option>";
-				$("#albumSelect").html(mesaj);
-				parcalar= parca[2].split("|");
-				mesaj="";
-				i=parcalar.length;
-				while((i=i-3)>0)
-					mesaj+="<option id="+parcalar[i-1]+" name="+parcalar[i-1]+">"+parcalar[i]+"("+parcalar[i+1]+")</option>";
-				$("#elemanSelect").html(mesaj);
-				$('#guncelleFormDiv').show();
-				$('#forUpdate').show();
-				$('#resimUploadFieldset').show();
-				$('#guncelle').show();
-				$('#kaydet').hide();
-			}
+	        {	
+			console.log(cevap);
+			$("#tanim").val(cevap.tanim);
+			i=$('#asggf input');
+			i.eq(1).val(cevap.ad);
+			i.eq(2).val(cevap.clip);
+			i=$('#asggf select');
+			i.eq(0).val(cevap.tur);
+			i.eq(1).val(cevap.mem);
+			mesaj="";
+			for(j in cevap.Albumler)
+				mesaj+="<option id="+cevap.Albumler[j].id+">"+cevap.Albumler[j].yil+"-"+cevap.Albumler[j].ad+"</option>";
+			$("#alform select").html(mesaj);
+			mesaj="";
+			for(j in cevap.Elemanlar)
+				mesaj+="<option id="+cevap.Elemanlar[j].id+">"+cevap.Elemanlar[j].ad+"("+cevap.Elemanlar[j].ens+")</option>";
+			$("#elform select").html(mesaj);
+			$('#forUpdate').show();
+			$('#ruf').show();
+			$('#gkay').show();
+			$('#ggun').hide();
+		}
         });
 	//window.log("admin_ayarlar.js guncellemeFormuGoster fonksiyon sonu.");
 }
@@ -38,7 +38,6 @@ function guncellemeFormuGoster(grupAdJS)
 $(document).ready(function() {
 	//window.log("admin_ayarlar.js DOM Yuklendi.");
 	activateMain();
-	$('body').addClass("adminBody");
 	var kayGun="";
 	var d = new Date();
 	 $.ajaxSetup({
@@ -50,17 +49,13 @@ $(document).ready(function() {
 	var tabContainers = $('div.tabs > div');
 	tabContainers.hide().filter(':first').show();
 	$('#forUpdate').hide();
-	$('#resimUploadFieldset').hide();
-	$('#guncelle').hide();
-	            
-	$('#guncelleForm').html5form(); 
-	$('#kaydetAlbumForm').html5form(); 
-	$('#kaydetElemanForm').html5form(); 
+	$('#ruf').hide();
+	$('#ggun').hide();
 
-	$('.tabNavigation a').bind("click",function () {
+	$('.adtn a').bind("click",function () {
 		tabContainers.hide();
 		tabContainers.filter(this.hash).show();
-		$('.tabNavigation a').removeClass('selected');
+		$('.adtn a').removeClass('selected');
 		$(this).addClass('selected');
 		return false;
 	}).filter(':first').click();
@@ -72,209 +67,162 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	$('#yeniGrupFormAcButon').bind("click",function(){
-		//window.log("admin_ayarlar.js yeniGrupFormAcButon click event.");
-		$('#guncelleFormDiv').show();
-		$('#resimUploadFieldset').hide();
+	$('#adyg').bind("click",function(){
+		//window.log("admin_ayarlar.js adyg click event.");
+		$('#ruf').hide();
 		$('#forUpdate').hide();
-		$('#grupID').html("");
-		$('#guncelleForm input').val("");
-		$('#guncelleForm textarea').val("");
+		$('#asggf input').val("");
+		$('#asggf textarea').val("");
 		$("#forUpdate select").html("");
-		$('#guncelle').hide();
-		$('#kaydet').show();
-		$("#grupImage").attr("src"," ");
+		$('#ggun').hide();
+		$('#gkay').show();
+		$("#ruf img").attr("src"," ");
+		$('#id').val(0);
 		return false;
 	});
 
-	$('#guncelleGrupFormAcButon').bind("click",function(){
-		//window.log("admin_ayarlar.js guncelleGrupFormAcButon click event.");
-		guncellemeFormuGoster($("#grupAdSelect option:selected").attr("id"));
-		//window.log("admin_ayarlar.js guncelleGrupFormAcButon click event tamamland&#253;.");
-		return false;
+	$('#adgas .checkBlue').bind("click",function(){
+		//window.log("admin_ayarlar.js gun click event.");
+		guncellemeFormuGoster($("#adgas option:selected").attr("id"));
+		//window.log("admin_ayarlar.js gun click event tamamland&#253;.");
 	});
 	
-	$('#sil').bind("click",function(){
+	$('#adgas .thrashBlue').bind("click",function(){
 		//window.log("admin_ayarlar.js sil click event.");
-		var grupAdJS=$("#grupAdSelect option:selected").attr("id");
-		var answer = false;
-		if(grupAdJS !== null){	answer= confirm (grupAdJS + " silmek istediğinizden emin misiniz?"); }
-		if(answer)
+		var ad=$("#adgas option:selected").attr("id");
+		if(confirm (ad + " silmek istediğinizden emin misiniz?"))
 		{
-			$.ajax({ data: 'silID='+grupAdJS });
-			$("#uyari").append($("#grupAdSelect option:selected").html() + " silindi!<br>");
-			$("#grupAdSelect option:selected").remove();
+			$.ajax({ data: 'sid='+ad });
+			$("#uyari").append($("#adgas option:selected").html() + " silindi!<br>");
+			$("#adgas option:selected").remove();
 		}
-		return false;
 	});
 	
-	$("#guncelleForm").validate({
+	$("#asggf").validate({
 		debug: false,
-		errorLabelContainer: $("#uyariForm"),
 		rules: {
-			grupAd: "required",
-			grupTur: "required",
-			grupMemleket: "required",
-			grupClip: "required",
-			grupTanim: "required"
+			ad: "required",
+			tur: "required",
+			mem: "required",
+			clip: "required",
+			tanim: "required"
 		},
 		messages: {
-			grupAd: "Müzisyenin adını girin!",
-			grupTur: "Müzik tür girin!",
-			grupMemleket: "Bir ülke veya şehir girin!",
-			grupClip: "Müzisyenin youtube klip url'sinin son kısmını girin!",
-			grupTanim: "Müzisyenin hikayesini yazın!"
+			ad: "Müzisyenin adını girin!",
+			tur: "Müzik tür girin!",
+			mem: "Bir ülke veya şehir girin!",
+			clip: "Müzisyenin youtube klip url'sinin son kısmını girin!",
+			tanim: "Müzisyenin hikayesini yazın!"
 		},
 		submitHandler: function(form) {
-			var grupAdJS=$("#grupAd").val(),
-				grupTurJS=$("#grupTur").val(),
-				grupTanimJS=$("#grupTanim").val(),
-				grupClipJS=$("#grupClip").val(),
-				grupMemleketJS=$("#grupMemleket").val();
-			//window.log(grupAdJS+"-"+grupTurJS+"-"+grupTanimJS+"-"+grupClipJS+"-"+grupMemleketJS);
-			if(kayGun=="kaydet")
-			{
-				$.ajax({
-			        data: 'grupTanim='+grupTanimJS+'&grupMemleket='+grupMemleketJS+'&kaydet=1'+'&grupAd='+grupAdJS+'&grupTur='+grupTurJS+'&grupClip='+grupClipJS+'&formKeyJS='+$('#formKey').val(),
-			        success: function(cevap){
-						$("#grupAdSelect").append("<option id='"+cevap+"'>"+grupAdJS+"</option>");
-						$("#uyari").append(grupAdJS + " eklendi!<br>");
-						guncellemeFormuGoster(cevap);
-						$('.grupKayGun').removeAttr("disabled");
+			var adjs=$('input[name="ad"]').val();
+			$.ajax({
+				data: $("#asggf").serialize(),
+				dataType:"json",
+				success: function(cevap){
+					console.log(cevap);
+					if(cevap.durum=="yeni")
+					{
+						$("#adgas").append("<option id='"+cevap.id+"'>"+adjs+"</option>");
+						$("#uyari").append(adjs + " eklendi!<br>");
+						guncellemeFormuGoster(cevap.id);
 					}
-			      });
-			}
-			else if(kayGun=="guncelle")
-			{
-				$.ajax({ data: 'guncellenecekID='+$('#grupID').html()+'&grupAd='+grupAdJS+'&grupTur='+grupTurJS+'&grupTanim='+grupTanimJS+'&grupMemleket='+grupMemleketJS+'&grupClip='+grupClipJS+'&formKeyJS='+$('#formKey').val()});
-				$("#uyari").append(grupAdJS + " guncellendi!<br>");
-				$('.grupKayGun').removeAttr("disabled");
-			}
-		}
-	});
-	$('.grupKayGun').bind("click",function(){
-		if($('#fax').html()=="")
-		{
-			$(this).attr("disabled","disabled");
-			kayGun=$(this).attr("id");
-			$('#guncelleForm').submit();
-			//window.log("admin_ayarlar.js kaydet click event.");
+					else if(cevap.durum=="guncel")
+						$("#uyari").append(adjs + " guncellendi!<br>");
+					else 
+						$("#uyari").append("Bir hata oluştu:"+cevap.durum+"<br>");
+			     	}
+			});
 			return false;
 		}
 	});
 
-	$("#kaydetAlbumForm").validate({
+	$("#alform form").validate({
 		debug: false,
-		errorLabelContainer: $("#uyariForm"),
 		rules: {
-			albumAd: "required",
-			albumYil: { required: true, number: true, range:[1900,2020] }
+			alad: "required",
+			alyil: { required: true, number: true, range:[1900,2020] }
 		},
 		messages: {
-			albumAd: "Albüm adını girin!",
-			albumYil: {required:"Albüm yıl girin!",number:"Bir yıl girin!",range:"1900-2020 arasında bir yıl girin!" }
+			alad: "Albüm adını girin!",
+			alyil: {required:"Albüm yıl girin!",number:"Bir yıl girin!",range:"1900-2020 arasında bir yıl girin!" }
 		},
 		submitHandler: function(form) {
-			var albumAdJS=$("#albumAd").val(),
-				albumYilJS=$("#albumYil").val(),
-				grupAdJS=$('#grupID').html();
+			var aladj=$("#alform form input").eq(0).val();
+			var alyilj=$("#alform form input").eq(1).val();
 			$.ajax({
-		        data: 'yeniAlbum=1&grupAd='+grupAdJS+'&albumYil='+albumYilJS+'&albumAd='+albumAdJS+'&formKeyJS='+$('#formKey').val(),
+		        data: $("#alform form").serialize()+"&aid="+$('#asggf input').eq(0).val(),
+			dataType:"json",
 		        success: function(cevap){
-	        		$("#albumSelect").append("<option id="+cevap+">"+albumYilJS+"-"+albumAdJS+"</option");
-	        		$("#albumAd").val("");
-	    			$("#albumYil").val("");
-					$("#kaydetAlbum").removeAttr("disabled");
+				if(cevap.durum=="ok")
+					$("#alform select").append("<option id="+cevap.id+">"+alyilj+"-"+aladj+"</option");
+				else
+					$("#uyari").append("Bir hata oluştu:"+cevap.durum+"<br>");
 			}
-		      });
-			$("#uyari").append(albumAdJS + " albümü eklendi!<br>");
-		}
-	});
-	$('#kaydetAlbum').bind("click",function(event){
-		if($('#fax').html()=="")
-		{
-			$(this).attr("disabled","disabled");
-			//window.log("admin_ayarlar.js kaydetAlbum click event.");
-			$("#kaydetAlbumForm").submit();
+		     	});
+			$("#alform input").val("");
 			return false;
 		}
 	});
 	
-	$("#kaydetElemanForm").validate({
+	$("#elform form").validate({
 		debug: false,
-		errorLabelContainer: $("#uyariForm"),
 		rules: {
-			elemanAd: "required",
-			elemanEnstruman: "required"
+			elad: "required",
+			alens: "required"
 		},
 		messages: {
-			elemanAd: "Müzisyenin adını girin!",
-			elemanEnstruman: "Bir enstrüman girin!"
+			elad: "Müzisyenin adını girin!",
+			alens: "Bir enstrüman girin!"
 		},
 		submitHandler: function(form) {
-			var elemanAdJS=$("#elemanAd").val(),
-				enstrumanJS=$("#elemanEnstruman").val(),
-				grupAdJS=$('#grupID').html();
+			var eladj=$("#elform form input").eq(0).val(),elensj=$("#elform form input").eq(1).val();
 			$.ajax({
-		        data: 'yeniEleman=1&grupAd='+grupAdJS+'&elemanAd='+elemanAdJS+'&enstruman='+enstrumanJS+'&formKeyJS='+$('#formKey').val(),
+			dataType:"json",
+		        data: $("#elform form").serialize()+"&eid="+$('#asggf input').eq(0).val(),
 		        success: function(cevap){
-	        		$("#elemanSelect").append("<option id="+cevap+">"+elemanAdJS+"("+enstrumanJS+")</option>");
-	        		$("#elemanAd").val("");
-	    			$("#elemanEnstruman").val("");
-					$('#kaydetEleman').removeAttr("disabled");
+				if(cevap.durum=="ok")
+	        			$("#elform form select").append("<option id="+cevap.id+">"+eladj+"("+elensj+")</option>");
+				else 
+					$("#uyari").append("Bir hata oluştu:"+cevap.durum+"<br>");
 				}
-		      });
-			$("#uyari").append(elemanAdJS + " elemanı eklendi!<br>");
-		}
-	});
-	$('#kaydetEleman').bind("click",function(){
-		if($('#fax').html()=="")
-		{
-			$(this).attr("disabled","disabled");
-			//window.log("admin_ayarlar.js kaydetEleman click event.");
-			$("#kaydetElemanForm").submit();
+		      	});
+			$("#elform form input").val("");
 			return false;
 		}
 	});
 	
-	$('#silEleman').bind("click",function(){
+	$('#elform .thrashBlue').bind("click",function(){
 		//window.log("admin_ayarlar.js kaydetEleman click event.");
-		var elemanIDJS=$("#elemanSelect option:selected").attr("id");
-		var answer = false;
-		if(elemanIDJS !== null){	answer= confirm (elemanIDJS + " silmek istediğinizden emin misiniz?"); }
-		if(answer)
+		var eid=$("#elform select option:selected").attr("id");
+		if(confirm (eid + " silmek istediğinizden emin misiniz?"))
 			$.ajax({
-				data: 'silEleman='+elemanIDJS,
+				data: 'seid='+eid,
 				success: function(cevap){
-					$("#elemanSelect option:selected").remove();
+					$("#elform select option:selected").remove();
 					$("#uyari").append(elemanIDJS + " elemanı silindi!<br>");
 				}
 			  });
-		return false;
 	});
 	
-	$('#silAlbum').bind("click",function(){
+	$('#alform .thrashBlue').bind("click",function(){
 		//window.log("admin_ayarlar.js kaydetEleman click event.");
-		var albumIDJS=$("#albumSelect option:selected").attr("id");
-		var answer = false;
-		if(albumIDJS !== null){	answer= confirm (albumIDJS + " silmek istediğinizden emin misiniz?"); }
-		if(answer)
+		var aid=$("#alform select option:selected").attr("id");
+		if(confirm (aid + " silmek istediğinizden emin misiniz?"))
 			$.ajax({
-				data: 'silAlbum='+albumIDJS,
+				data: 'said='+aid,
 				success: function(cevap){
 					$("#albumSelect option:selected").remove();
-					$("#uyari").append(albumIDJS + " albumu silindi!<br>");
+					$("#uyari").append(aid + " albumu silindi!<br>");
 				}
 			  });
-		return false;
 	});
 	
-	$("#film_form").validate({
+	$("#film form").validate({
 		debug: false,
-		errorLabelContainer: $("#uyariForm"),
 		rules: {
-			film_ad: "required",
-			uzunluk: "required",
+			fad: "required",
+			uz: "required",
 			mp4: "url",
 			ogg: "url",
 			webm: "url",
@@ -285,8 +233,8 @@ $(document).ready(function() {
 			tr: "url"
 		},
 		messages: {
-			film_ad: "Filmin adını girin!",
-			uzunluk: "Uzunluğu girin!",
+			fad: "Filmin adını girin!",
+			uz: "Uzunluğu girin!",
 			mp4: "Bir link girin!",
 			ogg: "Bir link girin!",
 			webm: "Bir link girin!",
@@ -297,13 +245,18 @@ $(document).ready(function() {
 			tr: "Bir link girin!"
 		},
 		submitHandler: function(form) {
-				$.ajax({
-			        data: $("#film_form").serialize(),
-			        success: function(cevap){
-						alert("İşlem başarılı-"+cevap);
-						$("#film_form input").val("");
-					}
-			      });
+			$.ajax({
+			dataType:"json",
+		        data: $("#film form").serialize(),
+		        success: function(cevap){
+				if(cevap.durum=="ok")
+					alert("İşlem başarılı-"+cevap.id);
+				else 
+					$("#uyari").append("Bir hata oluştu:"+cevap.durum+"<br>");
+			}
+		      	});
+			$("#film form input").val("");
+			return false;
 		}
 	});
 	
@@ -312,8 +265,8 @@ $(document).ready(function() {
 	var ajaxUploadJS = new AjaxUpload(resimBtnUpload, {
         action: '/main/admin/admin/ajax',
         name: 'uploadResim',
-		allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
-		sizeLimit: 63000000,
+	allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+	sizeLimit: 63000000,
         onSubmit: function(file, ext){
             if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){
 				addNotice('<p>Sadece JPG, PNG veya GIF resimleri yüklenebilir!!!</p>');
@@ -321,7 +274,7 @@ $(document).ready(function() {
             }
 		addNotice('<p>Yükleniyor...</p>');
         },
-		onProgress: function(id, fileName, loaded, total){},
+	onProgress: function(id, fileName, loaded, total){},
         onComplete: function(file, uniqueFile){
 			var matches,mesajlar=["<p>Resim başarıyla yüklendi...</p>",
 			"<p>Resmin boyutu çok fazla, 63 KB'tan daha fazla olamaz.</p>",
@@ -341,11 +294,11 @@ $(document).ready(function() {
 			}
 			else
 				$.ajax({
-					data: 'resimHedefGrupID='+$('#grupID').html()+'&fileName='+uniqueFile,
+					data: 'rid='+$('#asggf input').eq(0).val()+'&fn='+uniqueFile,
 					success: function(cevap)
 					{
 						addNotice(mesajlar[0]);
-						$("#grupImage").attr("src",cevap);
+						$("#ruf img").attr("src",cevap);
 					}
 				});
         }

@@ -1,78 +1,114 @@
 	<div class="tabs">
 		<div id="Grup">
-			<h3>Müzik İşlemleri</h3>
-			<a href="#" class="button" id="yeniGrupFormAcButon">Yeni Grup</a><br />
-			<form id="guncelleSilForm">
-				<select id="grupAdSelect">
+			<a href="#" class="button" id="adyg">Yeni Grup</a><br />
+			<form>
+				<label for="ytur">Yeni Tür:</label>
+				<input name="ytur" size="45" required />
+			</form><br class="clear" /><hr />
+			<form>
+				<label for="ymem">Yeni Ülke:</label>
+				<input name="ymem" size="45" required />
+			</form><br class="clear" /><hr />
+			<form id="adgas">
+				<label for="gsec">Müzisyen:</label>
+				<select name="gsec">
 				<?php
 					foreach($this->muzik as $row)
-						echo "<option id=$row[grupID]>$row[grupAd]</option>";
+						echo "<option value=$row[id] id=$row[id]>$row[ad]</option>";
 				?>
 				</select>
-				<div class="checkBlue" id="guncelleGrupFormAcButon"></div>
-				<div class="thrashBlue" id="sil"></div>
-			</form><br class="clear" />
-			<form id="guncelleForm">
-				<label id="grupID"> </label><br class="clear" />
-				<label for="grupAd">Ad:</label><input id="grupAd" size="45" placeholder="Iron Maiden" required autofocus /><br />
-				<label for="grupTur">Tür:</label><input id="grupTur" size="45" placeholder="Heavy Metal" required /><br />
-				<label for="grupMemleket">Memleket:</label><input id="grupMemleket" size="45" placeholder="ingiltere" required /><br />
-				<label for="grupClip">Klip:</label><input type="url" id="grupClip" size="45" placeholder="enTPV_wkKbA" required /><br />
-				<textarea id="grupTanim" class="cleditor" rows="13" cols="50" placeholder="Öz geçmiş" required ></textarea>
-				<br />
-				<div class="checkBlue grupKayGun" id="guncelle"></div>
-				<div class="saveBlue grupKayGun" id="kaydet"></div>
+				<span class="checkBlue">Seç</span>
+				<span class="thrashBlue">Sil</span>
+			</form><br class="clear" /><hr />
+			<form id="asggf">
+				<input type="hidden" name="id" id="id" value="0" />
+				<p>
+					<label for="ad">Ad:</label>
+					<input name="ad" size="45" required />
+				</p>
+				<p>
+					<label for="tur">Tür:</label>
+					<select name="tur" required>
+					<?php
+						foreach($this->tur as $row)
+							echo "<option value=$row[id] id=$row[id]>$row[ad]</option>";
+					?>
+					</select>
+				</p>
+				<p>
+					<label for="mem">Memleket:</label>
+					<select name="mem" required>
+					<?php
+						foreach($this->mem as $row)
+							echo "<option value=$row[id] id=$row[id]>$row[ad]</option>";
+					?>
+					</select>
+				</p>
+				<p>
+					<label for="clip">Klip:</label>
+					<input type="url" name="clip" size="45" required />
+				</p>
+				<p>
+					<label for="tanim">Tanım:</label>
+					<textarea id="tanim" name="tanim" class="cleditor" rows="13" cols="50" placeholder="Öz geçmiş" required ></textarea>
+				</p>
+				<p>
+					<input type="submit" id="ggun" value="Guncelle" />
+					<input type="submit" id="gkay"/>
+				</p>
+			<hr />
 			</form>
 			<br />
-			<div id="forUpdate" name="forUpdate">
-				<fieldset>
+			<div id="forUpdate">
+				<fieldset id="alform">
 					<legend>Albümler</legend>
-					<form id="kaydetAlbumForm">
-						<input id="albumAd" placeholder="Iron Maiden" />
-						<input type="number" id="albumYil" min="1900" max="2020" step="1" placeholder="1980" />
-						<div class="saveBlue" id="kaydetAlbum"></div>
+					<form>
+						<input name="alad" placeholder="Albüm" required/>
+						<input type="number" name="alyil" min="1900" max="2020" step="1" placeholder="Yıl" required/>
+						<input type="submit"/>
 					</form>
-					<select id="albumSelect" name="albumSelect"></select><div class="thrashBlue" id="silAlbum" ></div>
-				</fieldset>
-				<fieldset>
+					<select></select>
+					<span class="thrashBlue">Sil</span>
+				</fieldset><hr />
+				<fieldset id="elform">
 					<legend>Elemanlar</legend>
-					<form id="kaydetElemanForm">
-						<input id="elemanAd" placeholder="Bruce Dickinson" />
-						<input id="elemanEnstruman" placeholder="Vokal" />
-						<div class="saveBlue" id="kaydetEleman"></div>
+					<form>
+						<input id="elad" placeholder="Müzisyen" required/>
+						<input id="elens" placeholder="Enstrümanı" required/>
+						<input type="submit"/>
 					</form>
-					<select id="elemanSelect"></select>
-					<div class="thrashBlue" id="silEleman"></div>
+					<select></select>
+					<span class="thrashBlue">sil</span>
 				</fieldset>
 			</div>
-			<fieldset id="resimUploadFieldset">
+			<fieldset id="ruf">
 				<div id="resimUpload">Resim Yükle</div>
-				<img src="" id="grupImage" />
+				<img src="" />
 			</fieldset>
 		</div>
 		<div id="film">
 			<h3>Film İşlemleri</h3>
 			<br class="clear" />
-			<form id="film_form">
-				<label for="film_ad">Ad:</label><input id="film_ad" name="film_ad" size="250" placeholder="Big Buck Bunny" required /><br />
-				<label for="uzunluk">Uzunluk:</label><input type="time" id="uzunluk" name="uzunluk" size="25" placeholder="15:00" required /><br />
-				<label for="mp4">MP4:</label><input type="url" id="mp4" name="mp4" size="45" /><br />
-				<label for="ogg">OGG:</label><input type="url" id="ogg" name="ogg" size="45" /><br />
-				<label for="webm">WEBM:</label><input type="url" id="webm" name="webm" size="45" /><br />
-				<label for="tube">Youtube:</label><input id="tube" name="tube" size="45" /><br />
-				<label for="desc">Desc:</label><input type="url" id="desc" name="desc" size="45" /><br />
-				<label for="chap">Chap:</label><input type="url" id="chap" name="chap" size="45" /><br />
-				<label for="meta">Meta:</label><input type="url" id="meta" name="meta" size="45" /><br />
-				<label for="en">En:</label><input type="url" id="en" name="en" size="45" /><br />
-				<label for="tr">Tr:</label><input type="url" id="tr" name="tr" size="45" /><br />
-				<input type="submit" value="Kaydet" />
+			<form>
+				<p><label for="fad">Ad:</label><input name="fad" size="250" placeholder="Big Buck Bunny" required /></p>
+				<p><label for="uz">Uzunluk:</label><input type="time" name="uz" size="25" placeholder="15:00" required /></p>
+				<p><label for="mp4">MP4:</label><input type="url" name="mp4" size="45" /></p>
+				<p><label for="ogg">OGG:</label><input type="url" name="ogg" size="45" /></p>
+				<p><label for="webm">WEBM:</label><input type="url" name="webm" size="45" /></p>
+				<p><label for="tube">Youtube:</label><input name="tube" size="45" /></p>
+				<p><label for="ac">Desc:</label><input type="url" name="ac" size="45" /></p>
+				<p><label for="chap">Chap:</label><input type="url" name="chap" size="45" /></p>
+				<p><label for="meta">Meta:</label><input type="url" name="meta" size="45" /></p>
+				<p><label for="en">En:</label><input type="url" name="en" size="45" /></p>
+				<p><label for="tr">Tr:</label><input type="url" name="tr" size="45" /></p>
+				<p><input type="submit"/></p>
 			</form>
 		</div>
 	</div>
 </div>
 
 <aside id="rcnt" role=”complementary”>
-<ul class="tabNavigation">
+<ul class="adtn">
 	<li><a class="button" href="#Grup">Müzik İşlemleri</a></li>
 	<li><a class="button" href="#film">Film İşlemleri</a></li>
 	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'hata'); ?>">Hatalar</a></li>
@@ -88,4 +124,3 @@
 	<li><a class="button popUpper" href="#Grup" id="<?php echo $this->url(array(), 'fulltext'); ?>">Arama</a></li>
 </ul>
 <div id="uyari" class="uyari" ></div>
-<div id="uyariForm" class="uyari"></div>

@@ -11,7 +11,7 @@ body	{
 	background-position: 70% 50%, 90% 50%, 80% 30%, 80% 70%;
 	background-repeat:no-repeat;
 }
-section {text-align:center; }
+section {text-align:center; margin-bottom:-10px; }
 body, html {	height:100%;	width:100%; }
 .clear { clear: both; }
 .sakla{ display: none !important; visibility:hidden !important; }

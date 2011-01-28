@@ -55,7 +55,7 @@ readonly:true,allowCalEventOverlap : true,overlapEventsSeparate: true,draggable 
 		});
 	});
 
-	getScript("js/aile_extra.js");
+	getScript("/main/js/aile_extra.js");
 
 	var listeAc=function(event)
 	{
@@ -69,6 +69,7 @@ readonly:true,allowCalEventOverlap : true,overlapEventsSeparate: true,draggable 
 		return false;
 	};
 	$('#liste ul li:has(ul)').bind("click",listeAc).click().bind('multihover', listeAc);
+	$('#liste ul li:not(:has(ul))').css({'list-style-image':'none'});
 	
 });
 

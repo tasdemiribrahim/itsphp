@@ -22,7 +22,7 @@ class Zend_View_Helper_Lastfm extends Zend_View_Helper_Abstract
 				$songsArray[] = str_replace('&ndash;', "-", $tempSong);
 			}
 			return "<details open>
-				<summary class='ui-widget ui-widget-header'><span class='details-close ui-icon-closethick'>x</span>Dinlendi</summary>
+				<summary class='ui-widget ui-widget-header'><span class='dc ui-icon-closethick'>x</span>Dinlendi</summary>
 				<ul>
 					<li>".implode('</li><li>',array_slice(sort(array_unique($songsArray)), 0, 10))."</li>
 				</ul>

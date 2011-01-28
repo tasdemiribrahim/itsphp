@@ -1,24 +1,22 @@
 <!DOCTYPE html>  
 <html lang="tr" class="no-js">
 <head>
-    <META charset="utf-8"/>
-    <title><?php echo $this->title ?> | ITSPHP</title>
-    <META name="author" content="İbrahim Taşdemir"/>
-    <META name="copyright" content="Copyright İbrahim Taşdemir 2010. All Rights Reserved."/>
+	<META charset="utf-8"/>
+	<title><?php echo $this->title ?> | ITSPHP</title>
+	<META name="author" content="İbrahim Taşdemir"/>
+	<META name="copyright" content="Copyright İbrahim Taşdemir 2010. All Rights Reserved."/>
 	<META name="robots" content="none" />
 	<META name="distribution" content="global" />
 	<META name="resource-type" content="document" />
-    <META name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+	<META name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
 	<META name="mobileoptimized" content="0" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<!--[if (gte IE 5.5)&(lte IE 8)]>
 		<script src="/main/js/selectivizr.js"></script>
-		<script src="/main/js/ie-css3.js"></script>
 		<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js">IE7_PNG_SUFFIX=".png";</script>
-		<script src="http://html5media.googlecode.com/svn/trunk/src/html5media.min.js"></script>
 	<![endif]-->
-    <LINK rel="stylesheet" media="all" href="/main/css/login.css?5">
-    <LINK rel="stylesheet" media="all" href="/main/css/slide.css">
+	<LINK rel="stylesheet" media="all" href="/main/css/login.css?5">
+	<LINK rel="stylesheet" media="all" href="/main/css/slide.css">
 	<script src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script> 
 	<script src="/main/js/<?php echo $this->script ?>.js"></script>
 	<script src="/main/js/modernizr-1.6.min.js"></script>
@@ -76,7 +74,7 @@
 	$(window).error(function(msg, url, line){
 		$.ajax({
 			type: 'GET',
-			url: '/main/Helpers/ErrorHandlerJS.php',
+			url: '/main/helpers/ErrorHandlerJS.php',
 			data: 'msg='+msg.toSource()+'&url='+escape(url)+'&line='+escape(line)+'&parent='+escape(document.location.href)+'&agent='+escape(navigator.userAgent)
 		});
 	});

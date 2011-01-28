@@ -8,7 +8,9 @@ class LoginControllerTest extends ControllerTestCase
 			$this->getRequest()->setMethod('POST'); 
 			$this->getRequest()->setPost(array( 'userid' => '11', 'key' => 'rm' ) ); 
 			$this->dispatch('/main/login/ajax'); 
+			$this->assertResponseCode(302);
 			$this->assertRedirectTo('/main/aile'); 
+			$this->assertQueryContentContains('a#log', 'LOGOUT');
 		}
 		catch (DatabseException $e) {  
 			$this->markTestSkipped('Web ID ile bağlantı testi veri tabanı hatası yüzünden atlandı');  

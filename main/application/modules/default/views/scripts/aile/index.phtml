@@ -1,55 +1,53 @@
 <style>
 	@import "http://jquery.bassistance.de/treeview/jquery.treeview.css";
 </style>
-<article id="aileAgaciDetayDiv" class="vcard" itemscope itemtype="http://tasdemir.0fees.net/Birey"> 
-	<h3 itemprop="name" class="ui-widget ui-widget-header structured name bday"><?php echo $this->birey["aileAd"]." (".$this->birey['Detay']["aileDogum"].($this->birey['Detay']["aileOlum"]=="0000-00-00" ? "" : " / ".$this->birey['Detay']["aileOlum"]).")"; ?></h3>
-	<img class="photo" src="<?php echo getResim($this->birey["aileID"]); ?>" alt="Resim Yok" id="aileAgacDetayImg" itemprop="photo" />
-	<div id="rate_widget" rev="vote-abstain">
-		<div class="star_1 ratings_stars"></div>
-		<div class="star_2 ratings_stars"></div>
-		<div class="star_3 ratings_stars"></div>
-		<div class="star_4 ratings_stars"></div>
-		<div class="star_5 ratings_stars"></div>
-		<div class="total_votes">Oy Sonucu</div>
+<article id="aadd" class="vcard" itemscope itemtype="http://tasdemir.0fees.net/Birey"> 
+	<h3 itemprop="name" class="ui-widget ui-widget-header structured name bday"><?php echo $this->birey["ad"]." (".$this->birey['Detay']["dogum"].($this->birey['Detay']["olum"]=="0000-00-00" ? "" : " / ".$this->birey['Detay']["olum"]).")"; ?></h3>
+	<img class="photo" id="aadi" src="<?php echo getResim($this->birey["id"]); ?>" alt="Resim Yok" itemprop="photo" />
+	<div id="ratew" rev="vote-abstain">
+		<div class="s_1 rates"></div>
+		<div class="s_2 rates"></div>
+		<div class="s_3 rates"></div>
+		<div class="s_4 rates"></div>
+		<div class="s_5 rates"></div>
+		<div class="stv">Oy Sonucu</div>
 	</div>
 	<div id="resimUpload">Resmi Güncelle<br />En Fazla Boyut:2MB</div>
-	<p class="cssColumn"><b>Eşi:</b><span itemprop="darling"><?php echo $this->birey['Detay']["aileBireyEs"]; ?></span><br />
-	<b>Adres:</b><span itemprop="address" class="adr"><?php echo $this->birey['Detay']["aileBireyAdres"]; ?></span><br />
-	<b>Mail:</b><span itemprop="email" class="email"><?php echo $this->birey['Detay']["aileBireyMail"]; ?></span><br />
-	<b>Tel:</b><span itemprop="tel" class="tel"><?php echo $this->birey['Detay']["aileBireyTel"]; ?></span><br />
-	<b>MSN:</b><span itemprop="msn"><?php echo $this->birey['Detay']["aileBireyMSN"]; ?></span><br />
-	<b><a id="followTwitter" title="Twitter mesajlarını göster">Twitter:</a></b><span id="aileAgacDetayTwitter" class="mod" itemprop="twitter"><?php echo $this->birey['Detay']["aileBireyTwitter"]; ?></span><br />
-	<b>Flickr:</b><span id="aileAgacDetayFlickr"><?php echo $this->birey['Detay']["aileBireyFlickr"]; ?></span></p><br />
-	<p><span><?php echo $this->birey['Detay']["aileTanim"]; ?></span></p><br />
-	<p><a href="/main/aile/form/<?php echo $this->birey["aileID"]; ?>" id="aileBireyDuzenleButton" class="boubleButton blue">Güncelle</a></p>
+	<p class="cssc"><b>Eşi:</b><span itemprop="darling"><?php echo $this->birey['Detay']["es"]; ?></span><br />
+	<b>Adres:</b><span itemprop="address" class="adr"><?php echo $this->birey['Detay']["adres"]; ?></span><br />
+	<b>Mail:</b><span itemprop="email" class="email"><?php echo $this->birey['Detay']["mail"]; ?></span><br />
+	<b>Tel:</b><span itemprop="tel" class="tel"><?php echo $this->birey['Detay']["tel"]; ?></span><br />
+	<b><a id="bft" title="Twitter mesajlarını göster">Twitter:</a></b><span id="aadt" class="mod" itemprop="twitter"><?php echo $this->birey['Detay']["twitter"]; ?></span><br />
+	<b>Flickr:</b><span id="aadf"><?php echo $this->birey['Detay']["flickr"]; ?></span></p><br />
+	<p><span><?php echo $this->birey['Detay']["tanim"]; ?></span></p><br />
+	<p><a href="/main/aile/form/<?php echo $this->birey["id"]; ?>" id="abdb" class="boubleButton blue">Güncelle</a></p>
 	<h4 class="cmnt_hdr"><span><?php echo $this->yTotal; ?></span> Yorum...</h4>
 	<div id="comments"><?php echo $this->yorumlar; ?></div>
 </article>
 <fieldset>
 	<legend class="radial daire">Bir Yorum Ekle</legend>
-	<p id="uyari" class="uyari"></p>
 	<br class="clear" />
-	<form id="addCommentForm" method="post" action="">
-		<p><input type="hidden" id="aileBireyIDHidden" name="aileBireyIDHidden" value="<?php echo $this->birey["aileID"]; ?>" /></p>
-		<p><input class="name" id="commentName" name="commentName" required aria-required /><label for="commentName"><abbr title="Doldurulması zorunludur">*</abbr>Adınız</label></p>
-		<p><input type="email" id="commentEMail" name="commentEMail" required aria-required /><label for="commentEMail"><abbr title="Doldurulması zorunludur. Kimseye verilmeyecek veya sitede gösterilmeyecektir.">*</abbr>Email</label></p>
-		<p><input type="url" id="commentUrl" name="commentUrl" placeholder="http://"/><label for="commentUrl">Website</label></p>
-		<p><label for="commentBody" class="sakla">Yorum:</label><textarea id="commentBody" name="commentBody" cols="20" rows="5" required aria-required maxlength="500" ></textarea></p>
+	<form id="adf" method="post" action="">
+		<p><input type="hidden" id="aidh" name="aidh" value="<?php echo $this->birey["id"]; ?>" /></p>
+		<p><input class="name" name="acn" required aria-required /><label for="acn"><abbr title="Doldurulması zorunludur">*</abbr>Adınız</label></p>
+		<p><input type="email" name="ace" required aria-required /><label for="ace"><abbr title="Doldurulması zorunludur. Kimseye verilmeyecek veya sitede gösterilmeyecektir.">*</abbr>Email</label></p>
+		<p><input type="url" name="acu" placeholder="http://"/><label for="acu">Website</label></p>
+		<p><label for="acb" class="sakla">Yorum:</label><textarea name="acb" cols="20" rows="5" required aria-required maxlength="500" ></textarea></p>
 		<br />
-		<p><input type="submit" class="boubleButton blue" value="Kaydet" /></p>
+		<p><input type="submit" class="boubleButton blue" /></p>
 	</form>
 </fieldset>
 </div> 
 
 <aside id="rcnt" role=”complementary”><br />
-	<fieldset id="aileListe" class="gradient border">
+	<fieldset id="aliste" class="gradient border">
 		<legend class="ui-widget ui-widget-header ui-corner-all">Aile Ağacı</legend>
 		<ul>
 		<?php
 			foreach ($this->aileListe as $row)
 			{
-				$liste[$row['aileID']]=$row['aileAd'];
-				$ebeveyn[$row['aileID']]=$row['ebeveynID'];
+				$liste[$row['id']]=$row['ad'];
+				$ebeveyn[$row['id']]=$row['eid'];
 			}
 			aileListeDoldur($liste,$ebeveyn,0);
 			function aileListeDoldur($liste,$ebeveyn,$aileArray)
@@ -75,20 +73,20 @@
 		<p><span class="uyari">2 Tık:</span>Bireyin bilgilerine bak.</p>
 		<p><span class="uyari">3 Tık:</span>Bireyi güncelle.</p>
 	</fieldset><br />
-	<section class="infiniteCarousel border shadow">
-		<div class="wrapperIC">
+	<section class="infCour border shadow">
+		<div class="wic">
 			<ul>
 			<?php
 				$i=1;
 				foreach ($this->aileListe as $row)
-					echo "<li><figure title='".$row['aileAd']."' class='transition' tabindex='".$i++."'><span></span><img aria-haspopup='true' src='".getResim($row['aileID'])."' height='75' width='85' alt='".$row['aileAd']."'/><figcaption>".$row['aileAd']."</figcaption></figure></li>\n";
+					echo "<li><figure title='".$row['ad']."' class='transition' tabindex='".$i++."'><span></span><img aria-haspopup='true' src='".getResim($row['id'])."' height='75' width='85' alt='".$row['ad']."'/><figcaption>".$row['ad']."</figcaption></figure></li>\n";
 			?>	
 			</ul>
 		</div>
 	</section><br />
 	<div id="dialog" class="sakla"><img src="<?php echo getResim(0); ?>" alt='Aile Birey Resmi' /></div>
 	<section class="border">
-		<h4 class="sidetit_r ui-widget ui-widget-header ui-corner-top">İstatistik</h4>
+		<h4 class="st_r ui-widget ui-widget-header ui-corner-top">İstatistik</h4>
 		<p><?php echo ($this->bekar+$this->evli)." birey kayıtlı.".$this->bekar." bekar,".$this->evli." evli.".$this->canli." kişi hayatta."; ?></p><br />
 		<p><?php echo $this->tag; ?></p>
 	</section>

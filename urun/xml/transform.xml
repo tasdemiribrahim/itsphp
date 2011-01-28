@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="html" encoding="utf-8" indent="no"/>
+
+<xsl:template match="/testimonials">
+	<xsl:for-each select="item">
+	
+	<li>
+		<p class="text">
+			<xsl:value-of select="content"/>
+		</p>
+		
+		<p class="author">
+			<xsl:value-of select="author-name"/>
+			
+			<xsl:if test="author-url != '' ">
+				<xsl:value-of select="', '"/>
+				<a>
+					<xsl:attribute name="href">
+						<xsl:value-of select="concat('http://',author-url)"/>
+					</xsl:attribute>
+					
+					<xsl:value-of select="author-url"/>
+				</a>
+			</xsl:if>
+		</p>
+	</li>
+	
+	</xsl:for-each>
+</xsl:template>
+
+</xsl:stylesheet>

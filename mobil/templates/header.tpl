@@ -19,9 +19,9 @@
 		<h1 class="ui-title" tabindex="0" role="heading" aria-level="1">ITSPHP MOBİL</h1>
 		<div data-role="navbar">
 			<ul>
-				<li><a href="aile.php" rel="external">Aile Ağacı</a></li>
-				<li><a href="film.php" rel="external">Kısa Filmler</a></li>
-				<li><a href="muzik.php" rel="external">Müzik Önerileri</a></li>
+				<li><a href="aile.php" rel="external">Aile</a></li>
+				<li><a href="film.php" rel="external">Film</a></li>
+				<li><a href="muzik.php" rel="external">Müzik</a></li>
 			</ul>
 		</div>
 	</div> 

@@ -1,7 +1,7 @@
 <?php  
 require_once('../../library/simpletest/autorun.php');  
-require_once('../Helpers/input.php');  
-require_once('../Helpers/Imager.php');
+require_once('../helpers/input.php');  
+require_once('../helpers/Imager.php');
 
  class TestInput extends UnitTestCase 
  {  
@@ -22,11 +22,14 @@ require_once('../Helpers/Imager.php');
 		$this->assertEqual(temizEMail("deneme@den.com.tr"),"deneme@den.com.tr");
 		$this->assertEqual(temizEMail("deneme"),"");
 		$this->assertEqual(temizURL("http://tasdemir.0fees.net/common/input.php"),"http://tasdemir.0fees.net/common/input.php");$this->assertEqual(temizURL("<script>alert('asd'); alert(\"asd\")</script>"),"&lt;script&gt;alert('asd');alert(&quot;asd&quot;)&lt;/script&gt;");
+		$this->assertTrue(temizKredi("4417.1234.5678.9113"));
+		$this->assertFalse(temizKredi("5555"));
+		$this->assertFalse(temizKredi("1234.5678.9101.1121"));
 	}  
 
 	function testGuvenliResimFunction()
 	{
-		$imager = new main_Helpers_Imager();
+		$imager = new main_helpers_Imager();
 		$file=array("error"=>1,'tmp_name'=>"/home/vol2/0fees.net/fees0_6133083/htdocs/main/images/agac.png","size"=>62000000,"type"=>'image/jpeg');
 		$this->assertEqual("error1",$imager->upload($file));	
 		$file["size"]=64000000;

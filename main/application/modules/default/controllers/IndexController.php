@@ -13,13 +13,13 @@ class IndexController extends Zend_Controller_Action
 		$this->view->title="İbrahim Taşdemir'in Kişisel Ana Sayfası";
 		$this->view->script="index";
 		$this->view->h2="ITSPHP";
-		$q = Doctrine_Query::create()->from('main_Models_AileAgaci a')->leftJoin('a.Detay d')->leftJoin('a.Ebeveyn e')->orderBy(' a.aileID DESC')->limit(1);
+		$q = Doctrine_Query::create()->from('main_models_Aa a')->leftJoin('a.Detay d')->leftJoin('a.Ebeveyn e')->orderBy(' a.id DESC')->limit(1);
 		$aile = $q->fetchOne();
-		$this->view->aileEbeveyn = $aile->Ebeveyn['aileAd'];
-		$this->view->aileAd = $aile['aileAd'];
-		$this->view->aileID = $aile['aileID'];
-		$this->view->aileTanim = $aile->Detay['aileTanim'];
-		$q = Doctrine_Query::create()->select('m.grupID,m.grupAd,m.tanim')->from('main_Models_Muzik m')->orderBy(' m.grupID DESC')->limit(1);
+		$this->view->aileEbeveyn = $aile->Ebeveyn['ad'];
+		$this->view->aileAd = $aile['ad'];
+		$this->view->aileID = $aile['id'];
+		$this->view->aileTanim = $aile->Detay['tanim'];
+		$q = Doctrine_Query::create()->from('main_models_Dm')->orderBy('id DESC')->limit(1);
 		$this->view->muzik=$q->fetchOne();
 
 		if (!empty($_GET['q'])) 
@@ -30,11 +30,11 @@ class IndexController extends Zend_Controller_Action
 			$this->view->results = $results;
 		}
 		
-		require_once 'main/Helpers/TMDb.php';
+		require_once 'main/helpers/TMDb.php';
 		$tmdb = new TMDb(TMDB_API_KEY);
-		$q = Doctrine_Query::create()->from('main_Models_Film m')->orderBy(' m.id DESC')->limit(1);
+		$q = Doctrine_Query::create()->from('main_models_Film m')->orderBy(' m.id DESC')->limit(1);
 		$film=$q->fetchOne();
-		$movies_result = json_decode($tmdb->searchMovie($film['film_ad']));
+		$movies_result = json_decode($tmdb->searchMovie($film['ad']));
 		$this->view->film=$film;
 		$this->view->rating =$movies_result[0]->rating;
 		$this->view->language= ($movies_result[0]->language=="en" ? "İngilizce" : $movies_result[0]->language);
@@ -44,10 +44,10 @@ class IndexController extends Zend_Controller_Action
 		$this->view->poster=$movies_result[0]->posters[0]->image->url;
 	}
 	
-	public function feedAction()
+	public function haberAction()
 	{
 		$this->view->title="Haber";
-		$this->view->script="feed";
+		$this->view->script="haber";
 		$this->view->url="haber";
 		$this->view->h2="RSS Haber(Feed)";
 		$this->view->isHaber = true;
@@ -97,7 +97,7 @@ class IndexController extends Zend_Controller_Action
 		}
 	}
 	
-	public function displayAction()
+	public function okuAction()
 	{
 		$page = temizYazi($this->getRequest()->getParam('page',"programlama"));
 		if (file_exists($this->view->getScriptPath(null) . "/" . $this->getRequest()->getControllerName() . "/$page." . $this->viewSuffix)) 
@@ -105,7 +105,7 @@ class IndexController extends Zend_Controller_Action
 			$this->view->isOku = true;
 			$this->view->title=ucfirst($page)." Kitapları";
 			$this->view->h2=ucfirst($page)." Kitapları";
-			$this->view->script=$page;
+			$this->view->script="oku_$page";
 			$this->view->url="oku/".$page;
 			$this->render($page);
 		}
@@ -113,7 +113,7 @@ class IndexController extends Zend_Controller_Action
 			throw new Zend_Controller_Action_Exception('Page not found', 404);
 	}    
 
-    public function listenAction()
+    public function dinleAction()
     {
 		$page = temizYazi($this->getRequest()->getParam('page',"metal"));
 		if (file_exists($this->view->getScriptPath(null) . "/" . $this->getRequest()->getControllerName() . "/$page." . $this->viewSuffix)) 
@@ -121,20 +121,20 @@ class IndexController extends Zend_Controller_Action
 			$this->view->isMuzik = true;
 			$this->view->title=ucfirst($page)." Müzik";
 			$this->view->h2=ucfirst($page)." Müzik";
-			$this->view->script=$page;
+			$this->view->script="dinle_$page";
 			$this->view->url="dinle/".$page;		
-			$q = Doctrine_Query::create()->select('m.grupAd,m.grupID,m.tur,m.memleket,m.grupClip,LEFT(m.tanim,150) as tanim')->from('main_Models_Muzik m')->orderBy(' m.tur');
+			$q = Doctrine_Query::create()->from('main_models_Dmt t')->leftJoin('t.Grup m')->leftJoin('m.Memleket')->orderBy('t.ad DESC');
 			$this->view->muzik=$q->fetchArray();	
 			$q->free();
 			if(isset($_GET['id']))
-				$q = Doctrine_Query::create()->from('main_Models_Muzik m')->where("m.grupID=?",temizSayi($_GET['id']));
+				$q = Doctrine_Query::create()->from('main_models_Dm m')->where("m.id=?",temizSayi($_GET['id']));
 			else
-				$q = Doctrine_Query::create()->from('main_Models_Muzik m')->orderBy(' m.grupID DESC')->limit(1);
+				$q = Doctrine_Query::create()->from('main_models_Dm m')->orderBy(' m.id DESC')->limit(1);
 			$muzik=$q->fetchOne();
 			$this->view->grup=$muzik;
-			$q = Doctrine_Query::create()->from('main_Models_Album m')->where("m.grupID=?",$muzik["grupID"]);
+			$q = Doctrine_Query::create()->from('main_models_Dma m')->where("m.grupID=?",$muzik["id"]);
 			$this->view->Albumler=$q->fetchArray();
-			$q = Doctrine_Query::create()->from('main_Models_Eleman m')->where("m.grupID=?",$muzik["grupID"]);
+			$q = Doctrine_Query::create()->from('main_models_Dme m')->where("m.grupID=?",$muzik["id"]);
 			$this->view->Elemanlar=$q->fetchArray();
 			$this->render($page);
 		}
@@ -142,11 +142,11 @@ class IndexController extends Zend_Controller_Action
 			throw new Zend_Controller_Action_Exception('Page not found', 404);
     }
 	
-	public function watchAction()
+	public function izleAction()
 	{
 		$this->view->isFilm = true;
 		$this->view->h2="Kısa Film İzle";
-		$this->view->script="film";
+		$this->view->script="izle";
 		$this->view->url="izle";
 		$this->view->bread='<li><a href="#">Kısa Film</a></li>';
 		$filters = array(
@@ -155,7 +155,7 @@ class IndexController extends Zend_Controller_Action
 			'page' => array('HtmlEntities', 'StripTags', 'StringTrim')
 		);
 		$validators = array(
-			'sort' => array('Alpha',array('InArray', 'haystack' =>array("id",'film_ad', 'uzunluk'))),
+			'sort' => array('Alpha',array('InArray', 'haystack' =>array("id",'ad', 'uz'))),
 			'dir' => array('Alpha',array('InArray', 'haystack' =>array('asc', 'desc'))),
 			'page' => array('Int')
 		);
@@ -163,8 +163,16 @@ class IndexController extends Zend_Controller_Action
 		$input->setData($this->getRequest()->getParams());
 		if ($input->isValid()) 
 		{
+			$s=$input->sort ? $input->sort : "id";
+			$d=$input->dir ? $input->dir : "asc";
+			$m=isset($_GET['m']) ? "00:".$_GET['m'].":00" : "00:00:00";
+			$x=isset($_GET['x']) ? "00:".$_GET['x'].":00" : "00:35:00";
+			if($input->page>1)
+				$this->view->he='<link rel="prev" href="'.$this->view->url(array('page' => $input->page-1,'dir'=>$d,'sort'=>$s), 'watch').'?m='.$m.'&x='.$x.'">';
+			$this->view->he.='<link rel="start" href="'.$this->view->url(array(), 'watch').'" title="Kısa Film İzle"><link rel="next" href="'.$this->view->url(array('page' => $input->page+1,'dir'=>$d,'sort'=>$s), 'watch').'?m='.$m.'&x='.$x.'">';
+
 			$this->view->title="Kısa Film İzle Sayfa ".$input->page;
-			$q = Doctrine_Query::create()->from('main_Models_Film ')->where("uzunluk BETWEEN ? AND ?",array(isset($_GET['min']) ? "00:".$_GET['min'].":00" : "00:00:00",isset($_GET['max']) ? "00:".$_GET['max'].":00" : "00:35:00"))->orderBy(sprintf('%s %s', $input->sort ? $input->sort : "id",$input->dir ? $input->dir : "asc"));
+			$q = Doctrine_Query::create()->from('main_models_Film ')->where("uz BETWEEN ? AND ?",array($m,$x))->orderBy(sprintf('%s %s',$s,$d));
 			$pager = new Doctrine_Pager($q, $input->page, 5);
 			$result = $pager->execute(array(), Doctrine::HYDRATE_ARRAY);
 			$pagerRange = new Doctrine_Pager_Range_Sliding(array('chunk' => 10), $pager);
@@ -174,25 +182,25 @@ class IndexController extends Zend_Controller_Action
 			$pagerLayout->setSelectedTemplate('<span class="current">{%page}</span>');
 			$pagerLayout->setSeparatorTemplate('-');
 			
-			require_once 'main/Helpers/TMDb.php';
+			require_once 'main/helpers/TMDb.php';
 			$tmdb = new TMDb(TMDB_API_KEY);
 			foreach($result as &$res)
 			{
-				$movies_result = json_decode($tmdb->searchMovie($res['film_ad']));
+				$movies_result = json_decode($tmdb->searchMovie($res['ad']));
 				$res['poster']= isset($movies_result[0]) ? (isset($movies_result[0]->posters[0]) ? $movies_result[0]->posters[0]->image->url : "/main/images/blankImage.jpg") : "/main/images/blankImage.jpg";
 				unset($movies_result);
 			}
 			$this->view->records = $result;
 			
 			if(isset($_GET['id']))
-				$q = Doctrine_Query::create()->from('main_Models_Film m')->where("m.id=?",temizSayi($_GET['id']));
+				$q = Doctrine_Query::create()->from('main_models_Film m')->where("m.id=?",temizSayi($_GET['id']));
 			else
-				$q = Doctrine_Query::create()->from('main_Models_Film m')->orderBy(' m.id DESC')->limit(1);
+				$q = Doctrine_Query::create()->from('main_models_Film m')->orderBy(' m.id DESC')->limit(1);
 			$film=$q->fetchOne();
-			$movies_result = json_decode($tmdb->searchMovie($film['film_ad']));
+			$movies_result = json_decode($tmdb->searchMovie($film['ad']));
 			$this->view->film=$film;
 			$this->view->rating =$movies_result[0]->rating;
-			$this->view->language=($movies_result[0]->language=="en" ? "İngilizce" : $movies_result[0]->language);
+			$this->view->dil=($movies_result[0]->language=="en" ? "İngilizce" : $movies_result[0]->language);
 			$this->view->overview=$movies_result[0]->overview;
 			$this->view->href=$movies_result[0]->url;
 			$this->view->released=$movies_result[0]->released;
@@ -200,7 +208,7 @@ class IndexController extends Zend_Controller_Action
 			
 			$this->view->pages = $pagerLayout->display(null, true);
 
-			$q = Doctrine_Query::create()->from('main_Models_FilmIstek m')->orderBy(' m.istek DESC');
+			$q = Doctrine_Query::create()->from('main_models_Fistek m')->orderBy(' m.istek DESC');
 			$this->view->istek=$q->fetchArray();
 		}
 		else 
@@ -222,29 +230,21 @@ class IndexController extends Zend_Controller_Action
 		if(isset($_GET["resim"]))
 			die(getResim($_GET["resim"],$_GET["dosya"]));
 		
-		if(isset($_GET['gosterilecekGrupID']))
+		if(isset($_GET['mid']))
 		{
-			$q = Doctrine_Query::create()->from('main_Models_Muzik m')->leftJoin('m.Elemanlar e')->leftJoin('m.Albumler a')->where("m.grupID=?",temizSayi($_GET['gosterilecekGrupID']));
-			$muzik = $q->fetchOne();
-			$mesaj= $muzik['grupAd']."|".$muzik['tanim']."}";
-			foreach($muzik->Elemanlar as $row)
-				$mesaj.= $row['elemanAd']."|".$row['enstruman']."&";
-			$mesaj.= "}";
-			foreach($muzik->Albumler as $row)
-				$mesaj.= $row['albumAd']."|".$row['albumYil']."&";
-			if(temizSayi($_GET['markYazi'])==1)
-				$mesaj= markYazi($mesaj,array(temizYazi($_GET['markYaziYazi'])));
-			echo $mesaj;
-			unset($mesaj);
+			$q = Doctrine_Query::create()->from('main_models_Dm m')->leftJoin('m.Elemanlar e')->leftJoin('m.Albumler a')->where("m.id=?",temizSayi($_GET['mid']));
+			$row=$q->fetchArray();
+			header('Content-Type: application/json');
+			echo json_encode($row[0]);
 		}
 		
-		if(isset($_GET['film_id']))
+		if(isset($_GET['fid']))
 		{
-			$item = Doctrine::getTable('main_Models_Film')->find(temizSayi($_GET['film_id']));   
+			$item = Doctrine::getTable('main_models_Film')->find(temizSayi($_GET['fid']));   
 			$row = $item->toArray();
-			require_once 'main/Helpers/TMDb.php';
+			require_once 'main/helpers/TMDb.php';
 			$tmdb = new TMDb(TMDB_API_KEY);
-			$movies_result = json_decode($tmdb->searchMovie($row['film_ad']));
+			$movies_result = json_decode($tmdb->searchMovie($row['ad']));
 			
 			$row['rating']=$movies_result[0]->rating;
 			$row['dil']=($movies_result[0]->language=="en" ? "İngilizce" : $movies_result[0]->language);
@@ -259,7 +259,7 @@ class IndexController extends Zend_Controller_Action
 
 		if(isset($_GET['term']))
 		{
-			require_once 'main/Helpers/TMDb.php';
+			require_once 'main/helpers/TMDb.php';
 			$tmdb = new TMDb(TMDB_API_KEY);
 			$json = json_decode($tmdb->searchMovie($_GET['term']));
 			$response = array();
@@ -276,9 +276,9 @@ class IndexController extends Zend_Controller_Action
 			echo json_encode($response);
 		}
 		
-		if(isset($_GET["film_kaydet"]))
+		if(isset($_GET["fkay"]))
 		{
-			$film = Doctrine::getTable('main_Models_FilmIstek')->find(temizYazi($_GET["film_kaydet"]));
+			$film = Doctrine::getTable('main_models_Fistek')->find(temizYazi($_GET["fkay"]));
 			if($film)
 			{
 				$film->istek=$film->istek+1;
@@ -286,8 +286,8 @@ class IndexController extends Zend_Controller_Action
 			}
 			else
 			{
-				$film=new main_Models_FilmIstek();
-				$film->film_ad=temizYazi($_GET["film_kaydet"]);
+				$film=new main_models_Fistek();
+				$film->ad=temizYazi($_GET["fkay"]);
 				$film->istek=1;
 				$film->save();
 			}

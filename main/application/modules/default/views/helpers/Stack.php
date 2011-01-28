@@ -25,7 +25,7 @@ class Zend_View_Helper_Stack extends Zend_View_Helper_Abstract
 			$ts = new DateTime($q->creation_date);
 			return "
 			<details open>
-				<summary class='sidetit_r ui-widget ui-widget-header'>Günün Sorusu</summary>
+				<summary class='st_r ui-widget ui-widget-header'>Günün Sorusu</summary>
 				<article>
 					<header> 
 					 	<h4><a target='_blank' rel='nofollow' href='http://www.stackoverflow.com/questions/".$q->question_id."'>".$q->title."</a></h4>

@@ -14,6 +14,7 @@
  * Date: 13th May 2010
  */
 
+.jp-playlist-player .jp-interface,.jp-playlist-player .jp-playlist,.jp-playlist-player .jp-playlist ul { width:auto; }
 div.jp-single-player,
 div.jp-playlist-player {
 

@@ -111,6 +111,7 @@ li {margin-left:1em;}
 .popup {
 	width: 75%;
 	left:40%;
+	top:40%;
 	right:40%;
 	max-width: 300px;
 	border: solid 1px #72767b;
@@ -414,3 +415,5 @@ li {margin-left:1em;}
 .landscape {
 	/* landscape orientation changes go here! */
 }
+/* Harita */
+#m,#pano {height: 300px;}

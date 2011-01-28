@@ -44,7 +44,7 @@ class TwitterStatus
 	
 		// default widget template
 		$this->WidgetTemplate = 
-			'<div class="twitterstatus">' .
+			'<div class="tws">' .
 			'<h3><a href="http://twitter.com/{screen_name}"><img src="{profile_image_url}" width="24" height="24" alt="{name}" />{name}</a></h3>' . 
 			'<ul>{TWEETS}</ul>' . 
 			'</div>';

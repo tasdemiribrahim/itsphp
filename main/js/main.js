@@ -8,7 +8,6 @@ function getScript(dosya)
 {
 	var headID = document.getElementsByTagName("head")[0];         
 	var newScript = document.createElement('script');
-	newScript.type = 'text/javascript';
 	newScript.src = dosya;
 	headID.appendChild(newScript);
 }
@@ -34,10 +33,8 @@ function getResim(id,dosya)
 function activateGoogleFontAPI()
 {
 	WebFontConfig = { google: { families: [ 'IM+Fell+DW+Pica', 'Vollkorn:regular,bold' ] }};
-      	$("html").addClass("wf-loading").attr("className","wf-loading");
         var wf = document.createElement('script');
         wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +  '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-        wf.type = 'text/javascript';
         wf.async = 'false';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(wf, s);
@@ -79,10 +76,10 @@ function activateGoogleFontAPI()
 
 function activateBounceBox()
 {
-	$('#bounceBox').removeClass("sakla").bounceBox();
-	$('#bounceKapat').click(function(){
-		$('#bounceBox').bounceBoxHide();
-		$('.flashContainer').remove();
+	$('#bounceb').removeClass("sakla").bounceBox();
+	$('#bouncek').click(function(){
+		$('#bounceb').bounceBoxHide();
+		$('.flashc').remove();
 	}).click();
 }
 
@@ -134,7 +131,7 @@ jQuery.fn.center = function () {
 jQuery.fn.takvim= function () {
 if(!/msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent))
 if(!Modernizr.inputtypes.date)
-    this.datepicker({ showOtherMonths: true,showOn: "button",buttonImage: "http://jqueryui.com/demos/datepicker/images/calendar.gif",buttonText: "Takvim", buttonImageOnly: true, closeText: 'Seç',changeYear: true,changeMonth: true,currentText: 'Bugün',dateFormat: 'yy-mm-dd',dayNames: ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],dayNamesMin: ['Pa', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct'] ,dayNamesShort: ['Paz', 'Pts', 'Sal', 'Çar', 'Per', 'Cum', 'Cts'],defaultDate: new Date("1986-12-08"),firstDay: 1 ,monthNames: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],monthNamesShort: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']  });
+    this.datepicker({ showOtherMonths: true,showOn: "button",buttonImage: "/main/images/aile/calendar.gif",buttonText: "Takvim", buttonImageOnly: true, closeText: 'Seç',changeYear: true,changeMonth: true,currentText: 'Bugün',dateFormat: 'yy-mm-dd',dayNames: ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],dayNamesMin: ['Pa', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct'] ,dayNamesShort: ['Paz', 'Pts', 'Sal', 'Çar', 'Per', 'Cum', 'Cts'],defaultDate: new Date("1986-12-08"),firstDay: 1 ,monthNames: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],monthNamesShort: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']  });
 }
 
 jQuery.fn.toTop = function() {	this.stop().animate({top: $(document).scrollTop()},'slow','easeOutBack'); };
@@ -234,115 +231,6 @@ function mergeSort(items)
 	}
 	return work[0];
 }
-
-MediaQueryFallBack = ( function() 
-{
-	var config = {
-		cssScreen: "/main/css/CSS.php",
-		cssHandheld: "/main/css/handheld.css?2",
-		mobileMaxWidth: 660,
-		testDivClass: "cssLoadCheck",
-		dynamicCssLinkId: "DynCssLink",
-		resizeDelay: 30
-	}
-	var noMediaQuery = false;
-	var delay;
-	var currentCssMediaType;
-	function addEvent(element, newFunction, eventType) 
-	{
-		var oldEvent = eval("element." + eventType);
-		var eventContentType = eval("typeof element." + eventType);
-		if ( eventContentType != 'function' ) 
-			eval("element." + eventType + " = newFunction");
-		else 
-			eval("element." + eventType + " = function(e) { oldEvent(e); newFunction(e); }");
-	}
-	function getWindowWidth() 
-	{
-		if (window.innerWidth) 
-			return window.innerWidth;
-		else if (document.documentElement.clientWidth)
-			return document.documentElement.clientWidth;
-		else if (document.body.clientWidth)
-			return document.body.clientWidth;
-		else
-			return 0;	
-	}
-	function addCssLink(cssHref) 
-	{
-		var cssNode = document.createElement('link');
-		var windowWidth;
-		cssNode.rel = 'stylesheet';
-		cssNode.media = 'screen, handheld, fallback';
-		cssNode.href = cssHref;
-		document.getElementsByTagName("head")[0].appendChild(cssNode);
-	}
-	return {
-		LoadCss: function(cssScreen, cssHandheld, mobileMaxWidth) 
-		{
-			if (typeof(cssScreen) != "undefined") 
-				config.cssScreen = cssScreen;	
-			if (typeof(cssHandheld) != "undefined") 
-				config.cssHandheld = cssHandheld;	
-			if (typeof(mobileMaxWidth) != "undefined") 
-				config.mobileMaxWidth = mobileMaxWidth;	
-			var cssloadCheckNode = document.createElement('div');
-			cssloadCheckNode.className = config.testDivClass;
-			document.getElementsByTagName("body")[0].appendChild(cssloadCheckNode);
-			if (cssloadCheckNode.offsetWidth != 100 && noMediaQuery == false) 
-				noMediaQuery = true;
-			cssloadCheckNode.parentNode.removeChild(cssloadCheckNode);
-			if (noMediaQuery == true) 
-			{
-				var cssHref = "";
-				if (getWindowWidth() <= config.mobileMaxWidth) 
-				{
-					cssHref = config.cssHandheld;
-					newCssMediaType = "handheld";
-				} 
-				else
-				{
-					cssHref = config.cssScreen;
-					newCssMediaType = "screen";
-				}
-				if (cssHref != "" && currentCssMediaType != newCssMediaType) 
-				{
-					var currentCssLinks = document.styleSheets;
-					for (var i = 0; i < currentCssLinks.length; i++) 
-						for (var ii = 0; ii < currentCssLinks[i].media.length; ii++) 
-						{
-							if (typeof(currentCssLinks[i].media) == "object") 
-							{
-								if (currentCssLinks[i].media.item(ii) == "fallback") 
-								{
-									currentCssLinks[i].ownerNode.parentNode.removeChild(currentCssLinks[i].ownerNode);
-									i--;
-									break;
-								}
-							} 
-							else if (currentCssLinks[i].media.indexOf("fallback") >= 0) 
-							{
-								currentCssLinks[i].owningElement.parentNode.removeChild(currentCssLinks[i].owningElement);
-								i--;
-								break;
-							}
-						}
-					if (typeof(cssHref) == "object") 
-						for (var i = 0; i < cssHref.length; i++)
-							addCssLink(cssHref[i]);
-					else 
-						addCssLink(cssHref);
-					currentCssMediaType = newCssMediaType;
-				}
-				addEvent(window, MediaQueryFallBack.LoadCssDelayed, 'onresize');
-			}
-		},
-		LoadCssDelayed: function() {
-			clearTimeout(delay);
-			delay = setTimeout( "MediaQueryFallBack.LoadCss()", config.resizeDelay);
-		}
-	}
-})();
 
 (function($){
   $.clickDisabled = null;
@@ -512,7 +400,7 @@ MediaQueryFallBack = ( function()
 function addNotice(notice) {
 	deleteNotice();
 	$('<div class="notice"></div>')
-	.append('<div class="skin opacity ui-state-error ui-corner-all"></div><div class="escBlue"></div>')
+	.append('<div class="skin op5 ui-state-error ui-corner-all"></div><div class="escBlue"></div>')
 	.append($('<div></div>').html($(notice)))
 	.hide()
 	.appendTo('#growl')
@@ -530,15 +418,12 @@ $.extend($.expr[':'], {
 	}
 });
 
-function addMega(){$(this).addClass("hovering");}
-function removeMega(){$(this).removeClass("hovering");}
-
 function startTour()
 {
-	$("#tourcontrols").addClass("basladi");
-	$('#activatetour').remove();
-	$('#endtour,#restarttour').show();
-	if(!autoplay && total_steps > 1) $('#nextstep').show();
+	$("#tc").addClass("tcb");
+	$('#at').remove();
+	$('#et,#rt').show();
+	if(!autoplay && total_steps > 1) $('#ns').show();
 	showOverlay();
 	nextStep();
 }
@@ -546,9 +431,9 @@ function nextStep()
 {
 	if(!autoplay)
 	{
-		if(step > 0) $('#prevstep').show();
-		else $('#prevstep').hide();
-		if(step == total_steps-1) $('#nextstep').hide();
+		if(step > 0) $('#ps').show();
+		else $('#ps').hide();
+		if(step == total_steps-1) $('#ns').hide();
 	}	
 	if(step >= total_steps)
 	{
@@ -562,9 +447,9 @@ function prevStep()
 {
 	if(!autoplay)
 	{
-		if(step > 2)	$('#prevstep').show();
-		else	$('#prevstep').hide();
-		if(step == total_steps)	$('#nextstep').show();
+		if(step > 2)	$('#ps').show();
+		else	$('#ps').hide();
+		if(step == total_steps)	$('#ns').show();
 	}		
 	if(step <= 1)	return false;
 	--step;
@@ -572,7 +457,7 @@ function prevStep()
 }
 function endTour()
 {
-	$("#tourcontrols").removeClass("basladi");
+	$("#ts").removeClass("tcb");
 	step = 0;
 	if(autoplay) clearTimeout(showtime);
 	removeTooltip();
@@ -594,9 +479,9 @@ function showTooltip()
 	if(autoplay)
 		showtime = setTimeout(nextStep,step_config.time);
 	var $tooltip = $('<div>',{
-		id : 'tour_tooltip',
-		className : 'tour_tooltip',
-		html : '<p>'+step_config.text+'</p><span class="tour_tooltip_arrow"></span>'
+		id : 'tt',
+		className : 'tt',
+		html : '<p>'+step_config.text+'</p><span class="tta"></span>'
 	}).css({'display' : 'none'});
 	var properties = {}, tip_position = step_config.position;
 	$('BODY').prepend($tooltip);
@@ -607,84 +492,84 @@ function showTooltip()
 				'left'	: e_l,
 				'top'	: e_t + e_h + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_TL');
+			$tooltip.find('span.tta').addClass('tta_TL');
 			break;
 		case 'TR'	:
 			properties = {
 				'left'	: e_l + e_w - $tooltip.width() + 'px',
 				'top'	: e_t + e_h + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_TR');
+			$tooltip.find('span.tta').addClass('tta_TR');
 			break;
 		case 'BL'	:
 			properties = {
 				'left'	: e_l + 'px',
 				'top'	: e_t - $tooltip.height() + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_BL');
+			$tooltip.find('span.tta').addClass('tta_BL');
 			break;
 		case 'BR'	:
 			properties = {
 				'left'	: e_l + e_w - $tooltip.width() + 'px',
 				'top'	: e_t - $tooltip.height() + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_BR');
+			$tooltip.find('span.tta').addClass('tta_BR');
 			break;
 		case 'LT'	:
 			properties = {
 				'left'	: e_l + e_w + 'px',
 				'top'	: e_t + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_LT');
+			$tooltip.find('span.tta').addClass('tta_LT');
 			break;
 		case 'LB'	:
 			properties = {
 				'left'	: e_l + e_w + 'px',
 				'top'	: e_t + e_h - $tooltip.height() + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_LB');
+			$tooltip.find('span.tta').addClass('tta_LB');
 			break;
 		case 'RT'	:
 			properties = {
 				'left'	: e_l - $tooltip.width() + 'px',
 				'top'	: e_t + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_RT');
+			$tooltip.find('span.tta').addClass('tta_RT');
 			break;
 		case 'RB'	:
 			properties = {
 				'left'	: e_l - $tooltip.width() + 'px',
 				'top'	: e_t + e_h - $tooltip.height() + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_RB');
+			$tooltip.find('span.tta').addClass('tta_RB');
 			break;
 		case 'T'	:
 			properties = {
 				'left'	: e_l + e_w/2 - $tooltip.width()/2 + 'px',
 				'top'	: e_t + e_h + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_T');
+			$tooltip.find('span.tta').addClass('tta_T');
 			break;
 		case 'R'	:
 			properties = {
 				'left'	: e_l - $tooltip.width() + 'px',
 				'top'	: e_t + e_h/2 - $tooltip.height()/2 + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_R');
+			$tooltip.find('span.tta').addClass('tta_R');
 			break;
 		case 'B'	:
 			properties = {
 				'left'	: e_l + e_w/2 - $tooltip.width()/2 + 'px',
 				'top'	: e_t - $tooltip.height() + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_B');
+			$tooltip.find('span.tta').addClass('tta_B');
 			break;
 		case 'L'	:
 			properties = {
 				'left'	: e_l + e_w  + 'px',
 				'top'	: e_t + e_h/2 - $tooltip.height()/2 + 'px'
 			};
-			$tooltip.find('span.tour_tooltip_arrow').addClass('tour_tooltip_arrow_L');
+			$tooltip.find('span.tta').addClass('tta_L');
 			break;
 	}
 	
@@ -705,10 +590,10 @@ function showTooltip()
 	}
 	else $tooltip.css(properties).show();
 }
-function removeTooltip(){$('#tour_tooltip').remove();	}
-function hideControls(){$('#tourcontrols').remove();}
-function showOverlay(){	$('BODY').prepend('<div id="tour_overlay" class="tour_overlay"></div>');}
-function hideOverlay(){	$('#tour_overlay').remove();}
+function removeTooltip(){$('#tt').remove();	}
+function hideControls(){$('#tc').remove();}
+function showOverlay(){	$('BODY').prepend('<div id="to" class="to"></div>');}
+function hideOverlay(){	$('#to').remove();}
 
 	/*
 	the json config obj.
@@ -799,75 +684,78 @@ config = [
 	}
 
 ],
-autoplay = false,showtime,step = 0,total_steps= config.length;
+autoplay = false,showtime,step = 0,total_steps= config.length,db;
 
 function activateMain()
 {
 	if(!IE6 && !IE7 && !IE8) $(".ieden").removeClass("sakla");
-	$("#rcnt").prepend('<form id="search_form" action="/main/ana" method="get" role="search"><br />'
-				+'<input type="search" name="q" id="q" placeholder="Ara.." result="5" />'
-				+'<input type="submit" class="bonBonButton xs drop pink glass" value=""/>'
-				+'<section id="searchInContainer" class="sakla">'
-					+'<input type="radio" name="check" value="site" id="searchSite" checked/><label for="searchSite" id="siteNameLabel">Bu sitede</label>'
-					+'<input type="radio" name="check" value="web" id="searchWeb"/><label for="searchWeb">Nette</label>'
+	$("#rcnt").prepend('<form id="sf" action="/main/" role="search"><br />'
+				+'<input type="search" name="q" id="q" placeholder="Ara.." required aria-required />'
+				+'<input type="submit" class="bonBonButton xs drop pink glass" value="" />'
+				+'<section class="sakla">'
+					+'<input type="radio" name="check" value="site" id="ss" checked/>'
+					+'<label for="ss">Bu sitede</label>'
+					+'<input type="radio" name="check" value="web" id="sw"/>'
+					+'<label for="sw">Nette</label>'
 				+'</section>'
-				+'<nav id="searchIcons" role="navigation" class="sakla">'
-					+'<ol class="searchIcons sakla">'
-					+'	<li class="web" title="Sayfa Ara" data-searchType="web">Net</li>'
-					+'	<li class="images" title="Resim Ara" data-searchType="images">Resim</li>'
-					+'	<li class="news" title="Haber Ara" data-searchType="news">Haber</li>'
-					+'	<li class="videos" title="Görüntü Ara" data-searchType="video">Görüntü</li>'
+				+'<nav role="navigation" class="sakla">'
+					+'<ol class="sakla">'
+					+'	<li class="web" title="Sayfa Ara" data-st="web">Net</li>'
+					+'	<li class="images" title="Resim Ara" data-st="images">Resim</li>'
+					+'	<li class="news" title="Haber Ara" data-st="news">Haber</li>'
+					+'	<li class="videos" title="Görüntü Ara" data-st="video">Görüntü</li>'
 					+'</ol>'
 				+'</nav>'
 			+'<br class="clear"/></form>');
-	var $oe_menu		= $('#oe_menu');
-	var $oe_menu_items	= $oe_menu.children('li');
+
+	var $oe_menu_items = $('#container header menu > ul > li');
 
 	$oe_menu_items.bind('mouseenter',function(){
 		var $this = $(this);
-		$this.addClass('slided selected');
+		$this.addClass('oesl oes');
 		$this.children('div').css('z-index','9999').stop(true,true).slideDown(200,function(){
-			$oe_menu_items.not('.slided').children('div').hide();
-			$this.removeClass('slided');
+			$oe_menu_items.not('.oesl').children('div').hide();
+			$this.removeClass('oesl');
 		});
+		if($this.children('div').length==0) $oe_menu_items.children('div').hide();
 	}).bind('mouseleave',function(){
 		var $this = $(this);
-		$this.removeClass('selected').children('div').css('z-index','1');
+		$this.removeClass('oes').children('div').css('z-index','1');
 	});
 
-	$oe_menu.bind('mouseenter',function(){
+	$('#container header menu > ul').bind('mouseenter',function(){
 		var $this = $(this);
-		$this.addClass('hovered');
+		$this.addClass('oeho');
 	}).bind('mouseleave',function(){
 		var $this = $(this);
-		$this.removeClass('hovered');
+		$this.removeClass('oeho');
 		$oe_menu_items.children('div').hide();
 	});
  
 	activateGoogleFontAPI();
+
+	$("#container > header h2").lettering();
+	$("#container > header h2 span").each(function() {  $(this).css({ top: -(Math.floor(Math.random()*1001)+1500), left: Math.floor(Math.random()*1001)-500 }); });
+	$("#container > header h2,#tc").removeClass("sakla");
+	setTimeout(function() {$('#container > header').addClass("span-one");}, 1000);
+
 	activateBounceBox();
  
 	$.getScript("http://line25.com/wp-content/uploads/2010/lastfm/demo/js/last.fm.records.js", function () {
 		var _config = {
+			placeholder: 'lfr',
 			username: 'tasdemiribrahim',
 			count: 2,
-			period: 'topalbums',
+			period: 'lovedtracks', 
 			defaultthumb: 'http://cdn.last.fm/flatness/catalogue/noimage/2/default_album_large.png'
 		};
+		lastFmRecords.debug();
 		lastFmRecords.init(_config);
 
-		$("#lastfmrecords a").append("<span></span>");  
-		$("#lastfmrecords a").hover(
-			function () {
-				$(this).children("span").stop(true,true).animate({"left": "95px"}, 500);
-			}, 
-			function () {	
-				$(this).children("span").animate({"left": "38px"}, 500);
-			}
-		);
+		$("#lfr a img").addClass("shadow").parent().append("<span class='transitionAll'></span>");  
 	});
 
-	$('.details-close').click(function(){ $(this).closest("details").fadeOut(); });
+	$('details summary .dc').click(function(){ $(this).closest("details").fadeOut(); });
 
 	$('#growl .escBlue').live('click', function() {
 		$(this).closest('.notice').animate({border: 'none',height: 0,marginBottom: 0,marginTop: '-6px',opacity: 0,	paddingBottom: 0,	paddingTop: 0,queue: false	}, 1000, 
@@ -876,53 +764,53 @@ function activateMain()
 	$('.twitter_search').twitterpopup();
 	$("a[href^='http://']").click(function()
 	{
-		_gaq.push(['_trackEvent', 'links', 'external', $(this).attr("href"), 0]);
-		//_gaq._trackEvent("links", "external", $(this).attr("href"), 0);
+		//_gaq.push(['_trackEvent', 'links', 'external', $(this).attr("href"), 0]);
+		_gaq._trackEvent("links", "external", $(this).attr("href"), 0);
 	});
 	$('[required]').attr("aria-required","true");
-	$("#appreciateBadge").bind("click",function(){
+	$("#apreb").bind("click",function(){
 		var $this=$(this);
 		if($this.hasClass('active'))
 		{
-			$this.removeClass('active').addClass('inactive');
+			$this.removeClass('active').addClass('ina');
 			$this.unbind("click");
-			$("#appreciateCount").html(1 + parseInt($("#appreciateCount").html()));
+			$("#aprec").html(1 + parseInt($("#aprec").html()));
 			$.getJSON("/main/ajax/appreciate",{url:$("#URL").val()});
 		}
 		return false;
 	});
 
 	$('#accordion').accordion({autoHeight: false,collapsible: true });
-	$('.jqueryButton').button();	
-	$('textarea').not(".cleditor").after("<div id='console'><div class='count'>Geriye 500 karakter kaldı!</div><progress class='bar'></progress></div>")
-		.keyup(function(e) {
+	$('.jb').button();	
+	$('textarea').not(".cleditor").after("<div id='console'><div class='count'>Geriye 500 karakter kaldı!</div><progress class='bar'></progress></div>").keyup(function(e) {
 			var characters = 500;
 			var value = $(this).val();
 			var count = value.length;
 			if (count <= characters) 
 			{
-				$(this).next().children('.bar').progressbar('value', (count / characters) * 100);
+				$(this).next().children('.bar').progressbar("option",'value', (count / characters) * 100);
 				$(this).next().children('.count').text("Geriye "+(characters - count)+" karakter kaldı!");
 			} 
 			else 
 				$(this).val(value.substring(0,characters));
-		}).keyup();
+		});
 	$('.bar').progressbar();
+	$('textarea').not(".cleditor").keyup();
 	
 	//if (Modernizr.inputtypes.email) $("input[type='email']").css("padding-left","0");
 	//if (Modernizr.inputtypes.url) $("input[type='url']").attr("placeholder","");
 
-	$('#activatetour').live('click',startTour);
-	$('#canceltour').live('click',endTour);
-	$('#endtour').live('click',endTour);
-	$('#restarttour').live('click',restartTour);
-	$('#nextstep').live('click',nextStep);
-	$('#prevstep').live('click',prevStep);
+	$('#at').live('click',startTour);
+	$('#ct').live('click',endTour);
+	$('#et').live('click',endTour);
+	$('#rt').live('click',restartTour);
+	$('#ns').live('click',nextStep);
+	$('#ps').live('click',prevStep);
 
 	$("form").html5form();
 	$("input[type='date']").takvim();
-
-	/*if(Modernizr.applicationcache)
+/*
+	if(Modernizr.applicationcache)
 		applicationCache.onUpdateReady = function () {
 			applicationCache.swapCache();
 			//addNotice("Sayfanın bazı hataları düzeltilmiştir.Yeni haline ulaşmak için sayfayı yenileyin!");
@@ -953,4 +841,12 @@ function activateMain()
 			this.setAttribute("aria-grabbed", "false");
 		});
 	}
+
+	if(Modernizr.websqldatabase) 
+	{
+		db = openDatabase("itsphp", "1.0", "ibrahim tasdemirin kisisel ana sayfasi", 2 * 1024 * 1024);
+		db.transaction(function (tx) {tx.executeSql("CREATE TABLE IF NOT EXISTS itsphp(sayfa, veri)");});
+	}
+
+
 }

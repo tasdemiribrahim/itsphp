@@ -1,32 +1,32 @@
-<div id="map_canvas"></div>
+	<div id="ammc"></div>
 	<br class="clear" />
 	<br />
-	<p><select id="startRoute"><option value="" selected='selected' data-skip='1'>Kaynak</option></select>'den<select id="endRoute"><option value="" selected='selected' data-skip='1'>Hedef</option></select>'e<br /><br />
+	<p><select id="amsr"><option value="" selected data-skip='1'>Kaynak</option></select>'den<select id="amer"><option value="" selected data-skip='1'>Hedef</option></select>'e<br /><br />
 	<select id="mode">
 	  <option value="DRIVING">araba</option>
 	  <option value="WALKING">tabanvay</option>
 	  <option value="BICYCLING">bisiklet</option>
 	</select> ile
 	<input type="button" id="git" value="gidiyorum" /></p>
-	<select id="waypoints" multiple size="5"></select>
+	<select id="amwp" multiple size="5"></select>
 	<br />
 	<p>Ancak yolumun üstündeyken bunlara da uğrarım.(Çoklu seçim için <code>ctrl</code> tuşuna basılı tutun.)</p><br />
 	<p><input type="checkbox" id="tarif" checked /><label for="tarif">Detaylı tarif et.</label></p>
-	<p><input type="checkbox" id="pano_goster" /><label for="pano_goster">Sokak resimlerini göster(Türkiye için yok)</label></p>
-	<br /><p>Toplam Mesafe:<span id="toplamYol">0</span> km.</p>
+	<p><input type="checkbox" id="ampg" /><label for="ampg">Sokak resimlerini göster(Türkiye için yok)</label></p>
+	<br /><p>Toplam Mesafe:<span id="amty">0</span> km.</p>
 	<br class="clear" />
 	<div id="pano" class="sakla"></div>   
-	<div id="directionsPanel"></div>   
+	<div id="amdp"></div>   
 </div>
 
 <aside id="rcnt" role=”complementary”>
 <h3 class="radial daire">Haritada Göster</h3>
-<ol id="hedefListe"></ol>
+<ol id="amhl"></ol>
 <script src="http://code.google.com/apis/gears/gears_init.js"></script>
 <script src="http://maps.google.com/maps/api/js?sensor=false&language=tr&region=TR"></script>
 <script> var adresler=new Array(),i=0;
 <?php
 foreach ($this->adres as $row)
-	echo 'adresler[i++]=["'.$row['Detay']['aileBireyAdres'].'","'.$row['aileAd'].'","'.getResim($row['aileID']).'"];'.PHP_EOL;
+	echo 'adresler[i++]=["'.$row['Detay']['adres'].'","'.$row['ad'].'","'.getResim($row['id']).'"];'.PHP_EOL;
 ?>
 </script>

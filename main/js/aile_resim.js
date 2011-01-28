@@ -16,81 +16,86 @@
 	
 	getScript("js/aile_extra.js");
 
-	var targetX, targetY,jasimage=$("#jas-image"),tagCounter = 0;
+	var targetX, targetY,jasimage=$("#arji"),tagCounter = 0;
 	
-	jasimage.wrap('<div id="tag-wrapper"></div>');
-	 $("#tag-wrapper").css("width", jasimage.outerWidth());
-	 $("#tag-wrapper").append('<div id="tag-target"></div><div id="tag-input"><label for="tag-name">Kişinin Adı:</label><input type="text" id="tag-name"><input type="submit" value="Kaydet" /><input type="reset" value="Çık" /></div>');
+	jasimage.wrap('<div id="artw"></div>');
+	 $("#artw").css("width", jasimage.outerWidth());
+	 $("#artw").append('<div id="artt"></div><div id="arti"><label for="artn">Kişinin Adı:</label><input id="artn"><input type="submit" value="Kaydet" /><input type="reset" value="Çık" /></div>');
 
 	 jasimage.click(function(e){
-		 mouseX = e.pageX - $("#tag-wrapper").offset().left;
-		 mouseY = e.pageY - $("#tag-wrapper").offset().top;
-		 targetWidth = $("#tag-target").outerWidth();
-		 targetHeight = $("#tag-target").outerHeight();
+		 mouseX = e.pageX - $("#artw").offset().left;
+		 mouseY = e.pageY - $("#artw").offset().top;
+		 targetWidth = $("#artt").outerWidth();
+		 targetHeight = $("#artt").outerHeight();
 		 targetX = mouseX-targetWidth/2;
 		 targetY = mouseY-targetHeight/2;
 		 if(targetY<0)
 			inputY=targetY+targetHeight;
 		 else	
 			inputY = mouseY-targetHeight/2;
-		 if(mouseX+targetWidth+$("#tag-input").outerWidth()>jasimage.outerWidth()) 
-			inputX=targetX-$("#tag-input").outerWidth();
+		 if(mouseX+targetWidth+$("#arti").outerWidth()>jasimage.outerWidth()) 
+			inputX=targetX-$("#arti").outerWidth();
 		else if(targetY<0 && targetX>0)
 			inputX=targetX;
 		else
 			inputX = mouseX+targetWidth/2;
-		 if($("#tag-target").css("display")=="block")
+		 if($("#artt").css("display")=="block")
 		 {
-			 $("#tag-target").animate({left: targetX, top: targetY}, 500);
-			 $("#tag-input").animate({left: inputX, top: inputY}, 500);
+			 $("#artt").animate({left: targetX, top: targetY}, 500);
+			 $("#arti").animate({left: inputX, top: inputY}, 500);
 		 } 
 		 else 
 		 {
-			 $("#tag-target").css({left: targetX, top: targetY}).fadeIn();
-			 $("#tag-input").css({left: inputX, top: inputY}).fadeIn();
+			 $("#artt").css({left: targetX, top: targetY}).fadeIn();
+			 $("#arti").css({left: inputX, top: inputY}).fadeIn();
 		 }
 
-		 $("#tag-name").focus();
+		 $("#artn").focus();
 	 });
 
-	 $('#tag-input input[type="reset"]').click(function(){closeTagInput();	return false; });
-	 $("#tag-name").keyup(function(e) {if(e.keyCode == 13) submitTag(); });
-	 $('#tag-input input[type="submit"]').click(function(){	submitTag();	return false; });
+	 $('#arti input[type="reset"]').click(function(){closeTagInput();	return false; });
+	 $("#artn").keyup(function(e) {if(e.keyCode == 13) submitTag(); });
+	 $('#arti input[type="submit"]').click(function(){	submitTag();	return false; });
 	 
-	 $(".hotspot-item").live("mouseover",function(){ 
+	 $(".arhi").live("mouseover",function(){ 
 		var id=$(this).attr("id");
-		matches=id.match(/^hotspot-item-([0-9]+)$/); 
-		$("#hotspot-"+matches[1]).addClass("hotspothover");
+		matches=id.match(/^arhi-([0-9]+)$/); 
+		$("#h-"+matches[1]).addClass("arhh");
 	});
 	
-	 $(".hotspot-item").live("mouseout",function(){ 
+	 $(".arhi").live("mouseout",function(){ 
 		var id=$(this).attr("id");
-		matches=id.match(/^hotspot-item-([0-9]+)$/); 
-		$("#hotspot-"+matches[1]).removeClass("hotspothover");
+		matches=id.match(/^arhi-([0-9]+)$/); 
+		$("#h-"+matches[1]).removeClass("arhh");
 	});	
 	
-	$(".remove").live("click",function () {
+	$(".arr").live("click",function () {
 		var id=$(this).parent().attr("id");
-		matches=id.match(/^hotspot-item-([0-9]+)$/); 
+		console.log(id);
+		matches=id.match(/^arhi-([0-9]+)$/); 
+		console.log(matches);
 		answer= confirm ($(this).parent().text() + " emin misiniz?");
 		if(!answer) return false;
-		 $.ajax({	data: "remove="+jasimage.attr("src")+"&id="+matches[1],
+		/* $.ajax({	
+			data: "arr="+jasimage.attr("src")+"&id="+matches[1],
 			success:function(cevap){
 				if(cevap==1)
 				{
-					 $("#hotspot-item-"+matches[1]).remove();
-					 $("#hotspot-"+matches[1]).remove();
+					 $("#arhi-"+matches[1]).remove();
+					 $("#h-"+matches[1]).remove();
 				}
 				else	addNotice("<p>Etiket silinemedi!</p>");
 			}
-		});
+		});*/
 		 return false;
 	 });
 	
 	 function submitTag()
-	{
-		tagValue = $("#tag-name").val();
-		$.ajax({	data: "hotspot="+jasimage.attr("src")+"&id="+tagCounter+"&val="+tagValue+"&x="+targetX+"&y="+targetY,
+	 {
+		tagValue = $("#artn").val();
+		$.ajax({	
+			dataType:"json",
+			data: "arh="+jasimage.attr("src")+"&id="+tagCounter+"&val="+tagValue+"&x="+targetX+"&y="+targetY,
 			success:function(cevap)
 			{
 				if(cevap>0)
@@ -106,38 +111,36 @@
 	 
 	 function hotSpotImg(tagValue)
 	 {
-		$("#tag-wrapper").after('<span class="hotspot-item pointed" id="hotspot-item-' + tagCounter + '"> ' + tagValue + ' <a class="remove">(Sil)</a>' + (tagCounter==0 ? "" : ",") + '</span>');
-		$("#tag-wrapper").append('<div id="hotspot-' + tagCounter + '" class="hotspot" style="left:' + targetX + 'px; top:' + targetY + 'px;"><span>' + tagValue + '</span></div>');
+		$("#artw").after('<span class="arhi pointed" id="arhi-' + tagCounter + '"> ' + tagValue + ' <a class="arr">(Sil)</a></span>');
+		$("#artw").append('<div id="h-' + tagCounter + '" class="arh" style="left:' + targetX + 'px; top:' + targetY + 'px;"><span>' + tagValue + '</span></div>');
 	 }
 
 	 function closeTagInput()
 	 {
-		 $("#tag-target").fadeOut();
-		 $("#tag-input").fadeOut();
-		 $("#tag-name").val("");
+		 $("#artt").fadeOut();
+		 $("#arti").fadeOut();
+		 $("#artn").val("");
 	 }
 	 
 	 function changeImage()
 	 {
 		closeTagInput();
 		tagCounter=0;
-		$(".hotspot,.hotspot-item").remove();
-		$.doTimeout('t');
-		$.doTimeout( 't',500, function(){
-			$.ajax({	data: "get="+jasimage.attr("src"),
-				dataType :"json",
-				success:function(cevap){
-					var i=cevap.length;
-					while(i--)
-					{
-						tagCounter=cevap[i].spot;
-						targetX=cevap[i].x;
-						targetY=cevap[i].y;
-						hotSpotImg(cevap[i].val);
-					}
-					if(cevap.length!=0) tagCounter++;
+		$(".arh,.arhi").remove();
+		$.ajax({	
+			data: "get="+jasimage.attr("src"),
+			dataType :"json",
+			success:function(cevap){
+				var i=cevap.length;
+				while(i--)
+				{
+					tagCounter=cevap[i].spot;
+					targetX=cevap[i].x;
+					targetY=cevap[i].y;
+					hotSpotImg(cevap[i].val);
 				}
-			});
+				if(cevap.length!=0) tagCounter++;
+			}
 		});
 	 }
 
@@ -163,17 +166,17 @@
 			["4118/4757836515_bae11d3f60.jpg", "", "Hümeyra Çiftçi,Rabia Çiftçi,Furkan Çiftçi"],
 			["4116/4757837669_972c9ca791.jpg", "", "Hümeyra Çiftçi,Ömer Taşdemir,Furkan Çiftçi"]
 		],
-		fadeContainerId : "jas-container",
-		imageContainerId : "jas-image",
-		imageTextContainerId : "jas-image-text",
-		previousLinkId : "previous-image",
-		nextLinkId : "next-image",
-		imageCounterId : "image-counter",
-		startSlideShowId : "start-slideshow",
-		stopSlideShowId : "stop-slideshow",
-		thumbnailContainerId: "jas-thumbnails",
+		fadeContainerId : "arjc",
+		imageContainerId : "arji",
+		imageTextContainerId : "arjit",
+		previousLinkId : "arpi",
+		nextLinkId : "arni",
+		imageCounterId : "aric",
+		startSlideShowId : "arsss",
+		stopSlideShowId : "arstop",
+		thumbnailContainerId: "arjt",
 		tagsContainerId: $("#jas-nav"),
-		tagsSelectAllId: "jas-select-all-tags",
+		tagsSelectAllId: "arjsat",
 		useImageText : true,
 		useThumbnails : true,
 		useTags : true,
@@ -478,7 +481,7 @@
 			}
 			this.currentThumbnailSelected = this.thumbnailCollection[this.imageIndex];
 			this.currentThumbnailSelected.className = "selected";
-			this.currentThumbnailSelected.parentNode.className = "selected-parent";
+			this.currentThumbnailSelected.parentNode.className = "arjsp";
 		},
 
 		createTagList : function (){

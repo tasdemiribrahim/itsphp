@@ -48,8 +48,8 @@ $(document).ready(function() {
 	var videoDevice = document.getElementsByTagName("device")[0];
 	if(videoDevice.data)
 	{
-		var video = document.getElementById("mediaVid"),button = document.getElementById("mediaButton"),recording = false,videoStream;
-		$("#mediaVid,#mediaButton").removeClass("sakla");
+		var video = document.getElementById("imv"),button = document.getElementById("imb"),recording = false,videoStream;
+		$("#imv,#imb").removeClass("sakla");
 
 		videoDevice.addEventListener("change", play, false);
 		function play() 

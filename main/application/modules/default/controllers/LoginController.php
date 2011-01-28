@@ -9,9 +9,9 @@ class LoginController extends Zend_Controller_Action
 		//$this->view->akraba=$session;
 		if(isset($session->yoneticiAd))
 			$this->_redirect('/admin');
-		$this->_helper->layout->setLayout('minimal');
-		require_once('main/Helpers/recaptchalib.php');
-		require_once('main/Helpers/TwitterAPI.php');
+		$this->_helper->layout->setLayout('admin');
+		require_once('main/helpers/recaptchalib.php');
+		require_once('main/helpers/TwitterAPI.php');
 		$this->view->title="Login";
 		$this->view->script="login";
 		$connection = new TwitterAPI(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
@@ -29,12 +29,12 @@ class LoginController extends Zend_Controller_Action
 				$validators = array('login' => array('NotEmpty'),'sifre' => array('NotEmpty'));
 				$input = new Zend_Filter_Input($filters, $validators);
 				$input->setdata($this->getRequest()->getPost());
-				if ($input->isValid())  
+				if (isset($_POST['sifre']) && $input->isValid())  
 				{
 					$resp = recaptcha_check_answer (RECAPTCHA_PRIVATE_KEY,$_SERVER["REMOTE_ADDR"],$_POST['recaptcha_challenge_field'],$_POST['recaptcha_response_field']);
 					if ($resp->is_valid) 
 					{
-						$adapter = new main_Helpers_Auth_Adapter_Doctrine($input->login, $input->sifre);
+						$adapter = new main_helpers_Auth_Adapter_Doctrine($input->login, $input->sifre);
 						$auth = Zend_Auth::getInstance();
 						$result = $auth->authenticate($adapter);
 						if ($result->isValid()) 
@@ -127,6 +127,53 @@ class LoginController extends Zend_Controller_Action
 				}
 			}
 		}
+		if(isset($_REQUEST['signed_request'])) 
+		{
+			list($encoded_sig, $payload) = explode('.', $_REQUEST['signed_request'], 2);
+			$sig = base64_decode(strtr($encoded_sig, '-_', '+/'));
+			$data = json_decode(base64_decode(strtr($payload, '-_', '+/')), true);
+			if (strtoupper($data['algorithm']) !== 'HMAC-SHA256')
+			{
+				$this->view->fbhata='Algoritma bilinmiyor. HMAC-SHA256 olmalıydı.';
+				$data = null;
+			}
+			$expected_sig = hash_hmac('sha256', $payload, FACEBOOK_APP_SECRET, $raw = true);
+			if ($sig !== $expected_sig) 
+			{
+				$this->view->fbhata='JSON hatası!';
+				$data = null;
+			}
+
+			/*
+			if($data)
+			{
+				$name = $data["registration"]["name"];
+				$email = $data["registration"]["email"];
+				$password = $data["registration"]["password"];
+				$gender = $data["registration"]["gender"];
+				$dob = $data["registration"]["birthday"];
+
+				$result = mysql_query("INSERT INTO users (name, email, password, gender, dob) VALUES ('$name', '$email', '$password', '$gender', '$dob')");
+
+				if($result){
+				// User successfully stored
+				}
+				else
+				{
+				// Error in storing
+				}
+				CREATE TABLE users
+				(
+				uid int(11) PRIMARY KEY AUTO_INCREMENT,
+				fullname varchar(50),
+				email varchar(50) UNIQUE,
+				password varchar(50),
+				gender varchar(6),
+				dob varchar(16)
+				);
+			}
+*/
+		}
 		$this->view->recaptcha = recaptcha_get_html(RECAPTCHA_PUBLIC_KEY,$error); 
 		session_destroy();
     	}
@@ -154,7 +201,7 @@ class LoginController extends Zend_Controller_Action
 		$userID = temizSayi($_POST['userid']);
 		$userKey = hash_hmac('ripemd160',$_POST['key'], "elendil");
 		
-		$aileAgaci = Doctrine::getTable('main_Models_AileAgaci')->find($userID);
+		$aileAgaci = Doctrine::getTable('main_models_AileAgaci')->find($userID);
 		$result =$aileAgaci->toArray();
 		if($userKey == $result['keyHash']) 
 		{

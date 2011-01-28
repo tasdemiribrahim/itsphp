@@ -9,7 +9,7 @@ class Admin_AdminController extends Zend_Controller_Action
 			$session->requestURL = $this->getRequest()->getRequestUri();
 			$this->_redirect('/login');
 		}
-		include_once"main/Helpers/adminHelper.php";
+		include_once"main/helpers/adminHelper.php";
 	}
 
 	public function indexAction()
@@ -18,7 +18,23 @@ class Admin_AdminController extends Zend_Controller_Action
 		$this->view->url="admin";
 		$this->view->title="Admin Ayarları";
 		$this->view->script="admin";
-		$this->view->muzik=$this->_helper->cache("metal","main_Models_Muzik"); 
+		$this->view->muzik=$this->_helper->cache("metal","main_models_Dm"); 
+		if(isset($_GET["ytur"]))
+		{
+			$tur = new main_models_Dmt();
+			$tur->ad=temizYazi($_GET["ytur"]);
+			$tur->save();
+		}
+		if(isset($_GET["ymem"]))
+		{
+			$tur = new main_models_Dmm();
+			$tur->ad=temizYazi($_GET["ymem"]);
+			$tur->save();
+		}
+		$q = Doctrine_Query::create()->from('main_models_Dmt')->orderBy('ad DESC');
+		$this->view->tur=$q->fetchArray();
+		$q = Doctrine_Query::create()->from('main_models_Dmm')->orderBy('ad DESC');
+		$this->view->mem=$q->fetchArray();
 	}
 
 	public function jsAction()
@@ -29,7 +45,7 @@ class Admin_AdminController extends Zend_Controller_Action
 	
 	public function abuseAction()
 	{
-		include_once"main/Helpers/abuseCheck.php";
+		include_once"main/helpers/abuseCheck.php";
 		$this->_helper->layout->setLayout('admin');
 		$this->view->title="Hacker Ayarlar";
 		$abuse = new abuse_check();
@@ -179,7 +195,7 @@ class Admin_AdminController extends Zend_Controller_Action
 	{
 		$this->_helper->layout->setLayout('admin');
 		$this->view->title="Ziyaretçiler";
-		$aile = Doctrine::getTable('main_Models_Tracker')->findAll();
+		$aile = Doctrine::getTable('main_models_Tracker')->findAll();
 		$this->view->stats=$aile->toArray();
 		$this->view->statSayi = count($aile->toArray());
 	}
@@ -231,40 +247,39 @@ class Admin_AdminController extends Zend_Controller_Action
 	{
 		$config = $this->getInvokeArg('bootstrap')->getOption('indexes');
 		$index = Zend_Search_Lucene::create($config['indexPath']);
-		$result=$this->_helper->cache("aile","main_Models_AileAgaci"); 
+		$result=$this->_helper->cache("aile","main_models_Aa"); 
 		foreach ($result as $r) 
 		{
 			$doc = new Zend_Search_Lucene_Document();
-			$doc->addField(Zend_Search_Lucene_Field::Text('ad',$r['aileAd']));
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('id',$r['aileID']));
+			$doc->addField(Zend_Search_Lucene_Field::Text('ad',$r['ad']));
+			$doc->addField(Zend_Search_Lucene_Field::Keyword('id',$r['id']));
 			$doc->addField(Zend_Search_Lucene_Field::Text('page',"aile"));
 			$index->addDocument($doc);
 		}
-		$result=$this->_helper->cache("aileDetay","main_Models_AileAgaciDetay"); 
+		$result=$this->_helper->cache("aileDetay","main_models_Aad"); 
 		foreach ($result as $r) 
 		{
 			$doc = new Zend_Search_Lucene_Document();
-			$doc->addField(Zend_Search_Lucene_Field::Text('ad',$r['aileBireyEs']));
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('id',$r['aileID']));
+			$doc->addField(Zend_Search_Lucene_Field::Text('ad',$r['es']));
+			$doc->addField(Zend_Search_Lucene_Field::Keyword('id',$r['id']));
 			$doc->addField(Zend_Search_Lucene_Field::Text('page',"aile"));
 			$index->addDocument($doc);
 		}	
-		$result=$this->_helper->cache("metal","main_Models_Muzik"); 
+		$result=$this->_helper->cache("metal","main_models_Dm"); 
 		foreach ($result as $r) 
 		{
 			$doc = new Zend_Search_Lucene_Document();
-			$doc->addField(Zend_Search_Lucene_Field::Text('grupAd',$r['grupAd']));
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('id',$r['grupID']));
-			$doc->addField(Zend_Search_Lucene_Field::Text('tur',$r['tur']));
-			$doc->addField(Zend_Search_Lucene_Field::Text('memleket',$r['memleket']));
+			$doc->addField(Zend_Search_Lucene_Field::Text('ad',$r['ad']));
+			$doc->addField(Zend_Search_Lucene_Field::Keyword('id',$r['id']));
+			$doc->addField(Zend_Search_Lucene_Field::Text('mem',$r['mem']));
 			$doc->addField(Zend_Search_Lucene_Field::Text('page',"muzik"));
 			$index->addDocument($doc);
 		}
-		$result=$this->_helper->cache("film","main_Models_Film"); 
+		$result=$this->_helper->cache("film","main_models_Film"); 
 		foreach ($result as $r) 
 		{
 			$doc = new Zend_Search_Lucene_Document();
-			$doc->addField(Zend_Search_Lucene_Field::Text('ad',$r['film_ad']));
+			$doc->addField(Zend_Search_Lucene_Field::Text('ad',$r['ad']));
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('id',$r['id']));
 			$doc->addField(Zend_Search_Lucene_Field::Text('page',"film"));
 			$index->addDocument($doc);
@@ -300,37 +315,38 @@ class Admin_AdminController extends Zend_Controller_Action
 		if(!isset($_FILES['uploadResim']['name']))
 			include_once "main/Helpers/ajax_guvenli.php";
 
-		if(isset($_POST['kaydet'])) echo $this->insertMuzik(temizYazi($_POST['grupAd']),temizYazi($_POST['grupTur']),temizYazi($_POST['grupMemleket']),$_POST['grupTanim'],temizYazi($_POST['grupClip']));
-		elseif(isset($_POST['silID'])) $this->deleteMuzik(temizSayi($_POST['silID']));
-		elseif(isset($_POST['guncelleID'])) echo $this->selectMuzik(temizSayi($_POST['guncelleID']));
-		elseif(isset($_POST['guncellenecekID'])) $this->updateMuzik(temizSayi($_POST['guncellenecekID']),temizYazi($_POST['grupAd']),temizYazi($_POST['grupTur']),temizYazi($_POST['grupMemleket']),$_POST['grupTanim'],$_POST['grupClip']);
-		elseif(isset($_POST['yeniAlbum'])) echo $this->insertAlbum(temizSayi($_POST['grupAd']),temizSayi($_POST['albumYil']),temizYazi($_POST['albumAd']));
-		elseif(isset($_POST['yeniEleman'])) echo $this->insertEleman(temizSayi($_POST['grupAd']),temizYazi($_POST['enstruman']),temizYazi($_POST['elemanAd']));
-		elseif(isset($_POST['silAlbum'])) $this->deleteAlbum(temizSayi($_POST['silAlbum']));
-		elseif(isset($_POST['silEleman'])) $this->deleteEleman(temizSayi($_POST['silEleman']));
+		if(isset($_POST['id']) && $_POST['id']==0) echo $this->insertMuzik(temizYazi($_POST['ad']),temizYazi($_POST['tur']),temizYazi($_POST['mem']),stripslashes($_POST['tanim']),temizYazi($_POST['clip']));
+		elseif(isset($_POST['sid'])) $this->deleteMuzik(temizSayi($_POST['sid']));
+		elseif(isset($_POST['gid'])) echo $this->selectMuzik(temizSayi($_POST['gid']));
+		elseif(isset($_POST['id']) && $_POST['id']>0) echo $this->updateMuzik(temizSayi($_POST['id']),temizYazi($_POST['ad']),temizYazi($_POST['tur']),temizYazi($_POST['mem']),stripslashes($_POST['tanim']),stripslashes($_POST['clip']));
+		elseif(isset($_POST['aid'])) echo $this->insertAlbum(temizSayi($_POST['aid']),temizSayi($_POST['alyil']),temizYazi($_POST['alad']));
+		elseif(isset($_POST['eid'])) echo $this->insertEleman(temizSayi($_POST['grupAd']),temizYazi($_POST['elens']),temizYazi($_POST['elad']));
+		elseif(isset($_POST['said'])) $this->deleteAlbum(temizSayi($_POST['said']));
+		elseif(isset($_POST['seid'])) $this->deleteEleman(temizSayi($_POST['seid']));
 		elseif(isset($_FILES['uploadResim']['name'])) echo $this->_helper->imager->upload($_FILES['uploadResim']);
-		elseif(isset($_POST['resimHedefGrupID'])) echo $this->_helper->imager->save(temizSayi($_POST['resimHedefGrupID']),temizYazi($_POST['fileName']),"muzik");
-		elseif(isset($_POST['film_ad'])) echo $this->insertFilm(temizYazi($_POST['film_ad']),temizYazi($_POST['uzunluk']),temizURL($_POST['mp4']),temizURL($_POST['ogg']),temizURL($_POST['webm']),temizYazi($_POST['tube']),temizURL($_POST['desc']),temizURL($_POST['chap']),temizURL($_POST['meta']),temizURL($_POST['en']),temizURL($_POST['tr']));
+		elseif(isset($_POST['rid'])) echo $this->_helper->imager->save(temizSayi($_POST['rid']),temizYazi($_POST['fn']),"muzik");
+		elseif(isset($_POST['fad'])) echo $this->insertFilm(temizYazi($_POST['fad']),temizYazi($_POST['uz']),temizURL($_POST['mp4']),temizURL($_POST['ogg']),temizURL($_POST['webm']),temizYazi($_POST['tube']),temizURL($_POST['ac']),temizURL($_POST['chap']),temizURL($_POST['meta']),temizURL($_POST['en']),temizURL($_POST['tr']));
 	}	
 	
-	function insertFilm($film_ad,$uzunluk,$mp4,$ogg,$webm,$tube,$desc,$chap,$meta,$en,$tr)
+	function insertFilm($ad,$uz,$mp4,$ogg,$webm,$tube,$ac,$chap,$meta,$en,$tr)
 	{
+		header('Content-Type: application/json');
 		try
 		{
-			$film = new main_Models_Film();
-			$film->film_ad=$film_ad;
-			$film->uzunluk=$uzunluk;
+			$film = new main_models_Film();
+			$film->ad=$ad;
+			$film->uz="00:".$uz;
 			$film->mp4=$mp4;
 			$film->ogg=$ogg;
 			$film->webm=$webm;
 			$film->tube=$tube;
-			$film->desc=$desc;
+			$film->ac=$ac;
 			$film->chap=$chap;
 			$film->meta=$meta;
 			$film->en=$en;
 			$film->tr=$tr;
 			$film->save();
-			return $film->id;
+			return json_encode(array("durum"=>"ok","id"=>$film->id));
 		}
 		catch(Doctrine_Validator_Exception $e) 
 		{
@@ -338,12 +354,13 @@ class Admin_AdminController extends Zend_Controller_Action
 			$error="";
 			foreach($filmErrors as $fieldName => $errorCodes) 
 				$error .= $fieldName . " - " . implode(', ', $errorCodes) . "\n";
-			trigger_error($error);
+			return json_encode(array("durum"=>$error));
 		}
 	}
 	
-	function insertMuzik($grupAd,$grupTur,$grupMemleket,$grupTanim,$grupClip)
+	function insertMuzik($ad,$tur,$mem,$tanim,$clip)
 	{  	
+		header('Content-Type: application/json');
 		try 
 		{
 			$this->_helper->cache->remove("metal"); 
@@ -351,23 +368,23 @@ class Admin_AdminController extends Zend_Controller_Action
 			$conn = Doctrine_Manager::getInstance()->getCurrentConnection();
 			$conn->beginTransaction();
 			
-			$muzik = new main_Models_Muzik();
-			$muzik->grupAd=$grupAd;
-			$muzik->tur=$grupTur;
-			$muzik->memleket=$grupMemleket;
-			$muzik->tanim=$grupTanim;
-			$muzik->grupClip=$grupClip;
+			$muzik = new main_models_Dm();
+			$muzik->ad=$ad;
+			$muzik->tur=$tur;
+			$muzik->mem=$mem;
+			$muzik->tanim=$tanim;
+			$muzik->clip=$clip;
 			$muzik->save();
 
-			$rss = new main_Models_MuzikRssItems();
-			$rss->title="$grupAd - $grupTur";
-			$rss->description =$grupTanim;
-			$rss->link =getSiteName()."main/dinle/metal?id=".$muzik->grupID;
+			$rss = new main_models_Dmr();
+			$rss->title="$ad - $tur";
+			$rss->description =$tanim;
+			$rss->link =getSiteName()."main/dinle/metal?id=".$muzik->id;
 			$rss->save();
 			
 			$conn->commit();
 				
-			return $muzik->grupID;
+			return json_encode(array("durum"=>"yeni","id"=>$muzik->id));
 		} 
 		catch(Doctrine_Validator_Exception $e) 
 		{
@@ -379,75 +396,81 @@ class Admin_AdminController extends Zend_Controller_Action
 				$error .= $fieldName . " - " . implode(', ', $errorCodes) . "\n";
 			foreach($rssErrors as $fieldName => $errorCodes) 
 				$error .=  $fieldName . " - " . implode(', ', $errorCodes) . "\n";
-			trigger_error($error);
-			return 0;	
+			return json_encode(array("durum"=>$error));	
 		}
 		catch(Doctrine_Exception $e)
 		{
 			$conn->rollback();
-			return "-1";	
+			return json_encode(array("durum"=>"Doctrine_Exception"));	
 		}
 		catch (Exception $e) 	
 		{
 			$conn->rollback();	
-			return "-2";	
+			return json_encode(array("durum"=>"Exception"));	
 		}
 	}
 
-	function deleteMuzik($silID)
+	function deleteMuzik($sid)
 	{
 		$this->_helper->cache->remove("metal"); 
-		$muzik = Doctrine::getTable('main_Models_Muzik')->find($silID);
+		$muzik = Doctrine::getTable('main_models_Dm')->find($sid);
 		$muzik->delete();
 	}
 
-	function selectMuzik($guncelleID)
+	function selectMuzik($gid)
 	{
-		$q = Doctrine_Query::create()->from('main_Models_Muzik m')->leftJoin('m.Albumler d')->leftJoin('m.Elemanlar e')->where("grupID=$guncelleID");
-		$row = $q->fetchOne();
-		$mesaj= $row['tanim']."|".$row['grupAd']."|".$row['tur']."|".$row['memleket']."|".$row['grupClip']."&";
+		header('Content-Type: application/json');
+		$q = Doctrine_Query::create()->from('main_models_Dm m')->leftJoin('m.Albumler d')->leftJoin('m.Elemanlar e')->where("id=$gid");
+		$row = $q->fetchArray();
+		return json_encode($row[0]);
+		/*
+		$mesaj= $row['tanim']."|".$row['ad']."|".$row['tur']."|".$row['mem']."|".$row['clip']."&";
 		foreach ($row->Albumler as $album)
-			$mesaj.= $album['albumID']."|".$album['albumAd']."|".$album['albumYil']."|";
+			$mesaj.= $album['id']."|".$album['ad']."|".$album['yil']."|";
 		$mesaj.= "&";
 		foreach ($row->Elemanlar as $eleman)
-			$mesaj.= $eleman['elemanID']."|".$eleman['elemanAd']."|".$eleman['enstruman']."|";
+			$mesaj.= $eleman['id']."|".$eleman['ad']."|".$eleman['ens']."|";
 		unset($row);
-		return $mesaj."&";
+		return $mesaj."&";*/
 	}
 
-	function updateMuzik($guncellenecekID,$grupAd,$grupTur,$grupMemleket,$grupTanim,$grupClip)
+	function updateMuzik($id,$ad,$tur,$mem,$tanim,$clip)
 	{  	
+		header('Content-Type: application/json');
 		try
 		{
 			$this->_helper->cache->remove("metal"); 
-			$muzik = Doctrine::getTable('main_Models_Muzik')->find($guncellenecekID);
-			$muzik->grupAd=$grupAd;
-			$muzik->tur=$grupTur;
-			$muzik->memleket=$grupMemleket;
-			$muzik->tanim=$grupTanim;
-			$muzik->grupClip=$grupClip;
+			$muzik = Doctrine::getTable('main_models_Dm')->find($id);
+			$muzik->ad=$ad;
+			$muzik->tur=$tur;
+			$muzik->mem=$mem;
+			$muzik->tanim=$tanim;
+			$muzik->clip=$clip;
 			$muzik->save();
+			return json_encode(array("durum"=>"guncel"));
 		}
 		catch(Doctrine_Validator_Exception $e) 
 		{
 			$muzikErrors = $muzik->getErrorStack();
 			$error="";
+
 			foreach($muzikErrors as $fieldName => $errorCodes) 
 				$error .= $fieldName . " - " . implode(', ', $errorCodes) . "\n";
-			trigger_error($error);
+			return json_encode(array("durum"=>$error));
 		}
 	}
 
-	function insertAlbum($grupAd,$albumYil,$albumAd)
+	function insertAlbum($id,$yil,$ad)
 	{  	
+		header('Content-Type: application/json');
 		try
 		{
-			$album = new main_Models_Album();
-			$album->albumAd=$albumAd;
-			$album->albumYil=$albumYil;
-			$album->grupID=$grupAd;
+			$album = new main_models_Dma();
+			$album->ad=$ad;
+			$album->yil=$yil;
+			$album->grupID=$id;
 			$album->save();
-			return $album->albumID;
+			return json_encode(array("durum"=>"ok","id"=>$album->id));
 		}
 		catch(Doctrine_Validator_Exception $e) 
 		{
@@ -455,20 +478,21 @@ class Admin_AdminController extends Zend_Controller_Action
 			$error="";
 			foreach($albumErrors as $fieldName => $errorCodes) 
 				$error .= $fieldName . " - " . implode(', ', $errorCodes) . "\n";
-			trigger_error($error);
+			return json_encode(array("durum"=>$error));
 		}
 	}
 
-	function insertEleman($grupAd,$enstruman,$elemanAd)
+	function insertEleman($id,$ens,$ad)
 	{  	
+		header('Content-Type: application/json');
 		try
 		{
-			$eleman = new main_Models_Eleman();
-			$eleman->elemanAd=$elemanAd;
-			$eleman->enstruman=$enstruman;
-			$eleman->grupID=$grupAd;
+			$eleman = new main_models_Dme();
+			$eleman->ad=$ad;
+			$eleman->ens=$ens;
+			$eleman->grupID=$id;
 			$eleman->save();
-			return $eleman->elemanID;
+			return json_encode(array("durum"=>"ok","id"=>$album->id));
 		}
 		catch(Doctrine_Validator_Exception $e) 
 		{
@@ -476,29 +500,29 @@ class Admin_AdminController extends Zend_Controller_Action
 			$error="";
 			foreach($elemanErrors as $fieldName => $errorCodes) 
 				$error .= $fieldName . " - " . implode(', ', $errorCodes) . "\n";
-			trigger_error($error);
+			return json_encode(array("durum"=>$error));
 		}
 	}
 
-	function deleteAlbum($silAlbum)
+	function deleteAlbum($said)
 	{
-		$album = Doctrine::getTable('main_Models_Album')->find($silAlbum);
+		$album = Doctrine::getTable('main_models_Dma')->find($said);
 		$album->delete();
 	}
 
-	function deleteEleman($silEleman)
+	function deleteEleman($seid)
 	{
-		$eleman = Doctrine::getTable('main_Models_Eleman')->find($silEleman);
+		$eleman = Doctrine::getTable('main_models_Dme')->find($seid);
 		$eleman->delete();
 	}
 
-	function updateAlbum($guncellenecekAlbumID,$albumAD,$albumYil)
+	function updateAlbum($gaid,$ad,$yil)
 	{  	
 		try
 		{
-			$album = Doctrine::getTable('main_Models_Album')->find($guncellenecekAlbumID);
-			$album->albumAd=$albumAD;
-			$album->albumYil=$albumYil;
+			$album = Doctrine::getTable('main_models_Dma')->find($gaid);
+			$album->ad=$ad;
+			$album->yil=$yil;
 			$album->save();
 		}
 		catch(Doctrine_Validator_Exception $e) 
@@ -511,13 +535,13 @@ class Admin_AdminController extends Zend_Controller_Action
 		}
 	}
 
-	function updateEleman($guncellenecekElemanID,$elemanAD,$enstruman)
+	function updateEleman($geid,$ad,$ens)
 	{  	
 		try
 		{
-			$eleman = Doctrine::getTable('main_Models_Eleman')->find($guncellenecekElemanID);
-			$eleman->elemanAd=$elemanAd;
-			$eleman->enstruman=$enstruman;
+			$eleman = Doctrine::getTable('main_models_Dme')->find($geid);
+			$eleman->ad=$ad;
+			$eleman->ens=$ens;
 			$eleman->save();
 		}
 		catch(Doctrine_Validator_Exception $e) 
@@ -531,32 +555,32 @@ class Admin_AdminController extends Zend_Controller_Action
 	}
 	
 	public function setdebugAction()
-    {
-        $cookies = array(
-            'start_debug'            => '1',
-            'debug_stop'             => '1',
-            'debug_fastfile'         => '1',
-            'debug_coverage'         => '1',   
-            'use_remote'             => '1',
-            'send_sess_end'         => '1',
-            'debug_session_id'         => '2000',  
-            'debug_start_session'     => '1',
-            'debug_port'             => '10137',
-            'debug_host'             => '127.0.0.1'
-        );
-        foreach ($cookies as $name => $value) {
-            $this->_response->setHeader(
-                'Set-Cookie',
-                new Zend_Http_Cookie(
-                    $name,
-                    $value,
-                    $this->_request->getHttpHost()
-                    )
-            );
-        }
-       
-        $this->_helper->viewRenderer->setNoRender(true);
-        echo "Debug set";
-    }
+	    {
+		$cookies = array(
+		    'start_debug'            => '1',
+		    'debug_stop'             => '1',
+		    'debug_fastfile'         => '1',
+		    'debug_coverage'         => '1',   
+		    'use_remote'             => '1',
+		    'send_sess_end'         => '1',
+		    'debug_session_id'         => '2000',  
+		    'debug_start_session'     => '1',
+		    'debug_port'             => '10137',
+		    'debug_host'             => '127.0.0.1'
+		);
+		foreach ($cookies as $name => $value) {
+		    $this->_response->setHeader(
+		        'Set-Cookie',
+		        new Zend_Http_Cookie(
+		            $name,
+		            $value,
+		            $this->_request->getHttpHost()
+		            )
+		    );
+		}
+	       
+		$this->_helper->viewRenderer->setNoRender(true);
+		echo "Debug set";
+    	}
 	
 }

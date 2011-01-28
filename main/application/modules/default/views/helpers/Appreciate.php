@@ -5,19 +5,19 @@ class Zend_View_Helper_Appreciate extends Zend_View_Helper_Abstract
 	{
 		$hash = md5(temizURL(urlencode(getSiteName()."main/".$this->view->url)));
 		$ip = sprintf('%u',ip2long($_SERVER['REMOTE_ADDR']));
-		$appreciated = 0;
+		$ap = 0;
 		$voted = "active";
-		$q = Doctrine_Query::create()->select("id,appreciated")->from('main_Models_AppreciatePages a')->where('a.hash = ?', $hash);
+		$q = Doctrine_Query::create()->select("id,ap")->from('main_models_Appages a')->where('a.hash = ?', $hash);
 		$result = $q->fetchOne();
 		if($result)
 		{
-			$q = Doctrine_Query::create()->select("a.ip")->from('main_Models_AppreciateVotes a')->where('a.ip = '. $ip)->addwhere('a.pageid = '. $result['id']);
+			$q = Doctrine_Query::create()->select("a.ip")->from('main_models_Apvotes a')->where('a.ip = '. $ip)->addwhere('a.pageid = '. $result['id']);
 			if($q->fetchOne())
-				$voted = "inactive";
-			$appreciated=$result['appreciated'];
+				$voted = "ina";
+			$ap=$result['ap'];
 		}
 		return '<details open>
-				<summary class="sidetit_l ui-widget ui-widget-header"><span class="details-close ui-icon ui-icon-closethick">X</span><span id="appreciateCount">'.$appreciated.'</span> Kişi Beğendi</summary><br /><a href="#" id="appreciateBadge" class="'.$voted.' tour_2">Sayfayı Beğendim</a><br /></details>';
+				<summary class="st_l ui-widget ui-widget-header"><span class="dc ui-icon ui-icon-closethick">X</span><span id="aprec">'.$ap.'</span> Kişi Beğendi</summary><br /><a href="#" id="apreb" class="'.$voted.' tour_2">Sayfayı Beğendim</a><br /></details>';
 	}
 }
 

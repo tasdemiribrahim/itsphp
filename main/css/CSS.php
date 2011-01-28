@@ -12,6 +12,7 @@ include('headers.css');
 include('jquery.weekcalendar.css');
 include('demo_table_jui.css');
 include('jquery.cleditor.css');
+include('jplayer.blue.monday.css');
 
 header('Cache-Control: max-age=2592000, public');
 header('Expires-Active: On');

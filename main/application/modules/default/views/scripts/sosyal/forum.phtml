@@ -1,0 +1,79 @@
+<div id="sfp">
+	<header class="shs">
+		<h3><?php echo $this->post["b"]; ?></h3>
+		<h4><?php echo $this->post["i"]; ?></h4>
+	</header>
+	<section class="sss">
+			<table>
+				<thead><tr><th>Mesaj</th><th>Tarih</th><th>Yazar</th></tr></thead>
+				<tbody>
+				<?php 
+					foreach($this->cevaplar as $cevap)
+						echo '<tr><td>'.$cevap["i"].'</td><td>'.$cevap["dt"].'</td><td>'.$cevap["y"].'</td></tr>';
+				?>
+				</tbody>				
+			</table>  
+			<br /><br />
+			<h5 class="ui-widget ui-widget-header">Cevap Yaz</h5>
+			<form>
+				<input type="hidden" id="id" name="id" value="<?php echo $this->post["id"]; ?>" />
+				<p>
+					<label for="y">Yazar:</label>
+					<input class="name" id="y" name="y" placeholder="Adınız" required aria-required size="30" />
+				</p>
+				<p>
+					<label for="i">Mesaj:</label>
+					<textarea name="i" id="i" rows="8" cols="70" required aria-required maxlength="500" ></textarea>
+				</p>
+				<br />
+				<div class="sfcw border sakla">
+					Sıralamak için sürükle
+					<ul>
+						<li class="shadow">1</li>
+						<li class="shadow">2</li>
+						<li class="shadow">3</li>
+						<li class="shadow">4</li>
+						<li class="shadow">5</li>
+						<li class="shadow">6</li>
+					</ul>
+				</div>
+				<input type="submit" class="bonBonButton xs morph pink glass" value="Cevabı Gönder" />
+			</form>
+	</section>
+</div> 
+</div>
+
+<aside id="rcnt" role=”complementary”>
+	<h3 class="ui-widget ui-widget-header">Forumda Konuşun</h3>
+	<div id="sfrd"><?php
+	foreach ($this->forum as $row)
+		echo '<p><a href="?id='.$row['id'].'" id="'.$row['id'].'" rel="tag">'.$row['b'].'</a></p><time pubdate>'.$row['dt'].'</time><span>'.$row['y'].'</span><br class="clear" />';
+	?>
+	</div>
+	<form>
+		<h4 class="st_r ui-widget ui-widget-header">Yeni Konu</h4>
+		<p>
+			<label for="yb">Başlık:</label>
+			<input class="suggest" name="yb" placeholder="Başlık" required aria-required size="20" />
+		</p>
+		<p>
+			<label for="yy">Yazar:</label>
+			<input class="name" name="yy" placeholder="Adınız" required aria-required size="30" />
+		</p>
+		<p>
+			<label for="yi">Mesaj:</label>
+			<textarea name="yi" rows="8" cols="70" required aria-required maxlength="500" ></textarea>
+		</p>
+		<br /><div class="sfcw border sakla">
+			Sıralamak için sürükle
+			<ul>
+				<li class="shadow">1</li>
+				<li class="shadow">2</li> 
+				<li class="shadow">3</li>
+				<li class="shadow">4</li>
+				<li class="shadow">5</li>
+				<li class="shadow">6</li>
+			</ul>
+		</div>
+		<input type="submit" class="bonBonButton xs morph pink glass" value="Konuyu Gönder" />
+	</form>

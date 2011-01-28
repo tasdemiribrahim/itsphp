@@ -1,6 +1,5 @@
-<?php require_once "main/Helpers/Cache/x-cache.php"; $this->tracker(); ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" class="no-js"> <!--  manifest="/cache.manifest" -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" class="no-js">
 <head>
 	<meta charset="UTF-8" />
 	<meta content="true" name="mssmarttagspreventparsing" />
@@ -30,14 +29,14 @@
 <!--[if gt IE 9]>  <body><![endif]-->
 <!--[if !IE]><!--> <body><!--<![endif]-->
 
-			<?php flush(); echo $this->layout()->content; flush(); ?>
+			<?php echo $this->layout()->content; ?>
 
 <script>
 //<![CDATA[<!--
 $(window).error(function(msg, url, line){
 	$.ajax({
 		type: 'GET',
-		url: '/main/Helpers/ErrorHandlerJS.php',
+		url: '/main/helpers/ErrorHandlerJS.php',
 		data: 'msg='+msg.toString()+'&url='+url+'&line='+line+'&parent='+document.location.href+'&agent='+navigator.appName+navigator.appVersion
 	});
 });
@@ -54,6 +53,5 @@ var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ga
 //-->//]]>
 </script>
 <script async src='/main/js/<?php echo $this->script.".js?".date("Ymdhis"); ?>'></script>
-<?php finish_caching(); ?> 
 </body>
 </html>

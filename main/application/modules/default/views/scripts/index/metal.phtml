@@ -1,20 +1,16 @@
-<style>	@import "/main/css/jplayer.blue.monday.css";</style>
 	<div id="accordion">
 		<?php
-			$turVeri="";
-			foreach ($this->muzik as $row)
-			{
-				if($turVeri!=$row["tur"])
-				{
-					if($turVeri!="") echo "</tbody></table></div>";
-					$turVeri=$row["tur"];
-					echo "<h3>".$turVeri." </h3><div><table class='heavyMetalTable'><tbody>";
-				}
-				echo "<tr><td><img title='".$row["grupAd"]." grubunun klibini izlemek için tıklayın' src='".getResim($row["grupID"],"muzik")."' id='".$row["grupClip"]."' alt='".$row["grupAd"]."' /></td><td><div class='".$row["memleket"]."'></div></td><td><a href='?id=".$row["grupID"]."' title='Devamını oku' id='".$row["grupID"]."'>".substr($row["tanim"],0,strrpos($row["tanim"]," "))."...</a></td></tr>";
-			}
+		foreach ($this->muzik as $row)
+		{
+			echo "<h3>".$row["ad"]." </h3><div><table class='dmt'><tbody>";
+			foreach($row["Grup"] as $g)
+				echo "<tr><td><img title='".$g["ad"]." grubunun klibini izlemek için tıklayın' src='".getResim($g["id"],"muzik")."' id='".$g["clip"]."' alt='".$g["ad"]."' /></td><td><div class='".$g["Memleket"]["ad"]."'></div></td><td><a href='?id=".$g["id"]."' title='Devamını oku' id='".$g["id"]."'>".substr($g["tanim"],0,strrpos(substr($g["tanim"],0,150)," "))."...</a></td></tr>";
+			echo "</tbody></table></div>";
+		}
 		?>
-		</tbody></table></div>
 	</div>
+	<br />
+	<h3 class="ui-widget ui-widget-header">Emergent Collective One</h3>
 	<div id="jquery_jplayer"></div>
 	<div class="jp-playlist-player">
 		<div class="jp-interface">
@@ -49,17 +45,17 @@
 
 <aside id="rcnt" role=”complementary”>
 	<article role="article">
-		<h3 class="twitter_search"><?php echo $this->grup["grupAd"]; ?></h3>
+		<h3 class="twitter_search"><?php echo $this->grup["ad"]; ?></h3>
 		<p><?php echo $this->grup["tanim"]; ?></p>
 		<hr />
 		<h4>Elemanlar</h4>
 		<ul>
-		<?php foreach($this->Elemanlar as $eleman) echo "<li><span class=\"twitter_search\">".$eleman["elemanAd"]."</span>(".$eleman["enstruman"].")</li>"; ?>
+		<?php foreach($this->Elemanlar as $eleman) echo "<li><span class=\"twitter_search\">".$eleman["ad"]."</span>(".$eleman["ens"].")</li>"; ?>
 		</ul>
 		<hr />
 		<h4>Albümler</h4>
 		<ul>
-		<?php foreach($this->Albumler as $album) echo "<li>".$album["albumYil"]."-<span class=\"twitter_search\">".$album["albumAd"]."</span></li>"; ?>
+		<?php foreach($this->Albumler as $album) echo "<li>".$album["yil"]."-<span class=\"twitter_search\">".$album["ad"]."</span></li>"; ?>
 		</ul>
 		<hr />
 	</article>

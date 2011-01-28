@@ -9,5 +9,9 @@ class AileControllerTest extends ControllerTestCase
 		$this->assertAction('index'); 		// indexAction var mı?
 		$this->assertAction('agac');
 		$this->assertAction('form');
+		// Form kontrolü
+		$this->assertQueryCount('form', 2);
+		$this->assertQueryCount('input[type="email"]', 2);
+		$this->assertQueryCount('textarea', 2);
 	} 
 }
