@@ -10,7 +10,23 @@ $smarty->compile_dir="../cache";
 $smarty->cache_lifetime=3600;
 $smarty->cache_modified_check=true;
 $smarty->security=true;
-//$smarty->secure_dir=array();
+/*$smarty->secure_dir=array();
+
+$smarty->assign('revenues', array(1 => '$0-$10000',2 => '$10000-$20000',3 => '$20000-$50000',4 => '$50000+'));
+$smarty->assign('revenue', 2);
+
+$smarty->assign('oses', array(1 => 'Windows XP',2 => 'Linux',3 => 'Sun Solaris',4 => 'Mac OS'));
+$smarty->assign("os", array(2,1));
+
+
+{html_radios name="yearly_revenue" options=$revenues selected=$revenue separator="<br />"}
+{html_checkboxes name="os" options=$oses selected=$os separator="<br />"}
+{html_select_date display_years=true}&nbsp;
+{html_select_time display_seconds=false minute_interval=15}
+*/
+
+
+
 
 $smarty->display('index.tpl', "index");
 

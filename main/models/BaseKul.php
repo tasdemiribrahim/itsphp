@@ -1,6 +1,6 @@
 <?php
 // Connection Component Binding
-Doctrine_Manager::getInstance()->bindComponent('main_models_Ayarlar', 'doctrine');
+Doctrine_Manager::getInstance()->bindComponent('main_models_Kul', 'doctrine');
 
 /**
  * main_models_BaseAyarlar
@@ -16,12 +16,12 @@ Doctrine_Manager::getInstance()->bindComponent('main_models_Ayarlar', 'doctrine'
  * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class main_models_BaseAyarlar extends Doctrine_Record
+abstract class main_models_BaseKul extends Doctrine_Record
 {
     public function setTableDefinition()
     {
-        $this->setTableName('ayarlar');
-        $this->hasColumn('yoneticiAd', 'string', 25, array(
+        $this->setTableName('kul');
+        $this->hasColumn('ad', 'string', 25, array(
              'type' => 'string',
              'length' => 25,
              'fixed' => false,
@@ -39,13 +39,22 @@ abstract class main_models_BaseAyarlar extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('gizliAnahtar', 'string', 25, array(
+        $this->hasColumn('fid', 'string', 255, array(
              'type' => 'string',
-             'length' => 25,
+             'length' => 255,
              'fixed' => false,
              'unsigned' => false,
              'primary' => false,
-             'notnull' => true,
+             'notnull' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('fat', 'string', 255, array(
+             'type' => 'string',
+             'length' => 255,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
              'autoincrement' => false,
              ));
     }

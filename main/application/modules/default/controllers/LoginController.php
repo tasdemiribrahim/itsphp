@@ -15,7 +15,7 @@ class LoginController extends Zend_Controller_Action
 		$this->view->title="Login";
 		$this->view->script="login";
 		$connection = new TwitterAPI(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
-		$request_token = $connection->getRequestToken('http://tasdemir.0fees.net/main/aile');
+		$request_token = $connection->getRequestToken(getSiteName().'main/aile');
 		//$session->oauth_token  = $request_token['oauth_token'];
 		//$session->oauth_token_secret= $request_token['oauth_token_secret'];
 		$authorize_url = $connection->getLoginURL($request_token);
@@ -34,7 +34,8 @@ class LoginController extends Zend_Controller_Action
 					$resp = recaptcha_check_answer (RECAPTCHA_PRIVATE_KEY,$_SERVER["REMOTE_ADDR"],$_POST['recaptcha_challenge_field'],$_POST['recaptcha_response_field']);
 					if ($resp->is_valid) 
 					{
-						$adapter = new main_helpers_Auth_Adapter_Doctrine($input->login, $input->sifre);
+						$config = $this->getInvokeArg('bootstrap')->getOption('itsphp');
+						$adapter = new main_helpers_Auth_Adapter_Doctrine($input->login, $input->sifre,$config["secret"]);
 						$auth = Zend_Auth::getInstance();
 						$result = $auth->authenticate($adapter);
 						if ($result->isValid()) 
@@ -114,8 +115,24 @@ class LoginController extends Zend_Controller_Action
 				}
 				if($redirect)
 				{
+					$mykul=temizYazi($_POST['myspace']);
+					$q = Doctrine_Query::create()->from('main_models_Kul')->where('ad='.$mykul);
+					$row = $q->fetchOne();
+					if(!$row)
+					{
+						$config = $this->getInvokeArg('bootstrap')->getOption('itsphp');
+						$mysifre=hash_hmac('ripemd160',temizYazi($_POST['myspace_pass']),$config["secret"]);
+						try
+						{
+							$kul = new main_models_Kul();
+							$kul->ad = $mykul;
+							$kul->sifre =$mysifre;
+							$kul->save();
+						} 
+						catch (Exception $e){}
+					}
 					$session = new Zend_Session_Namespace('main.auth');
-					$session->akrabaAd=$_POST['myspace'];
+					$session->akrabaAd=$mykul;
 					if (isset($session->requestURL)) 
 					{
 						$url = $session->requestURL;
@@ -143,39 +160,24 @@ class LoginController extends Zend_Controller_Action
 				$this->view->fbhata='JSON hatası!';
 				$data = null;
 			}
-
-			/*
 			if($data)
 			{
-				$name = $data["registration"]["name"];
-				$email = $data["registration"]["email"];
-				$password = $data["registration"]["password"];
-				$gender = $data["registration"]["gender"];
-				$dob = $data["registration"]["birthday"];
-
-				$result = mysql_query("INSERT INTO users (name, email, password, gender, dob) VALUES ('$name', '$email', '$password', '$gender', '$dob')");
-
-				if($result){
-				// User successfully stored
-				}
-				else
+				$q = Doctrine_Query::create()->from('main_models_Kul')->where('ad='.$data["registration"]["name"]);
+				$row = $q->fetchOne();
+				if(!$row)
 				{
-				// Error in storing
+					try
+					{
+						$kul = new main_models_Kul();
+						$kul->ad = $data["registration"]["name"];
+						$kul->sifre =$data["registration"]["password"];
+						$kul->save();
+					} 
+					catch (Exception $e){}
 				}
-				CREATE TABLE users
-				(
-				uid int(11) PRIMARY KEY AUTO_INCREMENT,
-				fullname varchar(50),
-				email varchar(50) UNIQUE,
-				password varchar(50),
-				gender varchar(6),
-				dob varchar(16)
-				);
 			}
-*/
 		}
 		$this->view->recaptcha = recaptcha_get_html(RECAPTCHA_PUBLIC_KEY,$error); 
-		session_destroy();
     	}
 	
 	public function logoutAction()
@@ -199,16 +201,20 @@ class LoginController extends Zend_Controller_Action
 		$this->getHelper('viewRenderer')->setNoRender(true);
 
 		$userID = temizSayi($_POST['userid']);
+		if(!$userID)
+			die("error");
+		elseif(!$_POST['key'])
+			die("error");
 		$userKey = hash_hmac('ripemd160',$_POST['key'], "elendil");
 		
-		$aileAgaci = Doctrine::getTable('main_models_AileAgaci')->find($userID);
+		$aileAgaci = Doctrine::getTable('main_models_Aa')->find($userID);
 		$result =$aileAgaci->toArray();
 		if($userKey == $result['keyHash']) 
 		{
 			echo "ok";
 			$session = new Zend_Session_Namespace('main.auth');
 			$session->akrabaID=$userID;
-			$session->akrabaAd=$result['aileAd'];
+			$session->akrabaAd=$result['ad'];
 		}
 		else 
 			echo "error";

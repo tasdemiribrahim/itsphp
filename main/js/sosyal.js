@@ -1,3 +1,15 @@
+if(Modernizr.history)
+{
+	window.onpopstate = function(event) 
+	{
+		if(event.state)
+		{
+			var sid = (event.state["sid"]);
+			pageShow(sid);
+		}
+	};
+}
+function pageShow(page){ $(".page").not(':hidden').hide("fold", {}, 2000,function(){ $(page).show("fold", {}, 2000); }); }
 $(document).ready(function() {	
 	activateMain();
 	$.getScript("/main/js/jquery/jquery.cleditor.min.js", function () {
@@ -23,7 +35,7 @@ $(document).ready(function() {
 			var answer = this.answer.replace(/""/g,'"').replace(/^"|"$/g,''),question = this.question.replace(/""/g,'"').replace(/^"|"$/g,'');			
 			dl.append('<dt><span></span>'+question+'</dt><dd>'+answer+'</dd>');
 		});
-		$('#sssPage').find('dt').live('click',function(){
+		$('#ssp').find('dt').live('click',function(){
 			var dd = $(this).next();
 			if(!dd.is(':animated')){
 				dd.slideToggle();
@@ -38,14 +50,13 @@ $(document).ready(function() {
 		});
 	});
 	
-	$(".page").hide("fold", {}, 2000);
-	$("#smp").show("fold", {}, 2000);
-	
 	$("#spc a").bind("click",function(){
-		var page=$($(this).attr("href"));
-		$(".page").not(':hidden').hide("fold", {}, 2000,function(){ page.show("fold", {}, 2000); });
+		var page=$(this).attr("href");
+		if(Modernizr.history)
+			window.history.pushState({sid: page},page);
+		pageShow(page);
 		return false;
-	});
+	}).eq(0).click();
 	
 	var ul = $('#sop ul');
 	$('div.vote a').bind('click',function(){

@@ -113,8 +113,8 @@ class IndexController extends Zend_Controller_Action
 			throw new Zend_Controller_Action_Exception('Page not found', 404);
 	}    
 
-    public function dinleAction()
-    {
+	public function dinleAction()
+	{
 		$page = temizYazi($this->getRequest()->getParam('page',"metal"));
 		if (file_exists($this->view->getScriptPath(null) . "/" . $this->getRequest()->getControllerName() . "/$page." . $this->viewSuffix)) 
 		{
@@ -140,7 +140,7 @@ class IndexController extends Zend_Controller_Action
 		}
 		else 
 			throw new Zend_Controller_Action_Exception('Page not found', 404);
-    }
+	}
 	
 	public function izleAction()
 	{
@@ -229,23 +229,26 @@ class IndexController extends Zend_Controller_Action
 		
 		if(isset($_GET["resim"]))
 			die(getResim($_GET["resim"],$_GET["dosya"]));
-		
-		if(isset($_GET['mid']))
+		elseif(isset($_GET['mid']))
 		{
+			header('Content-Type: application/json');
+			if(!temizSayi($_GET['mid']))
+				die(json_encode(array("durum"=>"error")));
 			$q = Doctrine_Query::create()->from('main_models_Dm m')->leftJoin('m.Elemanlar e')->leftJoin('m.Albumler a')->where("m.id=?",temizSayi($_GET['mid']));
 			$row=$q->fetchArray();
-			header('Content-Type: application/json');
+			$row[0]["durum"]="ok";
 			echo json_encode($row[0]);
 		}
-		
-		if(isset($_GET['fid']))
+		elseif(isset($_GET['fid']))
 		{
+			if(!temizSayi($_GET['fid']))
+				die(json_encode(array("durum"=>"error")));
 			$item = Doctrine::getTable('main_models_Film')->find(temizSayi($_GET['fid']));   
 			$row = $item->toArray();
 			require_once 'main/helpers/TMDb.php';
 			$tmdb = new TMDb(TMDB_API_KEY);
 			$movies_result = json_decode($tmdb->searchMovie($row['ad']));
-			
+			$row['durum']='ok';
 			$row['rating']=$movies_result[0]->rating;
 			$row['dil']=($movies_result[0]->language=="en" ? "İngilizce" : $movies_result[0]->language);
 			$row['view']=$movies_result[0]->overview;
@@ -256,8 +259,7 @@ class IndexController extends Zend_Controller_Action
 			echo json_encode($row);
 			unset($row,$movies_result);
 		}
-
-		if(isset($_GET['term']))
+		elseif(isset($_GET['term']))
 		{
 			require_once 'main/helpers/TMDb.php';
 			$tmdb = new TMDb(TMDB_API_KEY);
@@ -275,9 +277,10 @@ class IndexController extends Zend_Controller_Action
 			header('Content-Type: application/json');
 			echo json_encode($response);
 		}
-		
-		if(isset($_GET["fkay"]))
+		elseif(isset($_GET["fkay"]))
 		{
+			if(!$_GET['fkay'])
+				die(json_encode(array("durum"=>"error")));
 			$film = Doctrine::getTable('main_models_Fistek')->find(temizYazi($_GET["fkay"]));
 			if($film)
 			{
@@ -292,8 +295,7 @@ class IndexController extends Zend_Controller_Action
 				$film->save();
 			}
 		}
-
-		if(isset($_GET['album']))
+		elseif(isset($_GET['album']))
 		{
 			$album = temizYazi($_GET['album']);
 			$imagesAr = array();

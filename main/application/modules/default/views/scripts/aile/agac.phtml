@@ -37,16 +37,13 @@
 <h3 class="ui-widget ui-widget-header">Aile Tablo</h3>
 <a id="tablo-anchor" class="accessibility">Tablo</a>
 <table id="datagrid" class="display">
-	<thead><tr><th> ID </th><th> İsim </th><th> Ebeveyn </th><th> Özgeçmiş </th><th> Doğum </th><th> Ölüm </th><th> Eşi </th><th> Adres </th><th> TEL </th><th> Mail </th><th> MSN </th><th> Twitter </th></tr></thead>
+	<thead><tr><th> ID </th><th> İsim </th><th> Ebeveyn </th><th> Özgeçmiş </th><th> Doğum </th><th> Ölüm </th><th> Eşi </th><th> Adres </th><th> TEL </th><th> Mail </th><th> Twitter </th></tr></thead>
 	<tbody>
 	<?php
 		foreach ($this->aile as $row)
 		{
-			$veri=substr($row['Detay']["aileTanim"], 0,100);
-			echo "<tr class='".($row['Detay']["aileOlum"]=="0000-00-00" ? ($row['Detay']["aileBireyEs"]=="" ? "gradeX" : "gradeA") : "gradeU")."'><td>".$row['id']."</td><td>".$row['ad']."</td><td>".$ebeveyn[$row['id']];
-			echo "-".$liste[$ebeveyn[$row['id']]]."</td><td>".substr($veri,0,strrpos($veri, " "))."...</td><td>".$row['Detay']["aileDogum"]."</td><td>".$row['Detay']["aileOlum"];
-			echo "</td><td>".$row['Detay']["aileBireyEs"]."</td><td>".$row['Detay']["aileBireyAdres"]."</td><td>".$row['Detay']["aileBireyTel"]."</td><td>".$row['Detay']["aileBireyMail"]."</td><td>".$row['Detay']["aileBireyMSN"]."</td><td>".$row['Detay']["aileBireyTwitter"];
-			echo "</td></tr>\n";
+			$veri=substr($row['Detay']["tanim"], 0,100);
+			echo "<tr class='".($row['Detay']["olum"]=="0000-00-00" ? ($row['Detay']["es"]=="" ? "gradeX" : "gradeA") : "gradeU")."'><td>".$row['id']."</td><td>".$row['ad']."</td><td>".$ebeveyn[$row['id']]."-".$liste[$ebeveyn[$row['id']]]."</td><td>".substr($veri,0,strrpos($veri, " "))."...</td><td>".$row['Detay']["dogum"]."</td><td>".($row['Detay']["olum"]=="0000-00-00"?"":$row['Detay']["olum"])."</td><td>".$row['Detay']["es"]."</td><td>".$row['Detay']["adres"]."</td><td>".($row['Detay']["tel"]==0?"":$row['Detay']["tel"])."</td><td>".$row['Detay']["mail"]."</td><td>".$row['Detay']["twitter"]."</td></tr>\n";
 		}
 	?>
 	</tbody>
@@ -54,7 +51,7 @@
 <br class="clear" />
 <h3 class="ui-widget ui-widget-header">Doğum Günleri ve Ölüm Yıldönümleri</h3>
 <a id="takvim-anchor" class="accessibility">Takvim</a>
-<div id="calendar_wrapper" style="height:500px"></div>
+<div id="calendar_wrapper" style="height:500px" aria-live="assertive" aria-atomic="true"></div>
 </div>
 
 <aside id="rcnt" role=”complementary”>

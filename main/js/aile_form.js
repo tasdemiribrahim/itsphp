@@ -1,4 +1,4 @@
-var iv;
+var iv,aj;
 $(document).ready(function() {
 	activateMain();
 	$.ajaxSetup({
@@ -25,24 +25,39 @@ $(document).ready(function() {
 			ybtel:"number"
 		},
 		messages: {
-			ybad: "Kişinin adını girin!<br>",
-			ybe: "Bir ebeveyn seçin!<br>",
-			ybd:{required:"Doğum gününü girin!<br>",date:"Doğum günü tarih olmalı!<br>"},
-			ybt:"Öz geçmişe bişeyler yazın!<br>",
-			ybmail:"E-Mail formatını kontrol et!<br>",
-			ybtel:"Telefon sadece sayılardan oluşabilir!<br>"
+			ybad: "Kişinin adını girin!",
+			ybe: "Bir ebeveyn seçin!",
+			ybd:{required:"Doğum gününü girin!",date:"Doğum günü tarih olmalı!"},
+			ybt:"Öz geçmişe bişeyler yazın!",
+			ybmail:"E-Mail formatını kontrol et!",
+			ybtel:"Telefon sadece sayılardan oluşabilir!"
 		},
 		submitHandler: function(form) {
+			if(aj) aj.abort();
 			addNotice("<p>İsteğiniz alındı.Lütfen bekleyin!</p>");
-			$.ajax({
+			aj=$.ajax({
 				dataType:"json",	
 				data: $("#yabf").serialize(),
 				success: function(cevap){
-					//window.log(cevap);
-					if(parseInt(cevap)>0)
+					window.log(cevap);
+					if(cevap.durum=="ok")
 						window.location = getSiteName()+"main/aile";
+					else if(cevap.durum=="error1")
+						addNotice("<p>Kişinin adını girin!</p>");
+					else if(cevap.durum=="error2")
+						addNotice("<p>Bir ebeveyn seçin!</p>");
+					else if(cevap.durum=="error3")
+						addNotice("<p>Öz geçmişe bişeyler yazın!</p>");
+					else if(cevap.durum=="error4")
+						addNotice("<p>Doğum gününü girin!</p>");
+					else if(cevap.durum=="error5")
+						addNotice("<p>Bağlantı hatası!</p>");
+					else if(cevap.durum=="error6")
+						addNotice("<p>Bilinmeyen bir hata meydana geldi!</p>");
+					else if(cevap.durum=="error7")
+						addNotice("<p>Bireyin kaydı bulunamadı!</p>");
 					else
-						addNotice("<p>Bir hata oluştu.</p>");
+						addNotice("<p>Hata bilnimiyor!</p>");
 				}
 			});
 			$('#yabf input:not(type="submit"):not(type="hidden"),#yabf textarea').val("");
@@ -53,7 +68,7 @@ $(document).ready(function() {
 	/*
 	function cancelEvent() { return false; }
 
-	var drop = $("#aileBireyEbeveyn");
+	var drop = $("#ybe");
 	drop.drop(function (e) {
 		event = e || window.e;
 		$(this).val(e.dataTransfer.getData("Text"));

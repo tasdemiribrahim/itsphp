@@ -10,7 +10,7 @@
  * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-class main_models_Ayarlar extends main_models_BaseAyarlar
+class main_models_Kul extends main_models_BaseKul
 {
 
 }

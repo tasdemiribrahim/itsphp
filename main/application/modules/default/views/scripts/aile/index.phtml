@@ -1,7 +1,7 @@
 <style>
 	@import "http://jquery.bassistance.de/treeview/jquery.treeview.css";
 </style>
-<article id="aadd" class="vcard" itemscope itemtype="http://tasdemir.0fees.net/Birey"> 
+<article id="aadd" class="vcard" itemscope itemtype="http://tasdemir.0fees.net/Birey" aria-live="polite" aria-atomic="true" > 
 	<h3 itemprop="name" class="ui-widget ui-widget-header structured name bday"><?php echo $this->birey["ad"]." (".$this->birey['Detay']["dogum"].($this->birey['Detay']["olum"]=="0000-00-00" ? "" : " / ".$this->birey['Detay']["olum"]).")"; ?></h3>
 	<img class="photo" id="aadi" src="<?php echo getResim($this->birey["id"]); ?>" alt="Resim Yok" itemprop="photo" />
 	<div id="ratew" rev="vote-abstain">

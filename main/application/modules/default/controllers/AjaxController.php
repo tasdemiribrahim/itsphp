@@ -165,28 +165,53 @@ class AjaxController extends Zend_Controller_Action
 	
 	public function hotspotAction()
 	{
+		header('Content-type: application/json');
 		if(isset($_GET['arh']))
 		{
-			$hot = new main_models_Aarh();
-			$hot->src = temizURL($_GET['arh']);
-			$hot->val = ucwords(temizYazi($_GET['val']));
-			$hot->spot= temizSayi($_GET['id']);
-			$hot->x=temizSayi($_GET['x']);
-			$hot->y=temizSayi($_GET['y']);
-			$hot->save();
-			echo $hot->id;
+			$arh=temizURL($_GET['arh']);
+			$val=ucwords(temizYazi($_GET['val']));
+			$x=temizSayi($_GET['x']);
+			$y=temizSayi($_GET['y']);
+			if(!$arh)
+				die(json_encode(array("durum"=>"error1")));
+			elseif(!$val)
+				die(json_encode(array("durum"=>"error2")));
+			elseif(!$x)
+				die(json_encode(array("durum"=>"error4")));
+			elseif(!$y)
+				die(json_encode(array("durum"=>"error5")));
+			try{
+				$hot = new main_models_Aarh();
+				$hot->src = $arh;
+				$hot->val = $val;
+				$hot->x=$x;
+				$hot->y=$y;
+				$hot->save();
+				echo json_encode(array("durum"=>"ok","id"=>$hot->id,"x"=>$hot->x,"y"=>$hot->y));
+			}
+			catch(Exception $e)
+			{
+				echo json_encode(array("durum"=>"error"));
+			}
 		}
 		elseif(isset($_GET['arr']))
 		{
-			$q = Doctrine_Query::create()->delete('main_models_Aarh h')->where("h.src=? AND h.spot=?",array(temizURL($_GET['arr']),temizSayi($_GET['id'])));
-			echo $q->execute();
+			$q = Doctrine_Query::create()->delete('main_models_Aarh')->where("id=?",temizSayi($_GET['id']));
+			if($q->execute())
+				echo json_encode(array("durum"=>"ok"));
+			else
+				echo json_encode(array("durum"=>"error"));
 		}
 		elseif(isset($_GET['get']))
 		{
-			$q = Doctrine_Query::create()->from('main_models_Aarh h')->where('h.src=?', temizURL($_GET['get']))->orderby("h.spot DESC");
-			$results = $q->fetchArray();
-			header('Content-type: application/json');
-			echo json_encode($results);
+			try{
+				$q = Doctrine_Query::create()->from('main_models_Aarh')->where('src=?', temizURL($_GET['get']))->orderby("id DESC");
+				echo json_encode($q->fetchArray());
+			}
+			catch(Exception $e)
+			{
+				echo json_encode(array("durum"=>"error"));
+			}
 		}
 	
 	}
@@ -211,10 +236,10 @@ class AjaxController extends Zend_Controller_Action
 			header('Content-Type: application/json');
 			echo json_encode($response);
 		}
-		elseif(isset($_GET['getir'])) $this->selectAkraba(temizSayi($_GET['getir']));
+		elseif(isset($_GET['getir'])) echo $this->selectAkraba(temizSayi($_GET['getir']));
 		elseif(isset($_GET['ybkay'])) echo $this->insertAkraba(temizYazi($_GET['ybad']),temizSayi($_GET['ybe']),temizYazi($_GET['ybt']),temizYazi($_GET['ybd']),temizYazi($_GET['ybo']),temizYazi($_GET['ybes']),temizYazi($_GET['ybadres']),temizEMail($_GET['ybmail']),temizTel($_GET['ybtel']),temizYazi($_GET['ybtwit']),temizYazi($_GET['ybflic']));
 		elseif(isset($_GET['ybgun'])) echo $this->updateAkraba(temizSayi($_GET['aidh']),temizYazi($_GET['ybt']),temizYazi($_GET['ybd']),temizYazi($_GET['ybo']),temizYazi($_GET['ybes']),temizYazi($_GET['ybadres']),temizEMail($_GET['ybmail']),temizTel($_GET['ybtel']),temizYazi($_GET['ybtwit']),temizYazi($_GET['ybflic']));
-		elseif(isset($_GET['q']))	echo $this->searchAkraba(temizYazi($_GET['q']));
+		elseif(isset($_GET['q'])) echo $this->searchAkraba(temizYazi($_GET['q']));
 		elseif(isset($_GET['oy'])) echo $this->getRating(temizSayi($_GET['oy']));
 		elseif(isset($_GET['yildiz'])) echo $this->setRating(temizSayi($_GET['id']),$_GET['yildiz']);
 		elseif(isset($_FILES['uploadResim']['name'])) echo $this->_helper->imager->upload($_FILES['uploadResim']);
@@ -225,6 +250,7 @@ class AjaxController extends Zend_Controller_Action
 	
 	function selectAkraba($id)
 	{
+		header('Content-Type: application/json');
 		try
 		{
 			if(empty($id) || $id==0 || $id==2)
@@ -245,14 +271,22 @@ class AjaxController extends Zend_Controller_Action
 				$this->insertAkrabaCouch($id,$result2['ad'],$result2['eid'],$result['tanim'],$result['dogum'],$result['olum'],$result['es'],$result['adres'],$result['mail'],$result['tel'],$result['twitter'],$result['flickr']);
 			}
 			else
-				trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());
+				throw new Exception("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());
 		}
-		header('Content-Type: application/json');
-		echo json_encode($result);
+		return json_encode($result);
 	}
 
 	function insertAkraba($a,$e,$t,$d,$o,$es,$adres,$m,$tel,$twit,$f)
 	{  	
+		header('Content-Type: application/json');
+		if(!$a)
+			return json_encode(array("durum"=>"error1"));
+		elseif(!$e)
+			return json_encode(array("durum"=>"error2"));
+		elseif(!$t)
+			return json_encode(array("durum"=>"error3"));
+		elseif(!$d)
+			return json_encode(array("durum"=>"error4"));
 		try 
 		{	
 			$conn = Doctrine_Manager::getInstance()->getCurrentConnection();
@@ -301,19 +335,19 @@ class AjaxController extends Zend_Controller_Action
 			$conn->commit();
 
 			$this->insertAkrabaCouch($aile->id,$a,$e,$t,$d,$o,$es,$adres,$m,$tel,$twit,$flic);
-			return 1;
+			return json_encode(array("durum"=>"ok"));
 		}  
 		catch (Doctrine_Connection_Exception $e) 
 		{
 			$conn->rollback();
-			trigger_error('aile ağacına eklenemedi-Code :'.$e->getPortableCode().'-Message : ' . $e->getPortableMessage());
-			return '0-aile ağacına eklenemedi-Code :'.$e->getPortableCode().'-Message : ' . $e->getPortableMessage();	
+			throw new Exception('aile ağacına eklenemedi-Code :'.$e->getPortableCode().'-Message : ' . $e->getPortableMessage());
+			return json_encode(array("durum"=>"error5"));
 		}
 		catch (Exception $e) 	
 		{	
 			$conn->rollback();
-			trigger_error('aile ağacına eklenemedi-'.$e->getMessage());
-			return '0-aile ağacına eklenemedi-'.$e->getMessage();	
+			throw new Exception('aile ağacına eklenemedi-'.$e->getMessage());
+			return json_encode(array("durum"=>"error6"));
 		}
 	}
 
@@ -334,11 +368,18 @@ class AjaxController extends Zend_Controller_Action
 		$birey->twitter = $twitter;
 		$birey->flickr = $flickr;
 		try { $response = $client->storeDoc($birey); } 
-		catch (Exception $e) {trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode()); }
+		catch (Exception $e) {throw new Exception("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode()); }
 	}
 
 	function updateAkraba($id,$t,$d,$o,$es,$adres,$mail,$tel,$twitter,$flickr)
 	{
+		header('Content-Type: application/json');
+		if(!$id)
+			return json_encode(array("durum"=>"error7"));
+		elseif(!$t)
+			return json_encode(array("durum"=>"error3"));
+		elseif(!$d)
+			return json_encode(array("durum"=>"error4"));
 		try{
 			$this->_helper->cache->remove("aile"); 
 			$this->_helper->cache->remove("aileDetay"); 
@@ -360,47 +401,44 @@ class AjaxController extends Zend_Controller_Action
 			$item->twitter =$twitter;
 			$item->flickr =$flickr;
 			$item->save();
-
-			$client=Zend_Registry::get('client');
-			try { $doc = $client->getDoc('aile'.$id); } 
+			try {
+				$client=Zend_Registry::get('client');
+				$doc = $client->getDoc('aile'.$id);
+				$doc->dogum = $d;
+				$doc->olum =$o;
+				$doc->es =ucwords($es);
+				$doc->adres =$adres;
+				$doc->mail =$mail;
+				$doc->tel =$tel;
+				$doc->twitter =$twitter;
+				$doc->flickr =$flickr;
+				$response = $client->storeDoc($doc); 
+			} 
 			catch (Exception $e) 
 			{
-				trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());
-				return 1;
+				throw new Exception("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());
+				return json_encode(array("durum"=>"ok"));
 			}
-			$doc->dogum = $d;
-			$doc->olum =$o;
-			$doc->es =ucwords($es);
-			$doc->adres =$adres;
-			$doc->mail =$mail;
-			$doc->tel =$tel;
-			$doc->twitter =$twitter;
-			$doc->flickr =$flickr;
-			try { $response = $client->storeDoc($doc); } 
-			catch (Exception $e) 
-			{
-				trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());
-				return 1;
-			}
-			return 1;
+			return json_encode(array("durum"=>"ok"));
 		} 
 		catch (Doctrine_Connection_Exception $e) 
 		{
 			throw new Exception('aile ağacına güncellenemedi-Code :'.$e->getPortableCode().'-Message : ' . $e->getPortableMessage());
-			return 0;	
+			return json_encode(array("durum"=>"error5"));	
 		}
 		catch (Exception $e) 
 		{	
 			throw new Exception('aile ağacı güncellenemedi-'.$e->getMessage());
-			return 0;	
+			return json_encode(array("durum"=>"error6"));	
 		}
 	}
 
 	function searchAkraba($a)
 	{
+		header('Content-Type: application/json');
 		$bu=$mu=$edits1=$edits2=array();
 		if(mb_strlen($a,'utf-8')<3)
-			die($bu);
+			return(json_encode(array("durum"=>"error")));
 		$q = Doctrine_Core::getTable('main_models_Aa');
 		/*$results = $q->search($a);
 		foreach ($results as $result)
@@ -443,19 +481,25 @@ class AjaxController extends Zend_Controller_Action
 			array_push($mu,array("id"=>$row["id"],"ad"=>$row["ad"]));
 		}
 		unset($dict);
-		header('Content-Type: application/json');
-		return json_encode(array("bu"=>$bu,"mu"=>$mu));
+		return json_encode(array("durum"=>"ok","bu"=>$bu,"mu"=>$mu));
 	}
 
 	function getRating($oy)
 	{
-		$aile = Doctrine::getTable('main_models_Aao')->find($oy);
 		header('Content-Type: application/json');
+		if(!$oy)
+			return json_encode(array("on"=>"error"));
+		$aile = Doctrine::getTable('main_models_Aao')->find($oy);
 		return json_encode($aile->toArray());
 	}
 
 	function setRating($id,$yildiz)
 	{
+		header('Content-Type: application/json');
+		if(!$id)
+			return json_encode(array("durum"=>"error1"));
+		elseif(!$yildiz)
+			return json_encode(array("durum"=>"error2"));
 		preg_match('/star_([1-5]{1})/', $yildiz, $match);
 		$vote = $match[1];
 		$item = Doctrine::getTable('main_models_Aao')->find($id);
@@ -477,17 +521,24 @@ class AjaxController extends Zend_Controller_Action
 			$doc->oy["tp"] = $tp;
 			$doc->oy["on"] = $on;
 			$doc->oy["ort"] = $ortalama;
-			try { $response = $client->storeDoc($doc); } 
-			catch (Exception $e) {	trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode()); }
+			$response = $client->storeDoc($doc);
 		} 
-		catch (Exception $e) {trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());	}
+		catch (Exception $e) {throw new Exception("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());	}
 
-		header('Content-Type: application/json');
-		return json_encode(array("norm"=>$on,"votes"=>$votes,"ort"=>$ortalama));
+		return json_encode(array("durum"=>"ok","norm"=>$on,"votes"=>$votes,"ort"=>$ortalama));
 	}
 
 	function submitComment($id,$n,$u,$e,$b)
 	{
+		header('Content-Type: application/json');
+		if(!$id)
+			return json_encode(array("durum"=>"error1"));
+		elseif(!$n)
+			return json_encode(array("durum"=>"error2"));
+		elseif(!$b)
+			return json_encode(array("durum"=>"error3"));
+		elseif(!$e)
+			return json_encode(array("durum"=>"error4"));
 		$dt = date('r',time());
 
 		$client=Zend_Registry::get('client');
@@ -500,10 +551,9 @@ class AjaxController extends Zend_Controller_Action
 			$yorum->body = $b;
 			$yorum->zaman = $dt;
 			$doc->yorumlar[] = $yorum;
-			try { $response = $client->storeDoc($doc); } 
-			catch (Exception $e) {	trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode()); }
+			$response = $client->storeDoc($doc);
 		} 
-		catch (Exception $e) {trigger_error("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());	}
+		catch (Exception $e) {throw new Exception("Couch Hata: ".$e->getMessage().";errcode=".$e->getCode());	}
 
 		$item = new main_models_Aay;
 		$item->aileID= $id;
@@ -513,20 +563,21 @@ class AjaxController extends Zend_Controller_Action
 		$item->b =$b;
 		$item->save();
 
-		header('Content-Type: application/json');
-		return json_encode(array('status'=>1,'html'=>markup(array("id"=>$item->id,"dt"=>$dt,"n"=>$n,"u"=>$u,"m"=>$e,"b"=>$b))));
+		return json_encode(array('durum'=>"ok",'html'=>markup(array("id"=>$item->id,"dt"=>$dt,"n"=>$n,"u"=>$u,"m"=>$e,"b"=>$b))));
 	}
 	
 	function getComments($yorum)
 	{
+		header('Content-Type: application/json');
+		if(!$yorum)
+			return json_encode(array("durum"=>"error"));
 		$comments = array();
 		$mesaj="";	
 		$item = Doctrine_Query::create()->from('main_models_Aay a')->where("a.aileID=?",$yorum)->orderby("a.id ASC");
 		$result = $item->fetchArray();
 		$item->free();
 		array_walk($result,create_function('&$v,$k','$v = markup($v);'));
-		header('Content-Type: application/json');
-		return json_encode(array("sayi"=>count($result),"yorumlar"=>implode("",$result)));
+		return json_encode(array("durum"=>"ok","sayi"=>count($result),"yorumlar"=>implode("",$result)));
 	}	
 }
 

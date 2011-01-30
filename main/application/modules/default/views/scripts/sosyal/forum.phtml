@@ -1,4 +1,4 @@
-<div id="sfp">
+<div id="sfp" aria-live="polite" aria-atomic="true" >
 	<header class="shs">
 		<h3><?php echo $this->post["b"]; ?></h3>
 		<h4><?php echo $this->post["i"]; ?></h4>
@@ -47,7 +47,7 @@
 	<h3 class="ui-widget ui-widget-header">Forumda Konuşun</h3>
 	<div id="sfrd"><?php
 	foreach ($this->forum as $row)
-		echo '<p><a href="?id='.$row['id'].'" id="'.$row['id'].'" rel="tag">'.$row['b'].'</a></p><time pubdate>'.$row['dt'].'</time><span>'.$row['y'].'</span><br class="clear" />';
+		echo '<p><a href="?id='.$row['id'].'" id="'.$row['id'].'" rel="tag">'.$row['b'].'</a></p><time pubdate>'.$row['date'].'</time><span>'.$row['y'].'</span><br class="clear" />';
 	?>
 	</div>
 	<form>

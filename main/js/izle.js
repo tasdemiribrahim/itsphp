@@ -1,6 +1,15 @@
-var db,updateInterval = 25000,frameWidth = 100,frameHeight = 75,frameRows = 4,frameColumns = 4;
-var frameGrid = frameRows * frameColumns,frameCount = 0,intervalId=false,videoStarted = false;
-
+var db,updateInterval = 25000,frameWidth = 100,frameHeight = 75,frameRows = 4,frameColumns = 4,frameGrid = frameRows * frameColumns,frameCount = 0,intervalId=false,videoStarted = false,timeline = document.getElementById("timeline"),ctx = timeline.getContext("2d"),aj;
+if(Modernizr.history)
+{
+	window.onpopstate = function(event) 
+	{
+		if(event.state)
+		{
+			var ifid = (event.state["ifid"]);
+			filmGetir(ifid); 
+		}
+	};
+}
 function startVideo() 
 {
 	$("#cnvHed").html("Ekran Görüntüleri(Tıklayarak o sahneye gidebilirsiniz!)");
@@ -55,9 +64,6 @@ function startVideo()
 // paint a representation of the video frame into our canvas
 function updateFrame() {
 	var video = document.getElementById("movies");
-	var timeline = document.getElementById("timeline");
-
-	var ctx = timeline.getContext("2d");
 
 	// calculate out the current position based on frame
 	// count, then draw the image there using the video
@@ -170,7 +176,13 @@ $(document).ready(function() {
 		location.href=$(this).attr("href")+"?m="+min+"&x="+max;
 		return false;
 	});
-	$("#rcnt table tr td a").bind("click",function(){ filmGetir($(this).attr("id")); return false; });
+	$("#rcnt table tr td a").bind("click",function(){ 
+		var ifid=$(this).attr("id");
+		if(Modernizr.history)
+			window.history.pushState({ifid: ifid}, ifid);
+		filmGetir(ifid); 
+		return false; 
+	});
 	
 	var mn=$('#q');
 	mn.autocomplete({minLength: 5,source: '/main/index/ajax'});
@@ -191,26 +203,34 @@ $(document).ready(function() {
 
 function filmGetir(filmID)
 {
+	if(aj) aj.abort();
+	ctx.clearRect(0,0,timeline.width,timeline.height);
+	ctx.beginPath();
+	frameCount = 0
 	stopTimeline();
 	addNotice("<p>Film getiriliyor!<br />Bekleyin!</p>");
 	var film_div=$("#filmDiv");
 	film_div.hide("drop", { direction: "down" }, 5000);
 	_gaq.push(['_trackEvent', 'Film', filmID]);
 	temizle();
-	$.ajax({
+	aj=$.ajax({
 	    data: 'fid='+filmID,
 		dataType :"json",
 	    	success: function(cevap){
-			var p=film_div.find(".uyari"),mp4=cevap.mp4,ogg=cevap.ogg,poster=cevap.poster,fad=cevap.ad;
-			var video=film_div.find("video").clone(true),tubeSrc="http://www.youtube.com/v/"+cevap.tube+"?version=3";
-			film_div.find("video").remove();
-			video.find("source").eq(0).attr("src",mp4).next().attr("src",cevap.webm).next().attr("src",ogg).next().attr("src",cevap.ac).next().attr("src",cevap.chap).next().attr("src",cevap.en).next().attr("src",cevap.tr).next().attr("src",cevap.meta).next().find("embed").attr("src",tubeSrc).end().find("param").eq(0).attr("val",tubeSrc);
-			p.find("a:first").attr("href",mp4).next().attr("href",ogg).next().attr("href",cevap.webm);
-			p.siblings("a").attr({ title: fad, href: cevap.url}).find("img").attr({ src: poster, alt: fad});
-			film_div.find("h3").html(fad).next().next().html("<b>Dil:</b>"+cevap.dil).next().find("time").html(cevap.released).end().next().html(cevap.view);
-			$(".value").html(cevap.rating)
-			film_div.prepend(video).show("drop", { direction: "up" }, 5000);
-			deleteNotice();
+			if(cevap.durum=="ok")
+			{
+				var p=film_div.find(".uyari"),mp4=cevap.mp4,ogg=cevap.ogg,poster=cevap.poster,fad=cevap.ad;
+				var video=film_div.find("video").clone(true),tubeSrc="http://www.youtube.com/v/"+cevap.tube+"?version=3";
+				film_div.find("video").remove();
+				video.find("source").eq(0).attr("src",mp4).next().attr("src",cevap.webm).next().attr("src",ogg).next().attr("src",cevap.ac).next().attr("src",cevap.chap).next().attr("src",cevap.en).next().attr("src",cevap.tr).next().attr("src",cevap.meta).next().find("embed").attr("src",tubeSrc).end().find("param").eq(0).attr("val",tubeSrc);
+				p.find("a:first").attr("href",mp4).next().attr("href",ogg).next().attr("href",cevap.webm);
+				p.siblings("a").attr({ title: fad, href: cevap.url}).find("img").attr({ src: poster, alt: fad});
+				film_div.find("h3").html(fad).next().next().html("<b>Dil:</b>"+cevap.dil).next().find("time").html(cevap.released).end().next().html(cevap.view);
+				$(".value").html(cevap.rating)
+				film_div.prepend(video).show("drop", { direction: "up" }, 5000);
+				deleteNotice();
+			}
+			else	addNotice("<p>"+filmID+" bilgileri alınamadı!</p>");
 		}
 	});
 }

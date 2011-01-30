@@ -16,12 +16,13 @@
 			<p><b>Doğum:</b>{$record["dogum"]}</p>
 			<p><b>Ölüm:</b>{$record["olum"]}</p>
 			<p><b>Eşi:</b>{$record["es"]}</p>
-			<p><b>Adres:</b>{$record["adres"]}</p>
+			<p><b>Adres:</b>
 			{strip}
 			{if $record["adres"] ne ""}				
-				<p><a href="harita.php?h={$record["adres"]}&a={$record["ad"]}" data-rel="dialog">Haritada Göster</a></p>
+				<a href="harita.php?h={$record["adres"]}&a={$record["ad"]}" data-rel="dialog">{$record["adres"]}</a>
 			{/if}
 			{/strip}
+			</p>
 			<p><b>Mail:</b><a href='mailto:{$record["mail"]}' class="ui-link-inherit">{$record["mail"]}</a></p>
 			<p><b>Tel:</b><a href='tel:{$record["tel"]}' class="ui-link-inherit">{$record["tel"]}</a></p>
 			<p><b>Twitter:</b>{$record["twitter"]}</p>

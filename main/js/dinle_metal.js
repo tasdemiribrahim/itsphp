@@ -1,5 +1,18 @@
+var aj;
+if(Modernizr.history)
+{
+	window.onpopstate = function(event) 
+	{
+		if(event.state)
+		{
+			var dmid = (event.state["dmid"]);
+			heavyGrupDetayGetir(dmid);
+		}
+	};
+}
 function heavyGrupDetayGetir(id)
 {           
+	if(aj) aj.abort();
 	var art=$("#rcnt article");
       	art.hide("blind", { direction: "vertical" }, 5000);
 	_gaq.push(['_trackEvent', 'Grup', id]);
@@ -11,22 +24,29 @@ function heavyGrupDetayGetir(id)
 		sessionStorage.setItem("muzik", id);
 	else
 		$.cookie("muzik", id, cookieOptions);
-	$.ajax({
+	aj=$.ajax({
 		data: 'mid='+id,
 		dataType:"json",
 		success: function(cevap){
 			console.log(cevap);
-			art.find("h3").html(cevap.ad+":").next().html(cevap.tanim);
-			var mesaj="";
-			for(el in cevap.Elemanlar)
-				mesaj+="<li><span class=\"twitter_search\">"+cevap.Elemanlar[el].ad+"</span>("+cevap.Elemanlar[el].ens+")</li>";
-			art.find("ul").eq(0).html(mesaj);
-			mesaj="";
-			for(al in cevap.Albumler)
-				mesaj+="<li>"+cevap.Albumler[al].yil+"-<span class=\"twitter_search\">"+cevap.Albumler[al].ad+"</span></li>";
-			art.find("ul").eq(1).html(mesaj);
-			art.show("blind", { direction: "vertical" }, 5000);
-			$('.twitter_search').twitterpopup();
+			if(cevap.durum=="ok")
+			{
+				art.find("h3").html(cevap.ad+":").next().html(cevap.tanim);
+				var mesaj="";
+				for(el in cevap.Elemanlar)
+					mesaj+="<li><span class=\"twitter_search\">"+cevap.Elemanlar[el].ad+"</span>("+cevap.Elemanlar[el].ens+")</li>";
+				art.find("ul").eq(0).html(mesaj);
+				mesaj="";
+				for(al in cevap.Albumler)
+					mesaj+="<li>"+cevap.Albumler[al].yil+"-<span class=\"twitter_search\">"+cevap.Albumler[al].ad+"</span></li>";
+				art.find("ul").eq(1).html(mesaj);
+				art.show("blind", { direction: "vertical" }, 5000);
+				$('.twitter_search').twitterpopup();
+			}
+			else if(cevap.durum=="error")
+				addNotice("<p>Bir hata meydana geldi</p>");
+			else
+				addNotice("<p>Bilinmeyen bir hata meydana geldi</p>");
 		}
 	});
 }
@@ -56,8 +76,11 @@ $(document).ready(function() {
 	});});
 	
 	$(".dmt a").bind("click",function(){
-		_gaq.push(['_trackEvent', 'GrupDetay', $(this).attr("id")]);
-		heavyGrupDetayGetir($(this).attr("id"));
+		var dmid=$(this).attr("id");
+		_gaq.push(['_trackEvent', 'GrupDetay', dmid]);
+		if(Modernizr.history)
+			window.history.pushState({dmid: dmid}, dmid);
+		heavyGrupDetayGetir(dmid);
 		return false;
 	});
 

@@ -31,15 +31,6 @@ abstract class main_models_BaseAarh extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('spot', 'integer', 8, array(
-             'type' => 'integer',
-             'length' => 8,
-             'fixed' => false,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             ));
         $this->hasColumn('x', 'integer', 20, array(
              'type' => 'integer',
              'length' => 20,

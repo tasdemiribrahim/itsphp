@@ -316,13 +316,13 @@ class Admin_AdminController extends Zend_Controller_Action
 			include_once "main/Helpers/ajax_guvenli.php";
 
 		if(isset($_POST['id']) && $_POST['id']==0) echo $this->insertMuzik(temizYazi($_POST['ad']),temizYazi($_POST['tur']),temizYazi($_POST['mem']),stripslashes($_POST['tanim']),temizYazi($_POST['clip']));
-		elseif(isset($_POST['sid'])) $this->deleteMuzik(temizSayi($_POST['sid']));
+		elseif(isset($_POST['sid'])) echo $this->deleteMuzik(temizSayi($_POST['sid']));
 		elseif(isset($_POST['gid'])) echo $this->selectMuzik(temizSayi($_POST['gid']));
 		elseif(isset($_POST['id']) && $_POST['id']>0) echo $this->updateMuzik(temizSayi($_POST['id']),temizYazi($_POST['ad']),temizYazi($_POST['tur']),temizYazi($_POST['mem']),stripslashes($_POST['tanim']),stripslashes($_POST['clip']));
 		elseif(isset($_POST['aid'])) echo $this->insertAlbum(temizSayi($_POST['aid']),temizSayi($_POST['alyil']),temizYazi($_POST['alad']));
 		elseif(isset($_POST['eid'])) echo $this->insertEleman(temizSayi($_POST['grupAd']),temizYazi($_POST['elens']),temizYazi($_POST['elad']));
-		elseif(isset($_POST['said'])) $this->deleteAlbum(temizSayi($_POST['said']));
-		elseif(isset($_POST['seid'])) $this->deleteEleman(temizSayi($_POST['seid']));
+		elseif(isset($_POST['said'])) echo $this->deleteAlbum(temizSayi($_POST['said']));
+		elseif(isset($_POST['seid'])) echo $this->deleteEleman(temizSayi($_POST['seid']));
 		elseif(isset($_FILES['uploadResim']['name'])) echo $this->_helper->imager->upload($_FILES['uploadResim']);
 		elseif(isset($_POST['rid'])) echo $this->_helper->imager->save(temizSayi($_POST['rid']),temizYazi($_POST['fn']),"muzik");
 		elseif(isset($_POST['fad'])) echo $this->insertFilm(temizYazi($_POST['fad']),temizYazi($_POST['uz']),temizURL($_POST['mp4']),temizURL($_POST['ogg']),temizURL($_POST['webm']),temizYazi($_POST['tube']),temizURL($_POST['ac']),temizURL($_POST['chap']),temizURL($_POST['meta']),temizURL($_POST['en']),temizURL($_POST['tr']));
@@ -331,6 +331,18 @@ class Admin_AdminController extends Zend_Controller_Action
 	function insertFilm($ad,$uz,$mp4,$ogg,$webm,$tube,$ac,$chap,$meta,$en,$tr)
 	{
 		header('Content-Type: application/json');
+		if(!$ad)
+			return json_encode(array("durum"=>"error1"));
+		elseif(!$uz)
+			return json_encode(array("durum"=>"error2"));
+		elseif(!$mp4)
+			return json_encode(array("durum"=>"error3"));
+		elseif(!$ogg)
+			return json_encode(array("durum"=>"error4"));
+		elseif(!$webm)
+			return json_encode(array("durum"=>"error5"));
+		elseif(!$tube)
+			return json_encode(array("durum"=>"error6"));
 		try
 		{
 			$film = new main_models_Film();
@@ -361,6 +373,16 @@ class Admin_AdminController extends Zend_Controller_Action
 	function insertMuzik($ad,$tur,$mem,$tanim,$clip)
 	{  	
 		header('Content-Type: application/json');
+		if(!$ad)
+			return json_encode(array("durum"=>"error1"));
+		elseif(!$tur)
+			return json_encode(array("durum"=>"error2"));
+		elseif(!$mem)
+			return json_encode(array("durum"=>"error3"));
+		elseif(!$clip)
+			return json_encode(array("durum"=>"error4"));
+		elseif(!$tanim)
+			return json_encode(array("durum"=>"error5"));
 		try 
 		{
 			$this->_helper->cache->remove("metal"); 
@@ -412,31 +434,48 @@ class Admin_AdminController extends Zend_Controller_Action
 
 	function deleteMuzik($sid)
 	{
-		$this->_helper->cache->remove("metal"); 
-		$muzik = Doctrine::getTable('main_models_Dm')->find($sid);
-		$muzik->delete();
+		header('Content-Type: application/json');
+		if(!$sid)
+			return json_encode(array("durum"=>"error1"));
+		try
+		{
+			$this->_helper->cache->remove("metal"); 
+			$muzik = Doctrine::getTable('main_models_Dm')->find($sid);
+			$muzik->delete();
+			return json_encode(array("durum"=>"ok"));
+		}
+		catch(Exception $e) 
+		{
+			return json_encode(array("durum"=>"error2"));
+		}
 	}
 
 	function selectMuzik($gid)
 	{
 		header('Content-Type: application/json');
+		if(!$gid)
+			return json_encode(array("durum"=>"error"));
 		$q = Doctrine_Query::create()->from('main_models_Dm m')->leftJoin('m.Albumler d')->leftJoin('m.Elemanlar e')->where("id=$gid");
 		$row = $q->fetchArray();
+		$row[0]["durum"]="ok";
 		return json_encode($row[0]);
-		/*
-		$mesaj= $row['tanim']."|".$row['ad']."|".$row['tur']."|".$row['mem']."|".$row['clip']."&";
-		foreach ($row->Albumler as $album)
-			$mesaj.= $album['id']."|".$album['ad']."|".$album['yil']."|";
-		$mesaj.= "&";
-		foreach ($row->Elemanlar as $eleman)
-			$mesaj.= $eleman['id']."|".$eleman['ad']."|".$eleman['ens']."|";
-		unset($row);
-		return $mesaj."&";*/
 	}
 
 	function updateMuzik($id,$ad,$tur,$mem,$tanim,$clip)
 	{  	
 		header('Content-Type: application/json');
+		if(!$id)
+			return json_encode(array("durum"=>"$id yok"));
+		elseif(!$ad)
+			return json_encode(array("durum"=>"error1"));
+		elseif(!$tur)
+			return json_encode(array("durum"=>"error2"));
+		elseif(!$mem)
+			return json_encode(array("durum"=>"error3"));
+		elseif(!$clip)
+			return json_encode(array("durum"=>"error4"));
+		elseif(!$tanim)
+			return json_encode(array("durum"=>"error5"));
 		try
 		{
 			$this->_helper->cache->remove("metal"); 
@@ -463,6 +502,12 @@ class Admin_AdminController extends Zend_Controller_Action
 	function insertAlbum($id,$yil,$ad)
 	{  	
 		header('Content-Type: application/json');
+		if(!$id)
+			return json_encode(array("durum"=>"error1"));
+		elseif(!$yil)
+			return json_encode(array("durum"=>"error2"));
+		elseif(!$ad)
+			return json_encode(array("durum"=>"error3"));
 		try
 		{
 			$album = new main_models_Dma();
@@ -485,6 +530,12 @@ class Admin_AdminController extends Zend_Controller_Action
 	function insertEleman($id,$ens,$ad)
 	{  	
 		header('Content-Type: application/json');
+		if(!$id)
+			return json_encode(array("durum"=>"error1"));
+		elseif(!$ens)
+			return json_encode(array("durum"=>"error2"));
+		elseif(!$ad)
+			return json_encode(array("durum"=>"error3"));
 		try
 		{
 			$eleman = new main_models_Dme();
@@ -506,51 +557,35 @@ class Admin_AdminController extends Zend_Controller_Action
 
 	function deleteAlbum($said)
 	{
-		$album = Doctrine::getTable('main_models_Dma')->find($said);
-		$album->delete();
+		header('Content-Type: application/json');
+		if(!$said)
+			return json_encode(array("durum"=>"error1"));
+		try
+		{
+			$album = Doctrine::getTable('main_models_Dma')->find($said);
+			$album->delete();
+			return json_encode(array("durum"=>"ok"));
+		}
+		catch(Exception $e) 
+		{
+			return json_encode(array("durum"=>"error2"));
+		}
 	}
 
 	function deleteEleman($seid)
 	{
-		$eleman = Doctrine::getTable('main_models_Dme')->find($seid);
-		$eleman->delete();
-	}
-
-	function updateAlbum($gaid,$ad,$yil)
-	{  	
+		header('Content-Type: application/json');
+		if(!$seid)
+			return json_encode(array("durum"=>"error1"));
 		try
 		{
-			$album = Doctrine::getTable('main_models_Dma')->find($gaid);
-			$album->ad=$ad;
-			$album->yil=$yil;
-			$album->save();
+			$eleman = Doctrine::getTable('main_models_Dme')->find($seid);
+			$eleman->delete();
+			return json_encode(array("durum"=>"ok"));
 		}
-		catch(Doctrine_Validator_Exception $e) 
+		catch(Exception $e) 
 		{
-			$albumErrors = $album->getErrorStack();
-			$error="";
-			foreach($albumErrors as $fieldName => $errorCodes) 
-				$error .= $fieldName . " - " . implode(', ', $errorCodes) . "\n";
-			trigger_error($error);
-		}
-	}
-
-	function updateEleman($geid,$ad,$ens)
-	{  	
-		try
-		{
-			$eleman = Doctrine::getTable('main_models_Dme')->find($geid);
-			$eleman->ad=$ad;
-			$eleman->ens=$ens;
-			$eleman->save();
-		}
-		catch(Doctrine_Validator_Exception $e) 
-		{
-			$elemanErrors = $eleman->getErrorStack();
-			$error="";
-			foreach($elemanErrors as $fieldName => $errorCodes) 
-				$error .= $fieldName . " - " . implode(', ', $errorCodes) . "\n";
-			trigger_error($error);
+			return json_encode(array("durum"=>"error2"));
 		}
 	}
 	

@@ -1,42 +1,44 @@
-//window.log("admin_ayarlar.js Yuklendi.");
+var aj;
 function guncellemeFormuGoster(id)
 {
-	//window.log("admin_ayarlar.js guncellemeFormuGoster fonksiyon.");
-
 	$("#ruf img").attr("src",getResim(id,"muzik"));
 	$('#id').val(id);
-	$.ajax({
+	if(aj) aj.abort();
+	aj=$.ajax({
 	        data: 'gid='+id,
 		dataType:"json",
 	        success: function(cevap)
 	        {	
 			console.log(cevap);
-			$("#tanim").val(cevap.tanim);
-			i=$('#asggf input');
-			i.eq(1).val(cevap.ad);
-			i.eq(2).val(cevap.clip);
-			i=$('#asggf select');
-			i.eq(0).val(cevap.tur);
-			i.eq(1).val(cevap.mem);
-			mesaj="";
-			for(j in cevap.Albumler)
-				mesaj+="<option id="+cevap.Albumler[j].id+">"+cevap.Albumler[j].yil+"-"+cevap.Albumler[j].ad+"</option>";
-			$("#alform select").html(mesaj);
-			mesaj="";
-			for(j in cevap.Elemanlar)
-				mesaj+="<option id="+cevap.Elemanlar[j].id+">"+cevap.Elemanlar[j].ad+"("+cevap.Elemanlar[j].ens+")</option>";
-			$("#elform select").html(mesaj);
-			$('#forUpdate').show();
-			$('#ruf').show();
-			$('#gkay').show();
-			$('#ggun').hide();
+			if(cevap.durum=="ok")
+			{
+				$("#tanim").val(cevap.tanim);
+				i=$('#asggf input');
+				i.eq(1).val(cevap.ad);
+				i.eq(2).val(cevap.clip);
+				i=$('#asggf select');
+				i.eq(0).val(cevap.tur);
+				i.eq(1).val(cevap.mem);
+				mesaj="";
+				for(j in cevap.Albumler)
+					mesaj+="<option id="+cevap.Albumler[j].id+">"+cevap.Albumler[j].yil+"-"+cevap.Albumler[j].ad+"</option>";
+				$("#alform select").html(mesaj);
+				mesaj="";
+				for(j in cevap.Elemanlar)
+					mesaj+="<option id="+cevap.Elemanlar[j].id+">"+cevap.Elemanlar[j].ad+"("+cevap.Elemanlar[j].ens+")</option>";
+				$("#elform select").html(mesaj);
+				$('#forUpdate').show();
+				$('#ruf').show();
+				$('#gkay').show();
+				$('#ggun').hide();
+			}
+			else
+				addNotice("<p>"+id+" bilgileri alınamadı!</p>");
 		}
         });
-	//window.log("admin_ayarlar.js guncellemeFormuGoster fonksiyon sonu.");
 }
 
 $(document).ready(function() {
-	//window.log("admin_ayarlar.js DOM Yuklendi.");
 	activateMain();
 	var kayGun="";
 	var d = new Date();
@@ -45,7 +47,6 @@ $(document).ready(function() {
 	        cache: false,
 	        url: '/main/admin/admin/ajax?_='+d.getTime()
 	    });
-	//window.log("admin_ayarlar.js AJAX ayarland&#253;.");
 	var tabContainers = $('div.tabs > div');
 	tabContainers.hide().filter(':first').show();
 	$('#forUpdate').hide();
@@ -59,7 +60,6 @@ $(document).ready(function() {
 		$(this).addClass('selected');
 		return false;
 	}).filter(':first').click();
-	//window.log("admin_ayarlar.js Tab Navigasyon ayarland&#253;.");
 
 	$('.popUpper').bind("click",function(){
 		_gaq.push(['_trackEvent', 'Popup',$(this).attr("id")]);
@@ -68,7 +68,6 @@ $(document).ready(function() {
 	});
 	
 	$('#adyg').bind("click",function(){
-		//window.log("admin_ayarlar.js adyg click event.");
 		$('#ruf').hide();
 		$('#forUpdate').hide();
 		$('#asggf input').val("");
@@ -82,18 +81,15 @@ $(document).ready(function() {
 	});
 
 	$('#adgas .checkBlue').bind("click",function(){
-		//window.log("admin_ayarlar.js gun click event.");
 		guncellemeFormuGoster($("#adgas option:selected").attr("id"));
-		//window.log("admin_ayarlar.js gun click event tamamland&#253;.");
 	});
 	
 	$('#adgas .thrashBlue').bind("click",function(){
-		//window.log("admin_ayarlar.js sil click event.");
 		var ad=$("#adgas option:selected").attr("id");
 		if(confirm (ad + " silmek istediğinizden emin misiniz?"))
 		{
-			$.ajax({ data: 'sid='+ad });
-			$("#uyari").append($("#adgas option:selected").html() + " silindi!<br>");
+			$.ajax({dataType: 'json', data: 'sid='+ad });
+			addNotice("<p>"+$("#adgas option:selected").html() + " silindi!</p>");
 			$("#adgas option:selected").remove();
 		}
 	});
@@ -124,13 +120,23 @@ $(document).ready(function() {
 					if(cevap.durum=="yeni")
 					{
 						$("#adgas").append("<option id='"+cevap.id+"'>"+adjs+"</option>");
-						$("#uyari").append(adjs + " eklendi!<br>");
+						addNotice("<p>"+adjs + " eklendi!</p>");
 						guncellemeFormuGoster(cevap.id);
 					}
 					else if(cevap.durum=="guncel")
-						$("#uyari").append(adjs + " guncellendi!<br>");
+						addNotice("<p>"+adjs + " guncellendi!</p>");
+					else if(cevap.durum=="error1")
+						addNotice("<p>Müzisyenin adını girin!</p>");
+					else if(cevap.durum=="error2")
+						addNotice("<p>Müzik tür girin!</p>");
+					else if(cevap.durum=="error3")
+						addNotice("<p>Bir ülke veya şehir girin!</p>");
+					else if(cevap.durum=="error4")
+						addNotice("<p>Müzisyenin youtube klip url'sinin son kısmını girin!</p>");
+					else if(cevap.durum=="error5")
+						addNotice("<p>Müzisyenin hikayesini yazın!</p>");
 					else 
-						$("#uyari").append("Bir hata oluştu:"+cevap.durum+"<br>");
+						addNotice("<p>Bir hata oluştu:"+cevap.durum+"<p>");
 			     	}
 			});
 			return false;
@@ -151,14 +157,20 @@ $(document).ready(function() {
 			var aladj=$("#alform form input").eq(0).val();
 			var alyilj=$("#alform form input").eq(1).val();
 			$.ajax({
-		        data: $("#alform form").serialize()+"&aid="+$('#asggf input').eq(0).val(),
-			dataType:"json",
-		        success: function(cevap){
-				if(cevap.durum=="ok")
-					$("#alform select").append("<option id="+cevap.id+">"+alyilj+"-"+aladj+"</option");
-				else
-					$("#uyari").append("Bir hata oluştu:"+cevap.durum+"<br>");
-			}
+				data: $("#alform form").serialize()+"&aid="+$('#asggf input').eq(0).val(),
+				dataType:"json",
+				success: function(cevap){
+					if(cevap.durum=="ok")
+						$("#alform select").append("<option id="+cevap.id+">"+alyilj+"-"+aladj+"</option");
+					else if(cevap.durum=="error1")
+						addNotice("<p>Müzisyen seçin!</p>");
+					else if(cevap.durum=="error2")
+						addNotice("<p>Albüm yıl girin!</p>");
+					else if(cevap.durum=="error3")
+						addNotice("<p>Albüm adını girin!</p>");
+					else
+						addNotice("<p>Bir hata oluştu:"+cevap.durum+"</p>");
+				}
 		     	});
 			$("#alform input").val("");
 			return false;
@@ -183,8 +195,14 @@ $(document).ready(function() {
 		        success: function(cevap){
 				if(cevap.durum=="ok")
 	        			$("#elform form select").append("<option id="+cevap.id+">"+eladj+"("+elensj+")</option>");
+				else if(cevap.durum=="error1")
+					addNotice("<p>Müzisyen seçin!</p>");
+				else if(cevap.durum=="error2")
+					addNotice("<p>Bir enstrüman girin!</p>");
+				else if(cevap.durum=="error3")
+					addNotice("<p>Müzisyenin adını girin!</p>");
 				else 
-					$("#uyari").append("Bir hata oluştu:"+cevap.durum+"<br>");
+					addNotice("<p>Bir hata oluştu:"+cevap.durum+"</p>");
 				}
 		      	});
 			$("#elform form input").val("");
@@ -198,9 +216,19 @@ $(document).ready(function() {
 		if(confirm (eid + " silmek istediğinizden emin misiniz?"))
 			$.ajax({
 				data: 'seid='+eid,
+				dataType: 'json',
 				success: function(cevap){
-					$("#elform select option:selected").remove();
-					$("#uyari").append(elemanIDJS + " elemanı silindi!<br>");
+					if(cevap.durum=="ok")
+					{
+						$("#elform select option:selected").remove();
+						addNotice("<p>"+eid + " elemanı silindi!</p>");
+					}
+					else if(cevap.durum=="error1")
+						addNotice("<p>"+eid + " degeri eksik!</p>");
+					else if(cevap.durum=="error2")
+						addNotice("<p>Veri tabanı hatası!</p>");
+					else 
+						addNotice("<p>Bilinmeyen bir hata!</p>");
 				}
 			  });
 	});
@@ -211,9 +239,19 @@ $(document).ready(function() {
 		if(confirm (aid + " silmek istediğinizden emin misiniz?"))
 			$.ajax({
 				data: 'said='+aid,
+				dataType: 'json',
 				success: function(cevap){
-					$("#albumSelect option:selected").remove();
-					$("#uyari").append(aid + " albumu silindi!<br>");
+					if(cevap.durum=="ok")
+					{
+						$("#albumSelect option:selected").remove();
+						addNotice("<p>"+aid + " albumu silindi!</p>");
+					}
+					else if(cevap.durum=="error1")
+						addNotice("<p>"+aid + " degeri eksik!</p>");
+					else if(cevap.durum=="error2")
+						addNotice("<p>Veri tabanı hatası!</p>");
+					else 
+						addNotice("<p>Bilinmeyen bir hata!</p>");
 				}
 			  });
 	});
@@ -246,16 +284,28 @@ $(document).ready(function() {
 		},
 		submitHandler: function(form) {
 			$.ajax({
-			dataType:"json",
-		        data: $("#film form").serialize(),
-		        success: function(cevap){
-				if(cevap.durum=="ok")
-					alert("İşlem başarılı-"+cevap.id);
-				else 
-					$("#uyari").append("Bir hata oluştu:"+cevap.durum+"<br>");
-			}
+				dataType:"json",
+				data: $("#film form").serialize(),
+				success: function(cevap){
+					if(cevap.durum=="ok")
+						alert("İşlem başarılı-"+cevap.id);
+					else if(cevap.durum=="error1")
+						addNotice("<p>Filmin adını girin!</p>");
+					else if(cevap.durum=="error2")
+						addNotice("<p>Uzunluğu girin!</p>");
+					else if(cevap.durum=="error3")
+						addNotice("<p>MP4 girin!</p>");
+					else if(cevap.durum=="error4")
+						addNotice("<p>OGG girin!</p>");
+					else if(cevap.durum=="error5")
+						addNotice("<p>WEBM girin!</p>");
+					else if(cevap.durum=="error6")
+						addNotice("<p>Youtube girin!</p>");
+					else 
+						addNotice("<p>Bir hata oluştu:"+cevap.durum+"</p>");
+				}
 		      	});
-			$("#film form input").val("");
+			$("#film form input:not(type='submit')").val("");
 			return false;
 		}
 	});

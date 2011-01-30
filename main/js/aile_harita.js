@@ -1,14 +1,5 @@
 $(document).ready(function() {
-	activateMain();
-	$.ajaxSetup({
-		type: 'GET',
-		cache: true,
-		url: '/main/ajax/aile',
-		beforeSend: function(){	$(".progress").show();	},
-		complete:function(){	$(".progress").fadeOut();	},
-		error: function(xhr, status) { $(".progress").fadeOut(); }
-	});
-	
+	activateMain();	
 	getScript("/main/js/aile_extra.js");
 
 	var map=new google.maps.Map($("#ammc")[0],{zoom:5,mapTypeId:google.maps.MapTypeId.ROADMAP,streetViewControl: true}),initialLocation,browserSupportFlag=true,geocoder=new google.maps.Geocoder(),adres,infowindow=new google.maps.InfoWindow(),markers=Array(),directionsService = new google.maps.DirectionsService(),directionsDisplay = new google.maps.DirectionsRenderer({draggable: true}),sv = new google.maps.StreetViewService(),gecMarker,panorama = new  google.maps.StreetViewPanorama(document.getElementById("pano"));
@@ -75,32 +66,6 @@ $(document).ready(function() {
 		if($(this).attr("checked")) $("#pano").removeClass("sakla");
 		else $("#pano").addClass("sakla");
 	});
-
-
-/*	$.ajax({
-		dataType :"json",
-		data: 'map=0',
-		success: function(cevap){
-			var i=cevap.length-1;
-			while(i-->-1)
-			{
-				mark(cevap[i].lat,cevap[i].lon,cevap[i].aileAd,false);
-				if(i!=cevap.length-1) $("#ammc").after(",");
-					$("<a class='map_pin'>"+cevap[i].aileAd+"</a>").data("lat",cevap[i].lat).data("lon",cevap[i].lon).insertAfter("#ammc");
-			}
-		}
-	});
-
-	if($("#aileBireyIDHidden").val())
-		$.ajax({
-			dataType :"json",
-			data: 'map='+$("#aileBireyIDHidden").val(),
-			success: function(cevap){
-				if(cevap.length>0)
-					mark(cevap[0].lat,cevap[0].lon,"<b>"+cevap[0].aileAd+"</b><br /><img width='45' height='45' alt='"+cevap[0].aileAd+"' src='"+getResim(cevap[0].aileID,"aile")+"' />",true);
-			}
-		});
-*/
 
 	if(adresler.length)
 	{

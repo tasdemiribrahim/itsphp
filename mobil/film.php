@@ -20,10 +20,13 @@ if(isset($_GET["q"]))
 	$sth = $db->prepare("SELECT * FROM film WHERE id=".temizSayi($_GET["q"]));
 else
 	$sth = $db->prepare("SELECT * FROM film ORDER BY id DESC LIMIT 1");
-if(isset($_GET["g"]))
-	$smarty->assign("g","selected");
+
+$smarty->assign('opts', array(0 => 'Kapalı',1 => 'Açık'));
+
+if(isset($_GET["g"]) && $_GET["g"]=="1")
+	$smarty->assign("g",1);
 else
-	$smarty->assign("g","");
+	$smarty->assign("g",0);
 $sth->execute();
 $film = $sth->fetch(PDO::FETCH_ASSOC);
 $smarty->assign("film",$film);

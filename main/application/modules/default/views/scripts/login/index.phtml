@@ -37,7 +37,11 @@
 		</fieldset>
 		<br />
 		<fieldset>
-			<legend>Facebook ile Bağlan</legend>
+			<legend>
+				<a href="https://graph.facebook.com/oauth/authorize?type=user_agent&client_id=<?php echo FACEBOOK_APP_ID; ?>&redirect_uri=<?php echo getSiteName()."main/login"; ?>&scope=user_photos,user_videos,email,user_birthday,offline_access,publish_stream,status_update">
+				Facebook ile Bağlan
+				</a>
+			</legend>
 	 		<iframe src='http://www.facebook.com/plugins/registration.php?
 		                client_id=<?php echo FACEBOOK_APP_ID; ?>&
 		                redirect_uri=<?php echo getSiteName()."main/login"; ?>&
@@ -45,10 +49,8 @@
 		                {"name":"name"},
 		                {"name":"email"},
 		                {"name":"password"},
-		                {"name":"gender"},
-		                {"name":"birthday"},
 		                {"name":"captcha"},
-		                {"name":"phone", "description":"Phone Number", "type":"text"}
+		                {"name":"adres", "description":"Adres", "type":"text"}
 		                ]'
 		                scrolling="auto" frameborder="no" style="border:none" allowTransparency="true" height="600">
 		        </iframe>

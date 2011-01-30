@@ -1,4 +1,4 @@
-	<div id="filmDiv" class="hreview">
+	<div id="filmDiv" class="hreview" aria-live="assertive" aria-atomic="true" >
 		<video id="movies" onplay="startVideo()" onended="stopTimeline()" onpause="stopTimeline()" preload="auto" controls class="item">
 			<source src="<?php echo $this->film['mp4']; ?>" type='video/mp4'></source>
 			<source src="<?php echo $this->film['webm']; ?>" type='video/webm'></source>

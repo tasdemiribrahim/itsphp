@@ -2,7 +2,7 @@
 
 	activateMain();
 	
-	var d = new Date();
+	var d = new Date(),targetX, targetY,jasimage=$("#arji"),aj;
 	$.ajaxSetup({
 		type: 'GET',
 		timeout: 20000,    
@@ -14,9 +14,7 @@
 		error: function(xhr, status) { $(".progress").fadeOut(); }
 	});
 	
-	getScript("js/aile_extra.js");
-
-	var targetX, targetY,jasimage=$("#arji"),tagCounter = 0;
+	getScript("/main/js/aile_extra.js");
 	
 	jasimage.wrap('<div id="artw"></div>');
 	 $("#artw").css("width", jasimage.outerWidth());
@@ -76,15 +74,20 @@
 		console.log(matches);
 		answer= confirm ($(this).parent().text() + " emin misiniz?");
 		if(!answer) return false;
-		/* $.ajax({	
-			data: "arr="+jasimage.attr("src")+"&id="+matches[1],
+		/*$.ajax({	
+			data: "id="+matches[1],
+			dataType:"json",
 			success:function(cevap){
-				if(cevap==1)
+				console.log(cevap);
+				if(cevap.durum=="ok")
 				{
 					 $("#arhi-"+matches[1]).remove();
 					 $("#h-"+matches[1]).remove();
 				}
-				else	addNotice("<p>Etiket silinemedi!</p>");
+				else if(cevap.durum=="error")	
+					addNotice("<p>Etiket silinemedi!</p>");
+				else	
+					addNotice("<p>Bilinmeyen bir hata meydana geldi!</p>");
 			}
 		});*/
 		 return false;
@@ -95,24 +98,26 @@
 		tagValue = $("#artn").val();
 		$.ajax({	
 			dataType:"json",
-			data: "arh="+jasimage.attr("src")+"&id="+tagCounter+"&val="+tagValue+"&x="+targetX+"&y="+targetY,
+			data: "arh="+jasimage.attr("src")+"&val="+tagValue+"&x="+targetX+"&y="+targetY,
 			success:function(cevap)
 			{
-				if(cevap>0)
-				{
-					hotSpotImg(tagValue);
-					tagCounter++;
-				}
+				console.log(cevap);
+				if(cevap.durum=="ok")
+					hotSpotImg(tagValue,cevap.id,cevap.x,cevap.y);
+				else if(cevap.durum=="error1") addNotice("<p>Resimin kaynağı alınamadı!</p>");
+				else if(cevap.durum=="error2") addNotice("<p>Bir isim girin!</p>");
+				else if(cevap.durum=="error3") addNotice("<p>Kayıt numarası alınamadı</p>");
+				else if(cevap.durum=="error4") addNotice("<p>X koordinatı alınamadı!</p>");
+				else if(cevap.durum=="error5") addNotice("<p>Y koordinatı alınamadı!</p>");
 				else addNotice("<p>Etiket kaydedilemedi!</p>");
 			}		
 		});
 		closeTagInput();
 	 }
 	 
-	 function hotSpotImg(tagValue)
+	 function hotSpotImg(t,id,x,y)
 	 {
-		$("#artw").after('<span class="arhi pointed" id="arhi-' + tagCounter + '"> ' + tagValue + ' <a class="arr">(Sil)</a></span>');
-		$("#artw").append('<div id="h-' + tagCounter + '" class="arh" style="left:' + targetX + 'px; top:' + targetY + 'px;"><span>' + tagValue + '</span></div>');
+		$("#artw").append('<div id="h-' + id + '" class="arh" style="left:' + x + 'px; top:' + y + 'px;"><span>' + t + '</span></div>').after('<span class="arhi pointed" id="arhi-' + id + '"> ' + t + ' <a class="arr">(Sil)</a></span>');
 	 }
 
 	 function closeTagInput()
@@ -124,22 +129,21 @@
 	 
 	 function changeImage()
 	 {
+		if(aj) aj.abort();
 		closeTagInput();
-		tagCounter=0;
 		$(".arh,.arhi").remove();
-		$.ajax({	
+		aj=$.ajax({	
 			data: "get="+jasimage.attr("src"),
 			dataType :"json",
 			success:function(cevap){
-				var i=cevap.length;
-				while(i--)
+				console.log(cevap);
+				if(cevap.durum=="error") addNotice("<p>Kişiler alınamadı!</p>");
+				else
 				{
-					tagCounter=cevap[i].spot;
-					targetX=cevap[i].x;
-					targetY=cevap[i].y;
-					hotSpotImg(cevap[i].val);
+					var i=cevap.length;
+					while(i--)
+						hotSpotImg(cevap[i].val,cevap[i].id,cevap[i].x,cevap[i].y);
 				}
-				if(cevap.length!=0) tagCounter++;
 			}
 		});
 	 }

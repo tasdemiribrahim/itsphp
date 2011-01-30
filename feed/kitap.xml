@@ -3,7 +3,7 @@
 	<channel>
 		<title>Kitap - ITSPHP</title>
 		<link>http://tasdemir.0fees.net/oku/programlama</link>
-		<pubDate>2010-08-29 00:00:00</pubDate>
+		<pubdate>2010-08-29 00:00:00</pubdate>
 		<description>İbrahim Taşdemir'in Kişisel Ana Sayfası</description>
 		<language>tr-TR</language>
 		<image>
@@ -14,393 +14,399 @@
 			<height />
 		</image>
 		<item>
+			<title>HTML5 ve CSS3</title>
+			<link>http://tasdemir.0fees.net/main/oku/programlama#HTML</link>
+			<pubdate>2011-01-30 19:51:28</pubdate>
+			<description>HTML5 ve CSS3 teknolojisi hala geliştirilme evresinde ama bazı yöntemleri bugünden kullanmaya başlayabilirsiniz. Bu kitap modern tarayıcıların desteklediği yenilikleri, jquery kullanarak eski tarayıcılarda(IE) da çalışacak şekilde kullanmayı öğretiyor.</description>
+		</item>
+		<item>
 			<title>Seven Languages in Seven Weeks</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
-			<pubDate>2011-01-12 19:51:28</pubDate>
+			<pubdate>2011-01-12 19:51:28</pubdate>
 			<description> 7 Haftada 7 farklı dil öğrenin. Programlama dili öğrenmek araba kullanmaya benzer ne kadar okusanız da ne kadar izlesenizde direksiyon başına geçmeden öğrenemezsiniz. Bu kitap 7 farklı arabada test sürüşü yapmanızı sağlayacak. Güçlü ve zayıf tipli,nesne tabanlı, fonksiyonel, prosedürel, karışık, prototip tabanlı, derlenen, yorumlanan, sanal makinede çalışan... Her türden örnek bulabilirsiniz. Kitap ile ruby, Io, prolog, scala, erlang, closure ve haskell dillerini göreceksiniz ama sadece merhaba dünya seviyesinde...</description>
 		</item>
 		<item>
 			<title>Pragmatic Guide to JavaScript</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#JS</link>
-			<pubDate>2011-01-11 19:51:28</pubDate>
+			<pubdate>2011-01-11 19:51:28</pubdate>
 			<description>Pekçok önemli javascript fonksiyonunun Prototype, script.aculo.us, jQuery, MooTools, YUI , ExtJS ve Dojo'da nasıl yapıldığını gösteriyor.</description>
 		</item>
 		<item>
 			<title>Pragmatic Guide to Git</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
-			<pubDate>2011-01-10 19:51:28</pubDate>
+			<pubdate>2011-01-10 19:51:28</pubdate>
 			<description>Git versiyon kontrol sistemi hakkında çok başarılı bir kitap</description>
 		</item>
 		<item>
 			<title>Pomodoro Technique Illustrated</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
-			<pubDate>2011-01-09 19:51:28</pubDate>
+			<pubdate>2011-01-09 19:51:28</pubdate>
 			<description> Zamanımız kısıtlı ve yapacak çok fazla iş var. Bu kitap ile zamanınızı daha iyi değerlendirmeyi ve düzenli çalışmayı öğrenebilirsiniz. Pomodoro tekniği Scrum ve XP gibi Agile teknikleri ile karşılaştırılınca en iyi teknik olmayabilir ama en kolay anlaşılır ve tek bir kişiye uygulanabilen en uygun teknik bana göre.</description>
 		</item>
 		<item>
 			<title>Interface Oriented Design</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
-			<pubDate>2011-01-08 19:51:28</pubDate>
+			<pubdate>2011-01-08 19:51:28</pubdate>
 			<description> Interface Oriented Design, birbiri arasında iletişim kuran yazılımları interface'ler ile tasarlamayı anlatıyor. Çeşitli teknikler kullanarak davranışı düzenlenebilen bu interfaceler ile çözüm bulmak ve iyi yapılandırılmış programlar yapmak için bu interfacelerin uygun ekleme yöntemini saptamaya bakabilirsiniz. Pek çok örnek ile çeşitli düzenlerin eksilerini ve artılarını görebilirsiniz.</description>
 		</item>
 		<item>
 			<title>Pro Git</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
-			<pubDate>2011-01-07 19:51:28</pubDate>
+			<pubdate>2011-01-07 19:51:28</pubdate>
 			<description>Büyük çaplı,çok kişinin katıldığı projelerde versiyon kontolü çok önemli ve Git bu konudaki en iyi araç. İlk kez 2005 yılında Linus Torvalds (evet Linux adamı) tarafından yayınlandı ve Linux çekirdek projesinin dağıtılmış versiyon kontrol sistemi olarak kullanıldı. O günden bu yana sayısız proje bu sistemi kullanıyor. Sizde bu muhteşem araç ile başarılı bir proje yönetimi yapın. Hayatınızın ne kadar kolaylaşacağına inanamayacaksınız.</description>
 		</item>
 		<item>
 			<title>The Definitive Guide to HTML5 Video</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#HTML</link>
-			<pubDate>2011-01-06 19:51:28</pubDate>
+			<pubdate>2011-01-06 19:51:28</pubdate>
 			<description>HTML5 teknolojisinin Video ve Audio konuları ile ilgili en iyi kitap.</description>
 		</item>
 		<item>
 			<title>CouchDB: The Definitive Guide</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
-			<pubDate>2011-01-01 19:51:28</pubDate>
+			<pubdate>2011-01-01 19:51:28</pubdate>
 			<description>Apache CouchDB ile ilgili en detaylı kitap.</description>
 		</item>
 		<item>
 			<title>Beginning CouchDB</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
-			<pubDate>2010-12-31 19:51:28</pubDate>
+			<pubdate>2010-12-31 19:51:28</pubdate>
 			<description>Apache CouchDB (Cluster Of Unreliable Commodity Hardware) her geçen gün daha fazla kullanılan, tamamen açık kaynak ve ücretsiz, NoSQL veritabanı sistemidir. Oracle, SQL Server ve MySQL veritabanlarının aksine veriler tablolarda değil JSON (JavaScript Object Notation) dosyalarında tutuluyor ve RESTful API sayesinde erişilebiliyor. Haliyle Javascript bilginizin yüksek olması gerekiyor. Bloglar, wikiler, forumlar ve mobil siteler için kullanışlı olabilir. Bu kitap sizin CouchDB ve NoSQL terimlerine girişinizi sağlıyor. Linux ve MacOSX için CouchDB kurulumu, veritabanı oluşturma, dosya kaydetme ve okuma, görüntü ve harita/süzgeç oluşturma yöntemlerini anlatıyor. Ancak Python ve Ruby dışındaki diller için kütüphanesinin olmaması, yeni olduğu için hatalarının çokluğu ve SQL benzeri fonksiyonların bulunmayışı nedeniyle bu veritabanının kullanımını şimdilik tavsiye etmiyorum.</description>
 		</item>
 		<item>
 			<title>Pro PHP Refactoring</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#PHP</link>
-			<pubDate>2010-12-23 19:51:28</pubDate>
+			<pubdate>2010-12-23 19:51:28</pubdate>
 			<description> Temiz ve açıklayıcı PHP kodu yazmanın yollarını öğrenin.</description>
 		</item>
 		<item>
 			<title>Beginning Google Maps API 3</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#JS</link>
-			<pubDate>2010-12-22 19:51:28</pubDate>
+			<pubdate>2010-12-22 19:51:28</pubdate>
 			<description> Google Maps internette kullanılan en yaygın API. Çünkü hızlı, kolay ve çok kullanışlı. Bu kitap ile siz de sitenize bir harita ekleyebilirsiniz.</description>
 		</item>
 		<item>
 			<title>Pro HTML5 Programming</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#HTML</link>
-			<pubDate>2010-12-21 19:51:28</pubDate>
+			<pubdate>2010-12-21 19:51:28</pubdate>
 			<description>Daha zengin internet deneyimi için en yeni API. Siteniz günümüze yakışsın, geleceği yakalasın. Rakiplerinize fark atın.</description>
 		</item>
 		<item>
 			<title>Microformats: Empowering Your Markup for Web 2.0</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#HTML</link>
-			<pubDate>2010-12-19 19:51:28</pubDate>
+			<pubdate>2010-12-19 19:51:28</pubdate>
 			<description>Zengin yapısal ifadeler kullanarak site yapınızı insan ve makine anlayabilir formata sokun. Yeni nesil web programları için mashup hazır format oluşturun. Gelişen teknolojiyi gerçek örnekler, araçlar ve daha fazlasını kullanarak anlayın.</description>
 		</item>
 		<item>
 			<title>Webbots Spiders and Screen Scrapers</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
-			<pubDate>2010-12-18 19:51:28</pubDate>
+			<pubdate>2010-12-18 19:51:28</pubdate>
 			<description>Internet tarayıcı tarafından algılanamayacak kadar büyük ve güzel. Robotlar, örümcekler ve ekran tarayıcılar internetteki malzemeden tam anlamıyla yararlanmak isteyen programcılar ve yöneticiler için biçilmiş kaftan. Tarayıcıların deneyiminizi kısıtlamasına izin vermeyin. Sürekli yaptığınız işlmeleri otomatikleştirin. Tüm siteyi indiren, sayfalardan verileri alın, çerezleri yönetin, şifreli dosyaları açın, e-posta gönderin ve alın, cep telefonunuza SMS mesajları atın, şifre korumalı siteleri açın, açık arttırmalara katılın, FTP ve NNTP ile veri transfer edin. Tüm bunları sadece PHP ve cURL ile yapabilirsiniz.</description>
 		</item>
 		<item>
 			<title>Web Security Testing Cookbook</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
-			<pubDate>2010-12-17 19:51:28</pubDate>
+			<pubdate>2010-12-17 19:51:28</pubdate>
 			<description>Bir site için yapılan testler arasında en önemlisi güvenlik ve en göz ardı edilen de. Bu kitap en bilindik saldırıları nasıl yapabileceğinizi gösteriyor.</description>
 		</item>
 		<item>
 			<title>Website Optimization</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#DIGER</link>
-			<pubDate>2010-12-14 19:51:28</pubDate>
+			<pubdate>2010-12-14 19:51:28</pubdate>
 			<description>Web site iyileştirmesi siteden daha çok verim almayı hedefler ve günümüzde herkesin uhgulaması gereken yöntemleri içerir.</description>
 		</item>
 		<item>
 			<title>Even Faster Web Sites</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-12-13 19:51:28</pubDate>
+			<pubdate>2010-12-13 19:51:28</pubdate>
 			<description>Yslow ve PageSpeed kurallarını uyguladınız ve sitenizi hızlandırdınız ama daha fazlasını istiyorsunuz o zaman sizi bu kitaba alalım. </description>
 		</item>
 		<item>
 			<title>Mobile Design and Development</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-12-12 19:51:28</pubDate>
+			<pubdate>2010-12-12 19:51:28</pubdate>
 			<description> İnsanlar mobilin ne kadar büyük olduğunun farkında değil. Mobil, aletleri, ağları, servisleri, interneti, hatta iPhone uygulamaları gibi belli programları bile kapsar. Bir mobil programın çalışmasını istiyorsanız üç soruya cevap vermeniz lazım: Mobil dünyanın farklı yüzleri nedir, mobil teknolojileri kullanarak içeriği nasıl sunabilirsiniz, iş için doğru mobil teknoloji nedir. Kitabın ilk yarısı ilk iki sorunun cevabını barındırıyor, ikinci yarısı son soruya odaklanıyor. </description>
 		</item>
 		<item>
 			<title>Google Analytics</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-12-10 19:51:28</pubDate>
+			<pubdate>2010-12-10 19:51:28</pubdate>
 			<description> 2005 sonlarına doğru Internet devi Google web analiz firması Urchin'i satın aldı ve ürünü Google Analytics olarak bedavaya sunmaya başladı. Talep inanılmayacak boyutlardaydı. Bir gecede yarım milyona yakın başvuru oldu. Google hazırlıksız yakalandı ve müşteriler geri çevrilmek zorunda kaldı. Anlaşılan gerçek bir analiz programına ihtiyaç çok fazlaydı. Ancak analiz ne demek ve neden ihtiyaç duyuyoruz? Nasıl yorumlayacağız? Bu soruların cevabı bu kitapta. Bu kitap ile sıradan bir kullanıcı bile sitesinin durumuna göz atabilir, kendisine hedefler koyabilir, kullanıcıları hakkında fikir sahibi olabilir, gerekli geliştirmeleri yapabilir.</description>
 		</item>
 		<item>
 			<title>CSS3 for Web Designers</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-12-05 19:51:28</pubDate>
+			<pubdate>2010-12-05 19:51:28</pubdate>
 			<description> Aranızda A List Apart sitesini duymamış terbiyesizler varsa önce siteyi bir kontrol etsinler. Siteyi yalayıp yutanlarınız sizin için artık kitapları da mevcut. CSS tarihine baktığımızda web tasarımcı olarak önemli dönüm noktaları görürüz. Bu çarpıcı teknikler, makaleler ve olaylar bizim esnek, erişilebilir ve görsel olarak muhteşem siteler yapmamıza yardım etti. Bence herşey 2001 yılında Jeffrey Zeldman'ın "To Hell With Bad Browsers" isimli makalesiyle başladı. Bu manifesto, tasarımcılara ileriyi görmeleri ve CSS'i bağlantıları renklendirmek ve fontlar dışında kullanmayı ve eski tarayıcıları geride bırakmayı öneriyordu. Bu kitapta aynı öneriyi savubuyor. Bir site tüm tarayıcılarda aynı görünmek zorunda değil. Internet Explorer, yeni teknoloji CSS3'ü kullanmamızı engelleyemez. Gölgelendirme, animasyonlar, geçişli renkler modern tarayıcılarda çalışıyor ve siz de gönül rahatlığıyla sitenize ekleyebilirsiniz.</description>
 		</item>
 		<item>
 			<title>Smarty PHP Template Programming and Applications</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-12-04 19:51:28</pubDate>
+			<pubdate>2010-12-04 19:51:28</pubdate>
 			<description> Bu kitap ile en başarılı PHP arayüz framework hakkında bilgi alabilirsiniz.</description>
 		</item>
 		<item>
 			<title>PHP5 Social Networking</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-12-03 19:51:28</pubDate>
+			<pubdate>2010-12-03 19:51:28</pubdate>
 			<description> Bu kitap ile kendi sosyal ağ sitenizi yaratabilirsiniz.</description>
 		</item>
 		<item>
 			<title>Expert PHP 5 Tools</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-12-02 19:51:28</pubDate>
+			<pubdate>2010-12-02 19:51:28</pubdate>
 			<description> Bu kitap ile kodlama teknikleri, dökümantasyon, Eclipse IDE, kaynak kodu ve versiyon kontrolü, hata ayıklama, Frameworkler, test, UML, devamlı bütünleşme konularını öğrenebilirsiniz.</description>
 		</item>
 		<item>
 			<title>Host Your Web Site in the Cloud Amazon Web Services Made Easy</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-12-01 19:51:28</pubDate>
+			<pubdate>2010-12-01 19:51:28</pubdate>
 			<description> Bu kitap ile bulut bilgi işlemenin ne olduğu ve kullanımı ile nasıl büyük ve sağlam web servislerinin oluşturulduğunu göreceksiniz. Ayrıca Simple Storage Service, Elastic Compute Cloud, Simple Queue Service ve SimpleDB gibi çeşitli Amazon servislerinin çalışma prensibini öğreneceksiniz.</description>
 		</item>
 		<item>
 			<title>PHP 5 E-commerce Development</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-30 19:51:28</pubDate>
+			<pubdate>2010-11-30 19:51:28</pubdate>
 			<description>Bir ticaret sitesinin nasıl yapıldığını ya da bir MVC framework nasıl yaratıldığını merak ediyorsanız bu kitap size göre. Ancak yapacağınız program profesyonel abilerinin yanına yaklaşamaz.</description>
 		</item>
 		<item>
 			<title>Pro Zend Framework Techniques Build a Full CMS Project</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-29 19:51:28</pubDate>
+			<pubdate>2010-11-29 19:51:28</pubdate>
 			<description>Zend Framework ile bir CMS tasarlayacağınız doğru ancak başlangıç seviyesinde bilgiler içeriyor.</description>
 		</item>
 		<item>
 			<title>PHP Web 2.0 Mashup Projects</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-28 19:51:28</pubDate>
+			<pubdate>2010-11-28 19:51:28</pubdate>
 			<description>Bir mashup, iki yada daha fazla harici online kaynaktan veriyi alıp birleştirerek sunan web sayfasıdır. Bu kitapta eski ama yararlı örnekleri bulabilirsiniz. </description>
 		</item>
 		<item>
 			<title>Securing PHP Web Applications</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-27 19:51:28</pubDate>
+			<pubdate>2010-11-27 19:51:28</pubdate>
 			<description>Web programları diğer programlardan daha fazla tehlikeye maruz kalır. Bu tehlikelere karşı korunma yollarını bu kitapta bulabilirsiniz.</description>
 		</item>
 		<item>
 			<title>ImageMagick Tricks</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-26 19:51:28</pubDate>
+			<pubdate>2010-11-26 19:51:28</pubdate>
 			<description>ImageMagick ilk kez 1999 yılında ImageMagick Studio LLC tarafından duyuruldu. Bu resim işleme görevlerini yapan bir grafik programıdır. Yaklaşık 100 formattaki resmi okumak,yazmak ve düzenlemek için kütüphane ve araçlar topluluğudur. Bu kitapta değişik ImageMagick araçlarını kullanarak komut satırından sanat eserleri nasıl yaratılır öğreneceksiniz. Bu program ile resim hazırlamanın diğer araçlara nazaran daha kolay olduğunu göreceksiniz. Örneğin, farklı boyut ve formattaki 3000 resmin boyutunu değiştirir ve watermark eklersiniz? Bu sorunun cevabı ImageMagick. ImageMagick ile ne kadar kolay olduğuna inanamayacaksınız. Tek bir komut ile boyutlandır, damgala, efekt ekle, parça ekle, ayarla, dönüştür, formatla ve daha bir sürü şey... Sadece komut satırı programı değil. Eğer C,Delphi,Python,Perl gibi derleyiciler kullanan bir programcıysanız veya PHP ile çalışan bir web tasarımcısıysanız ImageMagick API'si mevcut.</description>
 		</item>	
 		<item>
 			<title>Beginning OpenVPN</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-25 19:51:28</pubDate>
+			<pubdate>2010-11-25 19:51:28</pubdate>
 			<description>OpenVPN kullanarak sanal özel ağlar oluşturup yönetin. OpenVPN 2001 yılında James Yonan tarafından bulunan müthiş bir yazılımdır ve o günden günümüze kadar geliştirilmektedir. Başka bir VPN çözümü şirket bazında güvenlik, kullanılabilirlik ve zengin içeriği bir arada sunamamıştı. OpenVPN ile yıllar boyunca çalışanlar en iyi çözüm olduğunu kabul ediyorlar. Bu kitap OpenVPN'yi ağ uzmanları ve VPN çaylaklarına tanıtmayı amaçlıyor. OpenVPN diğer çözümlerin işe yaramadığı yerde kullanılabilir ve her platformda çalışabilir. Ancak eski VPN çözümlerinin karmaşıklığı, özellikle IPsec, VPN teknolojisinin zor ve sadece deneyimli uzman işi olduğunu gösterir. OpenVPN aksini ispat ediyor ve bu kitapta görebilirsiniz. Bu kitapta OpenVPN içeriği ve kurulumu detaylı olarak anlatılıyor. Gösterilen çözümler dışında başka yollar da olabilir. Örnekler kolaylık sebebiyle seçilmiştir.</description>
 		</item>	
 		<item>
 			<title>Asterisk:The Future of Telephony</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-24 19:51:28</pubDate>
+			<pubdate>2010-11-24 19:51:28</pubdate>
 			<description>Bu kitabı Asterisk öğrenmek isteyen herkese tavsiye ediyorum. 600'e yakın sayfada asterisk hakkında öğrenmek isteyeceğinizden de fazlasını bulacaksınız. Sadece Linux sistemlerde değil Mac ve PC'lerde de Asterisk kullanın.</description>
 		</item>	
 		<item>
 			<title>Asterisk Gateway Interface 1.4 and 1.6 Programming</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-23 19:51:28</pubDate>
+			<pubdate>2010-11-23 19:51:28</pubdate>
 			<description>Asterisk tabanlı VoIP(voice over IP) telefon sistemlerini PHP ve PHPAGI kullanarak tasarlayın. Bu yazarın ikinci kitabı(ilki AsteriskNOW). Yazar 6 yıllık Asterisk programcısı deneyimini bu kitapla paylaşıyor. Sistem kurulumu dışında PHP ile örnek bir yazılımın geliştirdiği bu kitap temel linux sistemi ve basit PHP bilgisi dışında bir IP telefon ve bir Digium TDM11B kart gerektiriyor.</description>
 		</item>	
 		<item>
 			<title>AsteriskNOW</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-22 19:51:28</pubDate>
+			<pubdate>2010-11-22 19:51:28</pubdate>
 			<description>AsteriskNOW,Digium tarafından yayınlanan açık kaynak yazılım paketidir. Linux dağıtımının içinde Asterisk(en başarılı açık kaynak telefon motoru ve araç kutusu), AsteriskGUI ve bir Asterisk telefon sistemi için gerekli diğer yazılımlar var. Bu kitap AsteriskNOW açık kaynak PBX aygıtı kurulumu ve ayarlanmasını içerir. AsteriskNOW en hızlı şekilde kurmak ve çalıştırmak için deneme kitabı veya el kitabı formatında hazırlanmıştır. Bir Asterisk telefon sistemini kurmak için en az bir Digium TDM400 kart ve bir LinkSys 941 IP telefon gereklidir.</description>
 		</item>	
 		<item>
 			<title>Building Telephony Systems With Asterisk</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-19 19:51:28</pubDate>
+			<pubdate>2010-11-19 19:51:28</pubdate>
 			<description>Telefon sistemleri şirketlerin değişmez bir parçası ve bu konuda kullanılan framework'ün mümkün olan her konuda kullanılabilmesi ve kullanıcı dostu olamsı çok önemli. Bu kitap bu sistemlerden birine giriş niteliğindedir: Asterisk. Kitapta asteriskin kullanımını gerektirecek durumlar ve nasıl kullanacağınızın yanında doğru donanımın seçilmesi, ayarların yapılması, Zaptel kullanımı, protokoller, telefon planlaması, çağrı dağıtımı, kalite kontrol, hata kontrol, kayıt ve Asterisk@home ile SugarCRM kurulumunu da içeriyor.</description>
 		</item>	
 		<item>
 			<title>Being Geek</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-18 19:51:28</pubDate>
+			<pubdate>2010-11-18 19:51:28</pubdate>
 			<description>Bizler çalışkanız, belki ineğiz de ama mal olmadığımız kesin. Ben inek olmaktan dolayı gururluyum. Çünkü bu tanımın hakaretten onur nişanesine dönüşmesine tanık oluyoruz. İnsanlar hergün inek dedikleri kişilerin yaptıklarını kullanıyor ve onlara muhtaç oluyor. Artık ineklerin çalışkanlığıyla değil diğer insanların salaklığıyla dalga geçiliyor. Ancak hala bazı sosyal becerilerden yoksunuz, garip kontrol sorunlarımız var ve bilgiye karşı inanılmaz bir açlık... Hatta bazı sorunlarımıza isim bile veremiyoruz. Bu kitap iş hayatında karşılaşacağımız bazı zorlukları nasıl atlatacağımızı anlatıyor.</description>
 		</item>	
 		<item>
 			<title>Apache Cookbook</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-14 19:51:28</pubDate>
+			<pubdate>2010-11-14 19:51:28</pubdate>
 			<description> Apache web sunucusunun kurulması ve ayarlanmasıyla ilgili düzinelerce döküman var, ancak ufak tefek ama önemli sorunlar için kaynak bulmak sıkıntı. Örneğin genel modülleri eklemek, log işlemini kontrol etmek, Red Hat ve Windowsta kurulum, isim tabanlı sanal sunucu kurmak, proxy sunucuları yönetmek ve güvenli hale getirmek... Bu kitap sizeApache'nin yeni sürümleriyle karşılaşabileceğiniz sorunları çözmenizde yardımcı olacak. Apache Software Foundation elemanları tarafından yazılmış olup, Apache 2.0 ve 2.2 için güncellenmiştir. Güvenlik, yönlendirme ve isimlendirme, CGI ve dinamik içerik, hata yönetimi, SSL, performans konularında 200 den fazla sorunu cevabını bulabilirsiniz.Kitap yeni başlayanlardan, sunucu ustalarına kadar herkesin merak ettiklerini cevaplıyor. Her soru için kısa cevap, açıklama ve detaylı bilgi barındıran kaynaklar var. Oturup tek seferde okumak yerine başınız sıkıştığında başvurabileceğiniz bir kitap.</description>
 		</item>	
 		<item>
 			<title>The Zen of CSS Design Visual Enlightenment for the Web</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-13 19:51:28</pubDate>
+			<pubdate>2010-11-13 19:51:28</pubdate>
 			<description>Web'in geleceğini şekillendiren bir projenin kitabına hoşgeldiniz. The Zen of CSS Design 8 Mayıs 2003'te yayınlanan bir site yüzünden hayata geldi. İnsanların web tasarım anlayışını değiştirmek üzere yola çıktı ve kısa sürede dünya çapında bir marka oldu. Bu sitenin adı "CSS Zen Garden" ve dünyanın çeşitli yerlerinden pekçok yetenekli tasarımcı ve sanatçının ortak çabasının sonucudur. Manifestolar ve galeriler ile CSS tabanlı tasarımla neler yapılabileceğini göstermek üzere kuruldu. Tasarımcılar kendi fikirlerini resim ve stil dosyası olarak paylaşmaya çağırıldı. Tek şart hepsi aynı HTML tabanını kullanmaktır. Bu kuralın istisnası yok. Sayfa yapısı tüm tasarımda aynıdır. Müthiş bir fikir? Biraz da delice? Amaç doğru kullanıldığında CSS'in görsel olarak herşeyi yapmaya muktedir olduğunu göstermek. The Zen of CSS Design sitenin 36 en iyi tasarımını anlatıyor. Bir site hakkında koca kitap mı? Eğer sıradan bir site olsaydı haklıydınız. Ancak the Zen Garden çok başarılı insanlar tarafından yayınlanan çok güzel tasarımları barındırıyor.</description>
 		</item>	
 		<item>
 			<title>ModSecurity 2.5</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-12 19:51:28</pubDate>
+			<pubdate>2010-11-12 19:51:28</pubdate>
 			<description>Bir internet sitesine karşı çeşitli tehlikeler vardır. İyi ayarlanmamış bir sunucu kötü tasarlanmış bir site istenmeyen davranışlara, veri kaybına ve çökmelere neden olabilir. Bir siteyi güvenli hale getirmemek para ve zaman kayıplarına neden olabilir. En güvenli siteleri yaratmak için mod_security hızlı ve kolay bir araçtır. Mod_security bir ateş duvarıdır ve Apache sunucularında çalışır. Bu kitap ile sitenizi saldırılara karşı koruyabilir, yapılan saldırıları kayıt altına alabilir ve saldırganları tespit edebilirsiniz. Ancak dikkatli olmanızı öneririm. Çünkü bazı kurallar sitenizin istenilen işlemleri yapmasını da engelleyebilir. Eğer düzenli ifadeler, apache sunucusu, SQL, php veya Java bilginiz varsa bu kitapla sitelerinizi güvenli hale getirebilirsiniz. </description>
 		</item>	
 		<item>
 			<title>Firebug 1.5: Editing, Debugging, and Monitoring Web Pages</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-11 19:51:28</pubDate>
+			<pubdate>2010-11-11 19:51:28</pubdate>
 			<description>Bir web tasarımcısına neden Internet Explorer'dan nefret ettiğini sorarsanız size saatlerce konuşabilir. Ancak neden Firefox'a aşık olduğunu sorarsanız tek bir cevap alırsınız: Firebug. Firebug aslında tüm tarayıcılarda çalışabilen bir ekleme ama asıl gücünü Firefox ile gösteriyor. Hayatınızın bu eklenti ile ne kadar kolaylaşacağına inanamazsınız. Artık sayfanın stilini değiştirmek için sayfayı yenilemeye gerek yok. İstediğiniz HTML elemanını, istediğiniz stili silebilir, ekleyebilir ve değiştirebilirsiniz ve bunları anında ekranda görebilirsiniz. JS kodlarını konsola yazıp sonucuna bakabilirsiniz. Ajax çağrılarını ve js çalışmasını izleyebilirsiniz. Hatta çeşitli eklentilerle (evet eklentinin eklentisi) PHP kodlarınızı debug edebilir, sayfanın optimizasyonunu yapabilir, cookieleri yönetebilir, jQuery sorgularını çalıştırabilir, DOM yapısına bakabilirsiniz. Bu eklentiden önce nasıl site yapılırdı diye düşünmeden edemiyor insan. Ancak nasıl kullanacağınızı bilmeden hiçbir işe yaramaz. Bu kitap ile site yapımını kolaylaştırabilirsiniz.</description>
 		</item>	
 		<item>
 			<title>Zend Framework 1.8 Web Application Development</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-10 19:51:28</pubDate>
+			<pubdate>2010-11-10 19:51:28</pubdate>
 			<description>Web programcısı olarak her zaman işimizi kolaylaştıracak ve sistemimizi güçlendirecek yollar ararız. Yeni teknolojiler takip etmenin yanında eski yöntemlerimizi iyileştirmeye çalışırız ki bu bazen zor olabilir. Ancak frameworkler ile kabul görmüş yöntemleri sorunsuzca entegre edebilir ve gerekli yardımı bizim gibi framework kullanıcılarından ve kitaplardan temin edebiliriz. PHP frameworkleri arasında bence en iyisi Zend Framework. Bu kitap "Zend Framework, A Beginner's Guide" kadar kapsamlı ve tatmin edici olmasa da diğer kitabın eksik bıraktığı konuları tamamlayıcı nitelikte; View Helpers, PHPUnit ve Zend_Test ile test etme, Zend_Acl ile rol tanımlama, Apache Ant kurulumu vb.</description>
 		</item>	
 		<item>
 			<title>Ajax and PHP Building Responsive Web Applications</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-09 19:51:28</pubDate>
+			<pubdate>2010-11-09 19:51:28</pubdate>
 			<description>Ajax, herkes için farklı şeyleri temsil ediyor. Kullanıcı için sevdiği sitenin daha hızlı ve daha interaktif olması. Web tasarımcı için az çalışmayla çok iş yapmak demek. Aslında Ajax herkes için iyi birşey demek. Ancak ajax bir teknoloji değil farklı tekniklerin birleşmesiyle oluşan bir karışımdır ve bu karışımın elinizde patlaması da bir olasılık. Eğer ajax temellerini merak ediyorsanız ve her zaman kullanabileceğiniz bir ajax fonksiyonu yaratmak istiyorsanız bu kitap ile daha fazlasını yapabilirsiniz. Ajax chat, svg ile dinamik grafik çizimi, sürükle bırak arayüzler, veri tabloları ve daha fazlası bu kitapta. Kitap script.aculo.us framework ve bazı modası geçmiş yöntemler kullanıyor. 2006 yılında yayınlanmasından dolayı tüm örnekleri gerçek hayata geçirilecek türden değil. Ancak sıfırdan başlayanlar için iyi bir başlangıç olabilir.</description>
 		</item>	
 		<item>
 			<title>JavaScript Testing Beginners Guide</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-08 19:51:28</pubDate>
+			<pubdate>2010-11-08 19:51:28</pubdate>
 			<description>Javascript web 2.0 dünyasında önemli bir parça. Piyasada pekçok framework olmasına rağmen kendi başınıza yazmak, test etmek ve hat ayıklamak sizi daha iyi bir js programcısı yapacaktır. Test ve hata ayıklama uzun, zor ve sıkıcı bir iş olsa da bu kitap ile ne tür hatalarla karşılaşacağınızı, çözüm yöntemlerini, program ve kütüphaneleri öğrenebilirsiniz.</description>
 		</item>	
 		<item>
 			<title>Beginning Ajax with PHP - From Novice to Professional</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-07 19:51:28</pubDate>
+			<pubdate>2010-11-07 19:51:28</pubdate>
 			<description>Ajax hakkında çok az bilginiz varsa veya hiç bilginiz yoksa bu kitap ile ajax kullanmaya başlayabilirsiniz. Ajax ile form onaylama, resim yükleme ve web servisi oluşturma gibi konuları php ve mysql kullanarak tarayıcılar arası uyum, güvenlik ve hata ayıklama yöntemleriyle açıklıyor. Ajax kullanmaya yeni başlayanlar için eğitici bir kaynak ancak usta programcıların bakmasına gerek yok. Çünkü kitap herhangi bir kütüphane (jQuery, prototype, dojo vs.) kullanmadan yapılan temel düzeyde ajax tekniklerini içeriyor.</description>
 		</item>	
 		<item>
 			<title>Introducing HTML5</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-11-04 19:51:28</pubDate>
+			<pubdate>2010-11-04 19:51:28</pubdate>
 			<description>İnternetin yeni dili ile ilgili en iyi kitap. Bu kitap dilin tamamı için bir başvuru kitabı değil. Zaten olamaz da çünkü html5 hala yapım aşamasında ve sürekli yeni şeyler ekleniyor ve çıkarılıyor. Ancak bazı oturmuş kalıplar var ve bu kitapta o konuları örnekleri ile birlikte bulabilirsiniz. Yeni HTML5 yapıları, kullanıcı dostu yapılar oluşturma, yeni form elemanları, görüntü ve ses entegrasyonu, canvas ve çizim yapma, web storage ve web sql ile veri depolama, internete bağlı olmadan sayfayı çalıştırma, geolocation ile yer tespiti, worker ve socketler ile mesajlaşma ve daha niceleri...</description>
 		</item>	
 		<item>
 			<title>jQuery 1.3 with PHP</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-10-28 19:51:28</pubDate>
+			<pubdate>2010-10-28 19:51:28</pubdate>
 			<description>Hızla cevap veren, gereksiz sayfa yenileme yapmayan ve güzel arayüzleri olan PHP programları yapmak büyük miktarda JavaScript bilgisi gerektirir. O zaman bile sonuç tüm tarayıcılarda çalışmayabilir. jQuery (en iyi javascript kütüphanesi) ile tarayıcı sorununu unutun ve güzel ve hızlı arayüzleri kolayca tasarlayın.</description>
 		</item>	
 		<item>
 			<title>Design Accessible Web Sites</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-10-26 19:51:28</pubDate>
+			<pubdate>2010-10-26 19:51:28</pubdate>
 			<description>Bir site yaptığımızda mümkün oan en fazla ziyaretçiye sahip olmak isteriz. Ancak bunu sıradan siteler yaparak gerçekleştiremeyiz. Çeşitli sebeplerle kısıtlanmış kullanıcılara da hitap eden bir site tasarlamamız gerekir. Bu bazı ülkelerde (ABD, Kanada, İngiltere...) yasal bir zorunluluktur. Renk körleri, sağırlar, zihinsel özürlüler, fiziksel özürlüler, fare kullanamayanlar... düşünmemiz gereken çok fazla şey var ve Web Content Accessibility Guidelines 2.0 Triple A (WCAG 2.0 AAA) almak o kadar kolay değil. Ancak bu kitap gerekli tüm iyileştirmeleri yaparak sitenizin tüm kullanıcılara hitap etmesini sağlar.</description>
 		</item>	
 		<item>
 			<title>Pragmatic Ajax</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-10-24 19:51:28</pubDate>
+			<pubdate>2010-10-24 19:51:28</pubdate>
 			<description>Pragmatik yayınlarından çıkan ajax ile ilgili güzel bir kitap. Java, PHP, Ruby, ASP.NET ile ajax tekniklerini öğretiyor.</description>
 		</item>	
 		<item>
 			<title>Sexy Web Design</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-08-29 19:51:28</pubDate>
+			<pubdate>2010-08-29 19:51:28</pubdate>
 			<description>Eğer bir web tasarımcısıysanız ve ya olmak istiyorsanız bu kitap sizin için. Bir siteyi oluşturmak için gerekli olan her şeye değil tek kod yazmadan güzel arayüzler elde etmeye odaklanıyor. Ancak sadece güzel değil aynı zamanda kullanışlı ve ziyaretçinin isteklerini karşılayan bir arayüzün nasıl olması gerektiğini bu kitaptan öğrenebilirsiniz.</description>
 		</item>
 		<item>
 			<title>Everything You Know About CSS Is Wrong!</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-09-05 19:51:28</pubDate>
+			<pubdate>2010-09-05 19:51:28</pubdate>
 			<description>Tasarımcılar ne ister CSS ne sunar? HTML tabanlı tasarımlardan CSS tasarımlarına geçiş için okunabilecek bu kitap biraz eski de olsa yararlı bilgiler içeriyor. IE6 ve 7 için ipuçları ile eski tarayıcıları da destekleyen site tasarımları yapabilirsiniz. Tablo kullanmadan tablo gibi arayüzler tasarımı.</description>
 		</item>
 		<item>
 			<title>The Art And Science of CSS</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-09-06 19:51:28</pubDate>
+			<pubdate>2010-09-06 19:51:28</pubdate>
 			<description>CSS'in ilk günlerinde tasarımcılar sıkıcı,karesel ve ince duvarlı formlar tasarladılar.'CSS çok çirkin!' bir kanun olmuştu. Ama 'CSS Edge' ve 'CSS Zend Garden' gibi projeler sayesinde tasarım dünyası CSS'in öncülü tablolar gibi tasarımlar yapabildiğini, hatta yeni ufuklar açtığını gördü. Kodların temizliğinden bahsetmiyorum bile. Bu kitap genel web site unsurlarını pratik örneklerle nasıl tasarlayacağınızı gösteriyor. Bu kitap boyunca karmaşık tasarımları modern tarayıcılarda hack olmadan veya fazladan kod yazmadan oluşturma tekniklerini öğreneceksiniz. Ne erişim ne de kod kalitesi tasarımları daha kolay elde etmek için kurban edilmiyor, bu yüzden kitaptaki örnekler XHTML ve CSS uygundur. Her bölüm bir önceki bölümde öğrendikleriniz üzerine kuruluyor, size kendi tasarımlarınızda kullanabileceğiniz yetenek ve aletler veriyor. Kitabın 7 başlığı var: Başlıklar, resimler, arka planlar, navigasyon, formlar, kıvrımlı köşeler ve tablolar.</description>
 		</item>
 		<item>
 			<title>The Ultimate HTML Reference</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-09-08 19:51:28</pubDate>
+			<pubdate>2010-09-08 19:51:28</pubdate>
 			<description>A dan Z ye HTML. XHTML ve HTML arasındaki ayrım nedir? Yapısal elemanlar, başlık elemanları, listeler, yazı formatlama, formlar, resimler ve videolar, tablolar, frameler ve pencereler, genel özellikler... Hatta standart olmayan öğeler bile bu kitapta var.</description>
 		</item>
 		<item>
 			<title>The Ultimate CSS Reference</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-09-17 19:51:28</pubDate>
+			<pubdate>2010-09-17 19:51:28</pubdate>
 			<description>A'dan Z'ye CSS. CSS hakkında bilmel istediğiniz herşey. CSS versiyonları, yazım kuralları, referanslar, seçiciler, pseudo sınıflar, CSS tasarım, formatlama, kutu özellikleri, liste ve tablo özellikleri, renkler ve arkaplanlar, yazım kuralları, içerikle oynama, imleçler, yazıcı için kurallar, tarayıcıya özel kurallar, IE hackler, XHTML ve HTML farkları...</description>
 		</item>
 		<item>
 			<title>Zend Framework, A Beginner's Guide</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-09-23 19:51:28</pubDate>
+			<pubdate>2010-09-23 19:51:28</pubdate>
 			<description>Son zamanlarda PHP çok gelişti. PHP5 ile birlikte biz programcılar projelerimizi geçmişten ders alarak gerçekleştirir olduk. Her proje bir öncekinden parçalar barındırıyordu. Fonksiyonlar ve sınıflar türedikçe kod kalitesi ve standartı yükselmeye başladı. Ancak bu geniş çaplı değildi. PHPUnit gibi araçlar nesne modellerini basitleştirmeye ve sağlam test pratikleri oluşturmaya odaklandı. Böylece PHP Frameworkleri yükselmeye başladı. Bu frameworkler arasında en güçlüsü tabi ki Zend Framework de PHP 5 ile birlikte piyasaya çıktı. Bu kitap en iyi Zend Framework başlangıç kitabıdır. Zend Framework de ne diyorsanız, Zend Framework hakkında hiç bir şey bilmiyorsanız bile bu kitabı okuduktan sonra tüm sitelerinizi Zend Framework ile yapmaya başlayacaksınız. MVC ve Router kullanarak sayfalara hükmedin. Otomatik veri kontrolü ve kullanıcı dostu uyarı mesajları olan formlar hazırlayın. Doctrine: Modelleri bir adım öteye taşıyın, sağlam ve kolay güncellenebilen veri tabanı bağlantısı ile stabil siteler yaratabilirsiniz. Doctrine ile seçme, kaydetme, güncelleme, silme ve karmaşık sql ifadelerinin nasıl kullanıldığını bu kitap ile öğrenebilirsiniz. Veri tabanı sonuçlarını sayfalama ve sıralamak çok kolay artık. Zend_Search_Lucene ile arama motoru oluşturma, aynı çıktıyı farklı formatlarda yayınlamaya kadar pekçok yazı fonksiyonunu bu kitap sade ve anlaşılır bir dille, örnek bir proje üstünde anlatıyor. Büyük baş ağrısı dosya yüklemeyi güvenli hale getireceksiniz. Hatalarınızı veri tabanına veya bir dosyaya kaydedin, firebug ile hataları gerçek zamanlı denetleyin. Çok dilli siteler hazırlayın, otomatik tarih, dil, uzunluk dönüşümü yapın. Atom ve RSS formatında haberler türetin ve okuyun. Farklı türdeki web servislerini anlayın ve Google, Amazon, Twitter gibi sitelerden veri alın ve arama yapın. SOAP ve REST nedir? Menu, site haritası vb ile sitenizde gezintiyi kolaylaştırın. Zend Framework'ün Dojo entegrasyonu nasıl çalışır? Zend Framework ile YUI kütüphanesini birlikte kullanın. Yardımcı fonksiyonlar oluşturun. Cache, benchmarking, profiling, optimizing, ... en hızlı siteyi yaratın.</description>
 		</item>
 		<item>
 			<title>Deliver First Class Web Sites</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-09-24 19:51:28</pubDate>
+			<pubdate>2010-09-24 19:51:28</pubdate>
 			<description>Piyasada web site hazırlamayla ilgili binlerce kitap ve milyonlarca makale ve blog var. Peki bu kitabı okumaya ne gerek var? Hala görmezden gelinen, atlanan veya hiç araştırılmayan sebepler yüzünden kritik kısımlarda hatalara rastlanabiliyor. Pek çok yetenekli programcı, uykusunda bile kod yazan mühendisler renk uyumunu tutturamıyorlar. Pek çok tasarımcı CSS hackleri veya SEO bilgisinden yoksun. Aslında başarılı bir site tasarımı için bilinmesi gereken çok şey var. Planlama, tasarım, kodlama ve deneme aşamalarının tamamını kapsayan bu kitap derinlemesine olmasa da konuya bir giriş yapmak için gerekli bilgilere sahip. Yazarın 10 yıllık deneyiminin sonucu bu kitap konusunda uzman kişilere referansta gösteriyor. </description>
 		</item>
 		<item>
 			<title>Photography For The Web</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-09-28 19:51:28</pubDate>
+			<pubdate>2010-09-28 19:51:28</pubdate>
 			<description>Dijital resimler şu anda çok popüler ve çok ucuz. Bu yüzden herkes bu konuya el atıyor. Büyük ihtimalle telefon, PDA ve hatta müzik çalarınızın dijital kamerası vardır. Filmlerle uğraşmak ve pixelleri işlemek olmayınca fotoğrafcılığın en büyük masrafı ortadan kalktı. İnternet bize fotoğraflarımızı asacak dünya kadar (abartı değil gerçekten tüm dünya) duvar ve çerçeve verdi. Ne yazık ki, bu fotoğrafların neredeyse tamamı düşük standartta. Görünen o ki pek çok kişi için dijital kameranın birincil işlevi, arkadaşlarıyla çektirdiği mutlu anlarını facebook sayfasına yüklemektir. Anın ruhunu korumak yeterli. Çoğu kamera sahibi, aleti nasıl açıp fotoğraf çekeceğini öğrenmek dışında el kitaplarını okumuyor. Eğer tek ihtiyacınız buysa boş ver bu kitabı, git kuş, börtü, böcük çek. Ama eğer insanların baktıkça mutlu olduğu, herkesin beğendiği fotoğraflar çekmekse okumaya devam...  Kameranızın el kitabı fonksiyonlarının nasıl çalıştığını anlatır, ama bu fonksiyonları nerede ve neden kullanacağınızı söylemez. Otomatik ayardaki kameralar gayet düzgün fotoğraflar çeker ancak nasıl kullanacağınızı bilmeden ayarları elle kurmak anı mahveder. Sıradan bir fotoğraf ile neredeyse iğrenç bir fotoğraf arasında kalınca insanların herşeyi otomatiğe bağlaması gayet normal. Bir fotoğraf sanatçısı olmak için gerekli her şeyi ne bu kitaptan ne de başka bir kitaptan öğrenemezsiniz. Öğrenmek gereken çok şey var, ama birkaç basit teknikte ustalaşınca geresi zamanla gelir. Bu kitap size kameraların nasıl çalıştığını,  ışığın önemi ve ne görürüz ve ne tepki veririz konularını işliyor. Tabi ki pratiğin yerini hiçbir kitap tutamaz ama nereden başlayacağınızı öğrenebilirsiniz. Kendine güvenen ve yetenekli bir fotoğrafçı olma yolundaki ilk engeli aşacaksınız. Ve kitabın sonunda bloğunuzda, sitenizde ve galerilerinizde muhteşem fotoğraflar görmeye başlayacaksınız.  Eğer kaliteli bir kameranız varsa ancak otomatik modda çalıştırıyorsanız; eğer fotoğraf çekmeyi seviyor ancak beklediğiniz kadar güzel çıkmadıklarını düşünüyorsanız; eğer tüm dünyayı saran amatör fotoğrafcılık akımına merak saldıysanız... bu kitap sizin için. Bu kitap kamera mekanikleri ve  önemli fotoğraf teknikleri sunuyor. Kameranız bas-çek-sakla aygıtından anlayarak ve severek istediğiniz gibi fotoğraflar çekebileceğiniz bir alete dönüşecek. Güzel bir fotoğraf çekmekle bitmiyor, ayrıca sıradan fotoğraflarınızı mükemmel hale getirecek numaraları da öğreneceksiniz.</description>
 		</item>
 		<item>
 			<title>The Principles Of Beautiful Web Design</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-09-29 19:51:28</pubDate>
+			<pubdate>2010-09-29 19:51:28</pubdate>
 			<description>Bir eve taşındığınızda yapılan ilk iş duvarları boyatmak ve eskimiş fayans ve parkeleri yenilemektir. Bir siteyi dekore etmek ile bir evi dekore etmeye benzer. İyi bir tasarım elemanların birbirine uyumu ve ilişkilerinde gizlidir. Bir ev veya bir site de olsa konu duvar kağıdını değiştirmek başlı başına dekorasyon çözümü değil, sadece bir parçasıdır. Duvar kağıdını değiştirdiğimizde ayrıca lavaboyu onarmak (form), duşakabin taktırmak(border), kapıyı boyatmak(color), fayansları yenilemek(font), ışığı ayarlamak(opacity,z-index), musluk ve tuşları değiştirmek(button) gerekir. Sadece duvar kağıdını değiştirsek ve diğerlerine dokunmasak hala kötü bir evimiz olur. Site yaparken tabi işler daha kolay ve hızlı oluyor. Trendler gidip gelir ancak iyi bir tasarım hiç kaybolmaz. En son tasarım trendini takip etmek geçici olarak beğenilmek için iyi bir yöntemdir. Ancak bu trend ne kadar sürecek? Bildiğim kadarıyla bir zamanlar blink ve marquee tagleri profesyonel tasarım yöntemi olarak kabul ediliyordu. Ama kayan js haberleri, okunabilirlik, tık sayaçları ve tıknaz tablo duvarları geçmişte pek çok başarılı ana sayfaya konuk oldu. Bunlar web tasarımın ceviz parkeleri, deri koltukları, gümüş takımları. Internet Wayback Machine'ne girin ve şöyle 90'ların ortalarına bir gidelim ve Fortune 500 şirketlerin ve ünlü sitelerin sayfalarına bir bakalım. (Cidden böyle bir site var, girin, bakın)  İyi ve kötü 5 site bulmaya çalışın. O zamanlarda bile muhteşem sitelere rastlayabilirsiniz. O zamanların göz dolduran tasarımları tamamen "yeni" teknoloji Photoshop 4.0 e dayanıyordu. İyi tasarım teknolojiyi aşar. Ufak detaylar büyük değişiklik yaratır. Bazıları bu konuya karşı çıkar ve cilalanmamış, amatör görünümlü sitelere güvenildiğini söylerler. Bence bir noktayı atlıyorlar. Ne tür bir site tasarladığınız önemli değil, tasarım güzel olduğu kadar kullanımı kolay olmalı. Dizaynı değiştirmekle kullanımı kısıtlamıyorsunuz, sadece ziyaretçinin sitede geçiridiği zamana renk katıyorsunuz. Bazı insanlar küt köşeli kutularla yaşayabilir ama -bazı yerler hariç- kıvrımlı köşelerden daha iyi durduğunu söyleyecek insan bulamazsınız. Hiç bir koşulda kötü tasarım kabul edilemez. Eğer bir kazanç söz konusu değilse, sadece hobi amaçlı sitelerde istediğinizi yapın. Bu kitabın amacı belli: Yazarın web tasarım hakkında bildiklerini herkesin anlayıp uygulayabileceği bir şekilde açıklamak. Neden? Çünkü web dizaynı hakkında genel bir kanı oluşmalı. Hepimiz iğrenç siteler tarafından kuşatılmış bir internetle karşı karşıyayız. Artık buna dur demenin zamanıdır.</description>
 		</item>
 		<item>
 			<title>Build Your Own Web Site The Right Way Using HTML And CSS</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-09-30 19:51:28</pubDate>
+			<pubdate>2010-09-30 19:51:28</pubdate>
 			<description>Neden bu kitabı okumalısınız. Cevap başlıkta yazılı. İlk seferde doğru şekilde, kötü alışkanlıklar kapmadan yapmak. Biraz duralım ve insanların yanlış şekilde öğrendiği başka bir konuya bakalım: Araba kullanmak. Eğer kullanmayı bilmiyorsanız özür dilerim ama ben devam edeceğim. Pek çok insan için ilk sürüş deneyimi çok kafa karıştırıcıdır; hangi pedal gaz, debriyaja ne zaman basılacak, bişeylere çarpmadan kullanmaya çalışmak... Bu arada diğer deneyimli şöförler araca atlar, motoru çalıştırır ve A dan B ye pek zorlanmadan giderler. Bu sürücüler geçmişte kötü alışkanlıklar elde etmişlerdir ancak uygun bir sürüş dersiyle öğrenmiş olsalardı en baştan bu alışkanlıklardan kurtulacaklardı. Sürüş dersinde size aynaları kontrol et, hız limitine uy ve sert dönüşlerden kaçın derler. Ama düşünün size "yol temiz kaptır gidelim" veya "gece tekyönde kimse olmaz kısa yoldan gidelim" dedilerse kaza yapmanız yakındır ve bu alışkanlıklarınız uzun süre devam eder. Web sayfası yapmak buna benzer. Yazar neredeyse 10 yıldır site tasarlayıp satıyor. 10 yıl önce çok az kitap vardı. Bu yüzden yazar pek çok şeyi zor yoldan öğrendi. Ancak bizim böyle bir sorunumuz yok. </description>
 		</item>
 		<item>
 			<title>Fancy Form Design</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-10-01 19:51:28</pubDate>
+			<pubdate>2010-10-01 19:51:28</pubdate>
 			<description>Hergün kullandığınız siteleri düşünün. Belki bloğunuz var. Belki forumları geziyorsunuz. Facebook gibi sosyal ağlar ile arkadaşlarınızla iletişime geçiyorsunuz. Yada Yahoo veya Google ile arama yapıyorsunuz. Belki flickr ile fotoğraflarınızı paylaşıyorsunuz. Belki internetten alışveriş yapıyorsunuz.... Bunların ortak noktası nedir? Formlar. Hergün çeşitli meseleler için insanlar formları kullanır. Onlar sitenin en aktif parçalarıdır. Etkin ve güzel formlar sitenize mutlu kullanıcı olarak geri döner. Kötü tasarlanmış formlar tekrar ziyaretleri azaltır, geri tuşuna basılmasını arttırır. Evet bunca önemine rağmen tasarımcılar formları sıkıcı, bunaltıcı, zor ve boşa zaman kaybı olarak görür. Bu kitap güzel ve kullanışlı formları rahat ve kolay şekilde tasarlamayı öğretiyor.</description>
 		</item>
 		<item>
 			<title>HTML5 For Web Designers</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-10-04 19:51:28</pubDate>
+			<pubdate>2010-10-04 19:51:28</pubdate>
 			<description>Font kullanımı, CSS3 veya başka birşey internetin yeni bebeği HTML5 kadar heyecan uyandırmamıştı. W3C'nin parçalaması ve politikalarının sonucu pek çok mutsuz ses yükselse de internetin yeni dili herkeste korku, öfke, sevinç ve hüzün karışımı bir his uyandırdı. Korku: Eski siteleri yeni teknolojiye uygulanabilecek mi? Öfke: Tarayıcı tasarımcıları yığınla döküman okuyup bu teknoloji ürünlerine entegre edebilecek mi? Sevinç: Zor, gereksiz ve ağır (sana sesleniyorum Flash) parçalardan kurtulup daha kolay ve kullanışlı parçalara sahip olacağız. Hüzün: XHTML2'yi bekleyen XML guruları hataya daha açık yeni dile sıcak bakmıyorlar. Her kesimden bir ses yükseliyor ama bizim için önemli olan nasıl tasarlayacağız? Bu kitap dalında bir ilk değil pekçok HTML5 kitabı var ve daha fazlası yolda. 500 sayfalık ansiklopedi tarzında değil bu kitap; daha anlaşılır, resimlerle ve örneklerle bezenmiş, daha önemlisi web tasarımcıları için yazılmış bir kitap. </description>
 		</item>
 		<item>
 			<title>Javascript For Dummies</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-10-05 19:51:28</pubDate>
+			<pubdate>2010-10-05 19:51:28</pubdate>
 			<description>"Ben salak değilim!" diye hemen savunmaya geçmeyin. Bu yurtdışında konu hakkında hiç birşey bilmeyenlere kolay yoldan öğretmeyi amaçlayan kitaplara verilen genel isim. Utanmaya gerek yok. Javascript en çok kullanılan internet son kullanıcı (frontend) dili: Tamam gerçekçi olalım aslında tek dil. Eğer HTML ile uğraştıysanız ve sitenize biraz iletişim kazandırmak istiyorsanız okumaya devam. Javascript ile karizmatik grafik efekleri yapabilir, girdileri kontrol edebilir ve bu girdilere göre sitenin davranışını değiştirebilirsiniz. Bu işlemler için C++ veya Java gibi ağır ve bol kütüphaneli bir dile de gerek yok. Javascript ile yapacağınız işlemlerin çoğu HTML yapısına (DOM) müdahil olmaktır, bu yüzden az da olsa HTML bilginiz olmalı. HTML öğrenmek için sizi sayfanın ilgili kısmına alalım. Kitapta javascript mantığını anlatmak için gerçek hayattan örnekler kullanılıyor; foo,bar,baz saçmalığına yer yok. Kendi sayfalarınızda kullanmak isteyeceğiniz tonla script barındırıyor. İnanılmaz derecede salakça sorularınız bile olsa bu kitapta yanıtını bulabilirsiniz. Aslında bu kitabın amacı bu salak sorulara yanıt vermek. Sürekli "salak" diyorum gücenmeyin. Aslında zor ve pekçok kişinin bilmediği numaralara da sahip olacaksınız: Java applet ile iletişime geçmek, Netscape plug-inleri ve ActiveX parçaları gibi...</description>
 		</item>
 		<item>
 			<title>Simply Javascript</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-10-06 19:51:28</pubDate>
+			<pubdate>2010-10-06 19:51:28</pubdate>
 			<description>Görünüş itibariyle Javascript internet sayfalarını tarayıcıda görünürken dinamik olarak değiştirmene izin veren bir programlama dili. Öğrenmek ne kadar zor olabilir ki? Bir gününüzü ayırdınız mı halloldu demektir. Ancak javascript göründüğünden daha karmaşıktır. Eğer bir Dr. Who hayranıysanız buna programlama dillerinin Tardis'i diyebilirsiniz. Eğer hayran değilseniz benimle birlikte bu ineklere gülelim. 3,2,1...Haaaaa. Konumuza dönelim. Pek çok javascript kitabı, bazıları gerçekten saygı değer isimlerin, size basit sorunlar için basit çözümler sunacaklardır ve orada bırakacaklardır sizi. Sadece kendinizi asmanıza yetecek kadar iple kapana kısılırsınız. Gerçek bir sorunu çözemezsiniz ve bu sıkıntıyla internette aramaya başlarsınız. Bulduğunuz en yakın çözüm size hiçbir anlam ifade etmez çünkü okunduğunuz kitapta perk çok yararlı bilgi verilmamiştir. Nesne, olay dinleyicileri, kapanışlar gibi... Bu kitap farklı olmaya çalışıyor. İlk sayfadan başlayarak javascripti kullanma adabını öğreneceksiniz. Tamamen çalışan ve profesyonel sitelere entegre edilebilecek örnekler ile. Javascript kodu yazmak, yazılanları anlamak ve eski zararlı kodları tahlil etmek için gerekli güvene sahip olacaksınız. Bu kodu kullan, bu kod her tarayıcıda çalışır tarzı yazılardan uzak durun, bunlar sorunu çözmekten ziyade bellek kayıplarına neden olur. Bu kitap boyunca jquery, Prototype, Yahoo! UI, Dojo kütüphanesine de yer veriliyor.</description>
 		</item>
 		<item>
 			<title>Javascript Bible</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-10-13 19:51:28</pubDate>
+			<pubdate>2010-10-13 19:51:28</pubdate>
 			<description> Başlangıçta Javascript'in formlardaki girdilerin kontrolünde kullanılacağı sanılıyordu. Ama çok geçmeden Javascript nesneleri ve kodun oluşturduğu HTML ile o kadar çok site yapılması şaşırtıcıydı. Bir kaç resim, HTML ve javascript ile çok hızlı ve etkili işler çıkarılabileceği ortaya çıktı. Sonuç olarak DHTML olarak bilinen javascript destekli siteler için tarayıcı desteği oluşmaya başladı. Binlerce web tasarımcısı javascriptin gücünü gösterirken eski ortamlarda (sana sesleniyorum IE) çalışmanın zorluğunu da gördük. HTML ve javascript dilleri kullanması kolay olmanın yanında, programlama uzmanlığı tüm pixelleri incelemek ve tüm olayları idare etmeyi gerektirmiyor. Javasript'in bu günkü kullanımı ilk zamanlarda ki beklentileri geride bıraktı. Pikselleri gerektirmemesi resimli HTML pek çok web tasarımcısının işinden kolaylaştırdı. Olay akışı ile bu tasarımcıların programcıya dönüşmesini sağladı. Bunun en büyük kanıtı belki de Mozilla tarayıcısı, tüm arayüzler, bazı widget'lar ve bazı eklentiler tamamen Javascript, CSS, XML tabanlı diller ve resimler kullanılarak yaratıldı. JavaScript, ayrıca çok kullanışlı bir dil, HTML ve XML kullanmadan bile. Sunuculara entegre edildi, tasarım araçlarında var, tarayıcı plug-inleri ve bazı tarayıcı türlerinde (3B dünya haritaları gibi). Javascript'in uluslararası standartı ECMA-262 (ISO 16262) beşinci versiyonuna ulaştı. Ancak java ve C gibi dillere nazaran daha genç sayılır. Javascript, yaratıcı,sadık ve sabırlı bir topluluk oluşturmasaydı hayatta kalamazdı. Navigator 2'nin beta testlerine katılan, sorunlara çözümler bulan ve çeşitli yollarla isteklerde bulunan kullanıcılar bu dilin babası sayılırlar. Bu kitap bu birikimin eseridir.</description>
 		</item>
 		<item>
 			<title>jQuery Novice to Ninja</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-10-15 19:51:28</pubDate>
+			<pubdate>2010-10-15 19:51:28</pubdate>
 			<description> Ne tür ninja olduğunuz önemli değil (aşçı ninja, avukat ninja veya gerçek bir ninja). Ustalık önce basit işleri kavramaktadır. Bir kez kavradın mı, ninjanın görevi öğretilerini iyiliğin yolunda kötülüğe karşı kullanmaktır. jQuery, web sayfalarını dönüştürmede, güzelleştirmede, hatta en eski tarayıcılarda bile çalıştırmada basit ama güçlü bir araç olduğunu kanıtladı. jQuery iki gayesi olan bir javascript kütüphanesidir: web sayfasındaki elemanları kullanmak ve Ajax çağrılarına yardım etmek. Tabiki bunları gerçekleştirmek için birkaç tane komut var ama bunların hepsi benzer ve öğrenmesi kolay. Birkez ilk komutlarınızı zincirlediğinizde, jquery komutlarının bağımlısı olacaksınız ve arkadaşlarınız ve ailenizi bu uğurda kaybedeceksiniz! jQuery kütüphanesinin bir üstü jQuery UI: güzel görünümlü kontroller ve pencereler topluluğu (akordiyon menu, sekmeler ve mesaj pencereleri vb.), kendi kontrollerinizi yazabileceğiniz komut ve olay koleksiyonları. jQuery UI az işle çok güzel arayüzler elde etmenize izin veriyor ve ufak jQuery kodlarıyla neler elde edebileceğinize örnek teşkil ediyor. jQuery sitemizin kullanılabilirliğini arttırır ve daha iyi bir kullanıcı deneyimi yaşatır. Ninja olmak bir API'nin içini, dışını, inciğini, cıncığını bilmek değildir, iyi bir belleğe sahip olmaktır. Gerçek yetenek ve bilgi, onunla beğenilen birşeyler inşa etttiğinizde değer kazanır. Geçmişten ders alan ve geleceğe daha iyisini bıraklar ninjadır. Tabiki bu kolay bir iş değil. Ama jQuery sağolsun artık çok zevkli. Eğer bir son kullanıcı web tasarımcısıysanız, sitenize karizmatik efektler ve etkileşimler koymak istiyorsanız ve heryerde jQuery'nin şanını duyduysanı ve "Ne var lan bu merette?" diyorsanız; bu kitap sizi olayların tam göbeğine atacak. Eğer javascript ile boğuşup kaybettiyseniz, jQuery ile bir şampiyon olabilirsiniz. jQuery benim işim diyenler bile bu kitapta daha fazlasını öğrenebilirler. Tabi bunun için orta veya iyi derecede CSS ve HTML bilmeniz şart. Çünkü jQuery CSS benzeri seçicileri kullanır. Biraz ön bilgi kolaylık sağlar. jQuery, javascripttir. Yani javascript ile yapabildiğiniz herşeyi jQuery ile de yapabilirsiniz.</description>
 		</item>
 		<item>
 			<title>High Performance JavaScript</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-10-16 19:51:28</pubDate>
+			<pubdate>2010-10-16 19:51:28</pubdate>
 			<description> Javascript ilk kez Netscape Navigator tarafından 1996 yılında tanıtıldığında performans o kadar önemli değildi. Internet çocukluğunu yaşıyordu ve acayip yavaştı. Dial-up bağlantılardan külüstür bilgisayarlarla internete girmek tam bir sabır testiydi. Sayfayı ister, gider çay koyar, demler, bir bardak doldurup sayfanın tadını çıkarırdık. JavaScript'in asıl amacı kullanıcı deneyimini arttırmaktı. Kıl,tüy için sunucuya gitmek yerine JavaScript bu işlemleri direk sayfada yapıyor. Böylece yoldan ve işten kazanç sağlıyor. Düşünün koca bir formu doldurdunuz, gönderdiniz ve arada sadece bir kutucuğu işaretlemediniz diye o kadar süre beklediniz. JavaScript o kadar zaman ve mekandan tasarruf sağlar. Takip eden yıllarda bilgisayar ve internet gelişti, hızlandı. Bellek ucuzladı, çok işlemciler çıktı, fiber optik bağlantı yaktı, kavurdu. Hızlı bağlantı ile sayfalar ağırlaştı, zenginleşti daha kımıl kımıl oldu. Sadece bağlantılı makalelerden ayrı bir dünya haline geldi. JavaScript dışında herşey değişti. Önceleri onlarca olan javascript kodu oldu yüzlerce, binlerce, kütüphaneleri de sayarsak milyonlarca. IE4 ve DHTML (sayfanın yapısını yenileme olmadan değiştirme) ile javascript miktarının sürekli artacağı anlaşıldı. Tabuta en son çiviyi DOM (Document Object Model) çaktı: Internet Explorer 5, Netscape 6 ve Opera'nın DHTML yaklaşımı. Bunları javascript standartı izledi: ECMA-262 versiyon 3. DOM  tüm tarayıcılar tarafından desteklenmesi ve az çok aynı javascriptin kullanımı ile internet program platformu doğdu. Ancak bu arada JavaScript motorları aynı kaldı. 1996'da onlarca kodu çalıştıran ile binlerce kodu çalıştıran aynı motor. Bunun en bariz örneğini IE6 ile görüyoruz. İlk yayınlandığında hızı ve sağlamlığı ile teşrif etti, hataları ve yavaşlığı ile ne kadar kötü bir program olduğu ortaya çıktı. Aslında IE6 hiç de yavaş değildi ancak yapamayacağı şeyler istenince çatladı. 2001 yılında yapılan web programları 2005'de yapılanlardan daha az javascript kodu barındırıyordu. Javascript, programcılara başka dillerde otomatik olarak yapılan düzeltmeleri elle yapmak zorunluluğu getiriyor. 2008 yılında JavaScript moorları şaha kalktı. Google Chrome yayınladı. Chrome V8 motoruyla liderliği kaptı. V8 JavaScript motoru, bir JIT (just-intime) derleme motorudur: Java-Script kodundan makine kodu oluşturup çalıştırıyor. Sonuç Flash (çizgi roman kahramanı olan) hızında sonuç. Diğer tarayıcılar kendi motorlarını geliştirdiler. Safari 4, Squirrel Fish Extreme (Nitro da deniyor) JIT JavaScript motoru; Firefox 3.5, TraceMonkey motoru... Bu yeni JavaScript motorlarıyla, iyileştirme olması gerektiği gibi derleyici katmanında yapılmaya başlandı. Programcıların kodlarındaki iyileştirme çabalarından kurtulacağımız güne daha da yaklaştık. Ancak o gün henüz gelmedi. </description>
 		</item>
 		<item>
 			<title>jQuery UI 1.7 The User Interface Library for jQuery</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama</link>
-			<pubDate>2010-10-17 19:51:28</pubDate>
+			<pubdate>2010-10-17 19:51:28</pubdate>
 			<description> jQuery kütüphanesinin kullanıcı arayüzü eklentisini detaylı olarak inceleyen ve örnekler veren en kapsamlı (ben okurken tek) kitap. </description>
 		</item>
 	</channel>

@@ -1,7 +1,7 @@
 <?php 
 class SosyalControllerTest extends ControllerTestCase 
 {
-	public function testAjaxPagesExist()
+	public function testPagesExist()
 	{ 
 		$this->markTestIncomplete("Sadece Kontrol action testleri yapıldı");  
 		$this->dispatch('/sosyal'); 

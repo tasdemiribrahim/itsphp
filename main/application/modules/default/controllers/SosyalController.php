@@ -21,9 +21,9 @@ class SosyalController extends Zend_Controller_Action
 		if(isset($_GET['f']) && isset($_GET['t']) && isset($_GET['cleditor']) && isset($_GET['h']))
 			$this->sendMail($_GET['f'],$_GET['t'],$_GET['cleditor'],$_GET['h']);
 
-		$result = $q->execute("SELECT s.*, if (v.ip IS NULL,0,1) AS hv FROM oneri AS s LEFT JOIN soo AS v ON(s.id = v.oid AND v.gun = CURRENT_DATE AND v.ip = $ip) ORDER BY s.rating DESC, s.id DESC");
+		$result = $q->execute("SELECT s.*, if (v.ip IS NULL,0,1) AS hv FROM so AS s LEFT JOIN soo AS v ON(s.id = v.oid AND v.gun = CURRENT_DATE AND v.ip = $ip) ORDER BY s.rating DESC, s.id DESC");
 		$this->view->oneri = $result;
-		$q = Doctrine_Query::create()->select("a.aileAd,d.aileBireyMail")->from('main_models_AileAgaci a')->leftJoin("a.Detay d")->where("d.aileBireyMail IS NOT NULL")->addwhere("d.aileBireyMail <> ''");
+		$q = Doctrine_Query::create()->select("a.ad,d.mail")->from('main_models_Aa a')->leftJoin("a.Detay d")->where("d.mail IS NOT NULL")->addwhere("d.mail <> ''");
 		$this->view->mail = $q->fetchArray();
 	}
 
@@ -61,7 +61,7 @@ class SosyalController extends Zend_Controller_Action
 	private function submitOneri($content)
 	{
 		if(mb_strlen($content,'utf-8')<3)
-			exit;
+			return json_encode(array("durum"=>"error"));
 		$_content=temizYazi($content);
 		try
 		{
@@ -82,14 +82,20 @@ class SosyalController extends Zend_Controller_Action
 
 	private function cevap($id,$mesaj,$author)
 	{
+		if(!$id)
+			return json_encode(array("durum"=>"error1"));
+		elseif(!$mesaj)
+			return json_encode(array("durum"=>"error2"));
+		elseif(!$author)
+			return json_encode(array("durum"=>"error3"));
 		try
 		{
 			$item = new main_models_Sf;
-			$item->content= temizYazi($mesaj);
-			$item->author= temizYazi($author);
+			$item->content= $mesaj;
+			$item->author= $author;
 			$item->baslik= NULL;
 		
-			$q = Doctrine_Core::getTable('main_models_Sf')->find(temizSayi($id));
+			$q = Doctrine_Core::getTable('main_models_Sf')->find($id);
 	
 			$item->getNode()->insertAsLastChildOf($q);
 
@@ -107,6 +113,14 @@ class SosyalController extends Zend_Controller_Action
 
 	private function sendMail($f,$t,$m,$h)
 	{
+		if(!$f)
+			return json_encode(array("durum"=>"error1"));
+		elseif(!$t)
+			return json_encode(array("durum"=>"error2"));
+		elseif(!$m)
+			return json_encode(array("durum"=>"error3"));
+		elseif(!$h)
+			return json_encode(array("durum"=>"error4"));
 		$message = new Zend_Mail('utf-8');
 		$message->setFrom( $f, 'ITSPHP')->setSubject($h)->addHeader('Importance', 'high')->addTo($t);
 
@@ -146,12 +160,22 @@ class SosyalController extends Zend_Controller_Action
 
 	private function post($i,$y,$b)
 	{
+		if(!$i)
+			return json_encode(array("durum"=>"error1"));
+		elseif(!$y)
+			return json_encode(array("durum"=>"error2"));
+		elseif(!$b)
+			return json_encode(array("durum"=>"error3"));
 		try
 		{
+			$q = Doctrine_Query::create()->from('main_models_Sf')->where("m.b=?",temizSayi($b));
+			$row=$q->fetchArray();
+			if($row)
+				return json_encode(array("durum"=>"error"));
 			$item = new main_models_Sf;
-			$item->i= temizYazi($i);
-			$item->y= temizYazi($y);
-			$item->b= temizYazi($b);
+			$item->i= $i;
+			$item->y= $y;
+			$item->b= $b;
 			$item->save();
 		
 			$treeObject = Doctrine_Core::getTable('main_models_Sf')->getTree();
@@ -176,13 +200,13 @@ class SosyalController extends Zend_Controller_Action
 		include_once "main/helpers/ajax_guvenli.php";
 	
 		if(isset($_GET['f']) && isset($_GET['t']) && isset($_GET['cleditor']) && isset($_GET['h']))
-			echo $this->sendMail($_GET['f'],$_GET['t'],$_GET['cleditor'],$_GET['h']);
+			echo $this->sendMail(temizYazi($_GET['f']),temizYazi($_GET['t']),$_GET['cleditor'],temizYazi($_GET['h']));
 		elseif(isset($_GET['action']) && $_GET['action'] == 'submit')
-			echo $this->submitOneri($_GET['content']);
+			echo $this->submitOneri(temizYazi($_GET['content']));
 		elseif (isset($_GET["id"]) && isset($_GET["i"]) && isset($_GET["y"])) 
-			echo $this->cevap($_GET["id"],$_GET["i"],$_GET["y"]);
+			echo $this->cevap(temizSayi($_GET["id"]),temizYazi($_GET["i"]),temizYazi($_GET["y"]));
 		elseif (isset($_GET["yi"]) && isset($_GET["yy"]) && isset($_GET["yb"]))
-			echo $this->post($_GET["yi"],$_GET["yy"],$_GET["yb"]);
+			echo $this->post(temizYazi($_GET["yi"]),temizYazi($_GET["yy"]),temizYazi($_GET["yb"]));
 		elseif(isset($_GET['action']) && $_GET['action'] == 'vote')
 		{
 			$v = temizSayi($_GET['vote']);
@@ -222,8 +246,10 @@ class SosyalController extends Zend_Controller_Action
 		}
 		elseif(isset($_GET['fid']))
 		{
+			if(!$_GET['fid'])
+				die("error");
 			$q = Doctrine_Core::getTable('main_models_Sf')->find(temizSayi($_GET["fid"]));
-			echo $q->content.'|';
+			echo $q->b.'|'.$q->i.'|';
 			foreach( $q->getNode()->getChildren() as $node)
 				echo $node['i'].'|'.$node['dt'].'|'.$node['y'].'|';	
 		}

@@ -1,5 +1,15 @@
-var voteTime,commentTime,flickrTime,db,veri;
-
+var voteTime,commentTime,flickrTime,veri,ajv,ajc,aja,ajo;
+if(Modernizr.history)
+{
+	window.onpopstate = function(event) 
+	{
+		if(event.state)
+		{
+			var aaid = (event.state["aaid"]);
+			aadd(aaid);
+		}
+	};
+}
 $.fn.infCour = function () {
     function repeat(str, num) {
         return new Array( num + 1 ).join( str );
@@ -61,67 +71,55 @@ function pbd()
 	});
 }
 
-function isle(cevap)
-{
-	if(voteTime) clearTimeout(voteTime);
-	if(commentTime) clearTimeout(commentTime);
-	if(flickrTime) clearTimeout(flickrTime);
-
-	var parcalar= cevap.split("|");
-	if(parcalar[0]=="1986-08-12")
-	{
-		veri[0]=11;
-		veri[1]="İbrahim Taşdemir";
-	}
-	$("#aidh").val(veri[0]);
-	$('#aadi').attr('src',getResim(veri[0],"aile"));
-	$('#abdb').attr("href","/main/aile/form/"+veri[0]);
-	if(parcalar[1]=="0000-00-00")
-		parcalar[1]="";
-	else
-		parcalar[1]="/ "+parcalar[1];
-	$("#aadd h3").html(veri[1]+" ("+parcalar[0]+parcalar[1]+")");
-	var i=2;
-	$("#aadd span").each(function(){ $(this).html(parcalar[i++]);	});   
-	commentTime=setTimeout(get_comments, 250);
-	voteTime=setTimeout(set_votes, 500);
-	flickrTime=setTimeout(function () { loadFlickrFoto($('#aadf').html()); },750);
-	pbd();
-	deleteNotice();
-}
+function isle(cevap){ }
 
 function set_votes() 
 {
-	$.ajax({
+	if(ajv) ajv.abort();
+	ajv=$.ajax({
 		data: "oy="+$("#aidh").val(),
 		dataType:"json",
 		success: function(cevap)
 		{
 			console.log(cevap);
-			var star=$("#ratew").find('.s_' + cevap.on);
-			star.prevAll().andSelf().addClass('srv');
-			star.nextAll().removeClass('srv'); 
-			$("#ratew").find('.stv').text(cevap.to + ' oy kullanıldı (' + cevap.ort + ' puan)' );
+			if(cevap.on=="error")
+				addNotice("<p>Oylar alınamadı!</p>");
+			else
+			{
+				var star=$("#ratew").find('.s_' + cevap.on);
+				star.prevAll().andSelf().addClass('srv');
+				star.nextAll().removeClass('srv'); 
+				$("#ratew").find('.stv').text(cevap.to + ' oy kullanıldı (' + cevap.ort + ' puan)' );
+			}
 		}
 	});
 }
 
 function get_comments() 
 {
-	$.ajax({
+	if(ajc) ajc.abort();
+	ajc=$.ajax({
 		data: "yorum="+$("#aidh").val(),
 		dataType: "json",
 		success: function(cevap)
 		{	
-			console.log(cevap);
-			$(".cmnt_hdr").html(cevap.sayi + " Yorum...");
-			$('#comments').hide().html(cevap.yorumlar).slideDown();
+			console.log(cevap); 
+			if(cevap.durum=="ok")
+			{
+				$(".cmnt_hdr").html(cevap.sayi + " Yorum...");
+				$('#comments').hide().html(cevap.yorumlar).slideDown();
+			}
+			else if(cevap.durum=="error")
+				addNotice("<p>Oylar alınamadı!</p>");
+			else
+				addNotice("<p>Bilinmeyen bir hata oluştu!</p>");
 		}
 	});
 }
 
 function aadd(veriler)
 {
+	if(aja) aja.abort();
 	if (db)
 		db.transaction(function (tx) {tx.executeSql("REPLACE INTO itsphp (sayfa, veri) VALUES(?, ?)", ["aile", veriler]);});
 	else if (Modernizr.localstorage)
@@ -136,19 +134,14 @@ function aadd(veriler)
 	/*if(Modernizr.webworkers)
 	{
 		var worker = new Worker("worker/aile.js");
-		worker.postMessage('akrabaAd='+veri[0]);
+		worker.postMessage('getir='+veri[0]);
 		worker.onmessage = function (event) {
 alert(event.data);
 		 	isle(event.data);
 		};
-	}
-	else
-	$.ajax({
-		data: 'akrabaAd='+veri[0],
-		success: function(cevap){ isle(cevap); }
-	});*/
+	}*/
 	$("#aidh").val(veri[0]);
-	$.ajax({
+	aja=$.ajax({
 		type: 'GET',  
 		async: true,
 		cache: true,
@@ -184,7 +177,7 @@ $(document).ready(function() {
 
 	activateMain();  
 
-	var kayGun="";
+	var kayGun="", auto= true, sf=$('#sf');
 	$.ajaxSetup({
 		type: 'GET',
 		timeout: 20000,    
@@ -202,7 +195,6 @@ $(document).ready(function() {
 
 	getScript("/main/js/aile_extra.js");
 
-	var auto= true;
 	$('.infCour').infCour().mouseover(function(){ auto=false; }).mouseout(function(){ auto=true; });
 	setInterval(function(){if(auto){ $('.infCour').trigger('next') }},10000);
 	 $.getScript("http://ufd.googlecode.com/svn-history/r111/trunk/examples/js/jquery.bgiframe.min.js", function () {
@@ -221,7 +213,6 @@ $(document).ready(function() {
 		$('#dialog img').attr("src",figure.children("img").attr("src")).parent().dialog('open');
 	});
 	
-	var sf=$('#sf');
 	sf.validate({
 		rules: {q: "required" },
 		messages: {q: "Kişinin adını girin!"},
@@ -233,18 +224,24 @@ $(document).ready(function() {
 				dataType:"json",
 				success:function(cevap){
 					console.log(cevap);
-					if(cevap=="") sf.append("<hr /><p class='r'>Arama bulunamadı!</p><hr />");
-					else
+					if(cevap.durum=="error") sf.append("<hr /><p class='r'>İsim çok kısa!</p><hr />");
+					else if(cevap.durum=="ok")
 					{
-						var mesaj="";		
-						if(cevap.mu) mesaj="<p class='r'>Bunu mu demek istediniz?</p>";		
-						for(i in cevap.mu)
-							mesaj +="<p class='r'><a href='#' id='"+cevap.mu[i].id+"'>"+cevap.mu[i].id+"-"+cevap.mu[i].ad+"</a></p>";		
-						mesaj +="<hr class='r' />";	
-						for(i in cevap.bu)
-							mesaj +="<p class='r'><a href='#' id='"+cevap.bu[i].id+"'>"+cevap.bu[i].id+"-"+cevap.bu[i].ad+"</a></p>";
-						sf.append(mesaj+"<hr class='r' />");
+						if(cevap.mu=="" && cevap.bu=="")
+							 sf.append("<hr /><p class='r'>Sonuç bulunamadı!</p><hr />");
+						else
+						{
+							var mesaj="";		
+							if(cevap.mu) mesaj="<p class='r'>Bunu mu demek istediniz?</p>";		
+							for(i in cevap.mu)
+								mesaj +="<p class='r'><a href='#' id='"+cevap.mu[i].id+"'>"+cevap.mu[i].id+"-"+cevap.mu[i].ad+"</a></p>";		
+							mesaj +="<hr class='r' />";	
+							for(i in cevap.bu)
+								mesaj +="<p class='r'><a href='#' id='"+cevap.bu[i].id+"'>"+cevap.bu[i].id+"-"+cevap.bu[i].ad+"</a></p>";
+							sf.append(mesaj+"<hr class='r' />");
+						}
 					}
+					else  sf.append("<hr /><p class='r'>Bilinmeyen bir hata meydana geldi!</p><hr />");
 				}
 			});
 			return false;
@@ -270,6 +267,8 @@ $(document).ready(function() {
 		set_votes();
 	
 	$('#rcnt .r a').live("click",function(){
+		if(Modernizr.history)
+			window.history.pushState({aaid: $(this).html()}, $(this).html());
 		aadd($(this).html());
 		return false;
 	});
@@ -283,12 +282,19 @@ $(document).ready(function() {
 			$(this).prevAll().andSelf().removeClass('sro');
 		}
 	).bind('click', function() {
-		$.ajax({
+		if(ajo) ajo.abort();
+		ajo=$.ajax({
 			dataType:"json",
 			data: "yildiz="+$(this).attr('class')+"&id="+$("#aidh").val(),
-			success:function(){	
-				set_votes();
-				addNotice("<p>Oyunuz kaydedilmiştir!</p>");
+			success:function(cevap){	
+				if(cevap.durum=="ok")
+				{
+					set_votes();
+					addNotice("<p>Oyunuz kaydedilmiştir!</p>");
+				}
+				else if(cevap.durum=="error1") addNotice("<p>Birey kaydı bulunamadı!</p>");
+				else if(cevap.durum=="error2") addNotice("<p>Oy kaydı yapılamadı!</p>");
+				else addNotice("<p>Bilinmeyen bir hata meydana geldi!</p>");
 			}
 		}); 
 	});
@@ -381,6 +387,8 @@ $(document).ready(function() {
 	{
 		data=$(this).attr('id');
 		$.doTimeout( 't', $.tripleclickThreshold, function(){
+			if(Modernizr.history)
+				window.history.pushState({aaid: data}, data);
 			aadd(data);
 		});
 		return false;
@@ -405,10 +413,10 @@ $(document).ready(function() {
 			acb:"required"
 		},
 		messages: {
-			acn: "Adınızı girin!<br>",
-			ace:{required:"Bir e-mail adresi girin!<br>",email:"E-mail format kontrol edin!<br>"},
-			acu:"URL format kontrol edin!<br>",
-			acb:"Bir mesaj yaz!<br>"
+			acn: "Adınızı girin!",
+			ace:{required:"Bir e-mail adresi girin!",email:"E-mail format kontrol edin!"},
+			acu:"URL format kontrol edin!",
+			acb:"Bir mesaj yaz!"
 		},
 		submitHandler: function(form){
 			if(working) return false;
@@ -422,8 +430,16 @@ $(document).ready(function() {
 				data : $('#adf').serialize(),
 				success: function(msg){
 					working = false;
-					$("#cmnt_hdr span").text(1+parseInt($("#cmnt_hdr span").text()));
-					$(msg.html).hide().appendTo('#comments').slideDown();
+					if(cevap.durum=="ok")
+					{
+						$("#cmnt_hdr span").text(1+parseInt($("#cmnt_hdr span").text()));
+						$(msg.html).hide().appendTo('#comments').slideDown();
+					}
+					else if(cevap.durum=="error1") addNotice("<p>Birey kaydı bulunamadı!</p>");
+					else if(cevap.durum=="error2") addNotice("<p>Adınızı girin!</p>");
+					else if(cevap.durum=="error3") addNotice("<p>Bir mesaj yaz!</p>");
+					else if(cevap.durum=="error4") addNotice("<p>Bir e-mail adresi girin!</p>");
+					else  addNotice("<p>Bilinmeyen bir hata meydana geldi!</p>");
 			}});
 			$('#adf input:not(#aidh),#adf textarea').val("");
 			$('#adf input[type="submit"]').val('Kaydet');

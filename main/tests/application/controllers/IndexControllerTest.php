@@ -1,7 +1,7 @@
 <?php 
 class IndexControllerTest extends ControllerTestCase 
 {
-	public function testIndexPagesExist()
+	public function testPagesExist()
 	{ 
 		$this->markTestIncomplete("Sadece Kontrol action testleri yapıldı");  
 		$this->dispatch('/'); 

@@ -19,6 +19,20 @@ for ($i = 0, $j = count($jsfiles); $i < $j; $i++)
 }  
 
 $js .= '  
+
+	Modernizr.addTest("textstroke", function() {
+   		var div = document.createElement("div"),
+   			success;   
+   			
+   		if ( "textStroke" in div.style ) return true;
+   		
+   		"Webkit Moz O Ms Khtml".replace(/([A-Za-z]+)/g, function(val) {
+   			if ( val + "TextStroke" in div.style ) success = true;
+   		});
+   		return success;
+   	});
+
+
 	// ------------------
 	// Copyright 2010 Kevin Lieser, kleaserarts - Mediendesign
 	// info@ka-mediendesign.de, www.ka-mediendesign.de

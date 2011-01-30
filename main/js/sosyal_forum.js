@@ -1,7 +1,39 @@
-
+var aj,sfp=$('#sfp'),$tbody=sfp.find('section table tbody');
+if(Modernizr.history)
+{
+	window.history.pushState( {fid: $('#id').val() }, $('#id').val() );
+	window.onpopstate = function(event) 
+	{
+		if(event.state)
+		{
+			var fid = (event.state["fid"]);
+			getirPost(fid);
+		}
+	};
+}
+function getirPost(fid)
+{
+	if(aj) aj.abort();
+	aj=$.ajax({
+		data: "fid="+fid,
+		success: function(cevap){
+			if(cevap=="error")		
+				addNotice("<p>Bir hata oluştu!</p>");
+			else
+			{
+				var mesaj="";
+				cevaplar=cevap.split("|");
+				sfp.find("header h3").html(cevaplar[0]).next().html(cevaplar[1]);
+				var i=cevaplar.length-2;
+				for(;i>1;i=i-3)
+					mesaj +='<tr><td>'+cevaplar[i-2]+'</td><td>'+cevaplar[i-1]+'</td><td>'+cevaplar[i]+'</td></tr>\n';
+				$tbody.html(mesaj).end().show("slide", { direction: "left" }, 2000);
+			}
+	}});
+}
 $(document).ready(function() {	
 	activateMain();
-	var d = new Date(),sfp=$('#sfp'),$form=sfp.find('section form'),$form_cevap=$("#rcnt form"),$tbody=sfp.find('section table tbody');
+	var d = new Date(),$form=sfp.find('section form'),$form_cevap=$("#rcnt form");
 
 	 $.ajaxSetup({
 	        type: 'GET',
@@ -23,17 +55,9 @@ $(document).ready(function() {
 		var $this=$(this);
 		sfp.hide("slide", { direction: "right" }, 2000);
 		$('#id').val($this.attr("id"));
-		$.ajax({
-			data: "fid="+$this.attr("id"),
-			success: function(cevap){
-				var mesaj="";
-				cevaplar=cevap.split("|");
-				sfp.find("header h3").html($this.html()).next().html(cevaplar[0]);
-				var i=cevaplar.length-2;
-				for(;i>0;i=i-3)
-					mesaj +='<tr><td>'+cevaplar[i-2]+'</td><td>'+cevaplar[i-1]+'</td><td>'+cevaplar[i]+'</td></tr>\n';
-				$tbody.html(mesaj).end().show("slide", { direction: "left" }, 2000);
-		}});
+		if(Modernizr.history)
+			window.history.pushState({fid: $this.attr("id")}, $this.attr("id"));
+		getirPost($this.attr("id"));
 		return false;
 	});
 		
@@ -60,6 +84,9 @@ $(document).ready(function() {
 					if(cevap.durum=="ok")
 						$tbody.append('<tr><td>'+$("#i").val()+'</td><td>'+cevap.date+'</td><td>'+$("#y").val()+'</td></tr>').effect("shake", { times:3 }, 2000);
 					else if(cevap.durum=="error") addNotice("<p>Veri tabanı hatası.Daha sonra tekrar deneyin!</p>");	
+					else if(cevap.durum=="error1") addNotice("<p>Mesaj yazmak için konu seçmelisiniz!</p>");	
+					else if(cevap.durum=="error2") addNotice("<p>Takma ad girin!</p>");
+					else if(cevap.durum=="error3") addNotice("<p>Bir mesaj girin!</p>");	
 					else addNotice("<p>Bilinmeyen bir hata meydana geldi.Daha sonra tekrar deneyin!</p>");	
 				}});
 				$("#i").val("");
@@ -93,6 +120,9 @@ $(document).ready(function() {
 				success: function(cevap){
 					if(cevap.durum=="error")
 						addNotice("<p>Bu başlık var!</p>");
+					else if(cevap.durum=="error1") addNotice("<p>Bir mesaj girin!</p>");	
+					else if(cevap.durum=="error2") addNotice("<p>Takma ad girin!</p>");
+					else if(cevap.durum=="error3") addNotice("<p>Bir başlık girin!</p>");	
 					else if(cevap.durum=="ok")
 					{
 						$('#sfrd').append('<p><a href="?id='+cevap.id+'" id="'+cevap.id+'">'+cevap.b+'</a></p><time pubdate>'+cevap.dt+'</time><span>'+cevap.y+'</span><br class="clear" />').effect("pulsate", { times:3 }, 2000);	

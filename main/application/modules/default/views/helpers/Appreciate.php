@@ -17,7 +17,7 @@ class Zend_View_Helper_Appreciate extends Zend_View_Helper_Abstract
 			$ap=$result['ap'];
 		}
 		return '<details open>
-				<summary class="st_l ui-widget ui-widget-header"><span class="dc ui-icon ui-icon-closethick">X</span><span id="aprec">'.$ap.'</span> Kişi Beğendi</summary><br /><a href="#" id="apreb" class="'.$voted.' tour_2">Sayfayı Beğendim</a><br /></details>';
+				<summary class="st_l ui-widget ui-widget-header"><span class="dc ui-icon ui-icon-closethick">X</span><span id="aprec">'.$ap.'</span> Kişi Beğendi</summary><br /><div id="apreb" class="'.$voted.' tour_2">Sayfayı Beğendim</div><br /></details>';
 	}
 }
 

@@ -1,7 +1,6 @@
 ﻿$(document).ready(function() {	
 
 	activateMain();
-
 	getScript("/main/js/aile_extra.js");
 
 	initCanvas();
@@ -61,6 +60,6 @@ function paintFrame()
 function yeniVideo()
 {
 	i=(i+1)%j;
-	alert(i);
+	console.log(i);
 	aa.eq(i).click();
 }

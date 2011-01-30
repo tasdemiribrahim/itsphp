@@ -11,9 +11,8 @@
 			</p>
 			<p>				
 				<label for="g">Açıklamalar:</label>
-				<select name="g" id="g" data-role="slider">	
-					<option value="off">Kapalı</option>
-					<option value="on" {$g}>Açık</option>
+				<select name="g" id="g" data-role="slider">
+					{html_options options=$opts selected=$g}
 				</select>
 			</p>
 				<input type="submit" value="Filmi Göster"/>

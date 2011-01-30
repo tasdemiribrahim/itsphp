@@ -118,6 +118,7 @@
 				</li>
 				<li <?php if($this->isMuzik) echo "class='oes2'" ?>><a href="<?php echo $this->url(array('page' => 'metal'), 'dinle'); ?>" >Müzik Dinle</a></li>
 				<li <?php if($this->isFilm) echo "class='oes2'" ?>><a href="<?php echo $this->url(array(), 'watch'); ?>" >Kısa Film İzle</a></li>
+				<li><a id="tcshow" href="#">Tur</a></li>
 				<li>
 					<?php if (Zend_Auth::getInstance()->hasIdentity())  : ?>
 						<a id="log" href="<?php echo $this->url(array(), 'logout'); ?>">LOGOUT</a>
@@ -150,19 +151,19 @@
 	<div id="cnt">
 		<aside id="lcnt" role=”complementary”>
 			<nav role="navigation">
-				<h3>AİLE</h3><br />
+				<h3>AİLE<?php //echo "(".getSocial("http://feeds.feedburner.com/itsphp/aile")+getSocial("http://feeds.feedburner.com/itsphp/aile/atom").")"; ?></h3><br />
 				<p>
 					<a target="_blank" href="<?php echo $this->url(array(), 'feedaile'); ?>" rel="nofollow"><img src="/main/images/xml.gif" title="XML" /></a>
 					<a target="_blank" href="http://feeds.feedburner.com/itsphp/aile/atom" rel="alternate" type="application/atom+xml"><img src="/main/images/atom.png" title="Atom" /></a>
 					<a target="_blank" href="http://feeds.feedburner.com/itsphp/aile" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" title="RSS" /></a>
 				</p><br />
-				<h3>MÜZİK</h3><br />
+				<h3>MÜZİK<?php //echo "(".getSocial("http://feeds.feedburner.com/itsphp/muzik")+getSocial("http://feeds.feedburner.com/itsphp/muzik/atom").")"; ?></h3><br />
 				<p>
 					<a target="_blank" href="<?php echo $this->url(array(), 'feedmuzik'); ?>" rel="nofollow"><img src="/main/images/xml.gif" title="XML" /></a>
 					<a target="_blank" href="http://feeds.feedburner.com/itsphp/muzik/atom" rel="alternate" type="application/atom+xml"><img src="/main/images/atom.png" title="Atom" /></a>
 					<a target="_blank" href="http://feeds.feedburner.com/itsphp/muzik" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" title="RSS" /></a>
 				</p><br />
-				<p><a target="_blank" href="http://feeds.feedburner.com/itsphp/kitap" rel="alternate" type="application/rss+xml">Kitap <img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" title="RSS"/></a></p><br />
+				<p><a target="_blank" href="http://feeds.feedburner.com/itsphp/kitap" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" title="RSS"/>Kitap<?php //echo "(".getSocial("http://feeds.feedburner.com/itsphp/kitap").")"; ?></a></p><br />
 			</nav>	
 			<?php echo $this->appreciate(); ?>
 			<details open>
@@ -247,7 +248,12 @@
 			</details>
 			<details id="jspro" open>
 				<summary class="st_r ui-widget ui-widget-header tour_8">Interneti Geliştir<span class="dc ui-icon ui-icon-closethick">X</span></summary>
-				<a href="https://developer.mozilla.org/en/JavaScript" title="JavaScript Reference, JavaScript Guide, JavaScript API, JS API, JS Guide, JS Reference, Learn JS, JS Documentation" target="_blank"><img src="http://static.jsconf.us/promotejsvs.png" alt="JavaScript Reference, JavaScript Guide, JavaScript API, JS API, JS Guide, JS Reference, Learn JS, JS Documentation"/></a>
+				<div>
+					<div>
+						<a href="https://developer.mozilla.org/en/JavaScript" title="JavaScript Reference, JavaScript Guide, JavaScript API, JS API, JS Guide, JS Reference, Learn JS, JS Documentation" target="_blank"><img src="http://static.jsconf.us/promotejsvs.png" alt="JavaScript Reference, JavaScript Guide, JavaScript API, JS API, JS Guide, JS Reference, Learn JS, JS Documentation"/></a>
+					</div>
+					<div><h5 class="boardgame">DAHA İYİ BİR WEB MÜMKÜN</h5></div>
+				</div>
 			</details>
 			<?php echo $this->stack(); ?>
 		</aside>
@@ -370,7 +376,7 @@ var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ga
 //-->//]]>
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/jquery-ui.min.js"></script>
-<script async src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
+<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
 <script src="http://plugins.jquery.com/files/jquery.cookie.js.txt"></script>
 <script async src="http://delicious-button.googlecode.com/files/jquery.delicious-button-1.0.min.js"></script>
 <script async src="/main/js/AjaxUpload-3.5.js"></script>

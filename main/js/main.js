@@ -736,7 +736,8 @@ function activateMain()
 
 	$("#container > header h2").lettering();
 	$("#container > header h2 span").each(function() {  $(this).css({ top: -(Math.floor(Math.random()*1001)+1500), left: Math.floor(Math.random()*1001)-500 }); });
-	$("#container > header h2,#tc").removeClass("sakla");
+	$("#container > header h2").removeClass("sakla");
+	$("#tcshow").click(function(){$("#tc").toggleClass("sakla"); return false;});
 	setTimeout(function() {$('#container > header').addClass("span-one");}, 1000);
 
 	activateBounceBox();
@@ -752,7 +753,7 @@ function activateMain()
 		lastFmRecords.debug();
 		lastFmRecords.init(_config);
 
-		$("#lfr a img").addClass("shadow").parent().append("<span class='transitionAll'></span>");  
+		$("#lfr a img").addClass("shadow").parent().append("<span class='transition'></span>");  
 	});
 
 	$('details summary .dc').click(function(){ $(this).closest("details").fadeOut(); });
@@ -782,7 +783,7 @@ function activateMain()
 
 	$('#accordion').accordion({autoHeight: false,collapsible: true });
 	$('.jb').button();	
-	$('textarea').not(".cleditor").after("<div id='console'><div class='count'>Geriye 500 karakter kaldı!</div><progress class='bar'></progress></div>").keyup(function(e) {
+	$('textarea').not(".cleditor").after("<div id='console'><div class='count'>Geriye 500 karakter kaldı!</div><progress class='bar' max='100'></progress></div>").keyup(function(e) {
 			var characters = 500;
 			var value = $(this).val();
 			var count = value.length;
@@ -847,6 +848,9 @@ function activateMain()
 		db = openDatabase("itsphp", "1.0", "ibrahim tasdemirin kisisel ana sayfasi", 2 * 1024 * 1024);
 		db.transaction(function (tx) {tx.executeSql("CREATE TABLE IF NOT EXISTS itsphp(sayfa, veri)");});
 	}
-
+	
+	getScript("http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js",function(){
+		CFInstall.check({mode: "inline" ,node: "prompt"});
+	});
 
 }
