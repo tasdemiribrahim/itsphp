@@ -2,8 +2,8 @@
 	@import "http://jquery.bassistance.de/treeview/jquery.treeview.css";
 </style>
 <article id="aadd" class="vcard" itemscope itemtype="http://tasdemir.0fees.net/Birey" aria-live="polite" aria-atomic="true" > 
-	<h3 itemprop="name" class="ui-widget ui-widget-header structured name bday"><?php echo $this->birey["ad"]." (".$this->birey['Detay']["dogum"].($this->birey['Detay']["olum"]=="0000-00-00" ? "" : " / ".$this->birey['Detay']["olum"]).")"; ?></h3>
 	<img class="photo" id="aadi" src="<?php echo getResim($this->birey["id"]); ?>" alt="Resim Yok" itemprop="photo" />
+	<h3 itemprop="name" class="structured name bday"><?php echo $this->birey["ad"]." (".$this->birey['Detay']["dogum"].($this->birey['Detay']["olum"]=="0000-00-00" ? "" : " / ".$this->birey['Detay']["olum"]).")"; ?></h3>
 	<div id="ratew" rev="vote-abstain">
 		<div class="s_1 rates"></div>
 		<div class="s_2 rates"></div>
@@ -13,14 +13,16 @@
 		<div class="stv">Oy Sonucu</div>
 	</div>
 	<div id="resimUpload">Resmi Güncelle<br />En Fazla Boyut:2MB</div>
-	<p class="cssc"><b>Eşi:</b><span itemprop="darling"><?php echo $this->birey['Detay']["es"]; ?></span><br />
-	<b>Adres:</b><span itemprop="address" class="adr"><?php echo $this->birey['Detay']["adres"]; ?></span><br />
-	<b>Mail:</b><span itemprop="email" class="email"><?php echo $this->birey['Detay']["mail"]; ?></span><br />
-	<b>Tel:</b><span itemprop="tel" class="tel"><?php echo $this->birey['Detay']["tel"]; ?></span><br />
-	<b><a id="bft" title="Twitter mesajlarını göster">Twitter:</a></b><span id="aadt" class="mod" itemprop="twitter"><?php echo $this->birey['Detay']["twitter"]; ?></span><br />
-	<b>Flickr:</b><span id="aadf"><?php echo $this->birey['Detay']["flickr"]; ?></span></p><br />
-	<p><span><?php echo $this->birey['Detay']["tanim"]; ?></span></p><br />
-	<p><a href="/main/aile/form/<?php echo $this->birey["id"]; ?>" id="abdb" class="boubleButton blue">Güncelle</a></p>
+	<p class="cssc">
+		<b>Eşi:</b><span id="aaes" itemprop="darling"><?php echo $this->birey['Detay']["es"]; ?></span><br />
+		<b>Adres:</b><span itemprop="address" class="adr"><?php echo $this->birey['Detay']["adres"]; ?></span><br />
+		<b>Mail:</b><span itemprop="email" class="email"><?php echo $this->birey['Detay']["mail"]; ?></span><br />
+		<b>Tel:</b><span itemprop="tel" class="tel"><?php echo $this->birey['Detay']["tel"]; ?></span><br />
+		<b><a id="bft" title="Twitter mesajlarını göster">Twitter:</a></b><span id="aadt" class="mod" itemprop="twitter"><?php echo $this->birey['Detay']["twitter"]; ?></span>
+		<b class="sakla">Flickr:</b><span id="aadf" class="sakla"><?php echo $this->birey['Detay']["flickr"]; ?></span>
+	</p><br />
+	<p id="aatanim"><?php echo $this->birey['Detay']["tanim"]; ?></p><br />
+	<a href="/main/aile/form/<?php echo $this->birey["id"]; ?>" id="abdb" class="boubleButton blue">Güncelle</a>
 	<h4 class="cmnt_hdr"><span><?php echo $this->yTotal; ?></span> Yorum...</h4>
 	<div id="comments"><?php echo $this->yorumlar; ?></div>
 </article>

@@ -192,7 +192,7 @@ class LoginController extends Zend_Controller_Action
 			setcookie(session_name(), '', time()-42000, '/');
 		session_unset();
 		session_destroy();	*/
-		$this->_redirect('/main');
+		$this->_redirect('/');
 	}
 	
 	public function ajaxAction()

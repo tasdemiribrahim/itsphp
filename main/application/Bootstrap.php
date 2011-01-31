@@ -7,38 +7,51 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		require_once 'Doctrine/Firebug.php';
 		$this->getApplication()->getAutoloader()->pushAutoloader(array('Doctrine', 'autoload'),'Doctrine');
 		$manager = Doctrine_Manager::getInstance();
+		$manager->setAttribute('portability',Doctrine::PORTABILITY_ALL);
 		$manager->setAttribute(Doctrine::ATTR_MODEL_LOADING,Doctrine::MODEL_LOADING_CONSERVATIVE);
+		$manager->setAttribute(Doctrine::ATTR_QUOTE_IDENTIFIER, false);
+		$manager->setAttribute(Doctrine::ATTR_EXPORT,Doctrine::EXPORT_ALL ^ Doctrine::EXPORT_CONSTRAINTS);
+		$manager->setAttribute(Doctrine::ATTR_IDXNAME_FORMAT, '%s_index');
+		$manager->setAttribute(Doctrine::ATTR_SEQNAME_FORMAT, '%s_seq');
 		$manager->setAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE, true);
 		$manager->setAttribute(Doctrine_Core::ATTR_VALIDATE, Doctrine_Core::VALIDATE_ALL);
 		$manager->setAttribute(Doctrine_Core::ATTR_USE_DQL_CALLBACKS, true);	
 		$manager->setAttribute(Doctrine_Core::ATTR_AUTOCOMMIT, false);
 		$config = $this->getOption('doctrine');
-		try{
-		$conn = Doctrine_Manager::connection($config['dsn'],'doctrine');
-		} catch (Doctrine_Manager_Exception $e) {
-			trigger_error("Doctrine baðlantý hatasý :".$config['dsn']."-Mesaj:".$e->getMessage());
-		}
+		try{ $conn = Doctrine_Manager::connection($config['dsn'],'doctrine'); } 
+		catch (Doctrine_Manager_Exception $e) {	trigger_error("Doctrine baðlantý hatasý :".$config['dsn']."-Mesaj:".$e->getMessage()); }
 		$conn->setCharset('utf8');
 		$profiler = new Doctrine_Firebug();
-		//$conn->setListener($profiler);	
-		/*	
-		$servers = array(
-			'host' => 'localhost',
-			'port' => 11211,
-			'persistent' => true
-		);
+		$conn->setListener($profiler);	
 
-		$cacheDriver = new Doctrine_Cache_Memcache(array(
-				'servers' => $servers,
-				'compression' => false
-			)
-		);
+		/*
+		$this->getApplication()->getAutoloader()->registerNamespace('sfYaml')->pushAutoloader(array('Doctrine', 'autoload'), 'sfYaml');
+		Doctrine_Core::compile('Doctrine.compiled.php', array('mysql'));
+		Doctrine::generateModelsFromDb('models',array('doctrine'),$config['compile']);
+		Doctrine::generateYamlFromDb('models/schema.yml');
+		Doctrine::createDatabases();
+		Doctrine::createTablesFromModels('models');
+		*/
+
+		/*	
+		$cacheDriver = new Doctrine_Cache_Memcache($config['memcache']);
 		$cacheDriver = new Doctrine_Cache_Apc();
-		$cacheConn = Doctrine_Manager::connection(new PDO('sqlite::memory:'));
-		$cacheDriver = new Doctrine_Cache_Db(array('connection' => $cacheConn));
+		$cacheDriver = new Doctrine_Cache_Db(array('connection' => Doctrine_Manager::connection(new PDO('sqlite::memory:'))));
 		$conn->setAttribute(Doctrine_Core::ATTR_QUERY_CACHE, $cacheDriver);
 		$conn->setAttribute(Doctrine_Core::ATTR_RESULT_CACHE_LIFESPAN, 3600);
 		*/
+		$migration = new Doctrine_Migration($config['migration']);
+		$latestVersion = $migration->getLatestVersion();
+		$currentVersion = $migration->getCurrentVersion();
+		if ($latestVersion> $currentVersion) 
+		{
+		    try {
+			$migration->migrate($currentVersion);
+			$migration->setCurrentVersion($latestVersion);
+		    } catch (Exception $e) {
+			trigger_error('Caught exception: '.$e->getMessage());
+		    }
+		}
 		return $conn;
 	}
 
@@ -48,12 +61,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		require_once "PhpOnCouch/couchClient.php";
 		require_once "PhpOnCouch/couchDocument.php";
 
-		$client = new couchClient("http://user:pass@url","db");
+		$config = $this->getOption('couch');
+		$client = new couchClient($config['host'],$config['db']);
 
 		$registry = Zend_Registry::getInstance();
 		$registry->set('client', $client);
 		return $client;
-		//$client=Zend_Registry::get('client');
 	}
 
 	protected function _initLocale()
@@ -61,24 +74,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$session = new Zend_Session_Namespace('main.l10n');
 		if ($session->locale) 
 			$locale = new Zend_Locale($session->locale);
-		if (empty($locale) || $locale === null) {
-			try {
-				$locale = new Zend_Locale('browser');	// auto,environment
-			} catch (Zend_Locale_Exception $e) {
-				$locale = new Zend_Locale('tr_TR');
-			}
+		if (empty($locale) || $locale === null) 
+		{
+			$config = $this->getOption('locale');
+			try { $locale = new Zend_Locale($config['type']); } 
+			catch (Zend_Locale_Exception $e) { $locale = new Zend_Locale($config['lang']); }
 		}
 		$registry = Zend_Registry::getInstance();
 		$registry->set('Zend_Locale', $locale);
+		return $locale;
 	}   
 
-	/**
-	* Initialize the Cache Manager
-	* Initializes the memcached cache into
-	* the registry and returns the cache manager.
-	*
-	* @return Zend_Cache_Manager
-	*
+	/*
 	protected function _initCachemanager()
 	{
 		$cachemanager = $this->getPluginResource('cachemanager')->init();
@@ -105,26 +112,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	
 	protected function _initSession()
 	{
-		$config = array( 
-			'tableName'         => 'Session', 
-			'dataColumn'        => 'data', 
-			'lifetimeColumn'    => 'lifetime', 
-			'modifiedColumn'    => 'modified', 
-			'primaryKeyColumn'  => 'id', 
-		); 
-		 
-		Zend_Session::setSaveHandler(new main_Helpers_Session_SaveHandler_Doctrine($config)); 
+		$opts = $this->getOptions();
+		Zend_Session::setSaveHandler(new main_helpers_Session_SaveHandler_Doctrine($opts['resources']['session']['saveHandler']['options']['table'])); 
 		return Zend_Session::start();
 	}
 
-	/**
-	* Initialize the Session Id
-	* This code initializes the session and then
-	* will ensure that we force them into an id to
-	* prevent session fixation / hijacking.
-	*
-	* @return void
-	*/
 	protected function _initSessionId()
 	{
 		$this->bootstrap('session');
@@ -156,20 +148,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		  $acl->allow('aile', null, array('aile', 'aile/form'));
 		  $acl->allow('administrator');
 	 }
-	  
+
+/* 	Doctrine Kullanýldýðý Ýçin Kaldýrýldý
 	protected function _initFirePHP()
 	{
 		require_once('FirePHPCore/FirePHP.class.php');
 		$firephp = FirePHP::getInstance(true);
-		//$profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
-		//$profiler->setEnabled(true);
-		//$db->setProfiler($profiler);	
+		$profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
+		$profiler->setEnabled(true);
+		$db->setProfiler($profiler);	
 		$firephp->setOption('maxDepth', 5);
 		$registry = Zend_Registry::getInstance();
 		$registry->set('FirePHP', $firephp);
+		return $firephp;
 	}
 	
-/*	protected function _initCache()
+	protected function _initCache()
 	{
 		$this->bootstrap('cachemanager');
 		$manager = $this->getResource('cachemanager');
@@ -184,20 +178,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$container = new Zend_Navigation($config);
 		$registry = Zend_Registry::getInstance();
 		$registry->set('Zend_Navigation', $container);
-		Zend_Controller_Action_HelperBroker::addHelper(new main_Helper_Navigation());
-	}
-	
-	protected function _initTranslate()
-	{
-		$translate = new Zend_Translate('array',APPLICATION_PATH . '/../../lang/',null,array('scan' => Zend_Translate::LOCALE_FILENAME));
-		$registry->set('Zend_Translate', $translate);
-	} 
-	
-	protected function _initDojo()
-	{
-		$this->bootstrap('view');
-		$view = $this->getResource('view');
-		Zend_Dojo::enableView($view);
-		$view->dojo()->setCdnBase(Zend_Dojo::CDN_BASE_AOL)->addStyleSheetModule('dijit.themes.tundra')->disable();
+		Zend_Controller_Action_HelperBroker::addHelper(new main_helper_Navigation());
 	} */
 }

@@ -148,21 +148,21 @@ alert(event.data);
 		dataType :"jsonp",
 		url: 'http://itsphp.couchone.com/itsphp/aile'+veri[0],
 		success: function(cevap){ 
-			$('#aadi').attr('src',getResim(veri[0],"aile"));
-			$('#abdb').attr("href","/main/aile/form/"+veri[0]);
+			var i=$("#aadd");
+			i.find('#aadi').attr('src',getResim(veri[0],"aile"));
+			i.find('#abdb').attr("href","/main/aile/form/"+veri[0]);
 			if(cevap.olum=="0000-00-00")
 				cevap.olum="";
 			else
 				cevap.olum="/ "+cevap.olum;
-			$("#aadd h3").html(veri[1]+" ("+cevap.dogum+cevap.olum+")");
-			var i=$("#aadd span");
-			i.eq(0).html(cevap.es);
-			$("#aadd .adr").html(cevap.adres);  
-			$("#aadd .email").html(cevap.mail); 
-			$("#aadd .tel").html(cevap.tel);  
-			$("#aadd #aadt").html(cevap.twitter);  
-			$("#aadd #aadf").html(cevap.flickr);  
-			i.eq(7).html(cevap.tanim);
+			i.find("h3").html(veri[1]+" ("+cevap.dogum+cevap.olum+")");
+			i.find("#aaes").html(cevap.es);
+			i.find(".adr").html(cevap.adres);  
+			i.find(".email").html(cevap.mail); 
+			i.find(".tel").html(cevap.tel);  
+			i.find("#aadt").html(cevap.twitter);  
+			i.find("#aadf").html(cevap.flickr);  
+			i.find("#aatanim").html(cevap.tanim);
 			loadFlickrFoto(cevap.flickr);
 			deleteNotice();
 		}
