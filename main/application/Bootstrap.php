@@ -20,7 +20,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$config = $this->getOption('doctrine');
 		try{ $conn = Doctrine_Manager::connection($config['dsn'],'doctrine'); } 
 		catch (Doctrine_Manager_Exception $e) {	trigger_error("Doctrine baðlantý hatasý :".$config['dsn']."-Mesaj:".$e->getMessage()); }
-		$conn->setCharset('utf8');
+		$conn->setCharset($config['charset']);
 		$profiler = new Doctrine_Firebug();
 		$conn->setListener($profiler);	
 
@@ -30,6 +30,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		Doctrine::generateModelsFromDb('models',array('doctrine'),$config['compile']);
 		Doctrine::generateYamlFromDb('models/schema.yml');
 		Doctrine::createDatabases();
+		Doctrine::generateYamlFromModels('models/schema.yml','models');
 		Doctrine::createTablesFromModels('models');
 		*/
 
@@ -84,31 +85,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$registry->set('Zend_Locale', $locale);
 		return $locale;
 	}   
-
-	/*
-	protected function _initCachemanager()
-	{
-		$cachemanager = $this->getPluginResource('cachemanager')->init();
-
-		// fetch the current revision from svn and use it as a prefix
-		// why: we do not want to restart memcached, or you will lose sessions.
-		if (!$appVersion = apc_fetch('progsite_version')) 
-		{
-		    $dir = getcwd();
-		    chdir(dirname(__FILE__));
-		    $appVersion = filter_var(`svn info | grep "Revision"`, FILTER_SANITIZE_NUMBER_INT);
-		    chdir($dir);
-		    unset($dir);
-		    if (!$appVersion) 
-			$appVersion = mt_rand(0, 99999); // simply handles an export instead of checkout
-		    apc_store('progsite_version', $appVersion);
-		}
-
-		$memcached = $cachemanager->getCache('memcached');
-		$memcached->setOption('cache_id_prefix', APPLICATION_ENV . '_' . $appVersion);
-
-		return $cachemanager;
-	}*/
 	
 	protected function _initSession()
 	{
@@ -147,22 +123,33 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		  $acl->allow($roleGuest, null, 'view');
 		  $acl->allow('aile', null, array('aile', 'aile/form'));
 		  $acl->allow('administrator');
-	 }
-
-/* 	Doctrine Kullanýldýðý Ýçin Kaldýrýldý
-	protected function _initFirePHP()
-	{
-		require_once('FirePHPCore/FirePHP.class.php');
-		$firephp = FirePHP::getInstance(true);
-		$profiler = new Zend_Db_Profiler_Firebug('All DB Queries');
-		$profiler->setEnabled(true);
-		$db->setProfiler($profiler);	
-		$firephp->setOption('maxDepth', 5);
-		$registry = Zend_Registry::getInstance();
-		$registry->set('FirePHP', $firephp);
-		return $firephp;
 	}
-	
+
+	/*
+	protected function _initCachemanager()
+	{
+		$cachemanager = $this->getPluginResource('cachemanager')->init();
+
+		// fetch the current revision from svn and use it as a prefix
+		// why: we do not want to restart memcached, or you will lose sessions.
+		if (!$appVersion = apc_fetch('progsite_version')) 
+		{
+		    $dir = getcwd();
+		    chdir(dirname(__FILE__));
+		    $appVersion = filter_var(`svn info | grep "Revision"`, FILTER_SANITIZE_NUMBER_INT);
+		    chdir($dir);
+		    unset($dir);
+		    if (!$appVersion) 
+			$appVersion = mt_rand(0, 99999); // simply handles an export instead of checkout
+		    apc_store('progsite_version', $appVersion);
+		}
+
+		$memcached = $cachemanager->getCache('memcached');
+		$memcached->setOption('cache_id_prefix', APPLICATION_ENV . '_' . $appVersion);
+
+		return $cachemanager;
+	}
+
 	protected function _initCache()
 	{
 		$this->bootstrap('cachemanager');

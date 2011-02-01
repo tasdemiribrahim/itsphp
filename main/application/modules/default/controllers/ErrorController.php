@@ -25,24 +25,11 @@ class ErrorController extends Zend_Controller_Action
 		
 	$logger = new Zend_Log();
 	$config = $this->getInvokeArg('bootstrap')->getOption('logs');
-	$writer = new Zend_Log_Writer_Stream($config['logPath'] . '/hataEx.log');
+	$writer = new Zend_Log_Writer_Stream($config['logPath'] . $config['logFile']);
 	$logger->addWriter($writer);
-	$format = '%timestamp%: %priorityName%: %message%: %request%: %stacktrace%' . PHP_EOL;
-	$formatter = new Zend_Log_Formatter_Simple($format);
-	$writer->setFormatter($formatter);
-	/*
-	$columnMap = array(
-	'message' => 'LogMessage',
-	'priorityName' => 'LogLevel',
-	'timestamp' => 'LogTime',
-	'stacktrace' => 'Stack',
-	'request' => 'Request',
-	);
-	$dbWriter = new main_helpers_Log_Writer_Doctrine('main_models_Log', $columnMap);
-	$logger->addWriter($dbWriter);
-	*/
-	$fbWriter = new Zend_Log_Writer_Firebug();
-	$logger->addWriter($fbWriter);
+	$writer->setFormatter(new Zend_Log_Formatter_Simple($config['format'] . PHP_EOL));
+	//$logger->addWriter(new main_helpers_Log_Writer_Doctrine($config['column']['table'], $config['column']['map']));
+	$logger->addWriter(new Zend_Log_Writer_Firebug());
 	$logger->setEventItem('stacktrace',$errors->exception->getTraceAsString());
 	$logger->setEventItem('request',Zend_Debug::dump($errors->request->getParams()));
 
