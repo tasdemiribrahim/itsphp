@@ -1,6 +1,6 @@
 <?php
-
-class SosyalController extends Zend_Controller_Action
+require_once("MasterController.php");
+class SosyalController extends MasterController
 {
 	public function preDispatch()
 	{

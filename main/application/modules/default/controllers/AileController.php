@@ -1,21 +1,9 @@
 <?php
-class AileController extends Zend_Controller_Action
+require_once("MasterController.php");
+class AileController extends MasterController
 {  
 	public function preDispatch()
 	{
-	/*	$session = $this->getInvokeArg('bootstrap')->getResource('session');
-		if(empty($session->id) || empty($session->ad))
-		{
-			$session->requestURL = $this->getRequest()->getRequestUri();
-			$this->_redirect('/login');
-		}
-		$aa = Doctrine::getTable('main_models_Aa')->find($session->id);
-		$result =$aa->toArray();
-		if($session->ad != $result["ad"])
-		{
-			$session->requestURL = $this->getRequest()->getRequestUri();
-			$this->_redirect('/login');
-		}*/
 		$this->view->isAile = true;
 	}
 	

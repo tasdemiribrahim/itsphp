@@ -14,6 +14,12 @@
 			<height />
 		</image>
 		<item>
+			<title>Doctrine ORM for PHP</title>
+			<link>http://tasdemir.0fees.net/main/oku/programlama#PHP</link>
+			<pubdate>2011-02-01 19:51:28</pubdate>
+			<description> Artık Javacılara bakıp Hibernate yüzünden kıskanmamıza gerek yok. Doctrine ile veri tabanı bağlantıları profesyonel bir arayüze sahip olacak. YAML ve modelleri anlaması biraz zor olsa da zamanla işinizi ne kadar kolaylaştırdığına inanamayacaksınız. Kullandıkça keşfedeceğiniz fonksiyonları ile bir kaç komutla çok karmaşık SQL ifadelerini oluşturabileceksiniz. Bire-bir, bire-çok, çoka-çok bağlantılar, yumuşak silmeler, Joinler, içiçe seçmeler, bağlantıların silinmesi ve yeni bağlantı oluşturulması ve daha niceleri hazır fonksiyonlarla geliyor. Bu kitap ile Doctrine dünyasına giriş yapın ve Doctrine 2 için yeni basımının çıkması için dua edin.</description>
+		</item>
+		<item>
 			<title>HTML5 ve CSS3</title>
 			<link>http://tasdemir.0fees.net/main/oku/programlama#HTML</link>
 			<pubdate>2011-01-30 19:51:28</pubdate>

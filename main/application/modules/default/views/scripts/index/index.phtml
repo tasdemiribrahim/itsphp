@@ -1,12 +1,11 @@
-	<article role="article" class="hreview">
-		<h3 class="ui-widget ui-widget-header"><span class="twitter_search summary fn"> Beginning CouchDB</span></h3>
+	<article role="article" class="hreview iap">
+		<h3 class="ui-widget ui-widget-header"><span class="twitter_search summary fn">Doctrine ORM for PHP</span></h3>
 		<p  class="item">
-			<a class="url panelA" href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>" title="Kitap Tavsiyesi" rel="self bookmark"><span></span><img class="photo" alt=" Beginning CouchDB" src="/main/images/resimler/ekitap/bcd.jpg" /></a><a class="rss" href="http://feeds.feedburner.com/kitap-itsphp" target="_blank" rel="nofollow" type="application/rss+xml" title="Kitap RSS Haberleri"><img src="/main/images/rss.png" alt="Kitap RSS Haberleri" /></a> Apache CouchDB (Cluster Of Unreliable Commodity Hardware) her geçen gün daha fazla kullanılan, tamamen açık kaynak ve ücretsiz, NoSQL veritabanı sistemidir. Oracle, SQL Server ve MySQL veritabanlarının aksine veriler tablolarda değil JSON (JavaScript Object Notation) dosyalarında tutuluyor ve RESTful API sayesinde erişilebiliyor. Haliyle Javascript bilginizin yüksek olması gerekiyor. Bloglar, wikiler, forumlar ve mobil siteler için kullanışlı olabilir. Bu kitap sizin CouchDB ve NoSQL terimlerine girişinizi sağlıyor. Linux ve MacOSX için CouchDB kurulumu, veritabanı oluşturma, dosya kaydetme ve okuma, görüntü ve harita/süzgeç oluşturma yöntemlerini anlatıyor. Ancak Python ve Ruby dışındaki diller için kütüphanesinin olmaması, yeni olduğu için hatalarının çokluğu ve SQL benzeri fonksiyonların bulunmayışı nedeniyle bu veritabanının kullanımını şimdilik tavsiye etmiyorum.</p>
+			<a class="url panelA" id="rightPanel" href="<?php echo $this->url(array('page' => 'programlama'), 'oku'); ?>" title="Kitap Tavsiyesi" rel="self bookmark"><span></span><img class="photo" alt="Doctrine ORM for PHP" src="/main/images/resimler/ekitap/dorm.jpg" /></a><a class="rss" href="http://feeds.feedburner.com/kitap-itsphp" target="_blank" rel="nofollow" type="application/rss+xml" title="Kitap RSS Haberleri"><img src="/main/images/rss.png" alt="Kitap RSS Haberleri" /></a> Artık Javacılara bakıp Hibernate yüzünden kıskanmamıza gerek yok. Doctrine ile veri tabanı bağlantıları profesyonel bir arayüze sahip olacak. YAML ve modelleri anlaması biraz zor olsa da zamanla işinizi ne kadar kolaylaştırdığına inanamayacaksınız. Kullandıkça keşfedeceğiniz fonksiyonları ile bir kaç komutla çok karmaşık SQL ifadelerini oluşturabileceksiniz. Bire-bir, bire-çok, çoka-çok bağlantılar, yumuşak silmeler, Joinler, içiçe seçmeler, bağlantıların silinmesi ve yeni bağlantı oluşturulması ve daha niceleri hazır fonksiyonlarla geliyor. Bu kitap ile Doctrine dünyasına giriş yapın ve Doctrine 2 için yeni basımının çıkması için dua edin.</p>
 	</article>
-	<br class="clear" />
-	<article id="iap" role="article">
+	<article class="iap" role="article">
 		<h3 class="ui-widget ui-widget-header"><?php echo $this->aileEbeveyn ?>'in çocuğu <?php echo $this->aileAd ?></h3>
-		<a href="<?php echo $this->url(array(), 'aile').'?id='.$this->aileID; ?>" title="Aile Ağacına En Son Eklenen" class="panelA" id="rightPanel"><span></span><img alt="<?php echo $this->aileAd; ?>" src="<?php echo getResim($this->aileID); ?>" /></a>
+		<a href="<?php echo $this->url(array(), 'aile').'?id='.$this->aileID; ?>" title="Aile Ağacına En Son Eklenen" class="panelA"><span></span><img alt="<?php echo $this->aileAd; ?>" src="<?php echo getResim($this->aileID); ?>" /></a>
 		<p>
 			<a class="rss" href="http://feeds.feedburner.com/aile-itsphp" target="_blank" rel="alternate" type="application/rss+xml" title="Aile RSS Haberleri"><img src="/main/images/rss.png" alt="Aile RSS Haberleri" /></a>
 			<?php echo $this->aileTanim ?>
@@ -74,6 +73,7 @@
 </div>
 
 <aside id="rcnt" role=”complementary”>
+	<?php echo $this->ara(); ?>
 	<?php 
 		$x=0;
 		if (count($this->results))

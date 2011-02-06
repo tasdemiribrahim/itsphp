@@ -1,13 +1,7 @@
 <?php
-
-class IndexController extends Zend_Controller_Action
+require_once("MasterController.php");
+class IndexController extends MasterController
 {
-	public function __call( $method, $args )
-	{
-		if('Action' == substr($method, -6)) 
-			$this->_forward('index');
-	}
-
 	public function indexAction()
 	{	
 		$this->view->title="İbrahim Taşdemir'in Kişisel Ana Sayfası";

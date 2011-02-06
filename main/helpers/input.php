@@ -196,6 +196,13 @@ function temizURL($url)
 {
 	return htmlspecialchars(filter_var(trim($url),FILTER_SANITIZE_URL));
 }
+/**
+* Returns the error safe kredi kartı
+*
+* @param string $url kart no to sanitize
+*
+* @return string
+*/
 function temizKredi($cc)
 {
 	$cc = str_replace('-', '', trim($cc));

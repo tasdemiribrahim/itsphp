@@ -1,23 +1,26 @@
 <?php
-class LoginController extends Zend_Controller_Action
+require_once("MasterController.php");
+class LoginController extends MasterController
 {
+	const AREDIRECT = "/main/aile";
+
 	public function indexAction()
 	{
-		//$this->getInvokeArg('bootstrap')->bootstrap('session');
-		//$session = $this->getInvokeArg('bootstrap')->getResource('session');
-		$session = new Zend_Session_Namespace('main.auth');
-		//$this->view->akraba=$session;
-		if(isset($session->yoneticiAd))
+		$auth = Zend_Auth::getInstance();
+		if($auth->hasIdentity())
 			$this->_redirect('/admin');
+		$session = new Zend_Session_Namespace('main.auth');
+		if(isset($session->saa))
+			$this->_redirect(AREDIRECT);
 		$this->_helper->layout->setLayout('admin');
 		require_once('main/helpers/recaptchalib.php');
 		require_once('main/helpers/TwitterAPI.php');
 		$this->view->title="Login";
 		$this->view->script="login";
 		$connection = new TwitterAPI(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
-		$request_token = $connection->getRequestToken(getSiteName().'main/aile');
-		//$session->oauth_token  = $request_token['oauth_token'];
-		//$session->oauth_token_secret= $request_token['oauth_token_secret'];
+		$request_token = $connection->getRequestToken(getSiteName().AREDIRECT);
+		$session->oauth_token  = $request_token['oauth_token'];
+		$session->oauth_token_secret= $request_token['oauth_token_secret'];
 		$authorize_url = $connection->getLoginURL($request_token);
 		$this->view->twitter = "<a title='Twitter ile bağlan' href='$authorize_url'><div class='sign_with_twitter'></div></a>";
 		$error=null;
@@ -36,19 +39,9 @@ class LoginController extends Zend_Controller_Action
 					{
 						$config = $this->getInvokeArg('bootstrap')->getOption('itsphp');
 						$adapter = new main_helpers_Auth_Adapter_Doctrine($input->login, $input->sifre,$config["secret"]);
-						$auth = Zend_Auth::getInstance();
 						$result = $auth->authenticate($adapter);
 						if ($result->isValid()) 
-						{
-							if (isset($session->requestURL)) 
-							{
-								$url = $session->requestURL;
-								unset($session->requestURL);
-								$this->_redirect($url);
-							} 
-							else 
-								$this->_redirect('/admin');
-						}
+							$this->redirected(null,'/admin');	
 						else 
 							$this->view->uyari ='Yönetici Ad veya şifre hatalı...';
 					} 
@@ -130,17 +123,8 @@ class LoginController extends Zend_Controller_Action
 							$kul->save();
 						} 
 						catch (Exception $e){}
+						$this->redirected($mykul);	
 					}
-					$session = new Zend_Session_Namespace('main.auth');
-					$session->akrabaAd=$mykul;
-					if (isset($session->requestURL)) 
-					{
-						$url = $session->requestURL;
-						unset($session->requestURL);
-						$this->_redirect($url);
-					} 
-					else 
-						$this->_redirect('/main/aile');
 				}
 			}
 		}
@@ -174,6 +158,7 @@ class LoginController extends Zend_Controller_Action
 						$kul->save();
 					} 
 					catch (Exception $e){}
+					$this->redirected($data["registration"]["name"]);	
 				}
 			}
 		}
@@ -185,13 +170,6 @@ class LoginController extends Zend_Controller_Action
 		Zend_Auth::getInstance()->clearIdentity();
 		Zend_Session::destroy();
 		$_SERVER['PHP_AUTH_USER']=$_SERVER['PHP_AUTH_PW']='';
-		/*@session_start();
-		$_SESSION = array();
-		unset($_SESSION);
-		if (isset($_COOKIE[session_name()])) 
-			setcookie(session_name(), '', time()-42000, '/');
-		session_unset();
-		session_destroy();	*/
 		$this->_redirect('/');
 	}
 	
@@ -213,8 +191,7 @@ class LoginController extends Zend_Controller_Action
 		{
 			echo "ok";
 			$session = new Zend_Session_Namespace('main.auth');
-			$session->akrabaID=$userID;
-			$session->akrabaAd=$result['ad'];
+			$session->saa=$result['ad'];
 		}
 		else 
 			echo "error";
@@ -235,6 +212,20 @@ class LoginController extends Zend_Controller_Action
 		$message->setType(Zend_Mime::MULTIPART_RELATED);
 		$message->send();
 		echo 'Mesajınız alındı!';
+	}
+
+	private function redirected($mykul=null,$myurl="main/aile")
+	{
+		$session = new Zend_Session_Namespace('main.auth');
+		$session->saa=$mykul;
+		if (isset($session->requestURL)) 
+		{
+			$url = $session->requestURL;
+			unset($session->requestURL);
+			$this->_redirect($url);
+		} 
+		else 
+			$this->_redirect($myurl);
 	}
 }
 

@@ -43,11 +43,10 @@ Genel Stil
 ------------------------------ */
 @font-face {
 	font-family: 'OldSansBlackRegular';
-	src: url('OldSansBlack.eot');
-	src: local('OldSansBlack Regular'), local('OldSansBlack'), 
-			url('OldSansBlack.woff') format('woff'), 
-			url('OldSansBlack.ttf') format('truetype'), 
-			url('OldSansBlack.svg#OldSansBlack') format('svg');
+	src: url('OldSansBlack.eot#') format('eot'), 
+	     url('OldSansBlack.woff') format('woff'), 
+	     url('OldSansBlack.ttf')  format('truetype'),
+	     url('OldSansBlack.svg#OldSansBlack') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -246,8 +245,8 @@ MAIN
         padding-bottom: 99999px;
 }
 #ccnt {
-	margin-left: 3%;
-	width: 63%;
+	margin-left: 1%;
+	width: 66%;
 	min-height:1200px;
 	height:auto;
 	float:left;
@@ -266,7 +265,6 @@ MAIN
 	margin-right:5px;
 }
 #rcnt summary{width: 101%;}
-#rcnt ins{float:right;}
 .lslink{text-align:right;}
 #adli li a { background: url(../images/sprite-main.png) no-repeat top right; background-position: 0 -783px; padding-left:16px; }
 #adli li #admin:hover,#adli li #admin:focus {background-position: 0 -66px;}
@@ -307,11 +305,25 @@ MAIN
 #lcnt a:hover,#lcnt a:focus,.rslink a:hover,.rslink a:focus  {color:#000;}
 #lcnt summary{text-align:right;}
 #lcnt iframe,#browser a div{float:right;}
+#lcnt > nav a {	margin: 5px;}
+#lcnt > nav h4 {
+	text-align:left;
+	-webkit-transform: rotate(-25deg) translate(5px, -10px);
+	-moz-transform: rotate(-25deg) translate(5px, -10px);
+	-o-transform: rotate(-25deg) translate(5px, -10px);
+	transform: rotate(-25deg) translate(5px, -10px);
+}
+#lcnt > nav a:hover img,#lcnt > nav a:focus img{
+	-webkit-transform:skew(-30deg, 0deg);
+	-moz-transform:skew(-30deg, 0deg);
+	-o-transform:skew(-30deg, 0deg);
+	transform:skew(-30deg, 0deg);
+}
 .st_l, .st_r {padding:5px;}
 .st_l {text-align:right;}
 .rslink {text-align:left;}
 .rslink a {display:block;}
-#TwitterCounter{float:right;}
+#hau{float: right;margin-top: 120px;margin-right: 10px;}
 #dialog {overflow:hidden; }
 #dialog img{ width:100%; height:100%; }
 .radial{ 
@@ -356,12 +368,6 @@ MAIN
 	-o-transition: all 1s ease;
 	transition: all 1s ease;
 }
-#lcnt > nav a {
-	margin: 5px;
-}
-#lcnt > nav h3 {
-	text-align:center;
-}
 .op5{	-webkit-opacity : 0.5;	opacity:0.5;	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50); filter: alpha(opacity = 50);	}
 .cssc{
 	-webkit-column-count: 2;  
@@ -371,12 +377,6 @@ MAIN
 	-moz-column-gap: 50px;
 	column-gap: 50px;
 } 
-#lcnt > nav a:hover img,#lcnt > nav a:focus img{
-	-webkit-transform:skew(-30deg, 0deg);
-	-moz-transform:skew(-30deg, 0deg);
-	-o-transform:skew(-30deg, 0deg);
-	transform:skew(-30deg, 0deg);
-}
 .translate:hover img,.translate:focus img{
 	-webkit-transform: translate(20px, 0px);
 	-moz-transform: translate(20px, 0px);
@@ -819,7 +819,6 @@ Tur
 #tc p{	padding:10px;}
 .tb{
 	white-space: nowrap;
-	display:block;
 	float:left;
 	margin:10px 0px 10px 10px;
 	cursor:pointer;
@@ -1065,7 +1064,6 @@ breadcrumb
 	background: #004080;                   /* fallback color */
 	background: hsla(210,100%,25%,1); 
 	position: relative; 
-	display: block;
 	float: left;
 	-webkit-transition: all 0s ease;
 	-moz-transition: all 0s ease;
@@ -1169,6 +1167,9 @@ Tooltip
 /* ------------------------------
 Giriş Sayfasi
 ------------------------------ */
+#ccnt .iap { width:50%; float:right; }
+#ccnt .iap:first-child {float:left;}
+#ccnt .iap:first-child .rss {  float: right;margin-right: -19px;}
 #ambience {
 	-moz-transition-property: all;
 	-moz-transition-duration: 1s;
@@ -1182,7 +1183,7 @@ Giriş Sayfasi
 	padding: 5%;
 	width: 90%;
 }
-.rss {  float: left;margin-left: -190px;} 
+.rss {  float: left;margin-left: -19px;} 
 .rss img {
 	-webkit-transition: -webkit-transform 0.5s ease-in-out;
 	-moz-transition: -moz-transform 0.5s ease-in-out;
@@ -1195,9 +1196,8 @@ Giriş Sayfasi
 	-o-transform: scale(2);
 	transform: scale(2);
 }
-#iap .rss{ margin-left: -19px;  }
 .panelA{ float:left; margin-right:10px; }
-#rightPanel { float:right; margin-top:-15px; margin-left:10px;  margin-right:0; }
+#rightPanel { float:right; margin-left:10px;  margin-right:0; }
 .ie8 #rightPanel { margin-right:-5px; }
 .panelA img {
 width:150px !important;
@@ -1430,7 +1430,6 @@ Aile Sayfasi
   top: 0;
 }
 .infCour ul li {
-  display:block;
   float:left;
   padding: 10px;
   height: 85px;
@@ -2018,7 +2017,6 @@ Aile Form
 	text-align: center;
 	background-color: #aaa;
 	color: white;
-	display: block;
 	float: left;
  	text-indent:-99999px;
 }

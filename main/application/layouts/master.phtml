@@ -30,7 +30,7 @@
 	<link rel="stylesheet" media="all" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/start/jquery-ui.css" />
 	<link rel="stylesheet" media="print" href="/main/css/print.css" />
 	<link rel="stylesheet" media="handheld" href="/main/css/handheld.css" />
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.5.min.js"></script>
 	<script>!window.jQuery && document.write(unescape('%3Cscript src="/main/js/jquery/jquery.min.js"%3E%3C/script%3E'))</script>
 	<script src="/main/js/modernizr-1.6.min.js"></script>
 	<title><?php echo $this->title ?> | ITSPHP</title>
@@ -103,6 +103,13 @@
 							<li class="oeh">Atom</li>
 							<li><a href="http://feeds.feedburner.com/itsphp/muzik/atom" target="_blank" rel="nofollow">Müzik</a></li>
 							<li><a href="http://feeds.feedburner.com/itsphp/aile/atom" target="_blank" rel="nofollow">Aile</a></li>
+							<li><a href="http://feeds.feedburner.com/itsphp/kitap/atom" target="_blank" rel="nofollow">Kitap</a></li>
+						</ul>
+						<ul>
+							<li class="oeh">XML</li>
+							<li><a href="<?php echo $this->url(array(), 'feedmuzik'); ?>" target="_blank" rel="nofollow">Müzik</a></li>
+							<li><a href="<?php echo $this->url(array(), 'feedaile'); ?>" target="_blank" rel="nofollow">Aile</a></li>
+							<li><a href="../feed/kitap.xml" target="_blank">Kitap</a></li>
 						</ul>
 					</div>
 				</li>
@@ -147,23 +154,30 @@
 			</aside>
 			<a href="/mobil/" class="headerButton">Mobil Sayfayı Aç</a>
 		</section>
+		<span id="hau"><?php echo Zend_Auth::getInstance()->hasIdentity() ? Zend_Auth::getInstance()->getIdentity() : ($this->saa ? $this->saa : ($this->fbid ? $this->fbid : "")); ?></span>
 	</header>
 	<div id="cnt">
 		<aside id="lcnt" role=”complementary”>
 			<nav role="navigation">
-				<h3>AİLE<?php //echo "(".getSocial("http://feeds.feedburner.com/itsphp/aile")+getSocial("http://feeds.feedburner.com/itsphp/aile/atom").")"; ?></h3><br />
+				<h3 class="ui-widget ui-widget-header">Beslemeler</h3>
+				<h4>AİLE<?php //echo "(".getSocial("http://feeds.feedburner.com/itsphp/aile")+getSocial("http://feeds.feedburner.com/itsphp/aile/atom").")"; ?></h4><br />
 				<p>
-					<a target="_blank" href="<?php echo $this->url(array(), 'feedaile'); ?>" rel="nofollow"><img src="/main/images/xml.gif" title="XML" /></a>
+					<a target="_blank" href="<?php echo $this->url(array(), 'feedaile'); ?>" rel="nofollow"><img src="/main/images/xml.gif" title="XML" width="32" height="32" /></a>
 					<a target="_blank" href="http://feeds.feedburner.com/itsphp/aile/atom" rel="alternate" type="application/atom+xml"><img src="/main/images/atom.png" title="Atom" /></a>
 					<a target="_blank" href="http://feeds.feedburner.com/itsphp/aile" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" title="RSS" /></a>
 				</p><br />
-				<h3>MÜZİK<?php //echo "(".getSocial("http://feeds.feedburner.com/itsphp/muzik")+getSocial("http://feeds.feedburner.com/itsphp/muzik/atom").")"; ?></h3><br />
+				<h4>MÜZİK<?php //echo "(".getSocial("http://feeds.feedburner.com/itsphp/muzik")+getSocial("http://feeds.feedburner.com/itsphp/muzik/atom").")"; ?></h4><br />
 				<p>
-					<a target="_blank" href="<?php echo $this->url(array(), 'feedmuzik'); ?>" rel="nofollow"><img src="/main/images/xml.gif" title="XML" /></a>
+					<a target="_blank" href="<?php echo $this->url(array(), 'feedmuzik'); ?>" rel="nofollow"><img src="/main/images/xml.gif" title="XML" width="32" height="32" /></a>
 					<a target="_blank" href="http://feeds.feedburner.com/itsphp/muzik/atom" rel="alternate" type="application/atom+xml"><img src="/main/images/atom.png" title="Atom" /></a>
 					<a target="_blank" href="http://feeds.feedburner.com/itsphp/muzik" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" title="RSS" /></a>
 				</p><br />
-				<p><a target="_blank" href="http://feeds.feedburner.com/itsphp/kitap" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon16x16.png" title="RSS"/>Kitap<?php //echo "(".getSocial("http://feeds.feedburner.com/itsphp/kitap").")"; ?></a></p><br />
+				<h4>KİTAP<?php //echo "(".getSocial("http://feeds.feedburner.com/itsphp/kitap")+getSocial("http://feeds.feedburner.com/itsphp/kitap/atom").")"; ?></h4><br />
+				<p>
+					<a target="_blank" href="../feed/kitap.xml" rel="nofollow"><img src="/main/images/xml.gif" title="XML" width="32" height="32" /></a>
+					<a target="_blank" href="http://feeds.feedburner.com/itsphp/kitap/atom" rel="alternate" type="application/atom+xml"><img src="/main/images/atom.png" title="Atom" /></a>
+					<a target="_blank" href="http://feeds.feedburner.com/itsphp/kitap" rel="alternate" type="application/rss+xml"><img src="http://www.feedburner.com/fb/images/pub/feed-icon32x32.png" title="RSS" /></a>
+				</p>
 			</nav>	
 			<?php echo $this->appreciate(); ?>
 			<details open>
@@ -206,8 +220,6 @@
 			<details open>
 				<summary class="st_l ui-widget ui-widget-header tour_6"><span class="dc ui-icon ui-icon-closethick">X</span>Paylaşıldı</summary>
 				<?php echo $this->social(); ?>
-				<br class="clear" />
-				<script src="http://twittercounter.com/embed/?username=itasdemir86&style=bird"></script>
 				<br class="clear" />
 			</details>
 			<?php echo $this->twitter(); ?>

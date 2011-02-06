@@ -67,10 +67,11 @@
 </div>
 
 <aside id="rcnt" role=”complementary”>
+	<?php echo $this->ara(); ?>
 	<?php if($this->guncelle): ?>
 		<h3 class="ui-widget ui-widget-header"><?php echo $this->ad; ?></h3>
 		<img width="100%" src="<?php echo getResim($this->guncelle); ?>" alt="<?php echo $this->guncelle."-".$this->ad; ?>" title="<?php echo  $this->guncelle."-".$this->ad; ?>" />
-		<p>Güncellemede bireyin ismi,doğum tarihi ve ebeveyni değiştirilemez!</p>
+		<p>Güncellemede bireyin ismi, doğum tarihi ve ebeveyni değiştirilemez!</p>
 	<?php endif; ?>
 	<br />
 	<h3 class="st_r ui-widget ui-widget-header">Taşdemir Ailesi</h3>

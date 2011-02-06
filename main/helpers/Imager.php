@@ -16,7 +16,7 @@
  * @version 0.0.1
  * @license BSD http://www.opensource.org/licenses/bsd-license.php
  */
-class main_helpers_Imager extends Zend_Controller_Action_Helper_Abstract  // test için extends sil 
+class main_helpers_Imager extends Zend_Controller_Action_Helper_Abstract
 { 
 	/**
 	* Checks if png,gif,jpg image is safe to upload and moves uploaded image to the "/main/images/temp/image"

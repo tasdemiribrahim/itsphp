@@ -123,6 +123,39 @@ class HaberController extends Zend_Controller_Action
 		}
 		echo $feed->export('atom');
 	}
+
+	public function katomAction()
+	{
+		$feed = new Zend_Feed_Writer_Feed;
+		$feed->setTitle('Kitap - ITSPHP(Atom)');
+		$feed->setLink(getSiteName());
+		$feed->setFeedLink(getSiteName().'haber/kitap/atom', 'atom');
+		$feed->addAuthor(array(
+		    'name'  => 'İbrahim Taşdemir',
+		    'email' => 'tasdemiribrahim@mynet.com',
+		    'uri'   => getSiteName()
+		));
+		$feed->setDateModified(time());
+
+		$xml = new SimpleXMLElement(file_get_contents("../feed/kitap.xml"));
+		foreach ($xml->channel->item as $r) 
+		{
+			$entry = $feed->createEntry();
+			$entry->setTitle((string)$r->title);
+			$entry->setLink((string)$r->link);
+			$entry->addAuthor(array(
+			    'name'  => 'İbrahim Taşdemir',
+			    'email' => 'tasdemiribrahim@mynet.com',
+			    'uri'   => getSiteName()
+			));
+			$entry->setDateModified(strtotime((string)$r->pubdate));
+			$entry->setDateCreated(strtotime((string)$r->{'pubdate'}));
+			$entry->setDescription((string)$r->description);
+			$entry->setContent((string)$r->description);
+			$feed->addEntry($entry);
+		}
+		echo $feed->export('atom');
+	}
 	
 	public function adsenseAction()
 	{		

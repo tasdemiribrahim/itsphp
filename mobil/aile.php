@@ -24,11 +24,11 @@ $smarty->assign("resim", getResim($record["id"]));
 $id=0;
 if(isset($_GET["id"]))	
 {
-	$id=$_GET["id"];
+	$id=temizSayi($_GET["id"]);
 	$smarty->assign("ad",$record["ad"]);
 }
 
-$sth = $db->prepare("SELECT * FROM aa WHERE eid=".temizSayi($id)." ORDER BY id");
+$sth = $db->prepare("SELECT * FROM aa WHERE eid=$id ORDER BY id");
 $sth->execute();
 $smarty->assign("rows",$sth->fetchAll());
 

@@ -157,14 +157,5 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$memoryCache = $manager->getCache('memory');
 		Zend_Locale::setCache($memoryCache);
 		Zend_Translate::setCache($memoryCache);
-	}
-	
-	protected function _initNavigation()
-	{
-		$config = new Zend_Config_Xml(APPLICATION_PATH . '/navigation.xml');
-		$container = new Zend_Navigation($config);
-		$registry = Zend_Registry::getInstance();
-		$registry->set('Zend_Navigation', $container);
-		Zend_Controller_Action_HelperBroker::addHelper(new main_helper_Navigation());
-	} */
+	}*/
 }
