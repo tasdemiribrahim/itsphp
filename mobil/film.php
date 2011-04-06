@@ -16,10 +16,17 @@ $sth = $db->prepare("SELECT * FROM film ORDER BY id");
 $sth->execute();
 $smarty->assign("rows",$sth->fetchAll());
 
+$id=0;
 if(isset($_GET["q"]))
-	$sth = $db->prepare("SELECT * FROM film WHERE id=".temizSayi($_GET["q"]));
+{
+	$id=temizSayi($_GET["q"]);
+	$sth = $db->prepare("SELECT * FROM film WHERE id=$id");
+}
 else
 	$sth = $db->prepare("SELECT * FROM film ORDER BY id DESC LIMIT 1");
+$sth->execute();
+$film = $sth->fetch(PDO::FETCH_ASSOC);
+$smarty->assign("film",$film);
 
 $smarty->assign('opts', array(0 => 'Kapalı',1 => 'Açık'));
 
@@ -27,13 +34,10 @@ if(isset($_GET["g"]) && $_GET["g"]=="1")
 	$smarty->assign("g",1);
 else
 	$smarty->assign("g",0);
-$sth->execute();
-$film = $sth->fetch(PDO::FETCH_ASSOC);
-$smarty->assign("film",$film);
 
 $tmdb = new TMDb(TMDB_API_KEY);
 $movies_result = json_decode($tmdb->searchMovie($film['ad']));
 $smarty->assign("movies_result",$movies_result);
 
-$smarty->display('film.tpl', "film|".(isset($_GET["q"])?$_GET["q"]:""));
+$smarty->display('film.tpl', "film|$id");
 

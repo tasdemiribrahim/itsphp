@@ -1,0 +1,117 @@
+#ccnt .iap { width:50%; float:right; }
+#ccnt .iap:first-child {float:left;}
+#ccnt .iap:first-child .rss {  float: right;margin-right: -19px;}
+#ambience {
+	-moz-transition-property: all;
+	-moz-transition-duration: 1s;
+	-moz-transition-timing-function: linear;
+	-webkit-transition-property: all;
+	-webkit-transition-duration: 1s;
+	-webkit-transition-timing-function: linear;
+	-o-transition-property: all;
+	-o-transition-duration: 1s;
+	-o-transition-timing-function: linear;
+	padding: 5%;
+	width: 90%;
+}
+.rss {  float: left;margin-left: -19px;} 
+.rss img {
+	-webkit-transition: -webkit-transform 0.5s ease-in-out;
+	-moz-transition: -moz-transform 0.5s ease-in-out;
+	-o-transition: -o-transform 0.5s ease-in-out;
+	transition: transform 0.5s ease-in-out;
+}
+.rss:hover img {
+	-webkit-transform: scale(2);
+	-moz-transform: scale(2);
+	-o-transform: scale(2);
+	transform: scale(2);
+}
+.panelA{ float:left; margin-right:10px; }
+#muzik_img{height:auto;}
+#rightPanel { float:right; margin-left:10px;  margin-right:0; }
+.ie8 #rightPanel { margin-right:-5px; }
+.panelA img {
+width:150px !important;
+background: #fff;
+border: solid 1px #ccc;
+padding: 4px;
+height: 150px;
+}
+.panelA span {
+	width: 77px;
+	height: 27px;
+	display: block;
+	position: relative;
+	top: 12px;
+	left: 50px;
+	background: url(/main/images/index/tape.png) no-repeat;
+}
+.ie8 .panelA{ width:150px !important; padding-right:15px;}
+#chart_div .orgChartNode figure{
+	background: white;
+	color:black;
+	border: 10px solid white; 
+	-webkit-box-shadow: 0 3px 10px rgba(0,0,0,.4); 
+	-moz-box-shadow: 0 3px 10px rgba(0,0,0,.4);
+	box-shadow: 0 3px 10px rgba(0,0,0,.4);
+	-webkit-transition: -webkit-transform 0.5s ease-out;
+	-moz-transition: -moz-transform 0.5s ease-out;
+	-o-transition: -o-transform 0.5s ease-out;
+	transition: transform 0.5s ease-out;
+}
+#chart_div .orgChartNode figcaption { 
+  text-align: center; 
+background: white;
+  display: block; 
+  font-size: 12px; 
+  font-style: italic; 
+}
+.orgChartNode:hover figure,.orgChartNode:focus figure {
+	-webkit-transform: scale(3);
+	-moz-transform: scale(3);
+	-o-transform: scale(3);
+	transform: scale(3);
+}
+#chart_div{
+	-ms-overflow-y:hidden; 
+	overflow-y:hidden; 
+	padding-bottom:45px; 
+	background:#FFF; 
+	border:1px solid #38D; 
+}
+#chart_div .google-visualization-orgchart-table * { margin:0; padding:0; background:transparent;}
+/*Video Oynatýcý*/
+.flashContainer{	position:relative;	overflow:hidden;	width:400px;}
+.progressBar{
+	display:none;
+	position:absolute;
+	width:auto;
+	height:8px;
+	left:20px;
+	right:105px;
+	bottom:20px;
+	background-color:#141414;
+	overflow:hidden;
+	-moz-box-shadow:0 1px 0 rgba(255, 255, 255, 0.3);
+	-webkit-box-shadow:0 1px 0 rgba(255, 255, 255, 0.3);
+	box-shadow:0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.progressBar .elapsed{
+	position:absolute;
+	width:0;
+	height:100%;
+	background-color:#1fa2f6;
+	border-right:1px solid #49AFF0;
+}
+.controlDiv{
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin:-60px 0 0 -60px;
+}
+.controlDiv.play{   background: url(/main/images/index/play.png) no-repeat top left; width: 128px; height: 128px; }
+.controlDiv.replay{   background: url(/main/images/index/replay.png) no-repeat top left; width: 128px; height: 128px;}
+.controlDiv.pause{ display:none; background: url(/main/images/index/pause.png) no-repeat top left; width: 128px; height: 128px; }
+.flashContainer.playing:hover .progressBar,.flashContainer:hover .controlDiv.pause,.flashContainer.playing:focus .progressBar,.flashContainer:focus .controlDiv.pause{	display:block; }
+

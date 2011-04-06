@@ -1,0 +1,196 @@
+<?php 
+$this->headScript()->appendFile("/main/js/aile.js");
+$this->headLink()->appendStylesheet("http://demo.tutorialzine.com/2010/10/css3-animated-bubble-buttons/buttons/buttons.css");
+$this->headLink()->appendStylesheet("/main/css/aile.css");
+if(isset($this->page)) : 
+	$this->title=$this->birey->getAttribute('ad');
+	$this->h2=$this->birey->getAttribute('ad');
+	?>
+	<form method="post" class="vcard">
+		<img class="photo" src="<?php echo $this->birey->getAttribute('resim'); ?>" alt="<?php echo $this->birey->getAttribute('ad'); ?>" />
+		<h3 class="structured name"><?php echo $this->birey->getAttribute('ad'); ?></h3>
+		<p>
+			<label for="birey_img">Resmi Değiştir:</label>
+			<input type="file" name="birey_img" />
+		</p>
+		<p>
+			<label for="birey_adres">Adres:</label>
+			<input name="birey_adres" value="<?php echo ($this->birey->hasAttribute('adres')?$this->birey->getAttribute('adres'):''); ?>" />
+		</p>
+		<p>
+			<label <?php echo ($this->birey->hasAttribute('twitter')?'id="bft"':''); ?> for="birey_twitter" title="Twitter mesajlarını göster">Twitter:</label>
+			<input name="birey_twitter" value="<?php echo ($this->birey->hasAttribute('twitter')?$this->birey->getAttribute('twitter'):''); ?>" />
+		</p>
+		<p>
+			<label for="birey_flickr">FlickrID:</label>
+			<input name="birey_flickr" id="birey_flickr" value="<?php echo ($this->birey->hasAttribute('flickr')?$this->birey->getAttribute('flickr'):''); ?>" />
+		</p>
+		<input type="submit" class="button blue" name="guncelle" value="Güncelle" />
+	</form>
+	<br class="clear" />
+	<?php if($this->birey->hasChildNodes()): ?>
+		<h4 class="anaglyphic">Çocukları</h4>
+		<p class="count">
+		<?php
+		$children = $this->birey->childNodes;
+		for($i=0; $i<$children->length; $i++) 
+		{
+			$child = $children->item($i);
+			echo '<a href="'.$this->url().'&'.urlencode($child->getAttribute('ad')).'"><img src="'.$child->getAttribute('resim').'" title="'.$child->getAttribute('ad').'" alt="'.$child->getAttribute('ad').'" width="100" height="100" /></a>';
+		}
+		echo "</p>";
+	endif; ?>
+	<br class="clear" />
+	<form method="post">
+		<p>
+			<label for="cocuk_ad">İsim:</label>
+			<input name="cocuk_ad" required />
+		</p>
+		<p>
+			<label for="birey_img">Resim:</label>
+			<input type="file" name="birey_img" />
+		</p>
+		<p>
+			<label for="birey_adres">Adres:</label>
+			<input name="birey_adres" />
+		</p>
+		<p>
+			<label for="birey_twitter">Twitter:</label>
+			<input name="birey_twitter" />
+		</p>
+		<p>
+			<label for="birey_flickr">FlickrID:</label>
+			<input name="birey_flickr" />
+		</p>
+		<input type="submit" class="button green rounded" value="Çocuk Ekle" />
+	</form>
+	<br class="clear" />
+	<h4 class="anaglyphic">Yorumlar</h4>
+	<a href="<?php echo $this->page; ?>#disqus_thread" data-disqus-identifier="main_identifier"><?php echo $this->birey->getAttribute('ad'); ?></a>
+	<div id="disqus_thread"></div>
+	<?php $this->headScript()->captureStart() ?>
+	    var disqus_shortname = 'itsphp',disqus_identifier = '<?php echo $this->url(); ?>',disqus_url = "<?php echo SITE.$this->url() ?>",disqus_developer = 0,disqus_title="ITSPHP";
+	    (function() {
+		var s = document.createElement('script'); s.async = true;
+		s.src = 'http://disqus.com/forums/' + disqus_shortname + '/count.js';
+		(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+	    }());
+
+	    (function() {
+		var dsq = document.createElement('script'); dsq.async = true;
+		dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	<?php $this->headScript()->captureEnd(); ?>
+	<?php if($this->birey->hasAttribute('flickr')): ?>
+		<?php $this->headScript()->prependFile("http://www.appelsiini.net/download/jquery.viewport.mini.js"); ?>
+		<div class="flickr_photobar">
+			<div id="flickr_overlay" class="flickr_overlay" style="display:none;"></div>
+			<div id="flickr_photopreview" class="photopreview" style="display:none;">
+				<div class="preview_wrapper">
+					<div class="preview">
+						<div class="loading"></div>
+						<div id="preview_close" class="close escBlue"></div>
+						<span id="large_phototitle"></span>
+						<!--image-->
+						<a href="#" id="preview_img_next" class="img_next nextArrow">Sonraki</a>
+						<a href="#" id="preview_img_prev" class="img_prev prevArrow">Önceki</a>
+					</div>
+				</div>
+
+			</div>
+			<div id="photobar" class="photobar">	
+				<div class="thumbs albums" id="sets">
+					<a href="#" class="prev prevArrow">Önceki</a>
+
+					<div class="thumbsWrapper"><ul></ul></div>
+					<a href="#" class="next nextArrow">Sonraki</a>
+				</div>
+				<nav role="navigation" class="thumbs images" id="images" style="bottom:-125px;">
+
+					<a href="#" class="prev prevArrow">Önceki</a>
+					<div class="thumbsWrapper"><ul></ul></div>
+					<a href="#" class="next nextArrow">Sonraki</a>
+					<span class="images_toggle"><span id="setName"></span><a id="images_toggle">Setler</a></span>
+
+				</nav>
+				<a id="flickr_toggle" class="toggle">Flickr Fotoğrafları<span class="sakla loading_small"></span></a>
+			</div>
+		</div>
+	<?php endif; ?>
+<?php else:
+	$this->title="Aile";
+	$this->h2="Aile";
+	?>
+	<?php $this->headScript()->prependFile("http://maps.google.com/maps/api/js?sensor=false&language=tr&region=TR")->prependFile("http://code.google.com/apis/gears/gears_init.js"); ?>
+	<h3 class="ui-widget ui-widget-header">Aile Ataları</h3>
+	<p class="count">
+		<?php
+			foreach($this->atalar["aile"]["birey"] as $ata) 
+			{
+				echo '<a href="'.$this->url().'/'.urlencode($ata['@ad']).'"><img src="'.$ata['@resim'].'" title="'.$ata['@ad'].'" alt="'.$ata['@ad'].'" width="100" height="100" /></a>';
+			}
+		?>
+	</p>
+	<h3 class="ui-widget ui-widget-header">Aile Videoları</h3>
+	<div id="avd" aria-live="assertive" aria-atomic="true">
+		<video src="http://vid.ly/3b3e4m?content=video" onmouseover="this.play()" onmouseout="this.pause()" id="vidly-video" onended="yeniVideo()" controls="controls" autoplay="true">
+			<script id="vidjs" src="http://m.vid.ly/js/html5.js"></script>
+		</video>
+		<canvas id="reflection" height="55"></canvas>
+	</div>
+	<article data-start="64" data-end="108" class="sakla">
+		<p class="uyari">Görüntüleri indir:</p>
+		<p>
+			<a rel="nofollow" href="http://ibrahimtasdemir.mysites.com/get_file/26062010035.mp4">#1</a>,
+			<a rel="nofollow" href="http://ibrahimtasdemir.mysites.com/get_file/26062010036.mp4">#2</a>,
+			<a rel="nofollow" href="http://ibrahimtasdemir.mysites.com/get_file/26062010037.mp4">#3</a>,
+			<a rel="nofollow" href="http://ibrahimtasdemir.mysites.com/get_file/26062010038.mp4">#4</a>
+		</p>
+	</article>
+	<article data-start="108" data-end="204" class="sakla">
+		<p class="uyari">Görüntüler:</p>
+		<p>
+			<a rel="nofollow" href="http://ibrahimtasdemir.mysites.com/get_file/26062010038.mp4">#4</a>,
+			<a rel="nofollow" href="http://ibrahimtasdemir.mysites.com/get_file/26062010037.mp4">#3</a>,
+			<a rel="nofollow" href="http://ibrahimtasdemir.mysites.com/get_file/26062010036.mp4">#2</a>,
+			<a rel="nofollow" href="http://ibrahimtasdemir.mysites.com/get_file/26062010035.mp4">#1</a>
+		</p>
+	</article>
+	<h3 class="ui-widget ui-widget-header">Aile Haritası</h3>
+	<div id="ammc"></div>
+	<br class="clear" />
+	<p>
+		<select id="amsr"><option value="" selected data-skip='1'>Kaynak</option></select>'den
+		<select id="amer"><option value="" selected data-skip='1'>Hedef</option></select>'e<br /><br />
+		<select id="mode">
+		  <option value="DRIVING">araba</option>
+		  <option value="WALKING">tabanvay</option>
+		  <option value="BICYCLING">bisiklet</option>
+		</select> ile
+		<input type="button" id="git" value="gidiyorum" />
+	</p>
+	<select id="amwp" multiple size="5"></select><br />
+	<p>Ancak bunlara da uğrarım.(Çoklu seçim için <code>ctrl</code> tuşuna basılı tutun.)</p><br />
+	<p><input type="checkbox" id="tarif" checked /><label for="tarif">Detaylı tarif et.</label></p>
+	<p><input type="checkbox" id="ampg" /><label for="ampg">Sokakları göster(Türkiye için yok)</label></p>
+	<br /><p>Toplam Mesafe:<span id="amty">0</span> km.</p>
+	<br class="clear" />
+	<div id="pano" class="sakla" aria-live="assertive" aria-atomic="true" ></div>   
+	<div id="amdp" aria-live="assertive" aria-atomic="true" ></div>   
+	<?php
+	$mesaj=array('<h3 class="radial daire">Video Göster</h3>
+		<ul id="vidLink">
+			<li id="3b3e4m" data-sira="0">Nilgünün Düğünü #1</li>
+			<li id="5j4g7o" data-sira="1">Nilgünün Düğünü #2</li>
+			<li id="1f2a5c" data-sira="2">Nilgünün Düğünü #3</li>
+			<li id="2g8v4w" data-sira="3">Nilgünün Düğünü #4</li>
+		</ul><br />
+		<h3 class="radial daire">Haritada Göster</h3>
+		<ol id="amhl"></ol>
+		<script> var adresler=new Array(),i=0;');
+	foreach ($this->adres as $row)
+		$mesaj[]='adresler[i++]=["'.$row->getAttribute('adres').'","'.$row->getAttribute('ad').'","'.$row->getAttribute('resim').'"];'.PHP_EOL;
+	$this->placeholder('sidebar')->append(implode($mesaj)."</script>");
+
+endif; ?>

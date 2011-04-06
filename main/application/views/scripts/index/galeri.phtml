@@ -1,0 +1,36 @@
+<?php
+$this->headScript()->appendFile("/main/js/jquery/jquery.gallery");
+$this->headLink()->appendStylesheet("/main/css/galeri.css");
+$this->title="Galeri";
+?>
+<div class="albumbar">
+    <span>
+        <a href="<?php echo $this->url(array(), 'ana'); ?>">İbrahim Taşdemir'in Kişisel Ana Sayfası</a>
+    </span>
+    <div id="albumSelect" class="albumSelect">
+        <ul>
+            <?php
+		$firstAlbum = '';
+		$i=0;
+		$files = array_slice(scandir($_SERVER['DOCUMENT_ROOT'].'/main/images/resimler'), 2);
+		if(count($files)) 
+		{
+		    natcasesort($files);
+		    foreach($files as $file) 
+			if($file != '.' && $file != '..') 
+			{
+			    if($i===0)
+				$firstAlbum = $file;
+			    else
+				echo "<li><a>$file</a></li>";
+			    ++$i;
+			}
+		}
+            ?>
+        </ul>
+        <div class="title down"><?php echo $firstAlbum;?></div>
+    </div>
+</div>
+<div id="loading"></div>
+<div id="preview"><div id="imageWrapper"></div></div>
+<div id="thumbsWrapper"></div>

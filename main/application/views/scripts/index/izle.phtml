@@ -1,0 +1,47 @@
+<?php
+$this->title="İzle";
+$this->h2="İzle";
+$this->headScript()->appendFile("/main/js/izle.js");
+$this->headLink()->appendStylesheet("/main/css/izle.css");
+?>
+<h3 class="ui-widget ui-widget-header"><?php echo $this->film[0]["ad"]; ?></h3>
+<video id="movies" onplay="startVideo()" preload="auto" controls>
+	<?php if(isset($this->film[0]->mp4)) : ?><source src="<?php echo $this->film[0]->mp4; ?>" type='video/mp4'></source><?php endif; ?>
+	<?php if(isset($this->film[0]->webm)) : ?><source src="<?php echo $this->film[0]->webm; ?>" type='video/webm'></source><?php endif; ?>
+	<?php if(isset($this->film[0]->ogg)) : ?><source src="<?php echo $this->film[0]->ogg; ?>" type='video/ogg'></source><?php endif; ?>
+	<?php if(isset($this->film[0]->ac)) : ?><track src="<?php echo $this->film[0]->ac; ?>" kind="descriptions" srclang="en"></track><?php endif; ?>
+	<?php if(isset($this->film[0]->chap)) : ?><track src="<?php echo $this->film[0]->chap; ?>" kind="chapters" srclang="en"></track><?php endif; ?>
+	<?php if(isset($this->film[0]->en)) : ?><track src="<?php echo $this->film[0]->en; ?>" kind="subtitles" srclang="en"></track><?php endif; ?>
+	<?php if(isset($this->film[0]->tr)) : ?><track src="<?php echo $this->film[0]->tr; ?>" kind="subtitles" srclang="tr"></track><?php endif; ?>
+	<?php if(isset($this->film[0]->meta)) : ?><track src="<?php echo $this->film[0]->meta; ?>" kind="metadata" srclang="en"></track><?php endif; ?>
+	<?php if(isset($this->film[0]->tube)) : ?>
+	<object>
+		<param name="movie" value="http://www.youtube.com/v/<?php echo $this->film[0]->tube; ?>?version=3">
+		<param name="allowFullScreen" value="true">
+		<param name="allowScriptAccess" value="always">
+		<embed src="http://www.youtube.com/v/<?php echo $this->film[0]->tube; ?>?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always">
+	</object>
+	<?php endif; ?>
+</video>
+<p class='uyari'><b>İndir:</b>
+	<?php if(isset($this->film[0]->mp4)) : ?>Kapalı Format:<a href="<?php echo $this->film[0]->mp4; ?>">'MP4'</a><?php endif; ?>
+	<?php if(isset($this->film[0]->ogg)) : ?>Açık Format:<a href="<?php echo $this->film[0]->ogg; ?>">'OGG'</a><?php endif; ?>
+	<?php if(isset($this->film[0]->webm)) : ?>Google Format:<a href="<?php echo $this->film[0]->webm; ?>">'WEBM'</a><?php endif; ?>
+</p>
+<div>
+	<a class='panelA' title="<?php echo (isset($this->film['original_name'])?$this->film['original_name']:$this->film[0]['ad']); ?>" href="<?php echo $this->film['href']; ?>" rel="bookmark"><img class="photo" src="<?php echo $this->film['posters']; ?>" alt="<?php echo (isset($this->film['original_name'])?$this->film['original_name']:$this->film[0]['ad']); ?>"></a>
+	<p><b>Rating:</b><?php echo $this->film['rating']; ?>/10</p>
+	<p><b>Dil:</b><?php echo $this->film['language']; ?></p>
+	<p><b>Yıl:</b><?php echo $this->film['released']; ?></p>
+	<p><?php echo $this->film['overview']; ?></p>
+</div>	
+<br class="clear" />
+<h4 id="cnvHed"></h4>
+<canvas id="timeline"></canvas>
+<?php $this->placeholder('sidebar')->captureStart(); ?>
+	<ul>
+	<?php foreach ($this->filmler as $key=>$ad): ?>
+	<li><a href="<?php echo $this->url(array('page'=>urlencode($ad)),'izle');?>"><?php echo $ad; ?></a></li>
+	<?php endforeach; ?>
+	</ul>
+<?php $this->placeholder('sidebar')->captureEnd(); ?>

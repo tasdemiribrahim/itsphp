@@ -38,12 +38,67 @@ function paintAmbience()
 }
 
 var sctxt, video, ambience;
+/* Entegre etmeden silme
+if(Modernizr.history)
+{
+	window.onpopstate = function(event) 
+	{
+		if(event.state)
+		{
+			var dmid = (event.state["dmid"]);
+			heavyGrupDetayGetir(dmid);
+		}
+	};
+}
+_gaq.push(['_trackEvent', 'Grup', id]);
+if (db)
+	db.transaction(function (tx) {tx.executeSql("REPLACE INTO itsphp (sayfa, veri) VALUES(?, ?)", ["muzik", id]);});
+else if (Modernizr.localstorage)
+	localStorage.setItem("muzik",id);
+else if (Modernizr.sessionstorage)
+	sessionStorage.setItem("muzik", id);
+else
+	$.cookie("muzik", id, cookieOptions);
+
+	if(db)
+		db.transaction(function (tx) 
+		{
+			tx.executeSql('SELECT * FROM itsphp WHERE sayfa="muzik"', [], function(tx, results) 
+			{
+				if(results.rows.length>0)
+					heavyGrupDetayGetir(results.rows.item(results.rows.length-1).veri);
+			});
+		});
+	else if (Modernizr.localstorage && localStorage.getItem("muzik"))
+		heavyGrupDetayGetir(localStorage.getItem("muzik"));
+	else if (Modernizr.sessionStorage && sessionStorage.getItem("muzik"))
+		heavyGrupDetayGetir(sessionStorage.getItem("muzik"));
+	else if ($.cookie("muzik"))
+		heavyGrupDetayGetir($.cookie("muzik"));
+
+	if(Modernizr.webworkers)
+	{
+		var worker = new Worker("worker/aile.js");
+		worker.postMessage('getir='+veri[0]);
+		worker.onmessage = function (event) {
+alert(event.data);
+		 	isle(event.data);
+		};
+	}
+*/
 
 $(document).ready(function() {
-//console.log("index.js DOM Yuklendi.");
 	activateMain();	
 
 	initCanvas();
+
+	$.getScript("http://jquery.thewikies.com/swfobject/jquery.swfobject.1-1-1.min.js", function () {
+	 $.getScript("http://demo.tutorialzine.com/2010/07/youtube-api-custom-player-jquery-css/youTubeEmbed/youTubeEmbed-jquery-1.0.js", function () {
+		$('.dmt').bind("click",function(e){
+			$('#player').html("").youTubeEmbed({  video : 'http://www.youtube.com/watch?v='+$(this).attr("id"),  width : 400 }); 
+			$('#bounceb').bounceBoxShow();
+		});
+	});});
 
 	var videoDevice = document.getElementsByTagName("device")[0];
 	if(videoDevice.data)

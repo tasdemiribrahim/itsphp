@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" class="no-js">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="alternate" href="http://feeds.feedburner.com/itsphp/kitap" title="ITSPHP" type="application/rss+xml" />
+	<!--[if (gte IE 5.5)&(lte IE 8)]>
+		<script src="http://github.com/keithclark/selectivizr/raw/master/selectivizr.js" ></script>
+	<![endif]-->
+	<?php echo $this->headLink(); ?>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="/main/js/jquery/jquery.min.js"%3E%3C/script%3E'))</script>
+	<script src="/main/js/modernizr-1.6.min.js"></script>
+	<?php $this->headTitle()->prepend($this->title); echo $this->headTitle(); ?>
+</head>
+<body>
+	<?php echo $this->layout()->content; ?>
+
+	<?php echo $this->headScript() ?>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<?php
+$this->title="İbrahim Taşdemir'in Kişisel Ana Sayfası";
+$this->h2="ITSPHP";
+$this->headScript()->appendFile("/main/js/index.js");
+$this->headLink()->appendStylesheet("/main/css/index.css");
+?>
+<article role="article" class="iap">
+	<a href="<?php echo $this->url(array(), 'oku'); ?>"><h3 class="ui-widget ui-widget-header">Kitap Tavsiyesi</h3></a>
+	<p>HTML5, CSS3, JavaScript(jQuery), PHP(Zend Framework,Doctrine,Smarty), ASP.NET,SEO hakkında ipuçları ve kitap önerileri. </p>
+	<p>HTML5 & CSS3, The Definitive Guide to HTML5 Video, Pro HTML5 Programming, Microformats: Empowering Your Markup for Web 2.0, Introducing HTML5, HTML5 For Web Designers, Deliver First Class Web Sites, The Ultimate HTML Reference, HTML Web Design in 7 days!, From DHTML to DOM Scripting, The Woork Handbook, XForms Essentials, The Web Book, Create Stunning HTML Email That Just Works, Taking Your Talent to the Web...</p>
+	<p>CSS3 for Web Designers, The Zen of CSS Design Visual Enlightenment for the Web, The Principles Of Beautiful Web Design, Photography For The Web, Fancy Form Design, The Ultimate CSS Reference, The Art & Science of CSS, Everything You Know About CSS Is Wrong!, Sexy Web Design, CSS Shorthand Cheat Sheet, CSS Cheat Sheet, RGB Hex Cheat Sheet, CSS Anthology...</p>
+	<p>Pragmatic Guide to JavaScript, Beginning Google Maps API 3, JavaScript Testing Beginners Guide, jQuery 1.3 with PHP, Pragmatic Ajax, jQuery UI 1.7 The User Interface Library for jQuery, High Performance JavaScript, jQuery Novice to Ninja, Javascript Bible, Simply Javascript, Javascript For Dummies, ECMAScript Language Specification, jQuery in Action...</p>
+	<p>PHP-5 Power Programming, PHP Anthology, Doctrine ORM for PHP, Pro PHP Refactoring, Smarty PHP Template Programming and Applications, Expert PHP 5 Tools, PHP5 Social Networking, PHP 5 E-commerce Development, Pro Zend Framework Techniques Build a Full CMS Project, Zend Framework, Zend Framework in Action, A Beginner's Guide, Zend Framework 1.8 Web Application Development, PHP Web 2.0 Mashup Projects, Securing PHP Web Applications, Ajax and PHP Building Responsive Web Applications, Beginning Ajax with PHP - From Novice to Professional, RESTful PHP...</p>
+	<p>Leveraging httpHandlers to Stream Custom Content in ASP.NET, ASP.NET 3.5 Content Management System Development, ASP.NET 3.5 In Simple Steps, Build Your Own ASP.NET 3.5 Website Using C# and VB, Inside ASP.NET Web Matrix...</p>
+	<p>Seven Languages in Seven Weeks, Pragmatic Guide to Git, Pomodoro Technique Illustrated, Interface Oriented Design...</p><br />
+	<p>
+		<img alt="Apache" title="Apache" src="/main/images/ana/apache.png" width="32" height="32" />
+		<img alt="CouchDB" title="CouchDB" src="/main/images/ana/couchdb.png" width="32" height="32" />
+		<img alt="Doctrine" title="Doctrine" src="/main/images/ana/doctrine.png" width="32" height="32" />
+		<img alt="HTML5" title="HTML5" src="http://www.w3.org/html/logo/downloads/HTML5_Badge_32.png" width="32" height="32" />
+		<img alt="jQuery" title="jQuery,jQuery UI,jQuery Mobile" src="/main/images/ana/jquery.png" width="32" height="32" />
+		<img alt="MySQL" title="MySQL" src="/main/images/ana/mysql.png" width="32" height="32" />
+		<img alt="PHP" title="PHP:HyperText Processor" src="/main/images/ana/php.png" width="32" height="32" />
+		<img alt="Smarty" title="Smarty" src="/main/images/ana/smarty.jpg" width="32" height="32" />
+		<img alt="Zend Framework" title="Zend Framework" src="/main/images/ana/zf.png" width="32" height="32" />
+	<p>
+	<h3 class="ui-widget ui-widget-header">Müzik Tavsiyeleri</h3>
+	<p>
+		<ul class="count">
+			<li class="dmt" id="O5xuY3OFHvA">A Perfect Circle - Blue</li>
+			<li class="dmt" id="BwxJ46HWXbA">AC/DC - Hell's Bells</li>
+			<li class="dmt" id="e-UbViuK4fY">Amon Amarth - Death In Fire</li>
+			<li class="dmt" id="HjIZXiQvRT4">Annihilator - Alice in hell</li>
+			<li class="dmt" id="RzpRU347BDU">Anthrax - Indians</li>
+			<li class="dmt" id="NZyVZFJGX5g">Black Sabbath - Paranoid</li>
+			<li class="dmt" id="3F1W8HJLV5s">Dark Tranquillity - Monochromatic Stains</li>
+			<li class="dmt" id="vNoAZbbw3cE">Estatic Fear - Intro & Chapter I</li>
+			<li class="dmt" id="UUZPaC2CEsQ">My Dying Bride - For You</li>
+			<li class="dmt" id="vjQ63uB__OA">Nevermore - Emptiness Unobstructed</li>
+			<li class="dmt" id="WyczwqRD2NI">Pantera - Cemetery Gates</li>
+			<li class="dmt" id="UUZPaC2CEsQ">My Dying Bride - For You</li>
+		</ul>
+	</p>
+</article>
+<article role="article" class="iap">
+	<a href="<?php echo $this->url(array('page'=>''), 'aile'); ?>"><h3 class="ui-widget ui-widget-header">Aile Ağacı</h3></a>
+	<div id="chart_div"></div>
+	<script src="http://www.google.com/jsapi"></script>
+	<script>
+		google.load("visualization", "1", {packages:["orgchart"]});
+		google.setOnLoadCallback(drawChart);
+		function drawChart() 
+		{
+			var data = new google.visualization.DataTable();
+			data.addColumn("string", "akrabaAd");
+			data.addColumn("string", "ebeveyn");
+			<?php
+				$agac=$this->agac->getResult();
+				agacolustur($agac["aile"]["birey"],"''","");
+				function agacolustur($agac,$eb,$l)
+				{
+					foreach($agac as $birey) 
+					{
+						$nlink=($l==""?urlencode($birey["@ad"]):$l.'&'.urlencode($birey["@ad"]));
+						$ebeveyn='"<a href=/main/aile/'.$nlink.'><figure title=\''.$birey["@ad"].'\'><span></span><img aria-haspopup=\'true\' src=\''.$birey["@resim"].'\' alt=\''.$birey["@ad"].'\' /><figcaption>'.$birey["@ad"].'</figcaption></figure></a>"';
+						echo 'data.addRow(['.$ebeveyn.','.$eb.']);';
+						if(isset($birey["birey"]))
+						{
+							if(isset($birey["birey"][0]) && is_array($birey["birey"][0]))
+								agacolustur($birey["birey"],$ebeveyn,$nlink);
+							else 
+								agacolustur(array($birey["birey"]),$ebeveyn,$nlink);
+						}
+					}
+				}
+			?>
+			var chart = new google.visualization.OrgChart(document.getElementById("chart_div"));
+			chart.draw(data, {allowHtml:true,allowCollapse:true,nodeClass:"orgChartNode",selectedNodeClass:"orgChartNodeSel"});
+		}
+	</script>
+</article>
+<br class="clear" />
+<article id="filmPanel" role="article" class="hreview">
+	<h3 class="ui-widget ui-widget-header"><span class="twitter_search summary fn"><?php echo $this->film[0]["ad"]; ?></span></h3>
+	<div id="ambience">
+		<video id="vid" onplay="paintAmbience()" controls="controls" class="item" preload="metadata">
+			<?php if(isset($this->film[0]->mp4)) : ?>
+				<source src="<?php echo $this->film[0]->mp4; ?>" type='video/mp4'></source>
+			<?php endif; ?>
+			<?php if(isset($this->film[0]->webm)) : ?>
+				<source src="<?php echo $this->film[0]->webm; ?>" type='video/webm'></source>
+			<?php endif; ?>
+			<?php if(isset($this->film[0]->ogg)) : ?>
+				<source src="<?php echo $this->film[0]->ogg; ?>" type='video/ogg'></source>
+			<?php endif; ?>
+			<?php if(isset($this->film[0]->ac)) : ?>
+				<track src="<?php echo $this->film[0]->ac; ?>" kind="descriptions" srclang="en"></track>
+			<?php endif; ?>
+			<?php if(isset($this->film[0]->chap)) : ?>
+				<track src="<?php echo $this->film[0]->chap; ?>" kind="chapters" srclang="en"></track>
+			<?php endif; ?>
+			<?php if(isset($this->film[0]->en)) : ?>
+				<track src="<?php echo $this->film[0]->en; ?>" kind="subtitles" srclang="en"></track>
+			<?php endif; ?>
+			<?php if(isset($this->film[0]->tr)) : ?>
+				<track src="<?php echo $this->film[0]->tr; ?>" kind="subtitles" srclang="tr"></track>
+			<?php endif; ?>
+			<?php if(isset($this->film[0]->meta)) : ?>
+				<track src="<?php echo $this->film[0]->meta; ?>" kind="metadata" srclang="en"></track>
+			<?php endif; ?>
+			<?php if(isset($this->film[0]->tube)) : ?>
+			<object>
+				<param name="movie" value="http://www.youtube.com/v/<?php echo $this->film[0]->tube; ?>?version=3">
+				<param name="allowFullScreen" value="true">
+				<param name="allowScriptAccess" value="always">
+				<embed src="http://www.youtube.com/v/<?php echo $this->film[0]->tube; ?>?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always">
+			</object>
+			<?php endif; ?>
+		</video>
+	</div>
+	<canvas id="scratch" class="sakla"></canvas>
+	<a class='panelA' title='Film Tavsiyesi' href="<?php echo $this->url(array('page'=>urlencode($this->film[0]['ad'])), 'izle'); ?>" rel="self bookmark"><img class="photo" src="<?php echo $this->film['posters']; ?>" alt="<?php echo $this->film['original_name']; ?>" /></a>
+	<p class="rating"><b>Rating:</b><span class="value"><?php echo isset($this->film['rating'])?$this->film['rating']:""; ?></span>/<span class="best">10</span><br /><b>Dil:</b><?php echo isset($this->film['language'])?$this->film['language']:""; ?></p>
+	<p class="summary"><?php echo isset($this->film['overview'])?$this->film['overview']:""; ?></p>
+</article>
+<?php
+$this->placeholder('sidebar')->append('<device type="media"></device><video class="sakla" id="imv"></video><input type="button" value="Kayıt" disabled class="sakla" id="imb"></input>');

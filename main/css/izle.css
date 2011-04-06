@@ -1,0 +1,93 @@
+#uzunluk-range label {float:none;}
+#uzunluk-range input {width:auto;}
+#pager span{ padding:5px; }
+#pager a { 
+	color:#000;
+	padding:2px 5px;
+	text-decoration:none;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition:all 1s ease;
+	transition:all 1s ease;
+}
+#pager a:hover,#pager a:focus {	background-color: #c80000;	color:#FFF;}
+#pager span {	border:1px solid #c80000;	color:#c80000;	padding:2px 5px;}
+#pager {	text-align:center;	line-height:40px;}
+.panelA{ float:left; margin-right:10px; }
+.panelA img {
+width:150px !important;
+background: #fff;
+border: solid 1px #ccc;
+padding: 4px;
+}
+
+
+
+
+/* "Selected" links */
+a.selected, .selected a, .selected {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a.selected:visited, .selected a:visited {  color: black;}
+img.pvia{width:130px;}
+p.videoDescription {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+ height:50px;
+  font-size: small;
+}
+
+p.videoCategory {
+  margin: 0;
+  padding: 0;
+  /* overflow: scroll; */
+  font-size: x-small;
+}
+
+p.videoTags {
+  margin: 0;
+  padding: 0;
+  /* overflow: scroll; */
+  font-size: x-small;
+}
+
+p.edit {
+  font-size: small;
+}
+
+.note {
+  padding: 2px;
+  background-color: yellow;
+  color: #000;
+}
+
+#editForm {
+  font-size: small;
+}
+
+
+#mainSessions {
+  background-color: #ddd;
+  padding: 10px;
+}
+
+#sessionVariable {
+  font-family: Courier, monospace;
+  background-color: #fff;
+  padding: 10px;
+  width: 80%;
+  overflow: scroll;
+}
+
+.thumbnail {
+  padding: 0px 0px 0px 2px;
+}
+
+#imageLoadThumbnail {
+  padding: 4px;
+  background-color: #333;
+}

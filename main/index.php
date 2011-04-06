@@ -12,46 +12,24 @@ ini_set('error_prepend_string', '<phphata>');
 ini_set('error_append_string', '</phphata>');
 define('E_FATAL', 'efatal');
 
-defined('APPLICATION_PATH')  || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/application'));
-defined('APPLICATION_ENV')   || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+define("TMDB_API_KEY","db8b0ee9039f1ccdbd1273773d7eb715");
+define("RECAPTCHA_PUBLIC_KEY","6Ld4DLwSAAAAAN3p_FXEweCxvToqsggyWe6A74gf");
+define("RECAPTCHA_PRIVATE_KEY","6Ld4DLwSAAAAAAmdv5dmJ2WtfK0GPWJZN8g_oo_C");
+define("FLICKR_API_KEY","5695b987ebb20ad52a6a6b52d9b32b1f");
+define("DISQUS_PRIVATE_KEY","NegUgyDRfJIlNFKy93cGQ8EexnTCH7wXh6IvQOJbWR0ANpeLMwAmtQlmo2X9DhMT");
+define("DISQUS_PUBLIC_KEY","IIf8Qzb9dxZavVFYKJkKfgTJg2uvB7wvT181oqA9E4EzU1wFEtDAMSnyEUF3Sexq");
+define("AMAZON_KEY_ID","AKIAJ2I2OVJXLDYQEWNQ");
+define("AMAZON_SECRET_KEY","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");
+define("GOOGLE_API_KEY","AIzaSyBgB4KDdJYgNmoStuxfvwV2mgipqGG8PYs");
+define("KULLANICI","tasdemiribrahim");
+define("SITE","http://tasdemir.0fees.net");
 
-define("AKISMET_API_KEY","");
-define("TMDB_API_KEY","");
-define("RECAPTCHA_PUBLIC_KEY","");
-define("RECAPTCHA_PRIVATE_KEY","");
-define("TWITTER_CONSUMER_KEY","");
-define("TWITTER_CONSUMER_SECRET","");
-define("FLICKR_API_KEY","");
-define("DIGG_API_KEY","");
-define("DIGG_SECRET_KEY","");
-define("BITLY_API_KEY","");
-define("BITLY_LOGIN","");
-define("DISQUS_PRIVATE_KEY","");
-define("DISQUS_PUBLIC_KEY","");
-define("AMAZON_KEY_ID","");
-define("AMAZON_SECRET_KEY","");
-define("FACEBOOK_APP_ID","");
-define("FACEBOOK_APP_SECRET","");
-define("GOOGLE_API_KEY","");
-define("KULLANICI","");
+define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/application'));
+define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 set_include_path(implode(PATH_SEPARATOR, array(realpath(APPLICATION_PATH . '/../../library'),realpath(APPLICATION_PATH . '/../../'),get_include_path())));
 
 require_once 'Zend/Application.php';  
-require_once 'main/Helpers/input.php';  
-require_once 'main/Helpers/ErrorHandler.php'; 
 
-/*
-	include_once 'Doctrine/Doctrine.php';
-	spl_autoload_register(array('Doctrine', 'autoload'));
-	Doctrine_Core::compile('Doctrine.compiled.php', array('mysql'));
-	// create Doctrine manager
-	$manager = Doctrine_Manager::getInstance();
-	// create database connection
-	$conn = Doctrine_Manager::connection('mysql://user:pass@url/db', 'doctrine');
-	// auto-generate models
-	Doctrine::generateModelsFromDb('./tmp/models',array('doctrine'),array('classPrefix' => 'main_Models_'));
-*/
 $application = new Zend_Application( APPLICATION_ENV, APPLICATION_PATH . '/application.ini');
-
 $application->bootstrap()->run();

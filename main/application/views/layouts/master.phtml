@@ -1,0 +1,272 @@
+<?php require_once "main/application/helpers/X/x-cache.php"; ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" class="no-js"> <!--  manifest="/cache.manifest" -->
+<head>
+	<meta charset="UTF-8" />
+	<?php /*
+	<meta property="og:latitude" content="37.416343"/>
+	<meta property="og:longitude" content="-122.153013"/>
+	<meta property="og:street-address" content="1601 S California Ave"/>
+	<meta property="og:locality" content="Palo Alto"/>
+	<meta property="og:region" content="CA"/>
+	<meta property="og:postal-code" content="94304"/>
+	<meta property="og:country-name" content="USA"/>
+	<meta property="og:phone_number" content="650-123-4567"/>
+	<meta property="og:fax_number" content="+1-415-123-4567"/>
+	<meta property="og:isbn" content=""/>
+	<meta property="og:video" content="http://example.com/awesome.flv" />
+        <meta property="og:video:height" content="640" />
+        <meta property="og:video:width" content="385" />
+        <meta property="og:video:type" content="application/x-shockwave-flash" />
+        <meta property="og:audio" content="http://example.com/amazing.mp3" />
+        <meta property="og:audio:title" content="Amazing Song" />
+        <meta property="og:audio:artist" content="Amazing Band" />
+        <meta property="og:audio:album" content="Amazing Album" />
+        <meta property="og:audio:type" content="application/mp3" />
+	*/ ?>
+	<link rel="alternate" href="http://feeds.feedburner.com/itsphp/kitap" title="ITSPHP" type="application/rss+xml" />
+	<!--[if (gte IE 5.5)&(lte IE 8)]>
+		<script src="http://github.com/keithclark/selectivizr/raw/master/selectivizr.js" ></script>
+	<![endif]-->
+	<link rel="stylesheet" media="all" href="/main/css/style.css" />
+	<?php echo $this->headLink(); ?>
+	<link rel="stylesheet" media="all" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/start/jquery-ui.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="/main/js/jquery/jquery.min.js"%3E%3C/script%3E'))</script>
+	<script src="/main/js/modernizr-1.6.min.js"></script>
+	<?php $this->headTitle()->prepend($this->title); echo $this->headTitle(); ?>
+</head>
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if gt IE 9]>  <body><![endif]-->
+<!--[if !IE]><!--> <body><!--<![endif]-->
+	<div id="container">
+		<header role="heading">
+			<hgroup role="banner">
+				<h1><a href="<?php echo $this->url(array(), 'ana'); ?>" class="tour_1">İbrahim Taşdemir</a>'in Kişisel Ana Sayfası</h1>
+				<h2 class="sakla"><?php echo $this->h2; ?></h2>
+			</hgroup>
+			<a class="skip" href="#cnt">içeriği geç</a> 
+			<menu role="menu">
+				<ul>
+					<li><a href="<?php echo $this->url(array(), 'ana'); ?>">Giriş</a></li>
+					<li <?php if($this->isAile) echo "class='oes2'" ?>><a href="<?php echo $this->url(array('page'=>''), 'aile'); ?>">Aile</a></li>
+					<li <?php if($this->isOku) echo "class='oes2'" ?>><a href="<?php echo $this->url(array(), 'oku'); ?>">Oku</a></li>
+					<li <?php if($this->isIzle) echo "class='oes2'" ?>><a href="<?php echo $this->url(array('page'=>''), 'izle'); ?>" >İzle</a></li>
+					<li><a id="tcshow" href="#">Tur</a></li>
+					<li><a href="http://feeds.feedburner.com/itsphp/kitap">RSS</a></li>
+				</ul>	
+			</menu>
+			<div id="tc" class="sakla">
+				<p>İlk ziyaretiniz mi?</p>
+				<span class="tb" id="at">Tura başla</span>
+				<div class="nav">
+					<span class="tb" id="ps" style="display:none;">< Önceki</span>
+					<span class="tb" id="ns" style="display:none;">Sonraki ></span>
+				</div>
+				<a id="rt" style="display:none;">Başa Dön</a>
+				<a id="et" style="display:none;">Turu Bitir</a>
+				<span id="ct"></span>
+			</div>
+			<section id="hsec" class="ui-widget-header">
+				<h6>Designed By İbrahim Taşdemir</h6>
+				<a href="/mobil/" class="headerButton tour_2">Mobil Sayfayı Aç</a>
+			</section>
+		</header>
+		<div id="cnt">
+			<aside id="lcnt" role=”complementary”>
+				<details id="brow" open>
+					<summary class="st_l ui-widget ui-widget-header tour_3"><span class="dc ui-icon ui-icon-closethick">X</span>Test Edildi</summary>
+					<a rel="nofollow" href="http://www.microsoft.com/windows/internet-explorer/worldwide-sites.aspx" title="Internet Explorer 8+" ><div id="ie">Internet Explorer 8+</div></a>
+					<a rel="nofollow" href="http://getfirefox.com/" title="Firefox" ><div id="firefox">Firefox</div></a>
+					<a rel="nofollow" href="http://www.opera.com/" title="Opera" ><div id="opera">Opera</div></a>
+					<a rel="nofollow" href="http://www.google.com/chrome" title="Chrome" ><div id="chrome">Chrome</div></a>
+					<a rel="nofollow" href="http://www.chromium.org/Home" title="Chromium" ><div id="chromium">Chromium</div></a>
+					<a rel="nofollow" href="http://www.apple.com/safari/download/" title="Safari" ><div id="safari">Safari</div></a>
+					<a rel="nofollow" href="http://www.seamonkey-project.org/releases/" title="Seamonkey" ><div id="seamonkey">Seamonkey</div></a>
+					<a rel="nofollow" href="http://www.flock.com/" title="Flock" ><div id="flock">Flock</div></a>
+				<br class="clear" />
+				</details>
+				<details open>
+					<summary class="st_l ui-widget ui-widget-header tour_4"><span class="dc ui-icon ui-icon-closethick">X</span>Onaylandı</summary>
+					<p>
+						<a rel="nofollow" href="http://www.achecker.ca/checker/index.php?uri=referer&amp;gid=WCAG1-AAA"><img height="32" width="88" src="http://www.w3.org/WAI/wcag1AAA" alt="Level Triple-A conformance icon, W3C-WAI Web Content Accessibility Guidelines 1.0" title="Level Triple-A conformance icon, W3C-WAI Web Content Accessibility Guidelines 1.0"></a>
+						<a rel="nofollow" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!" title="Valid CSS!" width="88"  height="31" /></a>
+						<img src="http://www.boogdesign.com/images/buttons/smf_green.png" alt="Micro Format" title="Micro Format"/>
+					</p>
+				</details>
+				<details id="jspro" open>
+					<summary class="st_l ui-widget ui-widget-header tour_5 tour_6">Interneti Geliştir<span class="dc ui-icon ui-icon-closethick">X</span></summary>
+					<div>
+						<div>
+							<a href="https://developer.mozilla.org/en/JavaScript" title="JavaScript Reference, JavaScript Guide, JavaScript API, JS API, JS Guide, JS Reference, Learn JS, JS Documentation"><img src="http://static.jsconf.us/promotejsvs.png" alt="JavaScript Reference, JavaScript Guide, JavaScript API, JS API, JS Guide, JS Reference, Learn JS, JS Documentation"/></a>
+						</div>
+						<div><h5 class="boardgame">DAHA İYİ<br />BİR WEB<br />MÜMKÜN</h5></div>
+					</div>
+				</details>
+			</aside>
+
+			<div id="ccnt" role="main">
+
+				<?php flush(); echo $this->layout()->content; flush(); ?>
+
+			</div>
+
+			<aside id="rcnt" role=”complementary”>
+				<h3 id="iai" class="ui-widget ui-widget-header tour_7">Arama Formu</h3>
+				<form id="sf" role="search"><br />
+
+
+					<input type="search" name="q" id="q" placeholder="Ara.." required />
+					<section>
+						<input type="radio" name="check" value="site" id="ss" checked/>
+						<label for="ss">Bu sitede</label>
+						<input type="radio" name="check" value="web" id="sw"/>
+						<label for="sw">Nette</label>
+					</section>
+					<nav role="navigation">
+						<ol>
+							<li class="web" title="Sayfa Ara" data-st="web">Net</li>
+							<li class="images" title="Resim Ara" data-st="images">Resim</li>
+							<li class="news" title="Haber Ara" data-st="news">Haber</li>
+							<li class="videos" title="Görüntü Ara" data-st="video">Görüntü</li>
+						</ol>
+					</nav>
+					<div id="rd"></div>
+					<br class="clear"/>
+				</form>
+
+				<?php $this->render('/index/_sidebar.phtml'); echo $this->placeholder('sidebar'); flush(); ?>
+
+				<details open>
+					<summary class="st_r ui-widget ui-widget-header tour_8">İbrahim Taşdemir</summary>
+					<div class="thumb_container">
+						<div class="large_thumb"> 
+							<img src="/main/images/resimler/aile/11.jpg" alt="İbrahim Taşdemir" class="border shadow" />
+							<div class="large_thumb_border"></div>
+							<div class="large_thumb_shine"></div>
+						</div>
+					</div>
+					<a href="http://www.delicious.com/tasdemiribrahim" rel="nofollow me">
+						<div class="thumb_container">
+							<div class="large_thumb"> 
+								<img src="/main/images/delicious.png" alt="Delicious" title="Delicious" />
+								<div class="large_thumb_border"></div>
+								<div class="large_thumb_shine"></div>
+							</div>
+						</div>
+					</a>
+					<a href="http://www.digg.com/tasdemiribrahim" rel="nofollow me">
+						<div class="thumb_container">
+							<div class="large_thumb"> 
+								<img src="/main/images/digg.png" alt="Digg" title="Digg" />
+								<div class="large_thumb_border"></div>
+								<div class="large_thumb_shine"></div>
+							</div>
+						</div>
+					</a>
+					<a href="http://www.facebook.com/tasdemiribrahim" rel="nofollow me">
+						<div class="thumb_container">
+							<div class="large_thumb"> 
+								<img src="/main/images/facebook.png" alt="Facebook" title="Facebook" />
+								<div class="large_thumb_border"></div>
+								<div class="large_thumb_shine"></div>
+							</div>
+						</div>
+					</a>
+					<a href="http://www.flickr.com/tasdemiribrahim" rel="nofollow me">
+						<div class="thumb_container">
+							<div class="large_thumb"> 
+								<img src="/main/images/flickr.png" alt="Flickr" title="Flickr" />
+								<div class="large_thumb_border"></div>
+								<div class="large_thumb_shine"></div>
+							</div>
+						</div>
+					</a>
+					<a href="http://www.friendfeed.com/tasdemiribrahim" rel="nofollow me">
+						<div class="thumb_container">
+							<div class="large_thumb"> 
+
+								<img src="/main/images/friendfeed.png" alt="Friendfeed" title="Friendfeed" />
+								<div class="large_thumb_border"></div>
+								<div class="large_thumb_shine"></div>
+							</div>
+						</div>
+					</a>
+					<a href="http://www.github.com/tasdemiribrahim" rel="nofollow me">
+						<div class="thumb_container">
+							<div class="large_thumb"> 
+								<img src="/main/images/git.png" alt="GitHub" title="GitHub" />
+								<div class="large_thumb_border"></div>
+								<div class="large_thumb_shine"></div>
+							</div>
+						</div>
+					</a>
+					<a href="http://www.lastfm.com.tr/user/tasdemiribrahim" rel="nofollow me">
+						<div class="thumb_container">
+							<div class="large_thumb"> 
+								<img src="/main/images/lastfm.png" alt="Last Fm" title="Last Fm" />
+								<div class="large_thumb_border"></div>
+								<div class="large_thumb_shine"></div>
+							</div>
+						</div>
+					</a>
+					<a href="http://tr.linkedin.com/in/tasdemiribrahim" rel="nofollow me">
+						<div class="thumb_container">
+							<div class="large_thumb"> 
+								<img src="/main/images/linkedin.png" alt="Linkedin" title="Linkedin" />
+								<div class="large_thumb_border"></div>
+								<div class="large_thumb_shine"></div>
+							</div>
+						</div>
+					</a>
+					<a href="http://www.twitter.com/itasdemir86" rel="nofollow me">
+						<div class="thumb_container">
+							<div class="large_thumb"> 
+								<img src="/main/images/twitter.png" alt="Twitter" title="Twitter" />
+								<div class="large_thumb_border"></div>
+								<div class="large_thumb_shine"></div>
+							</div>
+						</div>
+					</a>
+					<a href="http://www.youtube.com/tasdemiribrahim" rel="nofollow me">
+						<div class="thumb_container">
+							<div class="large_thumb"> 
+								<img src="/main/images/youtube.png" alt="Youtube" title="Youtube" />
+								<div class="large_thumb_border"></div>
+								<div class="large_thumb_shine"></div>
+							</div>
+						</div>
+					</a>
+					<br class="clear" />
+				</details>
+			</aside>
+		</div>
+		<footer role="contentinfo" class="tour_9">
+			<section>
+				<small>&copy; 2009 Stylissimo. Tüm hakları saklıdır.</small>
+				<a id="dryicon" rel="nofollow" href="http://dryicons.com/" title="Stylissimo Tasarım ve resimler DryIcons.com tarafından sağlanmıştır">Tasarım ve resimler DryIcons tarafından sağlanmıştır</a>
+			</section>
+		</footer>
+	</div>
+	<div id="bounceb" class="sakla">
+		<div id="player">
+			<div id='tweets'></div>
+			<img id="loadt" src="/main/images/aile/loading.gif" alt="Yükleniyor" />
+		</div>
+		<div id="bouncek" class="escBlue"></div>
+	</div>
+	<?php echo $this->breadcrumb(); ?>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/jquery-ui.min.js"></script>
+	<script async src="http://plugins.jquery.com/files/jquery.cookie.js.txt"></script>
+	<script async src="/main/js/jquery/jquery.twitter.search.js"></script>
+	<script defer src="/main/js/jquery/jquery.html5form-1.2-min.js"></script>
+	<script defer src="/main/js/jquery/jquery.lettering.js"></script>
+	<script defer src="/main/js/jquery/jquery.twitterpopup.js"></script>
+	<script src="/main/js/main.js?2"></script>
+	<?php echo $this->headScript() ?>
+</body>
+</html>
+<?php finish_caching(); ?> 

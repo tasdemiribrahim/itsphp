@@ -11,8 +11,13 @@ $smarty->cache_lifetime=3600;
 $smarty->cache_modified_check=true;
 $smarty->security=true;
 
-if(isset($_GET["id"]))
-	$sth = $db->prepare("SELECT * FROM aa a,aad d WHERE d.id=a.id AND a.id=".temizSayi($_GET["id"]));
+$id=0;
+if(isset($_GET["id"]))	
+{
+	$id=temizSayi($_GET["id"]);
+	$smarty->assign("ad",$record["ad"]);
+	$sth = $db->prepare("SELECT * FROM aa a,aad d WHERE d.id=a.id AND a.id=$id");
+}
 else
 	$sth = $db->prepare("SELECT * FROM aa a,aad d WHERE d.id=a.id ORDER BY a.id DESC LIMIT 1");
 $sth->execute();
@@ -21,16 +26,9 @@ $record = $sth->fetch(PDO::FETCH_ASSOC);
 $smarty->assign("record", $record);
 $smarty->assign("resim", getResim($record["id"]));
 
-$id=0;
-if(isset($_GET["id"]))	
-{
-	$id=temizSayi($_GET["id"]);
-	$smarty->assign("ad",$record["ad"]);
-}
-
 $sth = $db->prepare("SELECT * FROM aa WHERE eid=$id ORDER BY id");
 $sth->execute();
 $smarty->assign("rows",$sth->fetchAll());
 
-$smarty->display('aile.tpl', "aile|".$_GET["id"]);
+$smarty->display('aile.tpl', "aile|$id");
 

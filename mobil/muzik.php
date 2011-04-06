@@ -15,9 +15,12 @@ $smarty->security=true;
 $sth = $db->prepare('SELECT dm.ad,dm.id,dmt.ad as tur FROM dm LEFT JOIN dmt ON (dm.tur=dmt.id) ORDER BY dm.tur');
 $sth->execute();
 $smarty->assign("rows",$sth->fetchAll());
-
+$id=0;
 if(isset($_GET["id"]))
-	$sth = $db->prepare("SELECT dm.id,dm.ad,dm.tanim,dmm.ad as mem FROM dm,dmm WHERE dm.id=".temizSayi($_GET["id"])." AND dm.mem=dmm.id");
+{
+	$id=temizSayi($_GET["id"]);
+	$sth = $db->prepare("SELECT dm.id,dm.ad,dm.tanim,dmm.ad as mem FROM dm,dmm WHERE dm.id='$id' AND dm.mem=dmm.id");
+}
 else
 	$sth = $db->prepare("SELECT dm.id,dm.ad,dm.tanim,dmm.ad as mem FROM dm,dmm WHERE dm.mem=dmm.id ORDER BY dm.id DESC LIMIT 1");
 $sth->execute();
@@ -34,5 +37,5 @@ $sth = $db->prepare('SELECT * FROM dma WHERE grupID='.$row["id"]);
 $sth->execute();
 $smarty->assign("albumler",$sth->fetchAll());
 	
-$smarty->display('muzik.tpl', "muzik|".$_GET["id"]);
+$smarty->display('muzik.tpl', "muzik|$id");
 

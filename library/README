@@ -1,9 +1,5 @@
 Third Party Libraries Will Be Structured Like This:
 Folder..................Library........................................Version 
-Doctrine/		Doctrine ORM					1.2.3
-PhpOnCouch/		Php on Couch					1.0.1-1
-SimplePie/		SimplePIE					1.2
 simpletest/		SimpleTest					1.0.1
 smarty/			Smarty Template Engine				3.0.6
 Zend/			Zend Framework					1.11
-WURFL/			Wireless Universal Resource File		1.2.1

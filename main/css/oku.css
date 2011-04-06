@@ -1,0 +1,73 @@
+.box a:visited:before { content:  "\2713 ";}
+.box a:visited{color:green;}
+.box span {
+	width: 28px;
+	height: 21px;
+	display: block;
+	position: absolute;
+	top: 5px;
+	left: 90px;
+	background: url(/main/images/index/pin.png) no-repeat;
+}
+.box img { width:100%;	margin:0;	position:relative;	height:200px; }
+.section{ text-align: center;   margin:0px;    height:4500px;    width:100%;    float:left;} 
+.wrap div{
+	font-size:13px;
+	width:200px;
+	overflow:hidden;
+	float:left;
+	margin-left:10px;
+}
+.section#JS {background:url("http://www.cs.huji.ac.il/~osdmitryp/img/php-logo.png") no-repeat 50% 100% transparent;}
+.section#PHP {background:url("http://www.csitech.com/Data/Sites/1/csi_tech/ms_asp_dot_net_logo.jpg") no-repeat 50% 100% transparent;}
+.section#CSS {background:url("http://jquery.org/wp-content/uploads/2010/01/JQuery_logo_color_onwhite-300x74.png") no-repeat 50% 100% transparent;}
+.section#HTML {background:url("http://www.codercaste.com/wp-content/uploads/2010/03/CSSEditLogo.png") no-repeat 50% 100% transparent;}
+#rcnt section article{height:250px;overflow:auto;-ms-overflow-x:hidden; overflow-x:hidden; }
+/* Menu */
+ul.blue{float: left;	clear: left; width:100%;}
+ul.blue li {	display: inline-block; margin:0; padding:0;}
+ul.blue li a { 
+display:block;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:normal;
+}
+
+#wrapper { width: 475px; margin: 0 auto; }
+#description { margin-bottom: 40px; padding-bottom: 10px; }
+#description p { margin-bottom: 10px; }
+blockquote p { margin-bottom: 10px; font-style: italic; }
+blockquote cite { font-style: normal; display: block; text-align: right; text-transform: uppercase; font-size: 10px; font-weight: bold; letter-spacing: 1px; font-family: Arial, Helvetica, sans-serif; }
+#quote_wrap{	background: #fbffec url(http://sandbox.sebnitu.com/jquery/quovolver/demo/images/quote-mark.png) no-repeat 20px 20px;	padding:25px 15px 15px;}
+/* ------------------------------
+Button Stili
+------------------------------ */
+.button{
+	background: #F0F0F0;
+	-moz-border-radius: 5px; 
+	-webkit-border-radius: 5px; 
+	border-radius: 5px; 
+	-webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); 
+	-moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); 
+	width:100px;
+	height:38px;
+	overflow:visible;
+	border:groove;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+	display: block;
+	font-size: 20px;
+	text-decoration: none;
+	text-align: center;
+	line-height: 30px;
+	text-shadow:2px 1px 1px #000;
+	margin:auto;
+}
+.button:hover,.button:focus,.button.hovered{
+	background-color:#ADF;
+	border-color:#4297D7;
+}

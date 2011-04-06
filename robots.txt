@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /main/admin/
-User-agent: Googlebot/2.1
-Sitemap: http://tasdemir.0fees.net/sitemap.xml
